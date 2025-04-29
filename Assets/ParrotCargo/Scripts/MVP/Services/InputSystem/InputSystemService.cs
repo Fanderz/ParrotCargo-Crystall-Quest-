@@ -12,13 +12,13 @@ public class InputSystemService : BaseService
 
     public ReactiveCommand<Vector3> MoveCommand = new ReactiveCommand<Vector3>();
 
-    private bool _isClicked 
-    { 
+    private bool _isClicked
+    {
         get
         {
             Ray ray = _camera.ScreenPointToRay(_currentScreenPosition);
-            
-            if(Physics.Raycast(ray, out RaycastHit hit))
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 return hit.collider.TryGetComponent(out ParrotsBlockView view);
             }
@@ -32,12 +32,8 @@ public class InputSystemService : BaseService
         get
         {
             float zPosition = _camera.WorldToScreenPoint(transform.position).z;
-            return _camera.ScreenToWorldPoint(_currentScreenPosition + new Vector3(0,0,zPosition));
+            return _camera.ScreenToWorldPoint(_currentScreenPosition + new Vector3(0, 0, zPosition));
         }
-    }
-
-    private void Awake()
-    {
     }
 
     private IEnumerator Drag()

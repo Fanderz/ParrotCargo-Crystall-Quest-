@@ -10,7 +10,8 @@ public class ParrotsBlockService : BaseService
 
     public override void Initialize()
     {
-        _parrotBlockPresenters = _parrotsBlockSpawner.Spawn(_inputSystemService);
+        _parrotBlockPresenters = new List<ParrotBlockPresenter>();
+        _parrotBlockPresenters = _parrotsBlockSpawner.Spawn(_inputSystemService, this.transform);
     }
 
     public void SetInputService(InputSystemService inputSystem)

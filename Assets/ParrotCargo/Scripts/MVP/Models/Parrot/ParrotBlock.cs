@@ -5,6 +5,11 @@ public class ParrotBlock
 {
     private List<Parrot> _parrots;
 
+    public ParrotBlock()
+    {
+        _parrots = new List<Parrot>();
+    }
+
     public bool IsChoosed { get; private set; }
 
     public void ChooseParrotBlock()

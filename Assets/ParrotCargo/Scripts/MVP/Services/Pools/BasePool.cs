@@ -6,20 +6,20 @@ public class BasePool<T> where T : MonoBehaviour
     private int _poolMaxSize;
 
     private List<T> _objects;
-    private Transform _parent;
+    //private Transform _parent;
 
-    public BasePool(int maxSize, Transform parent)
+    public BasePool(int maxSize/*, Transform parent*/)
     {
         _objects = new List<T>();
         _poolMaxSize = maxSize;
-        _parent = parent;
+        //_parent = parent;
     }
 
     public int Count => _objects.Count;
 
     public int ActiveCount => _objects.FindAll(finded => finded.gameObject.activeSelf == true).Count;
 
-    public T Get(T prefab)
+    public T Get(T prefab, Transform parent)
     {
         T result = null;
 
@@ -31,7 +31,7 @@ public class BasePool<T> where T : MonoBehaviour
         {
             if (_objects.Count < _poolMaxSize)
             {
-                result = Create(prefab, _parent);
+                result = Create(prefab, parent);
                 _objects.Add(result);
             }
         }

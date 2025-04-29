@@ -1,6 +1,5 @@
 using UnityEngine;
 using Rand = UnityEngine.Random;
-using System;
 using System.Collections.Generic;
 
 public class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
@@ -12,22 +11,25 @@ public class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
 
     protected BasePool<T> Pool;
 
-    public event Action<int> ChangedSpawnedCounter;
-    public event Action<int> ChangedCreatedCounter;
-    public event Action<int> ChangedActiveCounter;
-
     protected virtual void Awake()
     {
-        Pool = new BasePool<T>(ObjectsMaxCount, this.transform);
+        if (Pool == null)
+            Pool = new BasePool<T>(ObjectsMaxCount/*, this.transform*/);
+
         SpawnedObjectsCount = 0;
     }
 
 
-    public T SpawnObject()
+    public T SpawnObject(Transform parent)
     {
-        var obj = Pool.Get(Prefab[Rand.Range(0, Prefab.Count)]);
+        if (Pool == null)
+            Pool = new BasePool<T>(ObjectsMaxCount);
 
-        if(obj != null)
+        var testCnt = Rand.Range(0, Prefab.Count);
+
+        var obj = Pool.Get(Prefab[testCnt], parent);
+
+        if (obj != null)
         {
             obj.gameObject.SetActive(true);
         }

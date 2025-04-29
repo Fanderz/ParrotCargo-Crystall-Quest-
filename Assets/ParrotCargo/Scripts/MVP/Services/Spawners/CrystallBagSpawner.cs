@@ -11,7 +11,7 @@
         private void FirstSpawn()
         {
             for (int i = 0; i < ObjectsMaxCount; i++)
-                SpawnObject();
+                SpawnObject(this.transform);
         }
     }
 }

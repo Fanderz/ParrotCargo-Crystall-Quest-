@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 {
-    //[SerializeField] private int _countParrotsBlock;
     [SerializeField] private ParrotSpawner _parrotSpawner;
 
     private List<ParrotBlockPresenter> _parrotBlockPresenters;

@@ -5,7 +5,6 @@ public class ParrotSpawner : BaseSpawner<ParrotView>
 {
     [SerializeField] private int _minSpawnedParrots = 1;
     [SerializeField] private int _maxSpawnedParrots = 4;
-    //[SerializeField] private ParrotView _parrotViewPrefab;
 
     public List<ParrotPresenter> Spawn(Transform parent)
     {

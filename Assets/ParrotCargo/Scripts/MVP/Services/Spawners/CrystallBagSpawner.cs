@@ -1,17 +1,24 @@
-﻿namespace Assets.Scripts.MVP.Services.Spawners
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace Assets.Scripts.MVP.Services.Spawners
 {
     class CrystallBagSpawner : BaseSpawner<BaseCrystallBagView>
     {
-        protected override void Awake()
+        public List<CrystallBagPresenter> Spawn(Transform parent)
         {
-            base.Awake();
-            FirstSpawn();
-        }
+            List<CrystallBagPresenter> crystallBagPresenters = new List<CrystallBagPresenter>();
 
-        private void FirstSpawn()
-        {
             for (int i = 0; i < ObjectsMaxCount; i++)
-                SpawnObject(this.transform);
+            {
+                var crystallBag = new BaseCrystallBag();
+                var crystallBagView = SpawnObject(parent);
+                var crystallBagPresenter = new CrystallBagPresenter(crystallBagView, crystallBag);
+
+                crystallBagPresenters.Add(crystallBagPresenter);
+            }
+
+            return crystallBagPresenters;
         }
     }
 }

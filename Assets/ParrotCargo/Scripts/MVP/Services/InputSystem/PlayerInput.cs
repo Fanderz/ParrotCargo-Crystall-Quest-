@@ -34,7 +34,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Move"",
@@ -42,7 +42,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""id"": ""01bba3f2-b610-4c7f-86bd-e5b6066b0721"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": true
                 }
             ],
@@ -51,7 +51,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""bf7abce3-d1de-41f0-8689-25a00395fcbf"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""PK"",
                     ""action"": ""Press"",

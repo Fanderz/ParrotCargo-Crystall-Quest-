@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 {
@@ -14,14 +15,16 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 
         for (int i = 0; i < ObjectsMaxCount; i++)
         {
-            var parrotBlock = new ParrotBlock();
             var parrotBlockView = SpawnObject(parent);
             parrotBlockView.Initialize(inputService);
+            var parrotBlock = new ParrotBlock(parrotBlockView.GetComponent<RectTransform>());
             var parrotPresenters = _parrotSpawner.Spawn(parrotBlockView.transform);
             var parrotBlockPresenter = new ParrotBlockPresenter(parrotBlock, parrotBlockView, parrotPresenters);
 
             _parrotBlockPresenters.Add(parrotBlockPresenter);
         }
+
+        //parent.GetComponent<GridLayoutGroup>().enabled = false;
 
         return _parrotBlockPresenters;
     }

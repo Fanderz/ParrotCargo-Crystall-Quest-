@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class ParrotBlock
 {
+    private RectTransform _rectTransform;
     private List<Parrot> _parrots;
 
-    public ParrotBlock()
+    public ParrotBlock(RectTransform rect)
     {
         _parrots = new List<Parrot>();
+        _rectTransform = rect;
     }
 
     public bool IsChoosed { get; private set; }
@@ -17,12 +19,14 @@ public class ParrotBlock
         IsChoosed = true;
     }
 
-    public void MoveParrots(Vector3 position)
+    public void MoveParrots(Vector2 newPosition)
     {
-        foreach(Parrot parrot in _parrots)
-        {
-            parrot.SetPosition(position);
-        }
+        _rectTransform.anchoredPosition = newPosition;
+
+        //foreach(Parrot parrot in _parrots)
+        //{
+        //    parrot.SetPosition(position);
+        //}
     }
 
     public void Picking()

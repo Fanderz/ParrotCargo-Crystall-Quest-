@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,5 +14,12 @@ public class ParrotBlockPresenter
         _parrotBlock = parrotBlock;
         _parrotsBlockView = parrotsBlockView;
         _parrotPresenters = parrotPresenters;
+
+        Subscribe();
+    }
+
+    private void Subscribe()
+    {
+        _parrotsBlockView.BlockMoving.Subscribe(newPosition => { _parrotBlock.MoveParrots(newPosition); });
     }
 }

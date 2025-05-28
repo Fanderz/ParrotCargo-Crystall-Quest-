@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 4406861760271233708}
   - component: {fileID: 6555715955107219234}
   - component: {fileID: 1142325989629867370}
-  m_Layer: 0
+  - component: {fileID: 6278160440113842112}
+  - component: {fileID: -3655892934317221539}
+  m_Layer: 5
   m_Name: ParrotBlockView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,3 +75,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7439443ffd77849a13f4a559708f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6278160440113842112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976685551759851166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc940a1e0f0c4074392ada219e01e50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &-3655892934317221539
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976685551759851166}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 270, y: 200, z: 400}
+  m_Center: {x: 0, y: 0, z: 0}

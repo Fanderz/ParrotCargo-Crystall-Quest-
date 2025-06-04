@@ -6,13 +6,13 @@ public class BasePool<T> where T : MonoBehaviour
     private int _poolMaxSize;
 
     private List<T> _objects;
-    //private Transform _parent;
+    private Transform _parent;
 
-    public BasePool(int maxSize/*, Transform parent*/)
+    public BasePool(int maxSize, Transform parent)
     {
         _objects = new List<T>();
         _poolMaxSize = maxSize;
-        //_parent = parent;
+        _parent = parent;
     }
 
     public int Count => _objects.Count;

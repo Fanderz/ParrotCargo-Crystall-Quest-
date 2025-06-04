@@ -10,6 +10,6 @@ public class PalletService : BaseService
     public override void Initialize()
     {
         _palletPresenters = new List<PalletPresenter>();
-        _palletPresenters = _palletSpawner.Spawn(Parent);
+        _palletPresenters = _palletSpawner.Spawn();
     }
 }

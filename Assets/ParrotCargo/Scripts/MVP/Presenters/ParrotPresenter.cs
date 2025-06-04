@@ -13,7 +13,7 @@ public class ParrotPresenter
 
     public void Initialize()
     {
-        _view.MoveCommand.Subscribe(position => { _parrotModel.SetPosition(position); });
-        _parrotModel.UpdatedPositionCommand.Subscribe(positionModel => { _view.UpdatePosition(positionModel); });
+        //_view.MoveCommand.Subscribe(position => { _parrotModel.SetPosition(position); });
+        //_parrotModel.UpdatedPositionCommand.Subscribe(positionModel => { _view.UpdatePosition(positionModel); });
     }
 }

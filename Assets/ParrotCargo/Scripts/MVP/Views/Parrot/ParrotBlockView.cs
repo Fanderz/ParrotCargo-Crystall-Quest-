@@ -1,25 +1,43 @@
 using UnityEngine;
 using UniRx;
+using System.Collections.Generic;
 
 public class ParrotsBlockView : MonoBehaviour
 {
-    private InputSystemService _inputService;
-    private RectTransform _rectTransform;
+    [SerializeField] private float _zOffsetOnPick;
+    [SerializeField] private List<ParrotView> _parrots;
 
-    public ReactiveCommand<Vector2> BlockMoving = new ReactiveCommand<Vector2>();
+    private Draggable _draggable;
+    private float _zValue;
 
-    public void Initialize(InputSystemService inputSystemService)
+    public ReactiveCommand<Vector3> BlockMoving = new ReactiveCommand<Vector3>();
+
+    private void Awake()
     {
-        _inputService = inputSystemService;
-        _inputService.MoveCommand.Subscribe(newPosition => { MoveBlock(newPosition); });
-
-        _rectTransform = GetComponent<RectTransform>();
+        _draggable = GetComponent<Draggable>();
     }
 
-    private void MoveBlock(Vector2 newPosition)
+    public void Initialize()
     {
-        transform.SetParent(null, true);
-        _rectTransform.anchoredPosition = newPosition;
-        BlockMoving.Execute(_rectTransform.anchoredPosition);
+        ActivateRandomParrots();
+        _zValue = transform.position.z + _zOffsetOnPick;
+
+        _draggable.MoveCommand.Subscribe(newPosition => { MoveBlock(newPosition); });
+    }
+
+    private void MoveBlock(Vector3 newPosition)
+    {
+        transform.position = new Vector3(newPosition.x, newPosition.y, _zValue);
+        BlockMoving.Execute(transform.position);
+    }
+
+    private void ActivateRandomParrots()
+    {
+        var activeParrotsCount = Random.Range(1, _parrots.Count);
+
+        for (int i = 0; i < activeParrotsCount; i++)
+        {
+            _parrots[Random.Range(0, _parrots.Count)].SetActive(true);
+        }
     }
 }

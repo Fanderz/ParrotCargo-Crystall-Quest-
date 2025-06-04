@@ -12,15 +12,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
-                    "name": "Move",
+                    "name": "Point",
                     "type": "Value",
-                    "id": "01bba3f2-b610-4c7f-86bd-e5b6066b0721",
+                    "id": "2ca078cd-82eb-4950-9853-2ad23046e2e0",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": true
                 }
             ],
@@ -49,23 +49,23 @@
                 },
                 {
                     "name": "",
-                    "id": "93be24a8-46a6-41e1-9907-3e4c926044bb",
+                    "id": "faa96e0b-60c8-4ed8-9a0b-7d27f746bea4",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "PK",
-                    "action": "Move",
+                    "action": "Point",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "a035cf8d-ace9-4e3d-a916-83d06889f2aa",
-                    "path": "<Touchscreen>/position",
+                    "id": "3667c763-a865-4f18-b0ae-e9c33a011a83",
+                    "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mobile",
-                    "action": "Move",
+                    "action": "Point",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

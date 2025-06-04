@@ -34,15 +34,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Move"",
+                    ""name"": ""Point"",
                     ""type"": ""Value"",
-                    ""id"": ""01bba3f2-b610-4c7f-86bd-e5b6066b0721"",
+                    ""id"": ""2ca078cd-82eb-4950-9853-2ad23046e2e0"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""initialStateCheck"": true
                 }
             ],
@@ -71,23 +71,23 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""93be24a8-46a6-41e1-9907-3e4c926044bb"",
+                    ""id"": ""faa96e0b-60c8-4ed8-9a0b-7d27f746bea4"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PK"",
-                    ""action"": ""Move"",
+                    ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a035cf8d-ace9-4e3d-a916-83d06889f2aa"",
-                    ""path"": ""<Touchscreen>/position"",
+                    ""id"": ""3667c763-a865-4f18-b0ae-e9c33a011a83"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mobile"",
-                    ""action"": ""Move"",
+                    ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -122,7 +122,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // ParrotBlock
         m_ParrotBlock = asset.FindActionMap("ParrotBlock", throwIfNotFound: true);
         m_ParrotBlock_Press = m_ParrotBlock.FindAction("Press", throwIfNotFound: true);
-        m_ParrotBlock_Move = m_ParrotBlock.FindAction("Move", throwIfNotFound: true);
+        m_ParrotBlock_Point = m_ParrotBlock.FindAction("Point", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,13 +185,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_ParrotBlock;
     private List<IParrotBlockActions> m_ParrotBlockActionsCallbackInterfaces = new List<IParrotBlockActions>();
     private readonly InputAction m_ParrotBlock_Press;
-    private readonly InputAction m_ParrotBlock_Move;
+    private readonly InputAction m_ParrotBlock_Point;
     public struct ParrotBlockActions
     {
         private @PlayerInput m_Wrapper;
         public ParrotBlockActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Press => m_Wrapper.m_ParrotBlock_Press;
-        public InputAction @Move => m_Wrapper.m_ParrotBlock_Move;
+        public InputAction @Point => m_Wrapper.m_ParrotBlock_Point;
         public InputActionMap Get() { return m_Wrapper.m_ParrotBlock; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -204,9 +204,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Press.started += instance.OnPress;
             @Press.performed += instance.OnPress;
             @Press.canceled += instance.OnPress;
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
+            @Point.started += instance.OnPoint;
+            @Point.performed += instance.OnPoint;
+            @Point.canceled += instance.OnPoint;
         }
 
         private void UnregisterCallbacks(IParrotBlockActions instance)
@@ -214,9 +214,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Press.started -= instance.OnPress;
             @Press.performed -= instance.OnPress;
             @Press.canceled -= instance.OnPress;
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
+            @Point.started -= instance.OnPoint;
+            @Point.performed -= instance.OnPoint;
+            @Point.canceled -= instance.OnPoint;
         }
 
         public void RemoveCallbacks(IParrotBlockActions instance)
@@ -255,6 +255,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IParrotBlockActions
     {
         void OnPress(InputAction.CallbackContext context);
-        void OnMove(InputAction.CallbackContext context);
+        void OnPoint(InputAction.CallbackContext context);
     }
 }

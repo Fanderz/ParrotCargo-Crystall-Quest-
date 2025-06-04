@@ -1,15 +1,15 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ParrotBlock
 {
-    private RectTransform _rectTransform;
+    private Transform _transform;
     private List<Parrot> _parrots;
 
-    public ParrotBlock(RectTransform rect)
+    public ParrotBlock(Transform transform)
     {
         _parrots = new List<Parrot>();
-        _rectTransform = rect;
+        _transform = transform;
     }
 
     public bool IsChoosed { get; private set; }
@@ -19,14 +19,9 @@ public class ParrotBlock
         IsChoosed = true;
     }
 
-    public void MoveParrots(Vector2 newPosition)
+    public void MoveParrots(Vector3 newPosition)
     {
-        _rectTransform.anchoredPosition = newPosition;
-
-        //foreach(Parrot parrot in _parrots)
-        //{
-        //    parrot.SetPosition(position);
-        //}
+        _transform.position = newPosition;
     }
 
     public void Picking()

@@ -11,6 +11,6 @@ public class CrystallBagsService : BaseService
     public override void Initialize()
     {
         _crystallBagPresenters = new List<CrystallBagPresenter>();
-        _crystallBagPresenters = _crystallBagSpawner.Spawn(Parent);
+        _crystallBagPresenters = _crystallBagSpawner.Spawn();
     }
 }

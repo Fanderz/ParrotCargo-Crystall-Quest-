@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EntryPoint : MonoBehaviour
 {
@@ -7,9 +7,6 @@ public class EntryPoint : MonoBehaviour
 
     private void Awake()
     {
-        var parrotsBlockService = GetService<ParrotsBlockService>();
-        parrotsBlockService.SetInputService(GetService<InputSystemService>());
-
         foreach (var service in _services)
             service.Initialize();
     }

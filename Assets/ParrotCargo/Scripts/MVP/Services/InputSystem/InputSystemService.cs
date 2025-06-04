@@ -4,36 +4,37 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class InputSystemService : BaseService
 {
     [SerializeField] private Canvas _canvas;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private InputAction _mouseClick;
+    [SerializeField] private LayerMask _draggableLayer;
     [SerializeField] private float _dragSpeed;
 
     private bool _isDragging;
 
-    private Vector3 _currentScreenPosition;
+    private Vector2 _pointerScreenPosition;
     private PlayerInput _playerInput;
-    private Camera _camera;
-    private GraphicRaycaster _graphicRaycaster;
-
-    private IDraggableUI _currentDraggable;
+    private IDraggable _currentDraggable;
+    private Coroutine _draggingCoroutine;
+    private Plane _canvasPlane;
 
     public ReactiveCommand<Vector2> MoveCommand = new ReactiveCommand<Vector2>();
 
-    private bool IsClicked(out IDraggableUI draggable)
+    private bool IsClicked()
     {
-        draggable = null;
+        Ray ray = _camera.ScreenPointToRay(_pointerScreenPosition);
 
-        Ray ray = _camera.ScreenPointToRay(_currentScreenPosition);
+        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red, 1f);
 
-        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red, 2f);
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, _draggableLayer))
         {
-            if (hit.collider.TryGetComponent(out IDraggableUI draggableObject))
+            if (hit.collider.TryGetComponent(out Draggable parrotBlock))
             {
-                draggable = draggableObject;
+                _currentDraggable = parrotBlock;
                 return true;
             }
         }
@@ -41,45 +42,18 @@ public class InputSystemService : BaseService
         return false;
     }
 
-    //private bool RaycastForDraggable(out IDraggableUI draggable)
-    //{
-    //    draggable = null;
-
-    //    PointerEventData pointerData = new PointerEventData(EventSystem.current)
-    //    {
-    //        position = _currentScreenPosition
-    //    };
-
-    //    List<RaycastResult> results = new List<RaycastResult>();
-    //    _graphicRaycaster.Raycast(pointerData, results);
-
-
-
-    //    foreach (var value in results)
-    //    {
-    //        if (value.gameObject.TryGetComponent(out IDraggableUI draggableObject))
-    //        {
-    //            draggable = draggableObject;
-    //            return true;
-    //        }
-    //    }
-
-    //    return false;
-    //}
-
     private IEnumerator Drag()
     {
         _isDragging = true;
 
         while (_isDragging && _currentDraggable != null)
         {
-            bool haveLocalPoint = RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas.transform as RectTransform, _currentScreenPosition, _camera, out Vector2 localPoint);
+            Ray ray = _camera.ScreenPointToRay(_pointerScreenPosition);
 
-            if (haveLocalPoint)
+            if (_canvasPlane.Raycast(ray, out float distance))
             {
-                Vector2 currentPosition = _currentDraggable.RectTransform.anchoredPosition;
-                _currentDraggable.RectTransform.anchoredPosition = Vector2.Lerp(currentPosition, localPoint, Time.deltaTime * _dragSpeed);
-                MoveCommand.Execute(localPoint);
+                Vector3 targetPosition = ray.GetPoint(distance);
+                _currentDraggable.MoveCommand.Execute(targetPosition);
             }
 
             yield return null;
@@ -88,28 +62,34 @@ public class InputSystemService : BaseService
 
     public override void Initialize()
     {
-        _camera = Camera.main;
-        _graphicRaycaster = _canvas.GetComponent<GraphicRaycaster>();
         _playerInput = new PlayerInput();
-        _playerInput.ParrotBlock.Enable();
+        _playerInput.Enable();
 
-        _playerInput.ParrotBlock.Move.performed += context =>
+        _playerInput.ParrotBlock.Point.performed += ctx =>
         {
-            _currentScreenPosition = context.ReadValue<Vector2>();
+            _pointerScreenPosition = ctx.ReadValue<Vector2>();
         };
 
         _playerInput.ParrotBlock.Press.started += press =>
         {
-            if (IsClicked(out var foundedDraggable))
-                _currentDraggable = foundedDraggable; StartCoroutine(Drag());
-            //if (RaycastForDraggable(out var foundedDraggable))
-            //    _currentDraggable = foundedDraggable; StartCoroutine(Drag());
+            if (IsClicked())
+            {
+                if (_currentDraggable != null)
+                    _draggingCoroutine = StartCoroutine(Drag());
+            }
         };
 
         _playerInput.ParrotBlock.Press.canceled += drop =>
         {
             _isDragging = false;
             _currentDraggable = null;
+
+            if (_draggingCoroutine != null)
+                StopCoroutine(_draggingCoroutine);
         };
+
+        Vector3 planeNormal = _canvas.transform.forward;
+        Vector3 planePoint = _canvas.transform.position;
+        _canvasPlane = new Plane(planeNormal, planePoint);
     }
 }

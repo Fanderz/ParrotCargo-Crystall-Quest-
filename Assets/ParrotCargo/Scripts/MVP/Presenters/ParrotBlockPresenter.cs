@@ -9,11 +9,11 @@ public class ParrotBlockPresenter
     private ParrotsBlockView _parrotsBlockView;
     private List<ParrotPresenter> _parrotPresenters;
 
-    public ParrotBlockPresenter(ParrotBlock parrotBlock, ParrotsBlockView parrotsBlockView, List<ParrotPresenter> parrotPresenters)
+    public ParrotBlockPresenter(ParrotBlock parrotBlock, ParrotsBlockView parrotsBlockView/*, List<ParrotPresenter> parrotPresenters*/)
     {
         _parrotBlock = parrotBlock;
         _parrotsBlockView = parrotsBlockView;
-        _parrotPresenters = parrotPresenters;
+        //_parrotPresenters = parrotPresenters;
 
         Subscribe();
     }

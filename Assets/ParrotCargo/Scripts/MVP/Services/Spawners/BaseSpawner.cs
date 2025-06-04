@@ -4,17 +4,21 @@ using System.Collections.Generic;
 
 public class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
 {
-    [SerializeField] protected List<T> Prefab;
     [SerializeField] protected int ObjectsMaxCount;
+    [SerializeField] protected float IncrementX;
+    [SerializeField] protected Transform Parent;
+    [SerializeField] protected List<T> Prefab;
+    [SerializeField] protected List<Transform> SpawnPoints;
 
     protected int SpawnedObjectsCount;
+    protected float _xOffset = 0f;
 
     protected BasePool<T> Pool;
 
     protected virtual void Awake()
     {
         if (Pool == null)
-            Pool = new BasePool<T>(ObjectsMaxCount/*, this.transform*/);
+            Pool = new BasePool<T>(ObjectsMaxCount, Parent);
 
         SpawnedObjectsCount = 0;
     }
@@ -23,7 +27,7 @@ public class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
     public T SpawnObject(Transform parent)
     {
         if (Pool == null)
-            Pool = new BasePool<T>(ObjectsMaxCount);
+            Pool = new BasePool<T>(ObjectsMaxCount, Parent);
 
         var testCnt = Rand.Range(0, Prefab.Count);
 
@@ -40,5 +44,10 @@ public class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
     protected virtual void Release(T obj)
     {
         Pool.Release(obj);
+    }
+
+    protected void IncreaseOffset(ref float offset, float increment)
+    {
+        offset += increment;
     }
 }

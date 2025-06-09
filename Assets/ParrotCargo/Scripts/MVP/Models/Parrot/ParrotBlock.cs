@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UniRx;
 
 public class ParrotBlock
 {
     private Transform _transform;
     private List<Parrot> _parrots;
+
+    public ReactiveCommand<bool> Pickable = new ReactiveCommand<bool>();
 
     public ParrotBlock(Transform transform)
     {
@@ -12,23 +15,23 @@ public class ParrotBlock
         _transform = transform;
     }
 
-    public bool IsChoosed { get; private set; }
-
-    public void ChooseParrotBlock()
-    {
-        IsChoosed = true;
-    }
+    public bool IsMoving { get; private set; }
+    public bool CanPickBags { get; private set; }
 
     public void MoveParrots(Vector3 newPosition)
     {
         _transform.position = newPosition;
     }
 
-    public void Picking()
+    public void SetPickable(bool value)
     {
-        foreach (Parrot parrot in _parrots)
-        {
-            //parrot.PickBag();
-        }
+        CanPickBags = value;
+
+        Pickable.Execute(CanPickBags);
+    }
+
+    public void ChangeMovable(bool value)
+    {
+        IsMoving = value;
     }
 }

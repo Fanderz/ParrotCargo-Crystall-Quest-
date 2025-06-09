@@ -32,7 +32,7 @@ public class InputSystemService : BaseService
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, _draggableLayer))
         {
-            if (hit.collider.TryGetComponent(out Draggable parrotBlock))
+            if (hit.collider.TryGetComponent(out DraggableParrotBlock parrotBlock))
             {
                 _currentDraggable = parrotBlock;
                 return true;
@@ -53,7 +53,7 @@ public class InputSystemService : BaseService
             if (_canvasPlane.Raycast(ray, out float distance))
             {
                 Vector3 targetPosition = ray.GetPoint(distance);
-                _currentDraggable.MoveCommand.Execute(targetPosition);
+                //_currentDraggable.MoveCommand.Execute(targetPosition);
             }
 
             yield return null;

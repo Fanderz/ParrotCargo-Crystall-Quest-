@@ -1,16 +1,15 @@
 using System;
 using UnityEngine;
-
 using UniRx;
 
 public class Parrot
 {
-    private bool HaveBag;
+    private bool _haveBag;
+    private bool _canPickBag;
+
     private BaseCrystallBag _pickedBag;
-    private Vector3 _position;
 
-    public ReactiveCommand<Vector3> UpdatedPositionCommand = new ReactiveCommand<Vector3>();
-
+    public bool CanPick => _canPickBag;
 
     public void PickBag(BaseCrystallBag pickedBag)
     {
@@ -18,13 +17,7 @@ public class Parrot
             throw new ArgumentNullException();
 
         _pickedBag = pickedBag;
-        HaveBag = true;
-    }
-
-    public void SetPosition(Vector3 newPosition)
-    {
-        _position = newPosition;
-        UpdatedPositionCommand.Execute(_position);
+        _haveBag = true;
     }
 
     public void PutBag()
@@ -32,6 +25,11 @@ public class Parrot
         if (_pickedBag == null)
             throw new NullReferenceException();
 
-        HaveBag = false;
+        _haveBag = false;
+    }
+
+    public void SetPickable(bool value)
+    {
+        _canPickBag = value;
     }
 }

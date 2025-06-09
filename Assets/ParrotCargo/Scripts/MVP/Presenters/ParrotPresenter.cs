@@ -1,3 +1,4 @@
+using System.Collections;
 using UniRx;
 
 public class ParrotPresenter
@@ -11,9 +12,15 @@ public class ParrotPresenter
         _parrotModel = model;
     }
 
+    public bool CanParrotPick { get { return _parrotModel.CanPick; } }
+
     public void Initialize()
     {
-        //_view.MoveCommand.Subscribe(position => { _parrotModel.SetPosition(position); });
-        //_parrotModel.UpdatedPositionCommand.Subscribe(positionModel => { _view.UpdatePosition(positionModel); });
+        _view.PickingBag.Subscribe(canPick => { _parrotModel.SetPickable(canPick); });
     }
+
+    //public void SearchBags()
+    //{
+    //    _view.SearchBag();
+    //}
 }

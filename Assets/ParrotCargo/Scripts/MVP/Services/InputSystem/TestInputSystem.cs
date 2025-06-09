@@ -9,11 +9,15 @@ public class TestInputSystem : BaseService
     [SerializeField] private float _dragSpeed;
 
     private Vector3 _velocity = Vector3.zero;
+    private IDraggable _draggableObject;
+    private Transform _draggableTransform;
+    private Coroutine _movingBlockCoroutine;
 
     public override void Initialize()
     {
         _mouseClick.Enable();
         _mouseClick.performed += MousePressed;
+        _mouseClick.canceled += MousePressCanceled;
     }
 
     private void MousePressed(InputAction.CallbackContext ctx)
@@ -23,22 +27,33 @@ public class TestInputSystem : BaseService
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.TryGetComponent(out Draggable draggable))
-                StartCoroutine(Drag(draggable));
+            if (hit.collider.TryGetComponent(out DraggableParrotBlock draggable))
+            {
+                _draggableObject = draggable;
+                _draggableTransform = draggable.transform;
+                _movingBlockCoroutine = StartCoroutine(Drag());
+            }
         }
     }
 
-    private IEnumerator Drag(Draggable draggable)
+    private void MousePressCanceled(InputAction.CallbackContext ctx)
     {
-        float initialDistance = Vector3.Distance(draggable.transform.position, _camera.transform.position);
+        _draggableObject.StopMoving.Execute();
+
+        if (_movingBlockCoroutine != null)
+            StopCoroutine(_movingBlockCoroutine);
+    }
+
+    private IEnumerator Drag()
+    {
+        float initialDistance = Vector3.Distance(_draggableTransform.position, _camera.transform.position);
 
         while (_mouseClick.ReadValue<float>() != 0)
         {
             Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
 
-            Vector3 direction = ray.GetPoint(initialDistance) - draggable.transform.position;
-            draggable.MoveCommand.Execute(Vector3.SmoothDamp(draggable.transform.position, ray.GetPoint(initialDistance), ref _velocity, _dragSpeed));
+            _draggableObject.MoveCommand.Execute(Vector3.SmoothDamp(_draggableTransform.position, ray.GetPoint(initialDistance), ref _velocity, _dragSpeed));
 
             yield return null;
         }

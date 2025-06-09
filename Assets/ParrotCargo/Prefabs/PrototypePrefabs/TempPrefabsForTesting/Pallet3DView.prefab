@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6445554594318187069}
   - component: {fileID: 6967420092025347413}
   m_Layer: 5
-  m_Name: TestPallet3DScene
+  m_Name: Pallet3DView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -33,7 +33,7 @@ public class ParrotsBlockView : MonoBehaviour
 
     public void Initialize()
     {
-        ActivateRandomParrots();
+        //ActivateRandomParrots();
 
         _startPosition = transform.position;
         _zPickingValue = transform.position.z - _zOffsetOnPick / 2;
@@ -60,7 +60,7 @@ public class ParrotsBlockView : MonoBehaviour
         _draggable.MoveCommand.Subscribe(targetPosition =>
         {
             _isMoving = true;
-            MoveBlock(new Vector3(targetPosition.x, targetPosition.y, _startPosition.z + _draggable.ZFlyingOffset));
+            MoveBlock(new Vector3(targetPosition.x, _startPosition.y + _draggable.YFlyingOffset, targetPosition.z));
             ScannBags();
             //_searchingCoroutine = StartCoroutine(ScanBags());
         });
@@ -87,7 +87,7 @@ public class ParrotsBlockView : MonoBehaviour
 
     private void ActivateRandomParrots()
     {
-        var activeParrotsCount = Random.Range(1, _parrots.Count);
+        var activeParrotsCount = Random.Range(1, _parrots.Count - 1);
 
         for (int i = 0; i < activeParrotsCount; i++)
         {

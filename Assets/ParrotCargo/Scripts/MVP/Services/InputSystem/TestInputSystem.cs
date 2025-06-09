@@ -23,7 +23,7 @@ public class TestInputSystem : BaseService
     private void MousePressed(InputAction.CallbackContext ctx)
     {
         Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
+        //Debug.DrawRay(ray.origin, ray.direction * 150, Color.red, 2f);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
@@ -51,7 +51,7 @@ public class TestInputSystem : BaseService
         while (_mouseClick.ReadValue<float>() != 0)
         {
             Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
+            //Debug.DrawRay(ray.origin, ray.direction * 150, Color.red, 2f);
 
             _draggableObject.MoveCommand.Execute(Vector3.SmoothDamp(_draggableTransform.position, ray.GetPoint(initialDistance), ref _velocity, _dragSpeed));
 

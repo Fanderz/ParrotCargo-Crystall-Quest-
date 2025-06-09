@@ -21,13 +21,15 @@ public class ParrotView : MonoBehaviour
 
     public void SearchBag()
     {
-        Ray ray = new Ray(_raycastPoint.position, Vector3.forward);
+        Ray ray = new Ray(_raycastPoint.position, Vector3.down);
 
-        Debug.DrawRay(_raycastPoint.position, Vector3.forward, Color.yellow, 1f);
+        Debug.DrawRay(_raycastPoint.position, ray.direction * 50f, Color.yellow, 1f);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 20f, _pickableLayer))
         {
             CanPick = hit.collider.TryGetComponent(out _crystallBag);
+
+            var test = hit.collider.GetComponents(hit.collider.GetType());
 
             Debug.Log($"Попадание в мешочек кристаллов: {CanPick}");
             Debug.Log($"Попадание в коллайдер: {hit.collider.name}");

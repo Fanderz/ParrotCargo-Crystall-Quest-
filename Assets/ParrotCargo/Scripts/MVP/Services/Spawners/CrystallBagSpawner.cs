@@ -5,10 +5,10 @@ namespace Assets.Scripts.MVP.Services.Spawners
 {
     class CrystallBagSpawner : BaseSpawner<BaseCrystallBagView>
     {
-        //_xIncrement = 3.35f;
-        [SerializeField] private float _yIncrement = 3.2f;
+        //_xIncrement = 15f;
+        [SerializeField] private float _zIncrement = 3.2f;
 
-        private float _yOffset = 0f;
+        private float _zOffset = 0f;
 
         public List<CrystallBagPresenter> Spawn()
         {
@@ -18,7 +18,7 @@ namespace Assets.Scripts.MVP.Services.Spawners
             {
                 var crystallBag = new BaseCrystallBag();
                 var crystallBagView = SpawnObject(Parent);
-                crystallBagView.transform.position = new Vector3(SpawnPoints[0].position.x + _xOffset, SpawnPoints[0].position.y + _yOffset, SpawnPoints[0].position.z);
+                crystallBagView.transform.position = new Vector3(SpawnPoints[0].position.x + _xOffset, SpawnPoints[0].position.y, SpawnPoints[0].position.z + _zOffset);
                 var crystallBagPresenter = new CrystallBagPresenter(crystallBagView, crystallBag);
 
                 crystallBagPresenters.Add(crystallBagPresenter);
@@ -27,7 +27,7 @@ namespace Assets.Scripts.MVP.Services.Spawners
 
                 if (i % 5 == 0)
                 {
-                    IncreaseOffset(ref _yOffset, -_yIncrement);
+                    IncreaseOffset(ref _zOffset, -_zIncrement);
                     _xOffset = 0f;
                 }
             }

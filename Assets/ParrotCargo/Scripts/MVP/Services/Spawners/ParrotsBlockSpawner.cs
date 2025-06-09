@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 {
-    //_xIncrement = 7.7f;
-    private Camera _camera;
+    //_xIncrement = 26f;
     private List<ParrotBlockPresenter> _parrotBlockPresenters;
 
     public List<ParrotBlockPresenter> Spawn()

@@ -5,11 +5,9 @@ using UniRx;
 public class Parrot
 {
     private bool _haveBag;
-    private bool _canPickBag;
-
     private BaseCrystallBag _pickedBag;
 
-    public bool CanPick => _canPickBag;
+    public bool CanPick { get; private set; }
 
     public void PickBag(BaseCrystallBag pickedBag)
     {
@@ -30,6 +28,6 @@ public class Parrot
 
     public void SetPickable(bool value)
     {
-        _canPickBag = value;
+        CanPick = value;
     }
 }

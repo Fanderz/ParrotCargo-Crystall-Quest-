@@ -51,6 +51,9 @@ MonoBehaviour:
   _scanningBagsDelay: 2
   _parrots:
   - {fileID: 4279148495752438542}
+  _shipsLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &6808225386207718567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +83,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 20.969091, y: 15.049469, z: 19.632992}
@@ -144,7 +147,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 581828627307875772, guid: 3902cd6277ac086449d7d18b6c108998, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1563958346306655752}
   m_SourcePrefab: {fileID: 100100000, guid: 3902cd6277ac086449d7d18b6c108998, type: 3}
 --- !u!4 &1099351511879146855 stripped
 Transform:
@@ -156,9 +162,36 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1085209731065435893, guid: 3902cd6277ac086449d7d18b6c108998, type: 3}
   m_PrefabInstance: {fileID: 3777928973708391931}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4359190248704292935}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89e13fd4ed1a0b249a96fca3645ed2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4359190248704292935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 581828627307875772, guid: 3902cd6277ac086449d7d18b6c108998, type: 3}
+  m_PrefabInstance: {fileID: 3777928973708391931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &1563958346306655752
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4359190248704292935}
+  m_Enabled: 1
+  m_AgentTypeID: -334000983
+  m_Radius: 3.4
+  m_Speed: 50
+  m_Acceleration: 50
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 9.02
+  m_BaseOffset: -5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

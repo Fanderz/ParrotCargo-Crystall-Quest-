@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4263862123799718044}
   - component: {fileID: 1085209731065435893}
+  - component: {fileID: 4106147922281863594}
   m_Layer: 3
   m_Name: RocketBird
   m_TagString: Untagged
@@ -52,6 +53,28 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!195 &4106147922281863594
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581828627307875772}
+  m_Enabled: 1
+  m_AgentTypeID: -334000983
+  m_Radius: 3.4
+  m_Speed: 50
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 14
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2744659362744778440
 GameObject:
   m_ObjectHideFlags: 0

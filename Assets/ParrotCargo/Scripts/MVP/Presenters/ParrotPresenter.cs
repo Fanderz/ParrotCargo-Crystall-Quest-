@@ -4,23 +4,16 @@ using UniRx;
 public class ParrotPresenter
 {
     private ParrotView _view;
-    private Parrot _parrotModel;
+    private Parrot _model;
 
     public ParrotPresenter(ParrotView view, Parrot model)
     {
         _view = view;
-        _parrotModel = model;
+        _model = model;
     }
-
-    public bool CanParrotPick { get { return _parrotModel.CanPick; } }
 
     public void Initialize()
     {
-        _view.PickingBag.Subscribe(canPick => { _parrotModel.SetPickable(canPick); });
+        _view.PickedBag.Subscribe(crystallBag => { _model.PickBag(crystallBag); });
     }
-
-    //public void SearchBags()
-    //{
-    //    _view.SearchBag();
-    //}
 }

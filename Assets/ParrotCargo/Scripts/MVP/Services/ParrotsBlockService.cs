@@ -7,6 +7,8 @@ public class ParrotsBlockService : BaseService
 
     private List<ParrotBlockPresenter> _parrotBlockPresenters;
 
+    public IReadOnlyList<ParrotBlockPresenter> ParrotBlockPresenters => _parrotBlockPresenters;
+
     public override void Initialize()
     {
         _parrotBlockPresenters = new List<ParrotBlockPresenter>();

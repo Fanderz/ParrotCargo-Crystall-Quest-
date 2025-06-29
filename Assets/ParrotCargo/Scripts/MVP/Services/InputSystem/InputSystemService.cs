@@ -1,95 +1,59 @@
-using UniRx;
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
 public class InputSystemService : BaseService
 {
-    [SerializeField] private Canvas _canvas;
-    [SerializeField] private Camera _camera;
     [SerializeField] private InputAction _mouseClick;
-    [SerializeField] private LayerMask _draggableLayer;
+    [SerializeField] private Camera _camera;
     [SerializeField] private float _dragSpeed;
 
-    private bool _isDragging;
+    private Vector3 _velocity = Vector3.zero;
+    private IDraggable _draggableObject;
+    private Transform _draggableTransform;
+    private Coroutine _movingBlockCoroutine;
 
-    private Vector2 _pointerScreenPosition;
-    private PlayerInput _playerInput;
-    private IDraggable _currentDraggable;
-    private Coroutine _draggingCoroutine;
-    private Plane _canvasPlane;
-
-    public ReactiveCommand<Vector2> MoveCommand = new ReactiveCommand<Vector2>();
-
-    private bool IsClicked()
+    public override void Initialize()
     {
-        Ray ray = _camera.ScreenPointToRay(_pointerScreenPosition);
+        _mouseClick.Enable();
+        _mouseClick.performed += MousePressed;
+        _mouseClick.canceled += MousePressCanceled;
+    }
 
-        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red, 1f);
+    private void MousePressed(InputAction.CallbackContext ctx)
+    {
+        Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f, _draggableLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.TryGetComponent(out DraggableParrotBlock parrotBlock))
+            if (hit.collider.TryGetComponent(out DraggableParrotBlock draggable))
             {
-                _currentDraggable = parrotBlock;
-                return true;
+                _draggableObject = draggable;
+                _draggableTransform = draggable.transform;
+                _movingBlockCoroutine = StartCoroutine(Drag());
             }
         }
+    }
 
-        return false;
+    private void MousePressCanceled(InputAction.CallbackContext ctx)
+    {
+        _draggableObject.StopMoving.Execute();
+
+        if (_movingBlockCoroutine != null)
+            StopCoroutine(_movingBlockCoroutine);
     }
 
     private IEnumerator Drag()
     {
-        _isDragging = true;
+        float initialDistance = Vector3.Distance(_draggableTransform.position, _camera.transform.position);
 
-        while (_isDragging && _currentDraggable != null)
+        while (_mouseClick.ReadValue<float>() != 0)
         {
-            Ray ray = _camera.ScreenPointToRay(_pointerScreenPosition);
+            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-            if (_canvasPlane.Raycast(ray, out float distance))
-            {
-                Vector3 targetPosition = ray.GetPoint(distance);
-                //_currentDraggable.MoveCommand.Execute(targetPosition);
-            }
+            _draggableObject.MoveCommand.Execute(Vector3.SmoothDamp(_draggableTransform.position, ray.GetPoint(initialDistance), ref _velocity, _dragSpeed));
 
             yield return null;
         }
-    }
-
-    public override void Initialize()
-    {
-        _playerInput = new PlayerInput();
-        _playerInput.Enable();
-
-        _playerInput.ParrotBlock.Point.performed += ctx =>
-        {
-            _pointerScreenPosition = ctx.ReadValue<Vector2>();
-        };
-
-        _playerInput.ParrotBlock.Press.started += press =>
-        {
-            if (IsClicked())
-            {
-                if (_currentDraggable != null)
-                    _draggingCoroutine = StartCoroutine(Drag());
-            }
-        };
-
-        _playerInput.ParrotBlock.Press.canceled += drop =>
-        {
-            _isDragging = false;
-            _currentDraggable = null;
-
-            if (_draggingCoroutine != null)
-                StopCoroutine(_draggingCoroutine);
-        };
-
-        Vector3 planeNormal = _canvas.transform.forward;
-        Vector3 planePoint = _canvas.transform.position;
-        _canvasPlane = new Plane(planeNormal, planePoint);
     }
 }

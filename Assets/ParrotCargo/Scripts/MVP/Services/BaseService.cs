@@ -1,6 +1,7 @@
 using UnityEngine;
+using Zenject;
 
-public abstract class BaseService : MonoBehaviour
+public abstract class BaseService : MonoBehaviour, IInitializable
 {
     public abstract void Initialize();
 }

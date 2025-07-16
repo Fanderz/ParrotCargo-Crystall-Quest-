@@ -1,38 +1,62 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using Zenject;
 
 namespace Assets.Scripts.MVP.Services.Spawners
 {
     class CrystallBagSpawner : BaseSpawner<BaseCrystallBagView>
     {
-        //_xIncrement = 15f;
-        [SerializeField] private float _zIncrement = 3.2f;
+        [SerializeField] private float _zSpawnOffset = -1f;
+        [SerializeField] private float _ySpawnOffset = 6f;
 
-        private float _zOffset = 0f;
+        private DiContainer _container;
+        private List<CrystallBagPresenter> _crystallBagPresenters;
 
-        public List<CrystallBagPresenter> Spawn()
+        public IReadOnlyList<CrystallBagPresenter> CrystallBags => _crystallBagPresenters;
+
+        public void Initialize()
         {
-            List<CrystallBagPresenter> crystallBagPresenters = new List<CrystallBagPresenter>();
+            _crystallBagPresenters = new List<CrystallBagPresenter>();
+        }
 
-            for (int i = 1; i <= ObjectsMaxCount; i++)
+        public void Spawn()
+        {
+            //List<CrystallBagPresenter> crystallBagPresenters = new List<CrystallBagPresenter>();
+
+            foreach (var spawnPoint in SpawnPoints)
             {
-                var crystallBag = new BaseCrystallBag();
-                var crystallBagView = SpawnObject(Parent);
-                crystallBagView.transform.position = new Vector3(SpawnPoints[0].position.x + _xOffset, SpawnPoints[0].position.y, SpawnPoints[0].position.z + _zOffset);
-                var crystallBagPresenter = new CrystallBagPresenter(crystallBagView, crystallBag);
+                PalletView pallet = spawnPoint.GetComponent<PalletView>();
 
-                crystallBagPresenters.Add(crystallBagPresenter);
-
-                IncreaseOffset(ref _xOffset, IncrementX);
-
-                if (i % 5 == 0)
+                if (pallet.HaveBag == false)
                 {
-                    IncreaseOffset(ref _zOffset, -_zIncrement);
-                    _xOffset = 0f;
+                    Vector3 startPosition = new Vector3(pallet.transform.position.x, pallet.transform.position.y + _ySpawnOffset, pallet.transform.position.z + _zSpawnOffset);
+                    var crystallBagView = SpawnObject(startPosition);
+
+                    pallet.TakeBag();
+                    crystallBagView.Picked.Subscribe(picked => { pallet.RemoveBag(); });
+
+                    var crystallBag = new BaseCrystallBag(startPosition);
+                    var crystallBagPresenter = new CrystallBagPresenter(crystallBagView, crystallBag);
+
+                    _crystallBagPresenters.Add(crystallBagPresenter);
                 }
             }
 
-            return crystallBagPresenters;
+            //return crystallBagPresenters;
+        }
+
+        protected override void CreatePool()
+        {
+            if (Pool == null)
+                Pool = new BasePool<BaseCrystallBagView>(ObjectsMaxCount, Parent, _container);
+        }
+
+        [Inject]
+        private void Construct(DiContainer container)
+        {
+            _container = container;
+            CreatePool();
         }
     }
 }

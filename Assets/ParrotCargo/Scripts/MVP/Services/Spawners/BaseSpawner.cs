@@ -1,41 +1,58 @@
 using UnityEngine;
 using Rand = UnityEngine.Random;
 using System.Collections.Generic;
+using Zenject;
 
-public class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] protected int ObjectsMaxCount;
-    [SerializeField] protected float IncrementX;
     [SerializeField] protected Transform Parent;
     [SerializeField] protected List<T> Prefab;
     [SerializeField] protected List<Transform> SpawnPoints;
 
     protected int SpawnedObjectsCount;
-    protected float _xOffset = 0f;
 
     protected BasePool<T> Pool;
+
+    protected abstract void CreatePool();
 
     protected virtual void Awake()
     {
         if (Pool == null)
-            Pool = new BasePool<T>(ObjectsMaxCount, Parent);
+            CreatePool();
 
         SpawnedObjectsCount = 0;
     }
 
 
-    public T SpawnObject(Transform parent)
+    public T SpawnObject(Vector3 startPosition, Transform parent = null)
     {
-        if (Pool == null)
-            Pool = new BasePool<T>(ObjectsMaxCount, Parent);
+        if (parent != null)
+            Parent = parent;
 
-        var testCnt = Rand.Range(0, Prefab.Count);
+        var prefab = Prefab[Rand.Range(0, Prefab.Count)];
 
-        var obj = Pool.Get(Prefab[testCnt], parent);
+        var obj = Pool.Get(prefab, Parent);
 
         if (obj != null)
         {
             obj.gameObject.SetActive(true);
+            SetSpawnPosition(obj, startPosition);
+        }
+
+        return obj;
+    }
+
+    public T CreateObjects()
+    {
+        T obj = null;
+
+        foreach (var prefab in Prefab)
+        {
+            obj = Pool.CreateObject(prefab, transform);
+
+            if (obj != null)
+                obj.gameObject.SetActive(false);
         }
 
         return obj;
@@ -46,8 +63,8 @@ public class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
         Pool.Release(obj);
     }
 
-    protected void IncreaseOffset(ref float offset, float increment)
+    protected void SetSpawnPosition(T obj, Vector3 position)
     {
-        offset += increment;
+        obj.transform.position = position;
     }
 }

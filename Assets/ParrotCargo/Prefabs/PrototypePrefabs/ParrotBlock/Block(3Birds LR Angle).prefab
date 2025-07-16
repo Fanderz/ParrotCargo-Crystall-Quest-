@@ -58,6 +58,9 @@ MonoBehaviour:
   _shipsLayer:
     serializedVersion: 2
     m_Bits: 64
+  _palletsLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &6808225386207718567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,8 +93,8 @@ BoxCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 20.969091, y: 15.049469, z: 19.632992}
-  m_Center: {x: -0.12294102, y: 6.8036327, z: -0.6957836}
+  m_Size: {x: 15, y: 15, z: 15}
+  m_Center: {x: -0.12294102, y: 6.8036327, z: -3}
 --- !u!1001 &3777928973708391931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,7 +198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4263862123799718044, guid: 3902cd6277ac086449d7d18b6c108998, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 4263862123799718044, guid: 3902cd6277ac086449d7d18b6c108998, type: 3}
       propertyPath: m_LocalRotation.w

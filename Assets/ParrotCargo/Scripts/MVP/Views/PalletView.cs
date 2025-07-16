@@ -1,11 +1,29 @@
+using UniRx;
 using UnityEngine;
 
 public class PalletView : MonoBehaviour
 {
-    public bool IsEmpty { get; private set; } = true;
+    [SerializeField] private float _bagTargetOffsetY = 6;
 
-    public void ChangeEmpty(bool value)
+    public bool HaveBag { get; private set; }
+
+    public ReactiveCommand<bool> EmptyChanged = new ReactiveCommand<bool>();
+
+    public Vector3 BagTargetPosition => new Vector3(transform.position.x, transform.position.y + _bagTargetOffsetY, transform.position.z);
+
+    public void TakeBag()
     {
-        IsEmpty = value;
+        ChangeEmpty(true);
+    }
+
+    public void RemoveBag()
+    {
+        ChangeEmpty(false);
+    }
+
+    private void ChangeEmpty(bool value)
+    {
+        HaveBag = value;
+        EmptyChanged.Execute(HaveBag);
     }
 }

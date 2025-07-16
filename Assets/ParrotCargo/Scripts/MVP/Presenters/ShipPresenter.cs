@@ -1,11 +1,14 @@
+using Zenject;
+
 public class ShipPresenter
 {
-    private BaseShipView _shipView;
-    private Ship _shipModel;
-
+    [Inject]
     public ShipPresenter(BaseShipView view, Ship model)
     {
-        _shipView = view;
-        _shipModel = model;
+        ShipView = view;
+        ShipModel = model;
     }
+
+    public BaseShipView ShipView { get; private set; }
+    public Ship ShipModel { get; private set; }
 }

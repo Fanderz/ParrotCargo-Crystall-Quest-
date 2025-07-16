@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7711522129104900815}
   - component: {fileID: 5816353164951885158}
-  m_Layer: 5
+  - component: {fileID: 669731752603787501}
+  m_Layer: 8
   m_Name: Pallet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +46,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4542f596aca41408febf457dd8da02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bagTargetOffsetY: 6
+--- !u!65 &669731752603787501
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185522906825192973}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.22, y: 1.62, z: 12.42}
+  m_Center: {x: -0.00000014901161, y: -0.000000055879354, z: 0}
 --- !u!1 &5782695262039373982
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,5 +171,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.85376, y: 0.24052817, z: 2.3559608}
+  m_Size: {x: 9.22, y: 1.62, z: 12.42}
   m_Center: {x: -0.00000014901161, y: -0.000000055879354, z: 0}

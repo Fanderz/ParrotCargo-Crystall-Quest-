@@ -1,18 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class BasePool<T> where T : MonoBehaviour
 {
     private int _poolMaxSize;
 
-    private List<T> _objects;
-    private Transform _parent;
+    private readonly Transform _parent;
 
-    public BasePool(int maxSize, Transform parent)
+    private List<T> _objects;
+    private DiContainer _container;
+
+    public BasePool(int maxSize, Transform parent, DiContainer container)
     {
         _objects = new List<T>();
+
         _poolMaxSize = maxSize;
         _parent = parent;
+        _container = container;
     }
 
     public int Count => _objects.Count;
@@ -21,34 +26,37 @@ public class BasePool<T> where T : MonoBehaviour
 
     public T Get(T prefab, Transform parent)
     {
-        T result = null;
-
-        if (_objects.FindAll(obj => obj.gameObject.activeSelf == false).Count > 0)
+        foreach (T obj in _objects)
         {
-            result = _objects.Find(obj => obj.gameObject.activeSelf == false);
-        }
-        else
-        {
-            if (_objects.Count < _poolMaxSize)
+            if (obj.gameObject.activeSelf == false)
             {
-                result = Create(prefab, parent);
-                _objects.Add(result);
+                obj.transform.SetParent(parent);
+                return obj;
             }
         }
+
+        return CreateObject(prefab, parent);
+    }
+
+    public T CreateObject(T prefab, Transform parent)
+    {
+        if (_objects.Count >= _poolMaxSize)
+            return null;
+
+        T result = Create(prefab, parent);
+        _objects.Add(result);
 
         return result;
     }
 
     public void Release(T obj)
     {
-        var finded = _objects.Find(finded => finded.Equals(obj));
-
-        if (finded != null)
-            finded.gameObject.SetActive(false);
+        if (_objects.Contains(obj))
+            obj.gameObject.SetActive(false);
     }
 
     private T Create(T prefab, Transform parent = null)
     {
-        return Object.Instantiate(prefab, parent);
+        return _container.InstantiatePrefabForComponent<T>(prefab, parent);
     }
 }

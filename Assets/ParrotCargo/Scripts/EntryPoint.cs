@@ -1,14 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Zenject;
+using System;
 
-public class EntryPoint : MonoBehaviour
+public class EntryPoint : MonoInstaller
 {
     [SerializeField] private List<BaseService> _services;
 
-    private void Awake()
+    public override void InstallBindings()
     {
         foreach (var service in _services)
-            service.Initialize();
+        {
+            Container.Bind(service.GetType()).FromInstance(service).AsSingle().IfNotBound();
+            Container.Bind<IInitializable>().To(service.GetType()).FromResolve();
+        }
     }
 
     private T GetService<T>() where T : BaseService

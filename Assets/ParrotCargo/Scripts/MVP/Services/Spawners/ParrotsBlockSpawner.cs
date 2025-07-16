@@ -1,30 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 using UnityEngine.UI;
+using Zenject;
+using System;
 
 public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 {
     //_xIncrement = 26f;
+    [SerializeField] private int _activeObjectsMaxCount = 3;
+    [SerializeField] private int _ySpawnOffset = 3;
+
+    private DiContainer _container;
     private List<ParrotBlockPresenter> _parrotBlockPresenters;
+
+    public ReactiveCommand RespawnBlocks = new ReactiveCommand();
 
     public List<ParrotBlockPresenter> Spawn()
     {
         _parrotBlockPresenters = new List<ParrotBlockPresenter>();
 
-        for (int i = 0; i < ObjectsMaxCount; i++)
+        foreach (Transform spawnPoint in SpawnPoints)
         {
-            var parrotBlockView = SpawnObject(Parent);
-            parrotBlockView.transform.position = new Vector3(SpawnPoints[0].position.x + _xOffset, SpawnPoints[0].position.y, SpawnPoints[0].position.z);
+            Vector3 spawnPosition = new Vector3(spawnPoint.position.x, spawnPoint.position.y + _ySpawnOffset, spawnPoint.position.z);
+            SpawnPoint point = spawnPoint.GetComponent<SpawnPoint>();
+            point.SetBirds();
+
+            var parrotBlockView = SpawnObject(spawnPosition);
             parrotBlockView.Initialize();
             var parrotBlock = new ParrotBlock(parrotBlockView.GetComponent<Transform>());
-            var parrotBlockPresenter = new ParrotBlockPresenter(parrotBlock, parrotBlockView);
+            var parrotBlockPresenter = new ParrotBlockPresenter(parrotBlock, parrotBlockView, parrotBlockView.GetComponent<DraggableParrotBlock>());
+
+            parrotBlockPresenter.ReleasedBlock.Subscribe(presenter =>
+            {
+                Release(parrotBlockView);
+                point.TakeBirds();
+                RespawnBlocks.Execute();
+            });
 
             _parrotBlockPresenters.Add(parrotBlockPresenter);
-
-            IncreaseOffset(ref _xOffset, IncrementX);
         }
 
         return _parrotBlockPresenters;
+    }
+
+    protected override void CreatePool()
+    {
+        if (Pool == null)
+            Pool = new BasePool<ParrotsBlockView>(ObjectsMaxCount, Parent, _container);
+    }
+
+    [Inject]
+    private void Construct(DiContainer container)
+    {
+        _container = container;
+        CreatePool();
     }
 }

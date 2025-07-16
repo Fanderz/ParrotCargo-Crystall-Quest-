@@ -1,11 +1,22 @@
+using UniRx;
+using Zenject;
+
 public class PalletPresenter
 {
-    private PalletView _view;
-    private Pallet _palletModel;
-
+    [Inject]
     public PalletPresenter(PalletView view, Pallet model)
     {
-        _view = view;
-        _palletModel = model;
+        PalletView = view;
+        PalletModel = model;
+
+        Subscribes();
+    }
+
+    public PalletView PalletView { get; private set; }
+    public Pallet PalletModel { get; private set; }
+
+    private void Subscribes()
+    {
+        PalletView.EmptyChanged.Subscribe((value => { PalletModel.ChangeEmpty(value); }));
     }
 }

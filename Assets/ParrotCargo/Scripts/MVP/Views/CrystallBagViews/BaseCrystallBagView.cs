@@ -28,5 +28,6 @@ public class BaseCrystallBagView : MonoBehaviour
     public void ChangePicked(bool value)
     {
         _isPicked = value;
+        Picked.Execute(_isPicked);
     }
 }

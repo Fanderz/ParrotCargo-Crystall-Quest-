@@ -32,8 +32,9 @@ namespace Assets.Scripts.MVP.Services.Spawners
                 {
                     Vector3 startPosition = new Vector3(pallet.transform.position.x, pallet.transform.position.y + _ySpawnOffset, pallet.transform.position.z + _zSpawnOffset);
                     var crystallBagView = SpawnObject(startPosition);
+                    crystallBagView.Releasing.Subscribe(bag => { Release(crystallBagView); });
 
-                    pallet.TakeBag();
+                    pallet.TakeBag(crystallBagView);
                     crystallBagView.Picked.Subscribe(picked => { pallet.RemoveBag(); });
 
                     var crystallBag = new BaseCrystallBag(startPosition);

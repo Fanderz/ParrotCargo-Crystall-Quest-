@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c42d4f2ec9266654680e3fca2d0548e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bagTargetPoints:
+  _palletsForBags:
   - {fileID: 6037321895582979357}
   - {fileID: 6004690005050779083}
   - {fileID: 7371811482822731077}

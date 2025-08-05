@@ -15,6 +15,10 @@ public class ShipsService : BaseService
     public override void Initialize()
     {
         _shipSpawner.Initialize();
+        _shipSpawner.CreateObjects();
         _shipSpawner.Spawn();
+
+        foreach (ShipPresenter ship in _shipSpawner.ShipPresenters)
+            ship.Releasing.Subscribe(spawner => { _shipSpawner.Spawn(); });
     }
 }

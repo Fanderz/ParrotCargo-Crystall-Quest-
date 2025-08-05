@@ -5,9 +5,11 @@ public class BaseCrystallBagView : MonoBehaviour
 {
     private bool _isPicked;
     private Vector3 _localScale;
+    //private Transform _parent;
 
     public ReactiveCommand Raising = new ReactiveCommand();
     public ReactiveCommand<bool> Picked = new ReactiveCommand<bool>();
+    public ReactiveCommand Releasing = new ReactiveCommand();
 
     private void Awake()
     {
@@ -29,5 +31,10 @@ public class BaseCrystallBagView : MonoBehaviour
     {
         _isPicked = value;
         Picked.Execute(_isPicked);
+    }
+
+    public void Release()
+    {
+        Releasing.Execute();
     }
 }

@@ -4,35 +4,34 @@ using UniRx;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using System;
 
 public class ParrotView : MonoBehaviour
 {
     [SerializeField] private Transform _raycastPoint;
     [SerializeField] private Transform _bagPicker;
     [SerializeField] private LayerMask _pickableLayer;
-    [SerializeField] private float _sitWithBagOffset = 6f;
+    [SerializeField] private float _bagOffset = 5f;
 
-    private bool _isMoving;
-    //private bool _carryingBag;
     private bool _isTargetShip;
-    private float _flyingOffset;
 
     public bool HaveBag { get; private set; }
 
     private Transform _parent;
+    private Transform _targetPalletTransform;
     private Quaternion _startRotation;
     private Vector3 _startPosition;
     private Vector3 _continueMovingPosition;
     private BaseCrystallBagView _crystallBag;
     private BaseCrystallBagView _lastCrystallBag;
-    private PalletView _targetPallet;
     private NavMeshAgent _agent;
 
     public ReactiveCommand<bool> PickedBag = new ReactiveCommand<bool>();
+    public ReactiveCommand<bool> DroppedBag = new ReactiveCommand<bool>();
 
     public BaseCrystallBagView CrystallBag => _crystallBag;
 
-    public ReactiveCommand Releasing = new ReactiveCommand();
+    public ReactiveCommand ChangedActive = new ReactiveCommand();
 
     public bool CanPick { get; private set; }
 
@@ -47,20 +46,14 @@ public class ParrotView : MonoBehaviour
 
     private void OnEnable()
     {
+        CanPick = false;
+        HaveBag = false;
         transform.SetParent(_parent);
-        _agent.Warp(_startPosition);
-        transform.localPosition = _startPosition;
-        transform.localRotation = _startRotation;
+        ReturnToStartPoint();
     }
 
     private void Update()
     {
-        if (_isMoving)
-        {
-            _continueMovingPosition = transform.position;
-            transform.position = new Vector3(_continueMovingPosition.x, _flyingOffset, _continueMovingPosition.z);
-        }
-
         if (_agent.hasPath && _agent.remainingDistance < 1f && _agent.isStopped == false)
         {
             _agent.isStopped = true;
@@ -72,21 +65,25 @@ public class ParrotView : MonoBehaviour
         }
     }
 
-    public void SetActive(bool value) =>
-        gameObject.SetActive(value);
-
-    public void SetMoving(bool value, float yOffset)
+    public void SetActive(bool value)
     {
-        _isMoving = value;
-        _agent.enabled = !value;
-        _flyingOffset = yOffset;
+        gameObject.SetActive(value);
+        ChangedActive.Execute();
     }
 
-    public void SearchBag()
+    public void SetParrotMovable(bool isMoving)
+    {
+        if (isMoving)
+            _continueMovingPosition = transform.position;
+
+        _agent.enabled = !isMoving;
+    }
+
+    public void ScanBag()
     {
         Ray ray = new Ray(_raycastPoint.position, Vector3.down);
 
-        if (Physics.SphereCast(ray, 3f, out RaycastHit hit, 20f))
+        if (Physics.SphereCast(ray, 4f, out RaycastHit hit, 20f))
         {
             CanPick = hit.collider.TryGetComponent(out _crystallBag);
 
@@ -103,67 +100,54 @@ public class ParrotView : MonoBehaviour
     {
         if (_crystallBag != null)
         {
-            Vector3 startPosition = transform.position;
-
             _crystallBag.transform.SetParent(_bagPicker);
             _crystallBag.transform.position = _bagPicker.position;
             HaveBag = true;
-            PickedBag.Execute(HaveBag);
-            _crystallBag.ChangePicked(HaveBag);
-            _crystallBag.ReturnScale();
-
-            transform.position = startPosition;
         }
+
+        PickedBag.Execute(HaveBag);
+        _crystallBag.ChangePicked(HaveBag);
+        _crystallBag.ReturnScale();
     }
 
-    public void TryCarryBag(List<BaseShipView> ships, List<PalletView> pallets)
+
+    public void CarryBag(Transform targetPalletPosition, bool isTargetShip)
     {
-        if (HaveBag)
-        {
-            _targetPallet = null;
-            BaseShipView ship = ships.Find(ship => CheckBagExistsShip(ship));
+        _isTargetShip = isTargetShip;
+        _targetPalletTransform = targetPalletPosition;
 
-            if (ship != null)
-            {
-                _targetPallet = ship.GetEmptyPallet();
-                _isTargetShip = true;
-            }
-            else if(_targetPallet == null)
-            {
-                _targetPallet = pallets.Find(pallet => pallet.HaveBag == false);
-                _isTargetShip = false;
-            }
-
-            if(_targetPallet != null)
-                CarryBag(_targetPallet.BagTargetPosition);
-        }
-    }
-
-    private void CarryBag(Vector3 target)
-    {
         transform.SetParent(null);
         _agent.Warp(_continueMovingPosition);
-        _agent.SetDestination(target);
-        _agent.baseOffset = target.y;
-        _targetPallet.TakeBag();
+        _agent.SetDestination(targetPalletPosition.position);
+        _agent.baseOffset = targetPalletPosition.position.y + _bagOffset;
+    }
+
+    public void ReturnToStartPoint()
+    {
+        _agent.Warp(_startPosition);
+        transform.localPosition = _startPosition;
+        transform.localRotation = _startRotation;
     }
 
     private void PutBag()
     {
-        Vector3 targetPosition = new Vector3(_targetPallet.transform.position.x, _targetPallet.transform.position.y, _targetPallet.transform.position.z);
-        //_targetPallet.TakeBag();
-        _crystallBag.transform.SetParent(_targetPallet.transform);
-        _crystallBag.transform.position = _targetPallet.BagTargetPosition;
+        Vector3 targetPosition = _targetPalletTransform.position;
+        targetPosition.y += _bagOffset;
 
-        SetActive(false); // надо додумать
-        Releasing.Execute();
+        _crystallBag.transform.SetParent(_targetPalletTransform);
+        _crystallBag.transform.position = targetPosition;
+
+        HaveBag = false;
+        DroppedBag.Execute(HaveBag);
+        SetActive(false);
     }
 
     private void SitWithBag()
     {
-        Vector3 targetPosition = new Vector3(_targetPallet.BagTargetPosition.x, _targetPallet.BagTargetPosition.y + _sitWithBagOffset, _targetPallet.BagTargetPosition.z);
+        Vector3 targetPosition = _targetPalletTransform.position;
+        targetPosition.y += _bagOffset;
+
         transform.position = targetPosition;
-        //_targetPallet.TakeBag();
     }
 
     private void ReturnBagScale()
@@ -180,19 +164,5 @@ public class ParrotView : MonoBehaviour
                 _lastCrystallBag.ReturnScale();
             }
         }
-    }
-
-    private bool CheckBagExistsShip(BaseShipView shipView)
-    {
-        if (shipView is BlueShipView && _crystallBag is BlueCrytallBagView)
-            return true;
-        else if (shipView is GoldShipView && _crystallBag is GoldCrystallBagView)
-            return true;
-        else if (shipView is GreenShipView && _crystallBag is GreenCrytallBagView)
-            return true;
-        else if (shipView is PurpleShipView && _crystallBag is PurpleCrystallBagView)
-            return true;
-        else
-            return false;
     }
 }

@@ -1,14 +1,71 @@
+using System.Collections.Generic;
+using UniRx;
+using UnityEngine;
 using Zenject;
 
 public class ShipPresenter
 {
+    private BaseShipView _view;
+    private Ship _model;
+
+    private List<PalletPresenter> _palletPresenters;
+    private Vector3 _pointOnFilled;
+
+    public int EmptyPalletsCnt => _palletPresenters.FindAll(pallet => pallet.HaveCourier == false && pallet.isEmpty).Count;
+    public bool isGoingToRelease => _model.isGoingToRelease;
+
+    public ReactiveCommand Releasing = new ReactiveCommand();
+
     [Inject]
     public ShipPresenter(BaseShipView view, Ship model)
     {
-        ShipView = view;
-        ShipModel = model;
+        _view = view;
+        _model = model;
+
+        _palletPresenters = new List<PalletPresenter>();
     }
 
-    public BaseShipView ShipView { get; private set; }
-    public Ship ShipModel { get; private set; }
+    public void Initialize()
+    {
+        foreach (PalletView palletView in _view.PalletViews)
+        {
+            Pallet pallet = new Pallet();
+            _model.AddPallet(pallet);
+
+            PalletPresenter palletPresenter = new PalletPresenter(palletView, pallet);
+            palletPresenter.TakedBag.Subscribe(pallet => { CheckShipFilled(); });
+
+            _palletPresenters.Add(palletPresenter);
+        }
+    }
+
+    public PalletPresenter GetEmptyPallet()
+    {
+        return _palletPresenters.Find(presenter => presenter.isEmpty && presenter.HaveCourier == false);
+    }
+
+    public BaseShipView GetView()
+    {
+        return _view;
+    }
+
+    public Ship GetModel()
+    {
+        return _model;
+    }
+
+    public void ClearPallets()
+    {
+        _palletPresenters.ForEach(presenter => { presenter.RemoveBag(); });
+    }
+
+    private void CheckShipFilled()
+    {
+        if (_palletPresenters.TrueForAll(pallet => pallet.isEmpty == false))
+        {
+            _model.SetGoingToRelease(true);
+            _view.SetDestination(_model.TargetOnFilled, _model.isGoingToRelease);
+            Releasing.Execute();
+        }
+    }
 }

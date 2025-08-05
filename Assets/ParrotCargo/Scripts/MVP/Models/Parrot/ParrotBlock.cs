@@ -13,10 +13,12 @@ public class ParrotBlock
     {
         _parrots = new List<Parrot>();
         _transform = transform;
+        StartPosition = transform.position;
     }
 
     public bool IsMoving { get; private set; }
     public bool CanPickBags { get; private set; }
+    public Vector3 StartPosition { get; private set; }
 
     public void AddParrot(Parrot parrot)
     {

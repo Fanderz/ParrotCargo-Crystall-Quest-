@@ -17,19 +17,20 @@ public class ParrotsBlockService : BaseService
 
     public ParrotsBlockSpawner ParrotsBlockSpawner => _parrotsBlockSpawner;
 
-    private void FixedUpdate()
-    {
-        if (_parrotBlockPresenters.TrueForAll(presenter => presenter.IsBlockReleased == true) && _spawnPlatforms.TrueForAll(platform => platform.haveBirds == false))
-            CreateBlocks();
-    }
-
     public override void Initialize()
     {
         _parrotsBlockSpawner.CreateObjects();
         CreateBlocks();
         _shipsService.OnShipsChanged.Subscribe(changed => { UpdateTargets(); });
 
-        _parrotsBlockSpawner.RespawnBlocks.Subscribe(respawn => { TryRespawnBlocks(); });
+        _parrotsBlockSpawner.RespawnBlocks.Subscribe(respawn => 
+        {
+            if (_parrotBlockPresenters.TrueForAll(presenter => presenter.IsBlockReleased))
+            {
+                _parrotBlockPresenters.ForEach(presenter => presenter.Dispose());
+                CreateBlocks();
+            }
+        });
     }
 
     private void CreateBlocks()
@@ -37,15 +38,6 @@ public class ParrotsBlockService : BaseService
         _parrotBlockPresenters = new List<ParrotBlockPresenter>();
         _parrotBlockPresenters = _parrotsBlockSpawner.Spawn();
         UpdateTargets();
-    }
-
-    private void TryRespawnBlocks()
-    {
-        if (_parrotBlockPresenters.TrueForAll(presenter => presenter.IsBlockReleased == true) && _spawnPlatforms.TrueForAll(platform => platform.haveBirds == false))
-        {
-            CreateBlocks();
-            ParrotsRespawned.Execute();
-        }
     }
 
     private void UpdateTargets()

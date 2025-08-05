@@ -9,7 +9,7 @@ using System;
 public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 {
     //_xIncrement = 26f;
-    [SerializeField] private int _activeObjectsMaxCount = 3;
+    //[SerializeField] private int _activeObjectsMaxCount = 3;
     [SerializeField] private int _ySpawnOffset = 3;
 
     private DiContainer _container;
@@ -25,18 +25,20 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
         {
             Vector3 spawnPosition = new Vector3(spawnPoint.position.x, spawnPoint.position.y + _ySpawnOffset, spawnPoint.position.z);
             SpawnPoint point = spawnPoint.GetComponent<SpawnPoint>();
-            point.SetBirds();
+            point.GetBirds();
 
             var parrotBlockView = SpawnObject(spawnPosition);
             parrotBlockView.Initialize();
             var parrotBlock = new ParrotBlock(parrotBlockView.GetComponent<Transform>());
-            var parrotBlockPresenter = new ParrotBlockPresenter(parrotBlock, parrotBlockView, parrotBlockView.GetComponent<DraggableParrotBlock>());
+            var parrotBlockPresenter = new ParrotBlockPresenter(parrotBlock, parrotBlockView);
+            parrotBlockPresenter.Initialize();
 
-            parrotBlockPresenter.ReleasedBlock.Subscribe(presenter =>
+            parrotBlockPresenter.ChangingActive.Subscribe(presenter =>
             {
                 Release(parrotBlockView);
-                point.TakeBirds();
+                point.GiveAwayBirds();
                 RespawnBlocks.Execute();
+                //parrotBlockPresenter.Dispose();
             });
 
             _parrotBlockPresenters.Add(parrotBlockPresenter);

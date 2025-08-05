@@ -4,12 +4,12 @@ public class SpawnPoint : MonoBehaviour
 {
     public bool haveBirds { get; private set; }
 
-    public void TakeBirds()
+    public void GiveAwayBirds()
     {
         ChangeBusyness(false);
     }
 
-    public void SetBirds()
+    public void GetBirds()
     {
         ChangeBusyness(true);
     }

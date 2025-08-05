@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.31987953, g: 0.2583825, b: 0.3681166, a: 1}
+  m_IndirectSpecularColor: {r: 0.3201431, g: 0.25861406, b: 0.3684007, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -349,7 +349,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &25965988
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +882,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &97438798
 GameObject:
   m_ObjectHideFlags: 0
@@ -2431,7 +2431,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &240056760
 GameObject:
   m_ObjectHideFlags: 0
@@ -4585,7 +4585,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &441551534
 GameObject:
   m_ObjectHideFlags: 0
@@ -5196,6 +5196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 505454152}
+  - component: {fileID: 505454153}
   m_Layer: 0
   m_Name: 1stStopPoint
   m_TagString: Untagged
@@ -5218,6 +5219,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 943910490}
   m_LocalEulerAnglesHint: {x: 0, y: 140, z: 0}
+--- !u!114 &505454153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505454151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa3ee4f8e5cac544b53c7ed562a16cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &513627028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5883,6 +5896,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 577983726}
+  - component: {fileID: 577983727}
   m_Layer: 0
   m_Name: 2ndStopPoint
   m_TagString: Untagged
@@ -5905,6 +5919,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 943910490}
   m_LocalEulerAnglesHint: {x: 0, y: 140, z: 0}
+--- !u!114 &577983727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577983725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa3ee4f8e5cac544b53c7ed562a16cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &591305566
 GameObject:
   m_ObjectHideFlags: 0
@@ -6093,6 +6119,37 @@ Transform:
   m_Children:
   - {fileID: 1275090810}
   m_Father: {fileID: 1001429167}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &601075221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 601075222}
+  m_Layer: 0
+  m_Name: PointToRelease
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &601075222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601075221}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 361, y: 50, z: 665}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1935337920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &601409663
 GameObject:
@@ -6868,7 +6925,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &661637345
 GameObject:
   m_ObjectHideFlags: 0
@@ -9325,7 +9382,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &869354264
 GameObject:
   m_ObjectHideFlags: 0
@@ -10651,7 +10708,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &1013790742
 GameObject:
   m_ObjectHideFlags: 0
@@ -10875,7 +10932,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &1035466701
 GameObject:
   m_ObjectHideFlags: 0
@@ -12640,7 +12697,6 @@ MonoBehaviour:
   - {fileID: 1145403416}
   - {fileID: 1060022939}
   - {fileID: 356335953}
-  _activeObjectsMaxCount: 3
   _ySpawnOffset: 3
 --- !u!1 &1154835634
 GameObject:
@@ -12925,14 +12981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zOffsetOnPick: 0
-  _scanningBagsDelay: 0
   _parrots: []
-  _shipsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _palletsLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &1174676791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16513,14 +16562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zOffsetOnPick: 0
-  _scanningBagsDelay: 0
   _parrots: []
-  _shipsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _palletsLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &1504068617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16955,7 +16997,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &1573257344
 GameObject:
   m_ObjectHideFlags: 0
@@ -17946,7 +17988,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1001 &1672880335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20263,6 +20305,7 @@ Transform:
   m_Children:
   - {fileID: 190831660}
   - {fileID: 943910490}
+  - {fileID: 601075222}
   m_Father: {fileID: 562751468}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1935337921
@@ -20277,7 +20320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24de438458cd7c14096bd746bdb122c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectsMaxCount: 2
+  ObjectsMaxCount: 5
   Parent: {fileID: 717059089}
   Prefab:
   - {fileID: 7992923773610316608, guid: 8b2b9bbab02e78147a83057cf98606a1, type: 3}
@@ -20288,8 +20331,9 @@ MonoBehaviour:
   - {fileID: 1231321951}
   - {fileID: 1015232346}
   _targetPoints:
-  - {fileID: 505454152}
-  - {fileID: 577983726}
+  - {fileID: 505454153}
+  - {fileID: 577983727}
+  _pointToRelease: {fileID: 601075222}
 --- !u!1 &1935403543
 GameObject:
   m_ObjectHideFlags: 0
@@ -21325,14 +21369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zOffsetOnPick: 0
-  _scanningBagsDelay: 0
   _parrots: []
-  _shipsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _palletsLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &1997867200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21411,7 +21448,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &2001901357
 GameObject:
   m_ObjectHideFlags: 0
@@ -22229,14 +22266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zOffsetOnPick: 0
-  _scanningBagsDelay: 0
   _parrots: []
-  _shipsLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _palletsLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &2076958652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22422,7 +22452,7 @@ MonoBehaviour:
   _pickableLayer:
     serializedVersion: 2
     m_Bits: 0
-  _sitWithBagOffset: 6
+  _bagOffset: 5
 --- !u!1 &2103194797
 GameObject:
   m_ObjectHideFlags: 0

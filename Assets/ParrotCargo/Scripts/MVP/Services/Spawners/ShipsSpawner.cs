@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using UniRx;
+using System.Linq;
 
 public class ShipsSpawner : BaseSpawner<BaseShipView>
 {
-    [SerializeField] private List<Transform> _targetPoints;
+    [SerializeField] private List<ShipStopPoint> _targetPoints;
+    [SerializeField] private Transform _pointToRelease;
+    //[SerializeField] private int _activeObjectsCnt;
 
     private List<ShipPresenter> _shipPresenters;
     private DiContainer _container;
@@ -19,14 +23,27 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
 
     public void Spawn()
     {
-        for (int i = 0; i < ObjectsMaxCount; i++)
+        var emptyPoints = _targetPoints.FindAll(point => point.isEmpty);
+
+        for (int i = 0; i < emptyPoints.Count; i++)
         {
-            var ship = new Ship();
+            var ship = new Ship(_pointToRelease.position);
+
             var shipView = SpawnObject(SpawnPoints[i].position);
-            shipView.Initialize(_targetPoints[i]);
+            shipView.Initialize(emptyPoints[i]);
+            shipView.Releasing.Subscribe(view => 
+            { 
+                Release(shipView); 
+                _shipPresenters.Remove(_shipPresenters.Find(ship => ship.GetView() == shipView));
+                //shipView.PalletViews.ToList().ForEach(pallet => pallet.RemoveBag());
+            });
+
             var shipPresenter = new ShipPresenter(shipView, ship);
+            shipPresenter.Initialize();
 
             _shipPresenters.Add(shipPresenter);
+
+            emptyPoints[i].ChangeEmpty(false);
         }
     }
 

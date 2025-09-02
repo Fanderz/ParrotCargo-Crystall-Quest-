@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
+
+using UniRx;
 using Zenject;
 
 public class ShipPresenter
@@ -13,6 +14,7 @@ public class ShipPresenter
 
     public int EmptyPalletsCnt => _palletPresenters.FindAll(pallet => pallet.HaveCourier == false && pallet.isEmpty).Count;
     public bool isGoingToRelease => _model.isGoingToRelease;
+    public bool IsStopped => _view.IsStopped();
 
     public ReactiveCommand Releasing = new ReactiveCommand();
 

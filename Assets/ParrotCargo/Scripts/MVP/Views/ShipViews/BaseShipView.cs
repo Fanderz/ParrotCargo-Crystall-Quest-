@@ -18,6 +18,14 @@ public class BaseShipView : MonoBehaviour
 
     public ReactiveCommand Releasing = new ReactiveCommand();
 
+    public bool IsStopped()
+    {
+        if (_agent.enabled)
+            return _agent.isStopped;
+        else
+            return false;
+    }
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -90,6 +98,5 @@ public class BaseShipView : MonoBehaviour
 
         if (_isGoingToRelease)
             _targetPoint.ChangeEmpty(true);
-        //GoingToRelease.Execute();
     }
 }

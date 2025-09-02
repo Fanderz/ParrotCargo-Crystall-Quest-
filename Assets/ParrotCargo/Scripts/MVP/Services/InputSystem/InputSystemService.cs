@@ -37,10 +37,17 @@ public class InputSystemService : BaseService
 
     private void MousePressCanceled(InputAction.CallbackContext ctx)
     {
-        _draggableObject.StopMoving.Execute();
-
         if (_movingBlockCoroutine != null)
+        {
             StopCoroutine(_movingBlockCoroutine);
+            _movingBlockCoroutine = null;
+        }
+
+        if (_draggableObject != null && _draggableObject.IsDragging)
+        {
+            _draggableObject.StopMoving.Execute();
+            _draggableObject = null;
+        }
     }
 
     private IEnumerator Drag()
@@ -51,6 +58,7 @@ public class InputSystemService : BaseService
         {
             Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
+            _draggableObject.SetDraggable(true);
             _draggableObject.MoveCommand.Execute(Vector3.SmoothDamp(_draggableTransform.position, ray.GetPoint(initialDistance), ref _velocity, _dragSpeed));
 
             yield return null;

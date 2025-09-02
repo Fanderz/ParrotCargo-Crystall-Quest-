@@ -40,6 +40,7 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
 
             var shipPresenter = new ShipPresenter(shipView, ship);
             shipPresenter.Initialize();
+            shipPresenter.Releasing.Subscribe(presenter => { Spawn(); });
 
             _shipPresenters.Add(shipPresenter);
 

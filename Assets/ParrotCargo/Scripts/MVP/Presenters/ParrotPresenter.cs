@@ -3,7 +3,7 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-public class ParrotPresenter //: IInitializable
+public class ParrotPresenter
 {
     private ParrotView _view;
     private Parrot _model;
@@ -15,6 +15,7 @@ public class ParrotPresenter //: IInitializable
     public ReactiveCommand PickedBag = new ReactiveCommand();
     public ReactiveCommand DroppedBag = new ReactiveCommand();
     public ReactiveCommand ChangedActive = new ReactiveCommand();
+    public ReactiveCommand SittingWithBag = new ReactiveCommand();
 
     public ParrotPresenter(ParrotView view, Parrot model)
     {
@@ -29,6 +30,7 @@ public class ParrotPresenter //: IInitializable
         _view.PickedBag.Subscribe(crystallBag => { _model.PickBag(crystallBag); PickedBag.Execute(); });
         _view.DroppedBag.Subscribe(crystallBag => { _model.PutBag(); DroppedBag.Execute(); });
         _view.ChangedActive.Subscribe(parrot => { ChangedActive.Execute(); });
+        _view.SittingWithBag.Subscribe(parrot => { SittingWithBag.Execute(); });
     }
 
 
@@ -48,7 +50,11 @@ public class ParrotPresenter //: IInitializable
 
     public void CarryBag(PalletPresenter targetPallet, bool isTargetShip)
     {
+        if (TargetPallet != null && isTargetShip)
+            TargetPallet.SetCourier(false);
+
         TargetPallet = targetPallet;
+
         _view.CarryBag(TargetPallet.ViewTransform, isTargetShip);
     }
 
@@ -62,4 +68,6 @@ public class ParrotPresenter //: IInitializable
 
     public void OnBlockMoving(bool isMoving) =>
         _view.SetParrotMovable(isMoving);
+
+    public ParrotView GetView() => _view;
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -15,14 +16,17 @@ public class ParrotBlockPresenter
     private IReadOnlyList<ShipPresenter> _ships;
     private IReadOnlyList<PalletPresenter> _pallets;
     private List<IDisposable> _disposables;
+    private BoxCollider _draggableCollider;
 
     public ReactiveCommand ChangingActive = new ReactiveCommand();
+    public ReactiveCommand SittingWithBag = new ReactiveCommand();
 
     public ParrotBlockPresenter(ParrotBlock parrotBlock, ParrotsBlockView parrotsBlockView)
     {
         _model = parrotBlock;
         _view = parrotsBlockView;
         _draggableParrotBlock = _view.GetComponent<DraggableParrotBlock>();
+        _draggableCollider = _view.GetComponent<BoxCollider>();
         _parrotPresenters = new List<ParrotPresenter>();
         _disposables = new List<IDisposable>();
     }
@@ -75,6 +79,7 @@ public class ParrotBlockPresenter
 
         _draggableParrotBlock.StopMoving.Subscribe(pickBag =>
         {
+            _draggableParrotBlock.SetDraggable(false);
             StopBlock();
             TryPickBags();
             TryCarryBags();
@@ -84,6 +89,7 @@ public class ParrotBlockPresenter
         _view.Movable.Subscribe(isBlockMovable => { _model.ChangeMovable(isBlockMovable); }).AddTo(_disposables);
 
         _view.Activation.Subscribe(isBlockActive => { _parrotPresenters.ForEach(presenter => presenter.SetActive(isBlockActive)); });
+        _view.SearchingRecievers.Subscribe(parrot => { TryCarryBagFromTempPallet(parrot); }).AddTo(_disposables);
     }
 
     private void ReleasingBlock()
@@ -151,8 +157,9 @@ public class ParrotBlockPresenter
         if (_view.EachParrotHaveBag)
         {
             _draggableParrotBlock.enabled = false;
+            _draggableCollider.enabled = false;
 
-            foreach (ParrotPresenter parrotPresenter in _parrotPresenters)
+            foreach (ParrotPresenter parrotPresenter in _parrotPresenters.FindAll(parrot => parrot.isActive))
             {
                 bool isTargetShip = false;
                 PalletPresenter targetPallet;
@@ -161,9 +168,7 @@ public class ParrotBlockPresenter
                 List<ShipPresenter> targetShips = GetShipsMatchedBag(parrotPresenter);
                 targetShip = GetSmallerEmptyShip(targetShips);
 
-                //targetShip = targetShips.Find(ship => ship.EmptyPalletsCnt > 0);
-
-                if (targetShip != null)
+                if (targetShip != null && targetShip.IsStopped)
                 {
                     targetPallet = targetShip.GetEmptyPallet();
                     isTargetShip = true;
@@ -175,6 +180,29 @@ public class ParrotBlockPresenter
 
                 targetPallet.SetCourier(true);
                 parrotPresenter.CarryBag(targetPallet, isTargetShip);
+            }
+        }
+    }
+
+    private void TryCarryBagFromTempPallet(ParrotView parrot)
+    {
+        if (parrot.HaveBag)
+        {
+            PalletPresenter targetPallet;
+            ShipPresenter targetShip = null;
+
+            ParrotPresenter parrotPresenter = _parrotPresenters.Find(presenter => presenter.GetView() == parrot);
+            List<ShipPresenter> targetShips = GetShipsMatchedBag(parrotPresenter);
+
+            if (targetShips.Count > 0)
+                targetShip = GetSmallerEmptyShip(targetShips);
+
+            if (targetShip != null && targetShip.IsStopped)
+            {
+                parrot.StopAllCoroutines();
+                targetPallet = targetShip.GetEmptyPallet();
+                parrotPresenter.CarryBag(targetPallet, true);
+                targetPallet.SetCourier(true);
             }
         }
     }

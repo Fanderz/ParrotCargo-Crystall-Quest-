@@ -13,10 +13,7 @@ public class ParrotView : MonoBehaviour
     [SerializeField] private LayerMask _pickableLayer;
     [SerializeField] private float _bagOffset = 5f;
 
-    private bool _isTargetShip;
-
-    public bool HaveBag { get; private set; }
-
+    private float _sittingWait = 2f;
     private Transform _parent;
     private Transform _targetPalletTransform;
     private Quaternion _startRotation;
@@ -25,19 +22,24 @@ public class ParrotView : MonoBehaviour
     private BaseCrystallBagView _crystallBag;
     private BaseCrystallBagView _lastCrystallBag;
     private NavMeshAgent _agent;
-
-    public ReactiveCommand<bool> PickedBag = new ReactiveCommand<bool>();
-    public ReactiveCommand<bool> DroppedBag = new ReactiveCommand<bool>();
+    private Coroutine _sittingWithBagCoroutine;
+    private WaitForSeconds _sittingWithBagWait;
 
     public BaseCrystallBagView CrystallBag => _crystallBag;
 
-    public ReactiveCommand ChangedActive = new ReactiveCommand();
-
+    public bool HaveBag { get; private set; }
+    public bool IsTargetShip { get; private set; }
     public bool CanPick { get; private set; }
+
+    public ReactiveCommand<bool> PickedBag = new ReactiveCommand<bool>();
+    public ReactiveCommand<bool> DroppedBag = new ReactiveCommand<bool>();
+    public ReactiveCommand ChangedActive = new ReactiveCommand();
+    public ReactiveCommand<ParrotView> SittingWithBag = new ReactiveCommand<ParrotView>();
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _sittingWithBagWait = new WaitForSeconds(_sittingWait);
         _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         _parent = transform.parent;
         _startPosition = transform.localPosition;
@@ -52,16 +54,19 @@ public class ParrotView : MonoBehaviour
         ReturnToStartPoint();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (_agent.hasPath && _agent.remainingDistance < 1f && _agent.isStopped == false)
+        if (gameObject.activeSelf && _agent.enabled)
         {
-            _agent.isStopped = true;
+            if (_agent.hasPath && _agent.remainingDistance < 1f && _agent.isStopped == false)
+            {
+                _agent.isStopped = true;
 
-            if (_isTargetShip)
-                PutBag();
-            else
-                SitWithBag();
+                if (IsTargetShip)
+                    PutBag();
+                else
+                    SitWithBag();
+            }
         }
     }
 
@@ -113,7 +118,13 @@ public class ParrotView : MonoBehaviour
 
     public void CarryBag(Transform targetPalletPosition, bool isTargetShip)
     {
-        _isTargetShip = isTargetShip;
+        if (_sittingWithBagCoroutine != null)
+        {
+            StopCoroutine(_sittingWithBagCoroutine);
+            _sittingWithBagCoroutine = null;
+        }
+
+        IsTargetShip = isTargetShip;
         _targetPalletTransform = targetPalletPosition;
 
         transform.SetParent(null);
@@ -148,8 +159,22 @@ public class ParrotView : MonoBehaviour
         targetPosition.y += _bagOffset;
 
         transform.position = targetPosition;
+        _continueMovingPosition = transform.position;
+
+        if (_sittingWithBagCoroutine == null)
+            _sittingWithBagCoroutine = StartCoroutine(CarryBagAfterSitOnPallet());
     }
 
+    private IEnumerator CarryBagAfterSitOnPallet()
+    {
+        while (IsTargetShip == false)
+        {
+            SittingWithBag.Execute(this);
+
+            yield return _sittingWithBagWait;
+        }
+    }
+ 
     private void ReturnBagScale()
     {
         if (_lastCrystallBag != null)

@@ -23,9 +23,9 @@ public class ParrotsBlockService : BaseService
         CreateBlocks();
         _shipsService.OnShipsChanged.Subscribe(changed => { UpdateTargets(); });
 
-        _parrotsBlockSpawner.RespawnBlocks.Subscribe(respawn => 
+        _parrotsBlockSpawner.RespawnBlocks.Subscribe(respawn =>
         {
-            if (_parrotBlockPresenters.TrueForAll(presenter => presenter.IsBlockReleased))
+            if (_spawnPlatforms.TrueForAll(platform => platform.haveBirds == false))
             {
                 _parrotBlockPresenters.ForEach(presenter => presenter.Dispose());
                 CreateBlocks();

@@ -4,6 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/ParrotCargo/Scenes/StartScene.unity
+    guid: 45fbbfd10deb2bf4799f024b9f4c4e9e
+  - enabled: 1
+    path: Assets/ParrotCargo/Scenes/GameScene.unity
+    guid: bda6ecc2a9407ad468a84f57c2c95319
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 35217fbd2eb53e540be10697f69148ac, type: 2}

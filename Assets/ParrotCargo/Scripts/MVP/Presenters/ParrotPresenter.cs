@@ -27,7 +27,7 @@ public class ParrotPresenter
 
     public void Initialize()
     {
-        _view.PickedBag.Subscribe(crystallBag => { _model.PickBag(crystallBag); PickedBag.Execute(); });
+        _view.PickedBag.Subscribe(crystallBag => { _model.PickBag(crystallBag); /*PickedBag.Execute();*/ });
         _view.DroppedBag.Subscribe(crystallBag => { _model.PutBag(); DroppedBag.Execute(); });
         _view.ChangedActive.Subscribe(parrot => { ChangedActive.Execute(); });
         _view.SittingWithBag.Subscribe(parrot => { SittingWithBag.Execute(); });

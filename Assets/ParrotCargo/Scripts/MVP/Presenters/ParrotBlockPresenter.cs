@@ -20,6 +20,7 @@ public class ParrotBlockPresenter
 
     public ReactiveCommand ChangingActive = new ReactiveCommand();
     public ReactiveCommand SittingWithBag = new ReactiveCommand();
+    public ReactiveCommand PickedBags = new ReactiveCommand();
 
     public ParrotBlockPresenter(ParrotBlock parrotBlock, ParrotsBlockView parrotsBlockView)
     {
@@ -47,6 +48,7 @@ public class ParrotBlockPresenter
 
             presenter.DroppedBag.Subscribe(parrot => { presenter.TargetPallet.TakeBag(presenter.CrystallBag); }).AddTo(_disposables);
             presenter.ChangedActive.Subscribe(block => { ReleasingBlock(); }).AddTo(_disposables);
+            //presenter.PickedBag.Subscribe(parrot => { PickedBags.Execute(); }).AddTo(_disposables);
         }
 
         Subscribe();
@@ -64,7 +66,7 @@ public class ParrotBlockPresenter
 
     public void Dispose()
     {
-        _disposables.ForEach(disposable => disposable.Dispose());
+        //_disposables.ForEach(disposable => disposable.Dispose());
     }
 
     private void Subscribe()
@@ -144,6 +146,7 @@ public class ParrotBlockPresenter
         if (_view.CanPickBag)
         {
             _view.PickBags();
+            PickedBags.Execute();
         }
         else
         {

@@ -41,6 +41,11 @@ public class ParrotsBlockView : MonoBehaviour
 
     private void OnDisable()
     {
+        //BlockMoving.Dispose();
+        //Movable.Dispose();
+        //SearchingRecievers.Dispose();
+
+
         IsMoving = false;
         CanPickBag = false;
 

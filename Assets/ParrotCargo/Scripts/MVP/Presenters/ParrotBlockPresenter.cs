@@ -15,7 +15,6 @@ public class ParrotBlockPresenter
 
     private IReadOnlyList<ShipPresenter> _ships;
     private IReadOnlyList<PalletPresenter> _pallets;
-    private List<IDisposable> _disposables;
     private BoxCollider _draggableCollider;
 
     public ReactiveCommand ChangingActive = new ReactiveCommand();
@@ -29,7 +28,6 @@ public class ParrotBlockPresenter
         _draggableParrotBlock = _view.GetComponent<DraggableParrotBlock>();
         _draggableCollider = _view.GetComponent<BoxCollider>();
         _parrotPresenters = new List<ParrotPresenter>();
-        _disposables = new List<IDisposable>();
     }
 
     public bool IsBlockReleased { get; private set; }
@@ -46,9 +44,9 @@ public class ParrotBlockPresenter
 
             _parrotPresenters.Add(presenter);
 
-            presenter.DroppedBag.Subscribe(parrot => { presenter.TargetPallet.TakeBag(presenter.CrystallBag); }).AddTo(_disposables);
-            presenter.ChangedActive.Subscribe(block => { ReleasingBlock(); }).AddTo(_disposables);
-            //presenter.PickedBag.Subscribe(parrot => { PickedBags.Execute(); }).AddTo(_disposables);
+            presenter.DroppedBag.Subscribe(parrot => { presenter.TargetPallet.TakeBag(presenter.CrystallBag); });
+            presenter.ChangedActive.Subscribe(block => { ReleasingBlock(); });
+            //presenter.PickedBag.Subscribe(parrot => { PickedBags.Execute(); });
         }
 
         Subscribe();
@@ -64,34 +62,31 @@ public class ParrotBlockPresenter
         _pallets = pallets;
     }
 
-    public void Dispose()
-    {
-        //_disposables.ForEach(disposable => disposable.Dispose());
-    }
-
     private void Subscribe()
     {
+        _draggableParrotBlock.MoveCommand = new();
         _draggableParrotBlock.MoveCommand.Subscribe(target =>
         {
             Vector3 targetPosition = new Vector3(target.x, _model.StartPosition.y + _draggableParrotBlock.YFlyingOffset, target.z);
 
             MoveBlock(targetPosition);
             ScanBags();
-        }).AddTo(_disposables);
+        });
 
+        _draggableParrotBlock.StopMoving = new();
         _draggableParrotBlock.StopMoving.Subscribe(pickBag =>
         {
             _draggableParrotBlock.SetDraggable(false);
             StopBlock();
             TryPickBags();
             TryCarryBags();
-        }).AddTo(_disposables);
+        });
 
-        _view.BlockMoving.Subscribe(newPosition => { _model.MoveParrots(newPosition); }).AddTo(_disposables);
-        _view.Movable.Subscribe(isBlockMovable => { _model.ChangeMovable(isBlockMovable); }).AddTo(_disposables);
+        _view.BlockMoving.Subscribe(newPosition => { _model.MoveParrots(newPosition); });
+        _view.Movable.Subscribe(isBlockMovable => { _model.ChangeMovable(isBlockMovable); });
 
-        _view.Activation.Subscribe(isBlockActive => { _parrotPresenters.ForEach(presenter => presenter.SetActive(isBlockActive)); });
-        _view.SearchingRecievers.Subscribe(parrot => { TryCarryBagFromTempPallet(parrot); }).AddTo(_disposables);
+        //_view.Activation.Subscribe(isBlockActive => { _parrotPresenters.ForEach(presenter => presenter.SetActive(isBlockActive)); });
+        _view.SearchingRecievers.Subscribe(parrot => { TryCarryBagFromTempPallet(parrot); });
     }
 
     private void ReleasingBlock()
@@ -99,7 +94,10 @@ public class ParrotBlockPresenter
         IsBlockReleased = _parrotPresenters.TrueForAll(parrotPresenter => parrotPresenter.isActive == false);
 
         if (IsBlockReleased)
+        {
+            _view.Release();
             ChangingActive.Execute();
+        }
     }
 
     private List<ShipPresenter> GetShipsMatchedBag(ParrotPresenter parrotPresenter)
@@ -171,10 +169,14 @@ public class ParrotBlockPresenter
                 List<ShipPresenter> targetShips = GetShipsMatchedBag(parrotPresenter);
                 targetShip = GetSmallerEmptyShip(targetShips);
 
-                if (targetShip != null && targetShip.IsStopped)
+                if (targetShip != null && targetShip.IsStopped && targetShip.isGoingToRelease == false)
                 {
                     targetPallet = targetShip.GetEmptyPallet();
-                    isTargetShip = true;
+
+                    if (targetPallet == null)
+                        targetPallet = GetEmptyTempPallet();
+                    else
+                        isTargetShip = true;
                 }
                 else
                 {
@@ -197,16 +199,21 @@ public class ParrotBlockPresenter
             ParrotPresenter parrotPresenter = _parrotPresenters.Find(presenter => presenter.GetView() == parrot);
             List<ShipPresenter> targetShips = GetShipsMatchedBag(parrotPresenter);
 
-            if (targetShips.Count > 0)
-                targetShip = GetSmallerEmptyShip(targetShips);
+            targetShip = GetSmallerEmptyShip(targetShips);
 
-            if (targetShip != null && targetShip.IsStopped)
+            if (targetShip != null && targetShip.IsStopped && targetShip.isGoingToRelease == false)
             {
                 parrot.StopAllCoroutines();
                 targetPallet = targetShip.GetEmptyPallet();
+
+                if (targetPallet == null)
+                    return;
+
                 parrotPresenter.CarryBag(targetPallet, true);
                 targetPallet.SetCourier(true);
             }
+            else
+                return;
         }
     }
 

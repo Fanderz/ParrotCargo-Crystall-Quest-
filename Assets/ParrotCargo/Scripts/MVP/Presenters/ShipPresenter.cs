@@ -56,11 +56,6 @@ public class ShipPresenter
         return _model;
     }
 
-    public void ClearPallets()
-    {
-        _palletPresenters.ForEach(presenter => { presenter.RemoveBag(); });
-    }
-
     private void CheckShipFilled()
     {
         if (_palletPresenters.TrueForAll(pallet => pallet.isEmpty == false))

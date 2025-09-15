@@ -14,18 +14,26 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 
     private DiContainer _container;
     private List<ParrotBlockPresenter> _parrotBlockPresenters;
+    private List<SpawnPoint> _spawnPoints;
 
     public ReactiveCommand RespawnBlocks = new ReactiveCommand();
+
+    private void Awake()
+    {
+        _spawnPoints = new List<SpawnPoint>();
+
+        foreach (Transform transform in SpawnPoints)
+            _spawnPoints.Add(transform.GetComponent<SpawnPoint>());
+    }
 
     public List<ParrotBlockPresenter> Spawn()
     {
         _parrotBlockPresenters = new List<ParrotBlockPresenter>();
 
-        foreach (Transform spawnPoint in SpawnPoints)
+        foreach (SpawnPoint spawnPoint in _spawnPoints)
         {
-            Vector3 spawnPosition = new Vector3(spawnPoint.position.x, spawnPoint.position.y + _ySpawnOffset, spawnPoint.position.z);
-            SpawnPoint point = spawnPoint.GetComponent<SpawnPoint>();
-            point.GetBirds();
+            Vector3 spawnPosition = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y + _ySpawnOffset, spawnPoint.transform.position.z);
+            spawnPoint.GetBirds();
 
             var parrotBlockView = SpawnObject(spawnPosition);
             parrotBlockView.Initialize();
@@ -40,7 +48,8 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
                 RespawnBlocks.Execute();
             });
 
-            parrotBlockPresenter.PickedBags.Subscribe(block => { point.GiveAwayBirds(); });
+            parrotBlockPresenter.PickedBags.Subscribe(block => { 
+                spawnPoint.GiveAwayBirds(); });
 
             _parrotBlockPresenters.Add(parrotBlockPresenter);
         }

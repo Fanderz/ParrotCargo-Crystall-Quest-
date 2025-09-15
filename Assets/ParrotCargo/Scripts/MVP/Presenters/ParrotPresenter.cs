@@ -30,7 +30,7 @@ public class ParrotPresenter
         _view.PickedBag.Subscribe(crystallBag => { _model.PickBag(crystallBag); /*PickedBag.Execute();*/ });
         _view.DroppedBag.Subscribe(crystallBag => { _model.PutBag(); DroppedBag.Execute(); });
         _view.ChangedActive.Subscribe(parrot => { ChangedActive.Execute(); });
-        _view.SittingWithBag.Subscribe(parrot => { SittingWithBag.Execute(); });
+        //_view.SittingWithBag.Subscribe(parrot => { SittingWithBag.Execute(); });
     }
 
 
@@ -50,18 +50,15 @@ public class ParrotPresenter
 
     public void CarryBag(PalletPresenter targetPallet, bool isTargetShip)
     {
-        if (TargetPallet != null && isTargetShip)
-            TargetPallet.SetCourier(false);
-
         TargetPallet = targetPallet;
 
         _view.CarryBag(TargetPallet.ViewTransform, isTargetShip);
     }
 
-    public void SetActive(bool value)
-    {
-        _view.SetActive(value);
-    }
+    //public void SetActive(bool value)
+    //{
+    //    _view.SetActive(value);
+    //}
 
     public void ReturnParrotOnStart() =>
         _view.ReturnToStartPoint();

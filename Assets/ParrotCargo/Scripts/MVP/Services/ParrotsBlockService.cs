@@ -27,7 +27,7 @@ public class ParrotsBlockService : BaseService
         {
             if (_spawnPlatforms.TrueForAll(platform => platform.haveBirds == false))
             {
-                _parrotBlockPresenters.ForEach(presenter => presenter.Dispose());
+                //_parrotBlockPresenters.ForEach(presenter => presenter.Dispose());
                 CreateBlocks();
             }
         });

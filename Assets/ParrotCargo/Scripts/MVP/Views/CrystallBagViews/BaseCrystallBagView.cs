@@ -7,9 +7,10 @@ public class BaseCrystallBagView : MonoBehaviour
     private Vector3 _localScale;
     //private Transform _parent;
 
-    public ReactiveCommand Raising = new ReactiveCommand();
     public ReactiveCommand<bool> Picked = new ReactiveCommand<bool>();
     public ReactiveCommand Releasing = new ReactiveCommand();
+
+    public bool IsPicked => _isPicked;
 
     private void Awake()
     {
@@ -19,7 +20,10 @@ public class BaseCrystallBagView : MonoBehaviour
     public void RaiseOnRaycast()
     {
         if (transform.localScale == _localScale)
+        {
             transform.localScale *= 1.2f;
+            Debug.Log("RaiseOnRaycast");
+        }
     }
 
     public void ReturnScale()
@@ -30,11 +34,15 @@ public class BaseCrystallBagView : MonoBehaviour
     public void ChangePicked(bool value)
     {
         _isPicked = value;
-        Picked.Execute(_isPicked);
+
+        if (_isPicked)
+            Picked.Execute(_isPicked);
     }
 
     public void Release()
     {
         Releasing.Execute();
+        Releasing = new();
+        Picked = new();
     }
 }

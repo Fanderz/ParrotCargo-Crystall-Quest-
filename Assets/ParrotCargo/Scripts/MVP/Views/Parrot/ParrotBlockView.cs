@@ -29,23 +29,20 @@ public class ParrotsBlockView : MonoBehaviour
     private void Awake()
     {
         _sittingWithBagWait = new WaitForSeconds(2f);
-        _parrots.ForEach(parrotView => parrotView.SittingWithBag.Subscribe(view => { SearchingRecievers.Execute(view); }));
+
+        _parrots.ForEach(parrotView => parrotView.SittingWithBag.Subscribe(view =>
+        {
+            SearchingRecievers.Execute(view);
+        }));
     }
 
     private void OnEnable()
     {
-        Activation.Execute(gameObject.activeSelf);
-        _draggableBlock = GetComponent<DraggableParrotBlock>();
-        GetComponent<BoxCollider>().enabled = true;
+
     }
 
     private void OnDisable()
     {
-        //BlockMoving.Dispose();
-        //Movable.Dispose();
-        //SearchingRecievers.Dispose();
-
-
         IsMoving = false;
         CanPickBag = false;
 
@@ -57,6 +54,11 @@ public class ParrotsBlockView : MonoBehaviour
     {
         _startPosition = transform.position;
         _zPickingValue = transform.position.z - _zOffsetOnPick / 2;
+
+        ActivateChildParrots();
+        //Activation.Execute(gameObject.activeSelf);
+        _draggableBlock = GetComponent<DraggableParrotBlock>();
+        GetComponent<BoxCollider>().enabled = true;
     }
 
     public void MoveBlock(Vector3 newPosition)
@@ -103,5 +105,19 @@ public class ParrotsBlockView : MonoBehaviour
     {
         MoveBlock(_startPosition);
         StopMoveBlock();
+    }
+
+    public void Release()
+    {
+        BlockMoving = new();
+        Movable = new();
+        Activation = new();
+        SearchingRecievers = new();
+    }
+
+    private void ActivateChildParrots()
+    {
+        foreach (ParrotView parrotView in _parrots)
+            parrotView.SetActive(true);
     }
 }

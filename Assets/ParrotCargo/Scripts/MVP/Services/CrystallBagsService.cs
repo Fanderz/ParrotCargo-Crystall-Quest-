@@ -9,7 +9,6 @@ public class CrystallBagsService : BaseService
 
     private void FixedUpdate()
     {
-        _crystallBagSpawner.Spawn();
     }
 
     public override void Initialize()
@@ -17,10 +16,5 @@ public class CrystallBagsService : BaseService
         _crystallBagSpawner.Initialize();
         _crystallBagSpawner.CreateObjects();
         _crystallBagSpawner.Spawn();
-    }
-
-    private void Start()
-    {
-        //_crystallBagSpawner.Spawn();
     }
 }

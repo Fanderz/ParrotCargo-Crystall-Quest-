@@ -7,7 +7,7 @@ public class BaseShipView : MonoBehaviour
 {
     [SerializeField] private List<PalletView> _palletsForBags;
     [SerializeField] private float _rotationOffDistance = 10f;
-    [SerializeField] private float _stopDistance = 0.2f;
+    [SerializeField] private float _stopDistance = 0.3f;
 
     private bool _isGoingToRelease;
     private ShipStopPoint _targetPoint;
@@ -16,7 +16,7 @@ public class BaseShipView : MonoBehaviour
     public int EmptyPalletsCount => _palletsForBags.FindAll(pallet => pallet.HaveBag == false).Count;
     public IReadOnlyList<PalletView> PalletViews => _palletsForBags;
 
-    public ReactiveCommand Releasing = new ReactiveCommand();
+    public ReactiveCommand Releasing;
 
     public bool IsStopped()
     {
@@ -35,21 +35,16 @@ public class BaseShipView : MonoBehaviour
     private void OnEnable()
     {
         _agent.enabled = true;
-
-        foreach (PalletView pallet in _palletsForBags)
-        {
-            pallet.RemoveBag();
-
-            BaseCrystallBagView bag = pallet.GetBag();
-
-            if (bag != null)
-                bag.Release();
-        }
+        Releasing = new();
     }
 
     private void OnDisable()
     {
-        _agent.enabled = false;
+        foreach (PalletView pallet in _palletsForBags)
+            pallet.Clear();
+
+        //if (Releasing.IsDisposed == false)
+        //    Releasing.Dispose();
     }
 
     private void FixedUpdate()
@@ -59,7 +54,7 @@ public class BaseShipView : MonoBehaviour
             if (_agent.remainingDistance <= _rotationOffDistance && !_isGoingToRelease)
             {
                 _agent.updateRotation = false;
-                _agent.transform.rotation = Quaternion.Slerp(_agent.transform.rotation, _targetPoint.transform.rotation, _agent.angularSpeed/_rotationOffDistance * Time.deltaTime);
+                _agent.transform.rotation = Quaternion.Slerp(_agent.transform.rotation, _targetPoint.transform.rotation, _agent.angularSpeed / _rotationOffDistance * Time.deltaTime);
             }
 
             if (!_agent.isStopped && _agent.remainingDistance <= _stopDistance)
@@ -82,19 +77,16 @@ public class BaseShipView : MonoBehaviour
         return _palletsForBags.Find(pallet => pallet.HaveBag == false);
     }
 
-    public void OccupyPallet(PalletView pallet, BaseCrystallBagView crystallBagView)
-    {
-        if (_palletsForBags.Contains(pallet))
-            pallet.TakeBag(crystallBagView);
-    }
-
     public void SetDestination(Vector3 targetPosition, bool isGoingToRelease)
     {
-        _agent.SetDestination(targetPosition);
-        _agent.isStopped = false;
-        _agent.updateRotation = true;
-        _isGoingToRelease = isGoingToRelease;
+        if (_agent.isOnNavMesh)
+        {
+            _agent.SetDestination(targetPosition);
+            _agent.isStopped = false;
+            _agent.updateRotation = true;
+        }
 
+        _isGoingToRelease = isGoingToRelease;
 
         if (_isGoingToRelease)
             _targetPoint.ChangeEmpty(true);

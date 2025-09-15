@@ -11,8 +11,20 @@ public class DraggableParrotBlock : MonoBehaviour, IDraggable
 
     public bool IsDragging { get; private set; } 
 
-    public ReactiveCommand<Vector3> MoveCommand { get; } = new ReactiveCommand<Vector3>();
-    public ReactiveCommand StopMoving { get; } = new ReactiveCommand();
+    public ReactiveCommand<Vector3> MoveCommand { get; set; }
+    public ReactiveCommand StopMoving { get; set; }
+
+    private void OnEnable()
+    {
+        MoveCommand = new();
+        StopMoving = new();
+    }
+
+    private void OnDisable()
+    {
+        MoveCommand.Dispose();
+        StopMoving.Dispose();
+    }
 
     public void SetDraggable(bool value)
     {

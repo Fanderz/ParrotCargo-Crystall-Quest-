@@ -17,12 +17,23 @@ public class PalletView : MonoBehaviour
     public void TakeBag(BaseCrystallBagView crystallBag)
     {
         _crystallBag = crystallBag;
+        //_crystallBag.transform.SetParent(transform);
+        //_crystallBag.transform.position = new Vector3(transform.position.x, transform.position.y + _bagTargetOffsetY, transform.position.z);
         ChangeEmpty(true);
     }
 
     public void RemoveBag()
     {
         ChangeEmpty(false);
+    }
+
+    public void Clear()
+    {
+        if (_crystallBag != null && _crystallBag.IsPicked == false)
+        {
+            _crystallBag.Release();
+            RemoveBag();
+        }
     }
 
     public BaseCrystallBagView GetBag()

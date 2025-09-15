@@ -12,39 +12,64 @@ namespace Assets.Scripts.MVP.Services.Spawners
 
         private DiContainer _container;
         private List<CrystallBagPresenter> _crystallBagPresenters;
+        private List<PalletView> _pallets;
 
         public IReadOnlyList<CrystallBagPresenter> CrystallBags => _crystallBagPresenters;
 
         public void Initialize()
         {
             _crystallBagPresenters = new List<CrystallBagPresenter>();
+            _pallets = new List<PalletView>();
+
+            foreach (Transform transformPallet in SpawnPoints)
+                _pallets.Add(transformPallet.GetComponent<PalletView>());
         }
 
         public void Spawn()
         {
-            //List<CrystallBagPresenter> crystallBagPresenters = new List<CrystallBagPresenter>();
+            List<PalletView> emptyPallets = _pallets.FindAll(pallet => pallet.HaveBag == false);
 
-            foreach (var spawnPoint in SpawnPoints)
+            foreach (PalletView pallet in emptyPallets)
             {
-                PalletView pallet = spawnPoint.GetComponent<PalletView>();
+                Vector3 startPosition = new Vector3(pallet.transform.position.x, pallet.transform.position.y + _ySpawnOffset, pallet.transform.position.z + _zSpawnOffset);
+                var crystallBagView = SpawnObject(startPosition);
+                pallet.TakeBag(crystallBagView);
 
-                if (pallet.HaveBag == false)
-                {
-                    Vector3 startPosition = new Vector3(pallet.transform.position.x, pallet.transform.position.y + _ySpawnOffset, pallet.transform.position.z + _zSpawnOffset);
-                    var crystallBagView = SpawnObject(startPosition);
-                    crystallBagView.Releasing.Subscribe(bag => { Release(crystallBagView); });
+                crystallBagView.Releasing.Subscribe(bag => { Release(crystallBagView); });;
 
-                    pallet.TakeBag(crystallBagView);
-                    crystallBagView.Picked.Subscribe(picked => { pallet.RemoveBag(); });
+                var crystallBag = new BaseCrystallBag(startPosition);
+                var crystallBagPresenter = new CrystallBagPresenter(crystallBagView, crystallBag);
+                crystallBagPresenter.Initialize();
 
-                    var crystallBag = new BaseCrystallBag(startPosition);
-                    var crystallBagPresenter = new CrystallBagPresenter(crystallBagView, crystallBag);
+                crystallBagPresenter.BagPicked.Subscribe(picked => { pallet.RemoveBag();
+                    Spawn(); });
 
-                    _crystallBagPresenters.Add(crystallBagPresenter);
-                }
+                _crystallBagPresenters.Add(crystallBagPresenter);
             }
 
-            //return crystallBagPresenters;
+
+            //foreach (var spawnPoint in SpawnPoints)
+            //{
+            //    PalletView pallet = spawnPoint.GetComponent<PalletView>();
+
+            //    if (pallet.HaveBag == false)
+            //    {
+            //        Vector3 startPosition = new Vector3(pallet.transform.position.x, pallet.transform.position.y + _ySpawnOffset, pallet.transform.position.z + _zSpawnOffset);
+            //        var crystallBagView = SpawnObject(startPosition);
+            //        pallet.TakeBag(crystallBagView);
+
+            //        crystallBagView.Releasing.Subscribe(bag => { Pool.Release(crystallBagView); });
+            //        //crystallBagView.Picked.Subscribe(picked => { pallet.RemoveBag(); Spawn(); });
+
+            //        var crystallBag = new BaseCrystallBag(startPosition);
+            //        var crystallBagPresenter = new CrystallBagPresenter(crystallBagView, crystallBag);
+            //        crystallBagPresenter.Initialize();
+
+            //        crystallBagPresenter.BagPicked.Subscribe(picked => { pallet.RemoveBag(); Spawn(); });
+
+            //        _crystallBagPresenters.Add(crystallBagPresenter);
+            //    }
+            //}
         }
 
         protected override void CreatePool()

@@ -4,6 +4,7 @@ using UniRx;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using System.Linq;
 using System;
 
 public class ParrotView : MonoBehaviour
@@ -24,6 +25,7 @@ public class ParrotView : MonoBehaviour
     private NavMeshAgent _agent;
     private Coroutine _sittingWithBagCoroutine;
     private WaitForSeconds _sittingWithBagWait;
+    private Coroutine _waitForArriveToPutBagCoroutine;
 
     public BaseCrystallBagView CrystallBag => _crystallBag;
 
@@ -50,11 +52,16 @@ public class ParrotView : MonoBehaviour
     {
         CanPick = false;
         HaveBag = false;
-        transform.SetParent(_parent);
-        ReturnToStartPoint();
+        //transform.SetParent(_parent);
+        //ReturnToStartPoint();
     }
 
-    private void FixedUpdate()
+    private void OnDisable()
+    {
+
+    }
+
+    private void Update()
     {
         if (gameObject.activeSelf && _agent.enabled)
         {
@@ -62,9 +69,7 @@ public class ParrotView : MonoBehaviour
             {
                 _agent.isStopped = true;
 
-                if (IsTargetShip)
-                    PutBag();
-                else
+                if (IsTargetShip == false)
                     SitWithBag();
             }
         }
@@ -74,6 +79,10 @@ public class ParrotView : MonoBehaviour
     {
         gameObject.SetActive(value);
         ChangedActive.Execute();
+        //ReturnToStartPoint();
+        //PickedBag.Dispose();
+        //DroppedBag.Dispose();
+        //SittingWithBag.Dispose();
     }
 
     public void SetParrotMovable(bool isMoving)
@@ -87,18 +96,16 @@ public class ParrotView : MonoBehaviour
     public void ScanBag()
     {
         Ray ray = new Ray(_raycastPoint.position, Vector3.down);
+        RaycastHit[] hits = Physics.SphereCastAll(ray, 4f, 20f, 1 << LayerMask.NameToLayer("PickableLayer"));
 
-        if (Physics.SphereCast(ray, 4f, out RaycastHit hit, 20f))
-        {
-            CanPick = hit.collider.TryGetComponent(out _crystallBag);
+        CanPick = IsHittedBag(hits);
 
-            if (CanPick)
-                _crystallBag.RaiseOnRaycast();
+        if (CanPick)
+            _crystallBag.RaiseOnRaycast();
 
-            ReturnBagScale();
+        ReturnBagScale();
 
-            _lastCrystallBag = _crystallBag;
-        }
+        _lastCrystallBag = _crystallBag;
     }
 
     public void PickBag()
@@ -131,6 +138,9 @@ public class ParrotView : MonoBehaviour
         _agent.Warp(_continueMovingPosition);
         _agent.SetDestination(targetPalletPosition.position);
         _agent.baseOffset = targetPalletPosition.position.y + _bagOffset;
+
+        if (isTargetShip)
+            _waitForArriveToPutBagCoroutine = StartCoroutine(PutBagOnArrive());
     }
 
     public void ReturnToStartPoint()
@@ -142,15 +152,18 @@ public class ParrotView : MonoBehaviour
 
     private void PutBag()
     {
-        Vector3 targetPosition = _targetPalletTransform.position;
-        targetPosition.y += _bagOffset;
+        if (_waitForArriveToPutBagCoroutine != null)
+        {
+            StopCoroutine(_waitForArriveToPutBagCoroutine);
+            _waitForArriveToPutBagCoroutine = null;
+        }
 
-        _crystallBag.transform.SetParent(_targetPalletTransform);
-        _crystallBag.transform.position = targetPosition;
+        _crystallBag.transform.SetParent(_targetPalletTransform.transform);
 
         HaveBag = false;
         DroppedBag.Execute(HaveBag);
         SetActive(false);
+        Reset();
     }
 
     private void SitWithBag()
@@ -174,7 +187,17 @@ public class ParrotView : MonoBehaviour
             yield return _sittingWithBagWait;
         }
     }
- 
+
+    private IEnumerator PutBagOnArrive()
+    {
+        while (_agent.remainingDistance > 0.05f)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        PutBag();
+    }
+
     private void ReturnBagScale()
     {
         if (_lastCrystallBag != null)
@@ -186,8 +209,23 @@ public class ParrotView : MonoBehaviour
             }
             else
             {
+                Debug.Log("ReturnScale");
                 _lastCrystallBag.ReturnScale();
             }
         }
+    }
+
+    private void Reset()
+    {
+        transform.SetParent(_parent);
+        ReturnToStartPoint();
+        PickedBag = new();
+        DroppedBag = new();
+        SittingWithBag = new();
+    }
+
+    private bool IsHittedBag(RaycastHit[] hits)
+    {
+        return hits.Any(hit => hit.collider.TryGetComponent(out _crystallBag));
     }
 }

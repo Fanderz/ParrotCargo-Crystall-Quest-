@@ -31,6 +31,8 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
 
             var shipView = SpawnObject(SpawnPoints[i].position);
             shipView.Initialize(emptyPoints[i]);
+
+
             shipView.Releasing.Subscribe(view => 
             { 
                 Release(shipView); 

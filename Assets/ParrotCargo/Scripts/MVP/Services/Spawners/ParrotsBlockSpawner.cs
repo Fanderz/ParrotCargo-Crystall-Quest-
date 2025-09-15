@@ -23,7 +23,11 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
         _spawnPoints = new List<SpawnPoint>();
 
         foreach (Transform transform in SpawnPoints)
-            _spawnPoints.Add(transform.GetComponent<SpawnPoint>());
+        {
+            transform.TryGetComponent(out SpawnPoint spawnPoint);
+            spawnPoint.OnSpawnPointEmpty.Subscribe(point => RespawnBlocks.Execute());
+            _spawnPoints.Add(spawnPoint);
+        }
     }
 
     public List<ParrotBlockPresenter> Spawn()
@@ -44,8 +48,6 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
             parrotBlockPresenter.ChangingActive.Subscribe(presenter =>
             {
                 Release(parrotBlockView);
-
-                RespawnBlocks.Execute();
             });
 
             parrotBlockPresenter.PickedBags.Subscribe(block => { 

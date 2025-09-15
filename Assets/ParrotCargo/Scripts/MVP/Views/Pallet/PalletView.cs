@@ -8,7 +8,7 @@ public class PalletView : MonoBehaviour
     private BaseCrystallBagView _crystallBag;
 
     public bool HaveBag { get; private set; }
-    public bool HaveCourier { get; private set; }
+    //public bool HaveCourier { get; private set; }
 
     public ReactiveCommand<bool> EmptyChanged = new ReactiveCommand<bool>();
 

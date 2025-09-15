@@ -7,6 +7,8 @@ using UnityEngine.AI;
 using System.Linq;
 using System;
 
+using Cysharp.Threading.Tasks;
+
 public class ParrotView : MonoBehaviour
 {
     [SerializeField] private Transform _raycastPoint;
@@ -24,8 +26,8 @@ public class ParrotView : MonoBehaviour
     private BaseCrystallBagView _lastCrystallBag;
     private NavMeshAgent _agent;
     private Coroutine _sittingWithBagCoroutine;
-    private WaitForSeconds _sittingWithBagWait;
     private Coroutine _waitForArriveToPutBagCoroutine;
+    private WaitForSeconds _sittingWithBagWait;
 
     public BaseCrystallBagView CrystallBag => _crystallBag;
 
@@ -61,7 +63,7 @@ public class ParrotView : MonoBehaviour
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (gameObject.activeSelf && _agent.enabled)
         {
@@ -79,10 +81,6 @@ public class ParrotView : MonoBehaviour
     {
         gameObject.SetActive(value);
         ChangedActive.Execute();
-        //ReturnToStartPoint();
-        //PickedBag.Dispose();
-        //DroppedBag.Dispose();
-        //SittingWithBag.Dispose();
     }
 
     public void SetParrotMovable(bool isMoving)
@@ -96,7 +94,7 @@ public class ParrotView : MonoBehaviour
     public void ScanBag()
     {
         Ray ray = new Ray(_raycastPoint.position, Vector3.down);
-        RaycastHit[] hits = Physics.SphereCastAll(ray, 4f, 20f, 1 << LayerMask.NameToLayer("PickableLayer"));
+        RaycastHit[] hits = Physics.SphereCastAll(ray, 2f, 20f, 1 << LayerMask.NameToLayer("PickableLayer"));
 
         CanPick = IsHittedBag(hits);
 
@@ -122,8 +120,7 @@ public class ParrotView : MonoBehaviour
         _crystallBag.ReturnScale();
     }
 
-
-    public void CarryBag(Transform targetPalletPosition, bool isTargetShip)
+    public async void CarryBag(Transform targetPalletPosition, bool isTargetShip)
     {
         if (_sittingWithBagCoroutine != null)
         {
@@ -139,6 +136,9 @@ public class ParrotView : MonoBehaviour
         _agent.SetDestination(targetPalletPosition.position);
         _agent.baseOffset = targetPalletPosition.position.y + _bagOffset;
 
+        while (_agent.hasPath == false)
+            await UniTask.Delay(1000);
+
         if (isTargetShip)
             _waitForArriveToPutBagCoroutine = StartCoroutine(PutBagOnArrive());
     }
@@ -146,6 +146,7 @@ public class ParrotView : MonoBehaviour
     public void ReturnToStartPoint()
     {
         _agent.Warp(_startPosition);
+        _agent.baseOffset = 0f;
         transform.localPosition = _startPosition;
         transform.localRotation = _startRotation;
     }
@@ -195,6 +196,7 @@ public class ParrotView : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
+        Debug.Log("PutBagOnArrive RemainingDistance: " + _agent.remainingDistance);
         PutBag();
     }
 
@@ -221,7 +223,15 @@ public class ParrotView : MonoBehaviour
         ReturnToStartPoint();
         PickedBag = new();
         DroppedBag = new();
-        SittingWithBag = new();
+        //SittingWithBag = new();
+
+        if (_sittingWithBagCoroutine != null || _waitForArriveToPutBagCoroutine != null)
+        {
+            StopAllCoroutines();
+
+            _sittingWithBagCoroutine = null;
+            _waitForArriveToPutBagCoroutine = null;
+        }
     }
 
     private bool IsHittedBag(RaycastHit[] hits)

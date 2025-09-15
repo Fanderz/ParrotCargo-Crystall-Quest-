@@ -11,6 +11,9 @@ public class ParrotBlockPresenter
     private readonly ParrotBlock _model;
     private readonly ParrotsBlockView _view;
     private readonly DraggableParrotBlock _draggableParrotBlock;
+
+    private PalletPresenter _targetPallet;
+
     private readonly List<ParrotPresenter> _parrotPresenters;
 
     private IReadOnlyList<ShipPresenter> _ships;
@@ -184,6 +187,7 @@ public class ParrotBlockPresenter
                 }
 
                 targetPallet.SetCourier(true);
+                _targetPallet = targetPallet;
                 parrotPresenter.CarryBag(targetPallet, isTargetShip);
             }
         }
@@ -203,11 +207,18 @@ public class ParrotBlockPresenter
 
             if (targetShip != null && targetShip.IsStopped && targetShip.isGoingToRelease == false)
             {
-                parrot.StopAllCoroutines();
+                //parrot.StopAllCoroutines();
                 targetPallet = targetShip.GetEmptyPallet();
 
                 if (targetPallet == null)
                     return;
+
+                if (_targetPallet != null)
+                {
+                    parrot.StopAllCoroutines();
+                    _targetPallet.SetCourier(false);
+                    //_targetPallet = null;
+                }
 
                 parrotPresenter.CarryBag(targetPallet, true);
                 targetPallet.SetCourier(true);

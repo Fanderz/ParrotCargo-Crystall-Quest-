@@ -8,6 +8,8 @@ public class ParrotPresenter
     private ParrotView _view;
     private Parrot _model;
 
+    private PalletPresenter _tempPallet;
+
     public BaseCrystallBagView CrystallBag => _view.CrystallBag;
     public bool HaveBag => _view.HaveBag;
     public bool isActive => _view.gameObject.activeSelf;
@@ -27,10 +29,9 @@ public class ParrotPresenter
 
     public void Initialize()
     {
-        _view.PickedBag.Subscribe(crystallBag => { _model.PickBag(crystallBag); /*PickedBag.Execute();*/ });
+        _view.PickedBag.Subscribe(crystallBag => { _model.PickBag(crystallBag); });
         _view.DroppedBag.Subscribe(crystallBag => { _model.PutBag(); DroppedBag.Execute(); });
         _view.ChangedActive.Subscribe(parrot => { ChangedActive.Execute(); });
-        //_view.SittingWithBag.Subscribe(parrot => { SittingWithBag.Execute(); });
     }
 
 
@@ -51,6 +52,12 @@ public class ParrotPresenter
     public void CarryBag(PalletPresenter targetPallet, bool isTargetShip)
     {
         TargetPallet = targetPallet;
+
+        if (isTargetShip == false)
+            _tempPallet = targetPallet;
+
+        if (isTargetShip && _tempPallet != null)
+            _tempPallet.SetCourier(false);
 
         _view.CarryBag(TargetPallet.ViewTransform, isTargetShip);
     }

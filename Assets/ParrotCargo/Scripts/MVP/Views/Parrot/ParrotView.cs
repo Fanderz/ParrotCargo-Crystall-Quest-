@@ -1,12 +1,8 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UniRx;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.AI;
 using System.Linq;
-using System;
 
+using UniRx;
 using Cysharp.Threading.Tasks;
 
 public class ParrotView : MonoBehaviour
@@ -16,7 +12,8 @@ public class ParrotView : MonoBehaviour
     [SerializeField] private LayerMask _pickableLayer;
     [SerializeField] private float _bagOffset = 5f;
 
-    private float _sittingWait = 2f;
+    private int _waitMiliseconds = 1000;
+
     private Transform _parent;
     private Transform _targetPalletTransform;
     private Quaternion _startRotation;
@@ -25,9 +22,6 @@ public class ParrotView : MonoBehaviour
     private BaseCrystallBagView _crystallBag;
     private BaseCrystallBagView _lastCrystallBag;
     private NavMeshAgent _agent;
-    private Coroutine _sittingWithBagCoroutine;
-    private Coroutine _waitForArriveToPutBagCoroutine;
-    private WaitForSeconds _sittingWithBagWait;
 
     public BaseCrystallBagView CrystallBag => _crystallBag;
 
@@ -43,7 +37,6 @@ public class ParrotView : MonoBehaviour
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _sittingWithBagWait = new WaitForSeconds(_sittingWait);
         _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         _parent = transform.parent;
         _startPosition = transform.localPosition;
@@ -54,13 +47,6 @@ public class ParrotView : MonoBehaviour
     {
         CanPick = false;
         HaveBag = false;
-        //transform.SetParent(_parent);
-        //ReturnToStartPoint();
-    }
-
-    private void OnDisable()
-    {
-
     }
 
     private void FixedUpdate()
@@ -100,10 +86,13 @@ public class ParrotView : MonoBehaviour
 
         if (CanPick)
             _crystallBag.RaiseOnRaycast();
+        else
+            _crystallBag?.ReturnScale();
 
         ReturnBagScale();
 
-        _lastCrystallBag = _crystallBag;
+        if (_crystallBag != null)
+            _lastCrystallBag = _crystallBag;
     }
 
     public void PickBag()
@@ -122,12 +111,6 @@ public class ParrotView : MonoBehaviour
 
     public async void CarryBag(Transform targetPalletPosition, bool isTargetShip)
     {
-        if (_sittingWithBagCoroutine != null)
-        {
-            StopCoroutine(_sittingWithBagCoroutine);
-            _sittingWithBagCoroutine = null;
-        }
-
         IsTargetShip = isTargetShip;
         _targetPalletTransform = targetPalletPosition;
 
@@ -137,10 +120,10 @@ public class ParrotView : MonoBehaviour
         _agent.baseOffset = targetPalletPosition.position.y + _bagOffset;
 
         while (_agent.hasPath == false)
-            await UniTask.Delay(1000);
+            await UniTask.Delay(_waitMiliseconds);
 
         if (isTargetShip)
-            _waitForArriveToPutBagCoroutine = StartCoroutine(PutBagOnArrive());
+            PutBag();
     }
 
     public void ReturnToStartPoint()
@@ -151,13 +134,11 @@ public class ParrotView : MonoBehaviour
         transform.localRotation = _startRotation;
     }
 
-    private void PutBag()
+    private async void PutBag()
     {
-        if (_waitForArriveToPutBagCoroutine != null)
-        {
-            StopCoroutine(_waitForArriveToPutBagCoroutine);
-            _waitForArriveToPutBagCoroutine = null;
-        }
+
+        while (_agent.remainingDistance > 0.05f)
+            await UniTask.Delay(1000);
 
         _crystallBag.transform.SetParent(_targetPalletTransform.transform);
 
@@ -167,7 +148,7 @@ public class ParrotView : MonoBehaviour
         Reset();
     }
 
-    private void SitWithBag()
+    private async void SitWithBag()
     {
         Vector3 targetPosition = _targetPalletTransform.position;
         targetPosition.y += _bagOffset;
@@ -175,46 +156,17 @@ public class ParrotView : MonoBehaviour
         transform.position = targetPosition;
         _continueMovingPosition = transform.position;
 
-        if (_sittingWithBagCoroutine == null)
-            _sittingWithBagCoroutine = StartCoroutine(CarryBagAfterSitOnPallet());
-    }
-
-    private IEnumerator CarryBagAfterSitOnPallet()
-    {
         while (IsTargetShip == false)
         {
             SittingWithBag.Execute(this);
-
-            yield return _sittingWithBagWait;
+            await UniTask.Delay(_waitMiliseconds);
         }
-    }
-
-    private IEnumerator PutBagOnArrive()
-    {
-        while (_agent.remainingDistance > 0.05f)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        Debug.Log("PutBagOnArrive RemainingDistance: " + _agent.remainingDistance);
-        PutBag();
     }
 
     private void ReturnBagScale()
     {
-        if (_lastCrystallBag != null)
-        {
-            if (_crystallBag != null)
-            {
-                if (_lastCrystallBag.transform.position != _crystallBag.transform.position)
-                    _lastCrystallBag.ReturnScale();
-            }
-            else
-            {
-                Debug.Log("ReturnScale");
-                _lastCrystallBag.ReturnScale();
-            }
-        }
+        if (_lastCrystallBag?.transform.position != _crystallBag?.transform.position)
+            _lastCrystallBag?.ReturnScale();
     }
 
     private void Reset()
@@ -223,15 +175,6 @@ public class ParrotView : MonoBehaviour
         ReturnToStartPoint();
         PickedBag = new();
         DroppedBag = new();
-        //SittingWithBag = new();
-
-        if (_sittingWithBagCoroutine != null || _waitForArriveToPutBagCoroutine != null)
-        {
-            StopAllCoroutines();
-
-            _sittingWithBagCoroutine = null;
-            _waitForArriveToPutBagCoroutine = null;
-        }
     }
 
     private bool IsHittedBag(RaycastHit[] hits)

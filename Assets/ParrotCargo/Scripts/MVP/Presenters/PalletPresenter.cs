@@ -28,7 +28,6 @@ public class PalletPresenter
     {
         _view.TakeBag(crystallBagView);
         crystallBagView.ChangePicked(false);
-        //_bagView = crystallBagView;
         HaveCourier = false;
         TakedBag.Execute();
     }
@@ -37,12 +36,6 @@ public class PalletPresenter
     {
         HaveCourier = value;
     }
-
-    //public void RemoveBag()
-    //{
-    //    _bagView.Release();
-    //    _bagView = null;
-    //}
 
     private void Subscribes()
     {

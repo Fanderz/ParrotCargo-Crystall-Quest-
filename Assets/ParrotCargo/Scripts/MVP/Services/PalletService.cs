@@ -9,8 +9,6 @@ public class PalletService : BaseService
 
     public IReadOnlyList<PalletPresenter> Pallets => _palletSpawner.PalletPresenters;
 
-    //public ReactiveCommand OnShipsChanged = new ReactiveCommand();
-
     public override void Initialize()
     {
         _palletSpawner.Initialize();

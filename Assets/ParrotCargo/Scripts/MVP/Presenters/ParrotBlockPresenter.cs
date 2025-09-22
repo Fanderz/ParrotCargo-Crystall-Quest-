@@ -12,7 +12,7 @@ public class ParrotBlockPresenter
     private readonly ParrotsBlockView _view;
     private readonly DraggableParrotBlock _draggableParrotBlock;
 
-    private PalletPresenter _targetPallet;
+    private PalletPresenter _tempPallet;
 
     private readonly List<ParrotPresenter> _parrotPresenters;
 
@@ -49,7 +49,6 @@ public class ParrotBlockPresenter
 
             presenter.DroppedBag.Subscribe(parrot => { presenter.TargetPallet.TakeBag(presenter.CrystallBag); });
             presenter.ChangedActive.Subscribe(block => { ReleasingBlock(); });
-            //presenter.PickedBag.Subscribe(parrot => { PickedBags.Execute(); });
         }
 
         Subscribe();
@@ -87,8 +86,6 @@ public class ParrotBlockPresenter
 
         _view.BlockMoving.Subscribe(newPosition => { _model.MoveParrots(newPosition); });
         _view.Movable.Subscribe(isBlockMovable => { _model.ChangeMovable(isBlockMovable); });
-
-        //_view.Activation.Subscribe(isBlockActive => { _parrotPresenters.ForEach(presenter => presenter.SetActive(isBlockActive)); });
         _view.SearchingRecievers.Subscribe(parrot => { TryCarryBagFromTempPallet(parrot); });
     }
 
@@ -116,7 +113,7 @@ public class ParrotBlockPresenter
         if (_pallets == null)
             throw new ZenjectException("Injected List<PalletPresenter> in ParrotBlockPresenter is null");
 
-        return _pallets.FirstOrDefault(pallet => pallet.isEmpty && pallet.HaveCourier == false);
+        return _pallets.First(pallet => pallet.HaveCourier == false);
     }
 
     #region Движение блока и каждого попугая
@@ -165,29 +162,14 @@ public class ParrotBlockPresenter
 
             foreach (ParrotPresenter parrotPresenter in _parrotPresenters.FindAll(parrot => parrot.isActive))
             {
-                bool isTargetShip = false;
                 PalletPresenter targetPallet;
                 ShipPresenter targetShip;
 
                 List<ShipPresenter> targetShips = GetShipsMatchedBag(parrotPresenter);
                 targetShip = GetSmallerEmptyShip(targetShips);
-
-                if (targetShip != null && targetShip.IsStopped && targetShip.isGoingToRelease == false)
-                {
-                    targetPallet = targetShip.GetEmptyPallet();
-
-                    if (targetPallet == null)
-                        targetPallet = GetEmptyTempPallet();
-                    else
-                        isTargetShip = true;
-                }
-                else
-                {
-                    targetPallet = GetEmptyTempPallet();
-                }
+                targetPallet = GetTargetPallet(targetShip, out bool isTargetShip);
 
                 targetPallet.SetCourier(true);
-                _targetPallet = targetPallet;
                 parrotPresenter.CarryBag(targetPallet, isTargetShip);
             }
         }
@@ -207,18 +189,10 @@ public class ParrotBlockPresenter
 
             if (targetShip != null && targetShip.IsStopped && targetShip.isGoingToRelease == false)
             {
-                //parrot.StopAllCoroutines();
                 targetPallet = targetShip.GetEmptyPallet();
 
                 if (targetPallet == null)
                     return;
-
-                if (_targetPallet != null)
-                {
-                    parrot.StopAllCoroutines();
-                    _targetPallet.SetCourier(false);
-                    //_targetPallet = null;
-                }
 
                 parrotPresenter.CarryBag(targetPallet, true);
                 targetPallet.SetCourier(true);
@@ -231,5 +205,27 @@ public class ParrotBlockPresenter
     private ShipPresenter GetSmallerEmptyShip(List<ShipPresenter> ships)
     {
         return ships.OrderBy(ship => ship.EmptyPalletsCnt > 0).FirstOrDefault();
+    }
+
+    private PalletPresenter GetTargetPallet(ShipPresenter targetShip, out bool isTargetShip)
+    {
+        PalletPresenter targetPallet;
+        isTargetShip = false;
+
+        if (targetShip != null && targetShip.IsStopped && targetShip.isGoingToRelease == false)
+        {
+            targetPallet = targetShip.GetEmptyPallet();
+
+            if (targetPallet == null)
+                 targetPallet = _tempPallet = GetEmptyTempPallet();
+            else
+                isTargetShip = true;
+        }
+        else
+        {
+            targetPallet = _tempPallet = GetEmptyTempPallet();
+        }
+
+        return targetPallet;
     }
 }

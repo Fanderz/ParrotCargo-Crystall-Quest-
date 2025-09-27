@@ -7,7 +7,6 @@ public class PalletsSpawner : BaseSpawner<PalletView>
     [SerializeField] private float _incrementX;
 
     private float _xOffset = 0f;
-    //_xIncrement = 5f;
     private DiContainer _container;
     private List<PalletPresenter> _palletPresenters;
 

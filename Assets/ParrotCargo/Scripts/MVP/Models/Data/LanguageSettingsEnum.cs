@@ -6,5 +6,6 @@ public enum LanguageSettingsEnum
 {
     Russian,
     Turkey,
-    Usa
+    Usa,
+    Empty
 }

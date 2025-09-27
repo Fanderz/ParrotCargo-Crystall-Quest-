@@ -26,10 +26,7 @@ public class ParrotsBlockService : BaseService
         _parrotsBlockSpawner.RespawnBlocks.Subscribe(respawn =>
         {
             if (_spawnPlatforms.TrueForAll(platform => platform.haveBirds == false))
-            {
-                //_parrotBlockPresenters.ForEach(presenter => presenter.Dispose());
                 CreateBlocks();
-            }
         });
     }
 

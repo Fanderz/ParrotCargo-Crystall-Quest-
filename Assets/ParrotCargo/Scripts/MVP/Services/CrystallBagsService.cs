@@ -7,10 +7,6 @@ public class CrystallBagsService : BaseService
 {
     [SerializeField] private CrystallBagSpawner _crystallBagSpawner;
 
-    private void FixedUpdate()
-    {
-    }
-
     public override void Initialize()
     {
         _crystallBagSpawner.Initialize();

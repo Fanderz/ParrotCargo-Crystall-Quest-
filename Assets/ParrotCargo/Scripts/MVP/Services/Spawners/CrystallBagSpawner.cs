@@ -46,30 +46,6 @@ namespace Assets.Scripts.MVP.Services.Spawners
 
                 _crystallBagPresenters.Add(crystallBagPresenter);
             }
-
-
-            //foreach (var spawnPoint in SpawnPoints)
-            //{
-            //    PalletView pallet = spawnPoint.GetComponent<PalletView>();
-
-            //    if (pallet.HaveBag == false)
-            //    {
-            //        Vector3 startPosition = new Vector3(pallet.transform.position.x, pallet.transform.position.y + _ySpawnOffset, pallet.transform.position.z + _zSpawnOffset);
-            //        var crystallBagView = SpawnObject(startPosition);
-            //        pallet.TakeBag(crystallBagView);
-
-            //        crystallBagView.Releasing.Subscribe(bag => { Pool.Release(crystallBagView); });
-            //        //crystallBagView.Picked.Subscribe(picked => { pallet.RemoveBag(); Spawn(); });
-
-            //        var crystallBag = new BaseCrystallBag(startPosition);
-            //        var crystallBagPresenter = new CrystallBagPresenter(crystallBagView, crystallBag);
-            //        crystallBagPresenter.Initialize();
-
-            //        crystallBagPresenter.BagPicked.Subscribe(picked => { pallet.RemoveBag(); Spawn(); });
-
-            //        _crystallBagPresenters.Add(crystallBagPresenter);
-            //    }
-            //}
         }
 
         protected override void CreatePool()

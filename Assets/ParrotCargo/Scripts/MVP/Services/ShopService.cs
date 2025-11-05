@@ -7,12 +7,24 @@ using YG;
 public class ShopService : BaseService
 {
     [SerializeField] private ShopView _view;
+    [SerializeField] private List<ParrotsBlockView> _parrotViews;
+    [SerializeField] private List<ShipSetting> _ship;
+    [SerializeField] private ShopSpawner _shopSpawner;
 
     private ShopPresenter _shopPresenter;
 
+    public ShopPresenter ShopPresenter => _shopPresenter;
+
     public override void Initialize()
     {
-        ShopModel model = new ShopModel(YG2.saves.shopModel.TempPalletsCount, YG2.saves.shopModel.ShipPalletsCount, YG2.saves.shopModel.ParrotBlockViews.ToList(), YG2.saves.shopModel.ShipView);
-        _shopPresenter = new ShopPresenter(model, _view);
+        _shopSpawner.Spawn();
+
+        _shopPresenter = new ShopPresenter(YG2.saves.shopModel, _view, _shopSpawner.ShopItems.ToList());
+        _shopPresenter.Initialize();
+    }
+
+    private void Start()
+    {
+        //_shopPresenter.Initialize();
     }
 }

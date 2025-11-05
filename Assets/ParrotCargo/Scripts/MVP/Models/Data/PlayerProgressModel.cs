@@ -1,10 +1,12 @@
+using System;
 using UniRx;
 using UnityEngine;
 
+[Serializable]
 public class PlayerProgressModel
 {
-    private int _coins = 0;
-    private int _score = 0;
+    private int _coins;
+    private int _score;
 
     public int Coins => _coins;
     public int Score => _score;
@@ -20,14 +22,20 @@ public class PlayerProgressModel
 
     public void SetCoins(int value)
     {
-        _coins = value;
-        CoinsChanged.Execute(_coins);
+        if (_coins != value)
+        {
+            _coins = value;
+            CoinsChanged.Execute(_coins);
+        }
     }
 
     public void SetScore(int value)
     {
-        _score = value;
-        ScoreChanged.Execute(_score);
+        if (_score != value)
+        {
+            _score = value;
+            ScoreChanged.Execute(_score);
+        }
     }
 
     public void AllChanged()

@@ -2,55 +2,58 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
+using YG;
 
 [Serializable]
 public class ShopModel
 {
-    private int _tempPalletsCnt = 2;
-    private int _shipPalletsCnt = 1;
+    private int _tempPalletsCnt;
+    private int _shipPalletsCnt;
 
     private List<ParrotsBlockView> _parrotBlockViews;
-    private BaseShipView _shipView;
+    private List<BaseShipView> _shipViews;
 
     public int TempPalletsCount => _tempPalletsCnt;
     public int ShipPalletsCount => _shipPalletsCnt;
-    public IReadOnlyList<ParrotsBlockView> ParrotBlockViews => _parrotBlockViews;
-    public BaseShipView ShipView => _shipView;
+    //public IReadOnlyList<ParrotsBlockView> ParrotBlockViews => _parrotBlockViews;
+    public List<BaseShipView> ShipViews => _shipViews;
 
     public ReactiveCommand<int> TempPalletsCntChanged = new ReactiveCommand<int>();
     public ReactiveCommand<int> ShipPalletsCntChanged = new ReactiveCommand<int>();
     public ReactiveCommand<List<ParrotsBlockView>> ParrotBlockViewsChanged = new ReactiveCommand<List<ParrotsBlockView>>();
     public ReactiveCommand<BaseShipView> ShipViewsChanged = new ReactiveCommand<BaseShipView>();
 
-    public ShopModel(int tempPalletsCount, int shipPalletsCount, List<ParrotsBlockView> parrotBlockViews, BaseShipView shipView)
+    public ShopModel(int tempPalletsCount, int shipPalletsCount, List<BaseShipView> shipViews)
     {
         _tempPalletsCnt = tempPalletsCount;
         _shipPalletsCnt = shipPalletsCount;
-        _parrotBlockViews = parrotBlockViews;
-        _shipView = shipView;
+        //_parrotBlockViews = parrotBlockViews;
+        _shipViews = shipViews;
     }
 
-    public void SetTempPalletsCount(int value)
+    public void SetTempPalletsCount()
     {
-        _tempPalletsCnt = value;
+        _tempPalletsCnt += 1;
         TempPalletsCntChanged.Execute(_tempPalletsCnt);
+        YG2.SaveProgress();
     }
 
-    public void SetShipPalletsCount(int value)
+    public void SetShipPalletsCount()
     {
-        _shipPalletsCnt = value;
+        _shipPalletsCnt+=1;
         TempPalletsCntChanged.Execute(_shipPalletsCnt);
+        YG2.SaveProgress();
     }
 
-    public void SetParrotsViews(List<ParrotsBlockView> parrotBlockViews)
-    {
-        _parrotBlockViews = parrotBlockViews.ToList();
-        ParrotBlockViewsChanged.Execute(_parrotBlockViews);
-    }
+    //public void SetParrotsViews(List<ParrotsBlockView> parrotBlockViews)
+    //{
+    //    _parrotBlockViews = parrotBlockViews.ToList();
+    //    ParrotBlockViewsChanged.Execute(_parrotBlockViews);
+    //}
 
-    public void SetShipView(BaseShipView shipView)
+    public void SetShipView(List<BaseShipView> shipViews)
     {
-        _shipView = shipView;
-        ShipViewsChanged.Execute(_shipView);
+        _shipViews = shipViews.ToList();
+        //ShipViewsChanged.Execute(_shipView);
     }
 }

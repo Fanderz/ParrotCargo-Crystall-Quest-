@@ -16,9 +16,10 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
 
     public IReadOnlyList<ShipPresenter> ShipPresenters => _shipPresenters;
 
-    public void Initialize()
+    public void Initialize(List<BaseShipView> shipViews)
     {
         _shipPresenters = new List<ShipPresenter>();
+        Prefab = shipViews;
     }
 
     public void Spawn()

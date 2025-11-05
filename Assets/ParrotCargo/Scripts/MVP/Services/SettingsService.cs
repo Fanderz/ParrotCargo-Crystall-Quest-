@@ -15,7 +15,6 @@ public class SettingsService : BaseService
 
     public override void Initialize()
     {
-        SettingsModel model = new SettingsModel(YG2.saves.playerSettings.Sound, YG2.saves.playerSettings.Music);
-        _settingsPresenter = new SettingsPresenter(model, _settingsView);
+        _settingsPresenter = new SettingsPresenter(YG2.saves.playerSettings, _settingsView);
     }
 }

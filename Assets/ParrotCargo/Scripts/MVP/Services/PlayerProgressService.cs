@@ -7,13 +7,13 @@ using YG;
 public class PlayerProgressService : BaseService
 {
     [SerializeField] private PlayerProgressView _view;
-    //[SerializeField] private int _increaseValue;
+    //[SerializeField] private int _increaseCoinsValue;
+    //[SerializeField] private int _increaseScoreValue;
 
     private PlayerProgressPresenter _presenter;
 
     public override void Initialize()
     {
-        PlayerProgressModel model = new PlayerProgressModel(YG2.saves.playerProgress.Coins, YG2.saves.playerProgress.Score);
-        _presenter = new PlayerProgressPresenter(model, _view);
+        _presenter = new PlayerProgressPresenter(YG2.saves.playerProgress, _view);
     }
 }

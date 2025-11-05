@@ -14,21 +14,28 @@ namespace Assets.ParrotCargo.Scripts.MVP.Views
         public ReactiveCommand<float> SoundChanged = new ReactiveCommand<float>();
         public ReactiveCommand<float> MusicChanged = new ReactiveCommand<float>();
 
-        private void Start()
+        private void Awake()
         {
-            _saveButton.onClick.AddListener(YG2.SaveProgress);
+            if (YG2.saves.playerSettings != null)
+            {
+                _soundSlider.value = YG2.saves.playerSettings.Sound;
+                _musicSlider.value = YG2.saves.playerSettings.Music;
+            }
         }
 
-        public void SetSound(float value)
+        public void SetSound()
         {
-            _soundSlider.value = value;
             SoundChanged.Execute(_soundSlider.value);
         }
 
-        public void SetMusic(float value)
+        public void SetMusic()
         {
-            _musicSlider.value = value;
             MusicChanged.Execute(_musicSlider.value);
+        }
+
+        public void Save()
+        {
+            YG2.SaveProgress();
         }
     }
 }

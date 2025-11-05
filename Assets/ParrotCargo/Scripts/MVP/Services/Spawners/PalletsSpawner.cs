@@ -7,6 +7,7 @@ public class PalletsSpawner : BaseSpawner<PalletView>
     [SerializeField] private float _incrementX;
 
     private float _xOffset = 0f;
+    private int _platformsCount;
     private DiContainer _container;
     private List<PalletPresenter> _palletPresenters;
 
@@ -17,9 +18,9 @@ public class PalletsSpawner : BaseSpawner<PalletView>
         _palletPresenters = new List<PalletPresenter>();
     }
 
-    public void Spawn()
+    public void Spawn(int palletsCount)
     {
-        for (int i = 0; i < ObjectsMaxCount; i++)
+        for (int i = 0; i < palletsCount; i++)
         {
             Vector3 spawnPosition = new Vector3(SpawnPoints[0].position.x + _xOffset, SpawnPoints[0].position.y, SpawnPoints[0].position.z);
 

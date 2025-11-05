@@ -1,0 +1,71 @@
+{
+  "stringKeys": [],
+  "stringValues": [],
+  "floatKeys": [],
+  "floatValues": [],
+  "intKeys": [],
+  "intValues": [],
+  "intExample": 5,
+  "strExample": "Hello!",
+  "boolExample": [
+    false,
+    false,
+    false,
+    false
+  ],
+  "idSave": 2,
+  "playerProgress": {
+    "CoinsChanged": {
+      "CanExecute": {
+        "Value": true,
+        "HasValue": true
+      },
+      "IsDisposed": false
+    },
+    "ScoreChanged": {
+      "CanExecute": {
+        "Value": true,
+        "HasValue": true
+      },
+      "IsDisposed": false
+    },
+    "Coins": 0,
+    "Score": 0
+  },
+  "playerSettings": {
+    "Sound": 0.7366432,
+    "Music": 1.0
+  },
+  "shopModel": {
+    "TempPalletsCntChanged": {
+      "CanExecute": {
+        "Value": true,
+        "HasValue": true
+      },
+      "IsDisposed": false
+    },
+    "ShipPalletsCntChanged": {
+      "CanExecute": {
+        "Value": true,
+        "HasValue": true
+      },
+      "IsDisposed": false
+    },
+    "ParrotBlockViewsChanged": {
+      "CanExecute": {
+        "Value": true,
+        "HasValue": true
+      },
+      "IsDisposed": false
+    },
+    "ShipViewsChanged": {
+      "CanExecute": {
+        "Value": true,
+        "HasValue": true
+      },
+      "IsDisposed": false
+    },
+    "TempPalletsCount": 2,
+    "ShipPalletsCount": 1
+  }
+}

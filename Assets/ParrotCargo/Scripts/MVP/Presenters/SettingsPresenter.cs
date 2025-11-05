@@ -23,11 +23,6 @@ namespace Assets.ParrotCargo.Scripts.MVP.Presenters
         {
             _view.SoundChanged.Subscribe(value => { _model.SetSound(value); });
             _view.MusicChanged.Subscribe(value => { _model.SetMusic(value); });
-
-            _model.SoundChanged.Subscribe(value => { _view.SetSound(value); });
-            _model.MusicChanged.Subscribe(value => { _view.SetMusic(value); });
-
-            _model.AllChanged();
         }
     }
 }

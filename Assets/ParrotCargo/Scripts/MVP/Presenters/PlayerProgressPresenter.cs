@@ -6,10 +6,15 @@ public class PlayerProgressPresenter
     private PlayerProgressModel _model;
     private PlayerProgressView _view;
 
-    public PlayerProgressPresenter(PlayerProgressModel model, PlayerProgressView view)
+    //private int _increaseCoinsValue;
+    //private int _increaseScoreValue;
+
+    public PlayerProgressPresenter(PlayerProgressModel model, PlayerProgressView view/*, int increaseCoinsValue, int increaseScoreValue*/)
     {
         _model = model;
         _view = view;
+        //_increaseCoinsValue = increaseCoinsValue;
+        //_increaseScoreValue = increaseScoreValue;
 
         Initialize();
     }
@@ -39,5 +44,4 @@ public class PlayerProgressPresenter
     {
         _model.SetScore(_model.Score + increaseValue);
     }
-
 }

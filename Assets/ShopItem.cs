@@ -20,6 +20,7 @@ public class ShopItem : MonoBehaviour
     public void Initialize(ShopItemValues shopItemValues)
     {
         _buttons = new List<Button>();
+        _buttonImages = new List<Image>();
         _headerText.text = shopItemValues.ItemHeader;
         _name = shopItemValues.ItemName;
 

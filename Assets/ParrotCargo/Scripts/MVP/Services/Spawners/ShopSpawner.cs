@@ -34,7 +34,7 @@ public class ShopSpawner : MonoBehaviour
 
     private ShopItem SpawnItem(Transform parent, ShopItemValues values)
     {
-        ShopItem item = Instantiate(values.Prefab, _purchaseParentUI);
+        ShopItem item = Instantiate(values.Prefab, parent);
         item.Initialize(values);
 
         return item;

@@ -13,14 +13,14 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float _progressMultiplier;
 
     private float _currentValue;
-    private float _targetValue;
+    //private float _targetValue;
     private AsyncOperation _sceneLoadingOperation;
     private Coroutine _smoothLoadingCoroutine;
 
     private void Awake()
     {
         _currentValue = 0;
-        _targetValue = 0;
+        //_targetValue = 0;
 
         _loadingSlider.value = _currentValue;
     }

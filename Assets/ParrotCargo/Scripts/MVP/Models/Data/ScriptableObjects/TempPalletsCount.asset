@@ -15,6 +15,6 @@ MonoBehaviour:
   _itemName: TempPalletsCount
   _itemHeaderText: "\u041A\u041E\u041B\u0418\u0427\u0415\u0421\u0422\u0412\u041E
     \u0412\u0420\u0415\u041C\u0415\u041D\u041D\u042B\u0425 \u041F\u0410\u041B\u0415\u0422\u041E\u0412"
-  _itemChildCount: 4
+  _childItemsCount: 4
   _prefab: {fileID: -5457329417436599585, guid: 3da9b84d3148d094b949631de80ab607, type: 3}
   _childItemPrefab: {fileID: 2318617003077104842, guid: 6d2d478435f354446baf9b24cd4202b1, type: 3}

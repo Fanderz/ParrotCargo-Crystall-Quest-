@@ -16,7 +16,7 @@ public class ShipsService : BaseService
 
     public override void Initialize()
     {
-        //_shipSpawner.Initialize();
+        _shipSpawner.Initialize();
         _shipSpawner.CreateObjects();
         _shipSpawner.Spawn();
     }

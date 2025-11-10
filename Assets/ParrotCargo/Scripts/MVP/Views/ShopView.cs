@@ -31,11 +31,14 @@ public class ShopView : MonoBehaviour
         _tempPalletsCapacityStarsImages = new List<Image>();
         _shopItems = shopItems;
 
-        foreach (Button button in _shopItems.Find(item => item.Name == _shipCapacityItemName).Buttons)
+        var findedItems = _shopItems.Find(item => item.Name == _shipCapacityItemName);
+
+        foreach (Button button in findedItems.Buttons)
             button.onClick.AddListener(() => { SetShipStarFilled(button.GetComponent<Image>()); });
 
         foreach (Button button in _shopItems.Find(item => item.Name == _palletsCapacityItemName).Buttons)
             button.onClick.AddListener(() => { SetPalletStarFilled(button.GetComponent<Image>()); });
+
         //foreach (var shipStar in _shipCapacityStars)
         //    _shipCapacityStarsImages.Add(shipStar.GetComponent<Image>());
 

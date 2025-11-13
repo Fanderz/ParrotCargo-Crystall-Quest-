@@ -9,7 +9,8 @@ namespace YG
     public partial class SavesYG
     {
         public int idSave;
-        public PlayerProgressModel playerProgress = new PlayerProgressModel(0, 0);
+        public CoinsModel coinsProgress = new CoinsModel(0);
+        public PointsModel scoreProgress = new PointsModel(0);
         public SettingsModel playerSettings = new SettingsModel(1.0f, 1.0f);
         public ShopModel shopModel = new ShopModel(2, 1, new List<BaseShipView>());
 

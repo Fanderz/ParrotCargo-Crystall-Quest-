@@ -9,6 +9,7 @@ public class SmoothLoaderService : MonoBehaviour
     [SerializeField] private Slider _loadingSlider;
     [SerializeField] private List<GameObject> _startingUI;
     [SerializeField] private GameObject _gameUI;
+    [SerializeField] private GameObject _startUIButtons;
     [SerializeField] private float _startProgress;
     [SerializeField] private int _waitLoadingMiliseconds;
     [SerializeField] [Range(0, 1)] private float _stopProgress;
@@ -29,6 +30,7 @@ public class SmoothLoaderService : MonoBehaviour
     private void LoadCompleted()
     {
         _loadingSlider.gameObject.SetActive(false);
+        _startUIButtons.gameObject.SetActive(true);
 
         foreach (GameObject obj in _startingUI)
             obj.SetActive(false);

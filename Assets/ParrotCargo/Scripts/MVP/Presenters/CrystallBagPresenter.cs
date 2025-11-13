@@ -9,6 +9,7 @@ public class CrystallBagPresenter
     //public BaseCrystallBagView CrystallBag => _view;
 
     public ReactiveCommand<Vector3> BagPicked = new ReactiveCommand<Vector3>();
+    public ReactiveCommand BagReleased = new ReactiveCommand();
 
     public CrystallBagPresenter(BaseCrystallBagView view, BaseCrystallBag model)
     {
@@ -19,6 +20,7 @@ public class CrystallBagPresenter
     public void Initialize()
     {
         _view.Picked.Subscribe(picked => { _model.SetPicked(picked); BagPicked.Execute(_model.StartPosition); });
+        _view.Releasing.Subscribe(released => { BagReleased.Execute(); });
     }
 
     public BaseCrystallBagView GetView()

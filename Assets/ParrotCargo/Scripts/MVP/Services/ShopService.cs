@@ -22,9 +22,4 @@ public class ShopService : BaseService
         _shopPresenter = new ShopPresenter(YG2.saves.shopModel, _view, _shopSpawner.ShopItems.ToList());
         _shopPresenter.Initialize();
     }
-
-    private void Start()
-    {
-        //_shopPresenter.Initialize();
-    }
 }

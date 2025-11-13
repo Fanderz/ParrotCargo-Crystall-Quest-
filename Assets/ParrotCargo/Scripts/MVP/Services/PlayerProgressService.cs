@@ -6,14 +6,24 @@ using YG;
 
 public class PlayerProgressService : BaseService
 {
-    [SerializeField] private PlayerProgressView _view;
-    //[SerializeField] private int _increaseCoinsValue;
-    //[SerializeField] private int _increaseScoreValue;
+    [SerializeField] private CoinsView _coinsView;
+    [SerializeField] private PointsView _pointsView;
+    [SerializeField] private int _crystallBagPrice;
+    [SerializeField] private int _pointsIncreaseValue;
+    [SerializeField] private float _smoothIncreaseWait;
 
-    private PlayerProgressPresenter _presenter;
+    private CoinsPresenter _coinsPresenter;
+    private PointsPresenter _pointsPresenter;
 
     public override void Initialize()
     {
-        _presenter = new PlayerProgressPresenter(YG2.saves.playerProgress, _view);
+        _coinsPresenter = new CoinsPresenter(YG2.saves.coinsProgress, _coinsView, _smoothIncreaseWait);
+        _pointsPresenter = new PointsPresenter(YG2.saves.scoreProgress, _pointsView, _smoothIncreaseWait);
+    }
+
+    public void IncreaseValuesOnBagRelease()
+    {
+        _coinsPresenter.IncreaseCoins(_crystallBagPrice);
+        _pointsPresenter.IncreaseScore(_pointsIncreaseValue);
     }
 }

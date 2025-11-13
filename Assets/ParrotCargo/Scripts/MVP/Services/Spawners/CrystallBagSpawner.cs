@@ -35,14 +35,20 @@ namespace Assets.Scripts.MVP.Services.Spawners
                 var crystallBagView = SpawnObject(startPosition);
                 pallet.TakeBag(crystallBagView);
 
-                crystallBagView.Releasing.Subscribe(bag => { Release(crystallBagView); });;
+                crystallBagView.Releasing.Subscribe(bag => 
+                { 
+                    Release(crystallBagView); 
+                });;
 
                 var crystallBag = new BaseCrystallBag(startPosition);
                 var crystallBagPresenter = new CrystallBagPresenter(crystallBagView, crystallBag);
                 crystallBagPresenter.Initialize();
 
-                crystallBagPresenter.BagPicked.Subscribe(picked => { pallet.RemoveBag();
-                    Spawn(); });
+                crystallBagPresenter.BagPicked.Subscribe(picked => 
+                { 
+                    pallet.RemoveBag();
+                    Spawn(); 
+                });
 
                 _crystallBagPresenters.Add(crystallBagPresenter);
             }

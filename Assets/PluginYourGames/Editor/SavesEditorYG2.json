@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 5,
+  "idSave": 11,
   "playerProgress": {
     "CoinsChanged": {
       "CanExecute": {
@@ -66,7 +66,7 @@
       "IsDisposed": false
     },
     "TempPalletsCount": 2,
-    "ShipPalletsCount": 2,
+    "ShipPalletsCount": 1,
     "ShipViews": []
   }
 }

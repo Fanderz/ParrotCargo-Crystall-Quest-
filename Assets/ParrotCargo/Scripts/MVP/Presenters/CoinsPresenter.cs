@@ -19,6 +19,8 @@ public class CoinsPresenter
     {
         _model.ValueChanged.Subscribe(value => { _view.ChangeValue(value); });
         _view.ValueChanged.Subscribe(value => { _model.ChangeValue(value); });
+
+        _model.Initialize();
     }
 
     public void IncreaseCoins(int increaseValue)
@@ -30,9 +32,4 @@ public class CoinsPresenter
     {
         _model.ChangeValue(_model.Value - price);
     }
-
-    //public void IncreaseScore(int increaseValue)
-    //{
-    //    _model.SetScore(_model.Score + increaseValue);
-    //}
 }

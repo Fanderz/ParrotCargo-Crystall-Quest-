@@ -10781,7 +10781,7 @@ MonoBehaviour:
   _coinsView: {fileID: 1295238656}
   _pointsView: {fileID: 2006628570}
   _crystallBagPrice: 5
-  _pointsIncreaseValue: 0
+  _pointsIncreaseValue: 10
   _smoothIncreaseWait: 0.07
 --- !u!1 &1422415226
 GameObject:

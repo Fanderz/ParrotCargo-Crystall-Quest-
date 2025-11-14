@@ -18,7 +18,10 @@ public class PlayerProgressService : BaseService
     public override void Initialize()
     {
         _coinsPresenter = new CoinsPresenter(YG2.saves.coinsProgress, _coinsView, _smoothIncreaseWait);
-        _pointsPresenter = new PointsPresenter(YG2.saves.scoreProgress, _pointsView, _smoothIncreaseWait);
+        //_coinsPresenter.Initialize();
+
+        _pointsPresenter = new PointsPresenter(YG2.saves.pointsProgress, _pointsView, _smoothIncreaseWait);
+        //_pointsPresenter.Initialize();
     }
 
     public void IncreaseValuesOnBagRelease()

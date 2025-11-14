@@ -9,6 +9,10 @@ public class BaseScoreModel
     public int Value => value;
 
     public ReactiveCommand<int> ValueChanged = new ReactiveCommand<int>();
+    public void Initialize()
+    {
+        ValueChanged.Execute(value);
+    }
 
     public void ChangeValue(int inputValue)
     {
@@ -18,4 +22,5 @@ public class BaseScoreModel
             ValueChanged.Execute(value);
         }
     }
+
 }

@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 55af7dc72941ae743b7819677ade14ea, type: 3}
-  m_PointAction: {fileID: 0}
+  m_PointAction: {fileID: -3752090458336331844, guid: 55af7dc72941ae743b7819677ade14ea, type: 3}
   m_MoveAction: {fileID: 1066410886378161176, guid: 55af7dc72941ae743b7819677ade14ea, type: 3}
   m_SubmitAction: {fileID: 0}
   m_CancelAction: {fileID: 0}
@@ -17268,7 +17268,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 129.35
+  m_fontSize: 134.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -18628,7 +18628,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 71.3
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -22819,7 +22819,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 79.3
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -23198,7 +23198,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 75.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

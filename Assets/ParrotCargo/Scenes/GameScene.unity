@@ -2236,10 +2236,10 @@ MonoBehaviour:
   ObjectsMaxCount: 35
   Parent: {fileID: 1305394695}
   Prefab:
-  - {fileID: 2233463015989501793, guid: 1f0f37c3700c55847985c09e7b5eb29f, type: 3}
-  - {fileID: 7305956170991877311, guid: 527f36e4ea572ee499a6bef3fc5286c1, type: 3}
-  - {fileID: 7747046342810647778, guid: bf25220e11d534644af0426e1f8913ca, type: 3}
-  - {fileID: 9000508234986483803, guid: b996b35fcdcc50949a470cbf65527bbe, type: 3}
+  - {fileID: 7643166696410945410, guid: e804b68c2bc0211469b5eff7f6cf2425, type: 3}
+  - {fileID: 7643166696410945410, guid: 29f3348c3c471c942b51e61cc429d501, type: 3}
+  - {fileID: 7643166696410945410, guid: 0b34dd64cd14df54fb7c77e7d5fea3f0, type: 3}
+  - {fileID: 7643166696410945410, guid: 82b10b29cd8ba0f4b9ed921dfabcc78d, type: 3}
   SpawnPoints:
   - {fileID: 388042819}
   - {fileID: 1331573112}
@@ -17268,7 +17268,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 134.45
+  m_fontSize: 103.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -18628,7 +18628,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 71.3
+  m_fontSize: 90
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -22819,7 +22819,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 79.3
+  m_fontSize: 90
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -23198,7 +23198,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 75.05
+  m_fontSize: 87.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

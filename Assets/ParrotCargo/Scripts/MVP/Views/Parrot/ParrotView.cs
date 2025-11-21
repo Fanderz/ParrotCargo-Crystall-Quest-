@@ -11,6 +11,7 @@ public class ParrotView : MonoBehaviour
     [SerializeField] private Transform _bagPicker;
     [SerializeField] private LayerMask _pickableLayer;
     [SerializeField] private float _bagOffset = 5f;
+    [SerializeField] private Animator _childAnimator;
 
     private int _waitMiliseconds = 1000;
 
@@ -111,6 +112,7 @@ public class ParrotView : MonoBehaviour
 
     public async void CarryBag(Transform targetPalletPosition, bool isTargetShip)
     {
+        _childAnimator.SetTrigger("Flying");
         IsTargetShip = isTargetShip;
         _targetPalletTransform = targetPalletPosition;
 

@@ -9510,17 +9510,18 @@ MonoBehaviour:
   ObjectsMaxCount: 10
   Parent: {fileID: 2103674092}
   Prefab:
-  - {fileID: 4050454724209122404, guid: 704bf75e229b7d149b44640994ce46fb, type: 3}
-  - {fileID: 4050454724209122404, guid: 7f05226836ced164b85c30e34c1ea8c4, type: 3}
-  - {fileID: 4050454724209122404, guid: 54b1f7e775c3d17428cf00b0dfce9119, type: 3}
-  - {fileID: 4050454724209122404, guid: 14ee7fea866496e45bb70c2140e8796b, type: 3}
-  - {fileID: 4050454724209122404, guid: ac9eaa6ccbb582c4db54b3f69787fddf, type: 3}
-  - {fileID: 4050454724209122404, guid: c8600de2cbdf5d242b8f113851d4c695, type: 3}
-  - {fileID: 4050454724209122404, guid: ac9eaa6ccbb582c4db54b3f69787fddf, type: 3}
-  - {fileID: 4050454724209122404, guid: 7f05226836ced164b85c30e34c1ea8c4, type: 3}
-  - {fileID: 4050454724209122404, guid: 54b1f7e775c3d17428cf00b0dfce9119, type: 3}
-  - {fileID: 4050454724209122404, guid: 14ee7fea866496e45bb70c2140e8796b, type: 3}
-  - {fileID: 4050454724209122404, guid: c8600de2cbdf5d242b8f113851d4c695, type: 3}
+  - {fileID: 4050454724209122404, guid: 29daa6163f76668498989d86241155e9, type: 3}
+  - {fileID: 4050454724209122404, guid: 220234089ae2db140bf966b187353074, type: 3}
+  - {fileID: 4050454724209122404, guid: da0ec86212d604245988402db69abfec, type: 3}
+  - {fileID: 4050454724209122404, guid: 650d04f009a94b44fa34674c4a077397, type: 3}
+  - {fileID: 4050454724209122404, guid: 9ee87ba4ae52a524bad268b99155d35f, type: 3}
+  - {fileID: 4050454724209122404, guid: e5162dcf69df6f0489c256038b91b69e, type: 3}
+  - {fileID: 4050454724209122404, guid: da0ec86212d604245988402db69abfec, type: 3}
+  - {fileID: 4050454724209122404, guid: 29daa6163f76668498989d86241155e9, type: 3}
+  - {fileID: 4050454724209122404, guid: 9ee87ba4ae52a524bad268b99155d35f, type: 3}
+  - {fileID: 4050454724209122404, guid: 220234089ae2db140bf966b187353074, type: 3}
+  - {fileID: 4050454724209122404, guid: e5162dcf69df6f0489c256038b91b69e, type: 3}
+  - {fileID: 4050454724209122404, guid: 650d04f009a94b44fa34674c4a077397, type: 3}
   SpawnPoints:
   - {fileID: 1145403416}
   - {fileID: 1060022939}
@@ -12264,7 +12265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1276149, y: 0.08046716}
   m_AnchorMax: {x: 0.48563975, y: 0.43752348}
-  m_AnchoredPosition: {x: 0.32495117, y: -5.5}
+  m_AnchoredPosition: {x: 0.32495117, y: -5.500122}
   m_SizeDelta: {x: 1.742096, y: 6.847412}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1615825106
@@ -16937,7 +16938,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 82.35
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -17637,7 +17638,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 138.3
+  m_fontSize: 111.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -18918,7 +18919,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 59
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19248,7 +19249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1118973, y: 0.35855767}
   m_AnchorMax: {x: 0.37800002, y: 0.48600003}
-  m_AnchoredPosition: {x: 0.5004883, y: -3.418457}
+  m_AnchoredPosition: {x: 0.5005188, y: -3.418457}
   m_SizeDelta: {x: 7, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3039092343436356717
@@ -23042,7 +23043,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 82.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -29,7 +29,7 @@ public class BaseScoreView : MonoBehaviour
         if (smoothIncreaserValueCoroutine != null)
             StopCoroutine(smoothIncreaserValueCoroutine);
 
-        if (smoothWait != null)
+        if (smoothWait != null && this.gameObject.activeSelf)
             smoothIncreaserValueCoroutine = StartCoroutine(SmoothIncreaser(valueView, Convert.ToInt32(valueView.text), value));
         else
             valueView.text = value.ToString();

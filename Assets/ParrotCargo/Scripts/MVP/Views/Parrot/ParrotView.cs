@@ -48,6 +48,7 @@ public class ParrotView : MonoBehaviour
     {
         CanPick = false;
         HaveBag = false;
+        //_childAnimator.SetTrigger("Sitting");
     }
 
     private void FixedUpdate()
@@ -152,6 +153,7 @@ public class ParrotView : MonoBehaviour
 
     private async void SitWithBag()
     {
+        _childAnimator.SetTrigger("Sitting");
         Vector3 targetPosition = _targetPalletTransform.position;
         targetPosition.y += _bagOffset;
 

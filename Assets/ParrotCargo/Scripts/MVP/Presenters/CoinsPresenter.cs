@@ -1,5 +1,7 @@
 using UnityEngine;
 using UniRx;
+using static UnityEngine.Rendering.DebugUI;
+using YG;
 
 public class CoinsPresenter
 {
@@ -18,7 +20,7 @@ public class CoinsPresenter
     public void Initialize()
     {
         _model.ValueChanged.Subscribe(value => { _view.ChangeValue(value); });
-        _view.ValueChanged.Subscribe(value => { _model.ChangeValue(value); });
+        //_view.ValueChanged.Subscribe(value => { _model.ChangeValue(value); });
 
         _model.Initialize();
     }

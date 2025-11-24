@@ -29,7 +29,7 @@ public class BaseScoreView : MonoBehaviour
         if (smoothIncreaserValueCoroutine != null)
             StopCoroutine(smoothIncreaserValueCoroutine);
 
-        if (smoothWait != null && this.gameObject.activeSelf)
+        if (smoothWait != null && this.gameObject.activeInHierarchy)
             smoothIncreaserValueCoroutine = StartCoroutine(SmoothIncreaser(valueView, Convert.ToInt32(valueView.text), value));
         else
             valueView.text = value.ToString();
@@ -39,7 +39,7 @@ public class BaseScoreView : MonoBehaviour
 
     private IEnumerator SmoothIncreaser(TextMeshProUGUI textView, int startValue, int endValue)
     {
-        while (startValue != endValue)
+        while (startValue != endValue && this.gameObject.activeInHierarchy)
         {
             startValue += 1;
             textView.text = startValue.ToString();

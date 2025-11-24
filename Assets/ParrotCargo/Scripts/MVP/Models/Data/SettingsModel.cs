@@ -11,7 +11,7 @@ namespace Assets.ParrotCargo.Scripts.MVP.Models.Data
         private float _musicValue;
 
         public float Sound { get { return _soundValue; } set { _soundValue = value; } }
-        public float Music => _musicValue;
+        public float Music { get { return _musicValue; } set { _musicValue = value; } }
 
         public SettingsModel(float soundValue, float musicValue)
         {

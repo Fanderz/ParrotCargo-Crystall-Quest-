@@ -21,6 +21,8 @@ namespace Assets.ParrotCargo.Scripts.MVP.Presenters
 
         public void Initialize()
         {
+            _view.Initialize(_model);
+
             _view.SoundChanged.Subscribe(value => { _model.SetSound(value); });
             _view.MusicChanged.Subscribe(value => { _model.SetMusic(value); });
         }

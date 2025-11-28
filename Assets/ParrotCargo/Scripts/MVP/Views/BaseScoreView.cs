@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UniRx;
 using UnityEngine;
+using UniRx;
+using TMPro;
+using Unity.VisualScripting;
 
 public class BaseScoreView : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI valueView;
 
     protected bool isIncreasingValue;
+    protected int targetValue;
 
     protected WaitForSeconds smoothWait;
 
@@ -24,17 +25,21 @@ public class BaseScoreView : MonoBehaviour
 
     public void ChangeValue(int value)
     {
-        isIncreasingValue = true;
+        if (this.IsDestroyed() == false)
+        {
+            isIncreasingValue = true;
+            targetValue = value;
 
-        if (smoothIncreaserValueCoroutine != null)
-            StopCoroutine(smoothIncreaserValueCoroutine);
+            if (smoothIncreaserValueCoroutine != null)
+                StopCoroutine(smoothIncreaserValueCoroutine);
 
-        if (smoothWait != null && this.gameObject.activeInHierarchy)
-            smoothIncreaserValueCoroutine = StartCoroutine(SmoothIncreaser(valueView, Convert.ToInt32(valueView.text), value));
-        else
-            valueView.text = value.ToString();
-
-        ValueChanged.Execute(value);
+            if (smoothWait != null && this.gameObject.activeInHierarchy)
+                smoothIncreaserValueCoroutine = StartCoroutine(SmoothIncreaser(valueView, Convert.ToInt32(valueView.text), value));
+            else
+                valueView.text = value.ToString();
+            
+            ValueChanged.Execute(value);
+        }
     }
 
     private IEnumerator SmoothIncreaser(TextMeshProUGUI textView, int startValue, int endValue)
@@ -51,5 +56,6 @@ public class BaseScoreView : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+        valueView.text = targetValue.ToString();
     }
 }

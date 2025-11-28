@@ -2,10 +2,17 @@ using UnityEngine;
 using System.Collections.Generic;
 using Zenject;
 using System;
+using System.Linq;
 
 public class EntryPoint : MonoInstaller
 {
     [SerializeField] private List<BaseService> _services;
+
+    private void Awake()
+    {
+        //foreach (BaseService service in _services)
+        //    DontDestroyOnLoad(service);
+    }
 
     public override void InstallBindings()
     {

@@ -1,6 +1,5 @@
 ﻿using Assets.ParrotCargo.Scripts.MVP.Models.Data;
 using Assets.ParrotCargo.Scripts.MVP.Views;
-using YG;
 using UniRx;
 
 namespace Assets.ParrotCargo.Scripts.MVP.Presenters
@@ -16,7 +15,6 @@ namespace Assets.ParrotCargo.Scripts.MVP.Presenters
             _view = view;
 
             Initialize();
-
         }
 
         public void Initialize()

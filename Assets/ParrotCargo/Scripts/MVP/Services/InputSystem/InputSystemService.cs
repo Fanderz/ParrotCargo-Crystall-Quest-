@@ -18,6 +18,9 @@ public class InputSystemService : BaseService
         _mouseClick.Enable();
         _mouseClick.performed += MousePressed;
         _mouseClick.canceled += MousePressCanceled;
+
+        //DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(_camera);
     }
 
     private void MousePressed(InputAction.CallbackContext ctx)
@@ -63,5 +66,11 @@ public class InputSystemService : BaseService
 
             yield return null;
         }
+    }
+
+    private void OnDestroy()
+    {
+        _mouseClick.performed -= MousePressed;
+        _mouseClick.canceled -= MousePressCanceled;
     }
 }

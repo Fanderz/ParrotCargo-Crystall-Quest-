@@ -20,7 +20,6 @@ public class CoinsPresenter
     public void Initialize()
     {
         _model.ValueChanged.Subscribe(value => { _view.ChangeValue(value); });
-        //_view.ValueChanged.Subscribe(value => { _model.ChangeValue(value); });
 
         _model.Initialize();
     }

@@ -147,6 +147,7 @@ public class ParrotView : MonoBehaviour
 
         HaveBag = false;
         DroppedBag.Execute(HaveBag);
+        _agent.isStopped = true;
         SetActive(false);
         Reset();
     }

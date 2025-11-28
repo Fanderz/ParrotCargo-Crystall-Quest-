@@ -11,10 +11,24 @@ public class SettingsService : BaseService
 {
     [SerializeField] private SettingsView _settingsView;
 
+    private SettingsModel _settingsModel;
     private SettingsPresenter _settingsPresenter;
-
     public override void Initialize()
     {
-        _settingsPresenter = new SettingsPresenter(YG2.saves.playerSettings, _settingsView);
+        _settingsModel = YG2.saves.playerSettings;
+
+        _settingsPresenter = new SettingsPresenter(_settingsModel, _settingsView);
+    }
+
+    public void SetSettings()
+    {
+        YG2.saves.playerSettings.Sound = _settingsModel.Sound;
+        YG2.saves.playerSettings.Music = _settingsModel.Music;
+    }
+
+    public void SaveSettings()
+    {
+        SetSettings();
+        YG2.SaveProgress();
     }
 }

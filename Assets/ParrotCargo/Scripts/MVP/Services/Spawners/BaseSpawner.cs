@@ -1,7 +1,5 @@
-using UnityEngine;
-using Rand = UnityEngine.Random;
 using System.Collections.Generic;
-using Zenject;
+using UnityEngine;
 
 public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -30,9 +28,10 @@ public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
         if (parent != null)
             Parent = parent;
 
-        var prefab = Prefab[Rand.Range(0, Prefab.Count)];
-
-        var obj = Pool.Get(prefab, Parent);
+        var randomIndex = Random.Range(0, Prefab.Count);
+        var prefab = Prefab[randomIndex];
+        
+        var  obj = Pool.Get(prefab, Parent);
 
         if (obj != null)
         {

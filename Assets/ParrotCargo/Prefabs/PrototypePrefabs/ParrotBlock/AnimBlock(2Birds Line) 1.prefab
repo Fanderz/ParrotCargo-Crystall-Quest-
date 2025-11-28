@@ -52,6 +52,7 @@ MonoBehaviour:
   _parrots:
   - {fileID: 4352273473272713788}
   - {fileID: 8182875654518643791}
+  _typeParrotsBlock: 1
 --- !u!114 &6808225386207718567
 MonoBehaviour:
   m_ObjectHideFlags: 0

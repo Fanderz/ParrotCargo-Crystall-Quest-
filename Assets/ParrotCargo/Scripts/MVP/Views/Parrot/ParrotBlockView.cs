@@ -1,13 +1,14 @@
-using UnityEngine;
-using UniRx;
 using System.Collections.Generic;
-using System;
-using System.Collections;
+using UnityEngine;
+
+using UniRx;
 
 public class ParrotsBlockView : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] private float _zOffsetOnPick;
     [SerializeField] private List<ParrotView> _parrots;
+    [SerializeField] private TypeParrotsBlock _typeParrotsBlock;
 
     private Vector3 _startPosition;
     private float _zPickingValue;
@@ -20,6 +21,7 @@ public class ParrotsBlockView : MonoBehaviour
 
     public bool IsMoving { get; private set; }
     public bool CanPickBag { get; private set; }
+    public TypeParrotsBlock TypeParrotsBlock => _typeParrotsBlock;
 
     public ReactiveCommand<Vector3> BlockMoving = new ReactiveCommand<Vector3>();
     public ReactiveCommand<bool> Movable = new ReactiveCommand<bool>();

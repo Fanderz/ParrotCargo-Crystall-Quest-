@@ -62,7 +62,7 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
     protected override void CreatePool()
     {
         if (Pool == null)
-            Pool = new BasePool<ParrotsBlockView>(ObjectsMaxCount, Parent, _container);
+            Pool = new PoolParrotsBlock(ObjectsMaxCount, Parent, _container);
     }
 
     [Inject]

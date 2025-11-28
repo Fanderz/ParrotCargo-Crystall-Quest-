@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 using Zenject;
 
 public class BasePool<T> where T : MonoBehaviour
@@ -8,7 +9,7 @@ public class BasePool<T> where T : MonoBehaviour
 
     private readonly Transform _parent;
 
-    private List<T> _objects;
+    protected List<T> _objects;
     private DiContainer _container;
 
     public BasePool(int maxSize, Transform parent, DiContainer container)
@@ -28,7 +29,7 @@ public class BasePool<T> where T : MonoBehaviour
     {
         foreach (T obj in _objects)
         {
-            if (obj.gameObject.activeSelf == false)
+            if (TryCheckGetObjectPool(obj, prefab))
             {
                 obj.transform.SetParent(parent);
                 return obj;
@@ -55,8 +56,9 @@ public class BasePool<T> where T : MonoBehaviour
             obj.gameObject.SetActive(false);
     }
 
+    protected virtual bool TryCheckGetObjectPool(T obj, T prefab)
+        => obj.gameObject.activeSelf == false;
+
     private T Create(T prefab, Transform parent = null)
-    {
-        return _container.InstantiatePrefabForComponent<T>(prefab, parent);
-    }
+        => _container.InstantiatePrefabForComponent<T>(prefab, parent);
 }

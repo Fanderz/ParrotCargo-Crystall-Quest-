@@ -54,6 +54,7 @@ MonoBehaviour:
   - {fileID: 9019581615941518624}
   - {fileID: 2498877137617370259}
   - {fileID: 3053683181585903194}
+  _typeParrotsBlock: 4
 --- !u!114 &6808225386207718567
 MonoBehaviour:
   m_ObjectHideFlags: 0

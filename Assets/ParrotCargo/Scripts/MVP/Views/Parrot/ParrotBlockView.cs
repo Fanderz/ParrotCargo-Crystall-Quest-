@@ -52,7 +52,7 @@ public class ParrotsBlockView : MonoBehaviour
             StopCoroutine(_sittingWithBagCoroutine);
     }
 
-    public void Initialize()
+    public void Initialize(GameObject prefabBird)
     {
         _startPosition = transform.position;
         _zPickingValue = transform.position.z - _zOffsetOnPick / 2;
@@ -61,6 +61,15 @@ public class ParrotsBlockView : MonoBehaviour
         //Activation.Execute(gameObject.activeSelf);
         _draggableBlock = GetComponent<DraggableParrotBlock>();
         GetComponent<BoxCollider>().enabled = true;
+
+        foreach (var parrotView in _parrots)
+        {
+            var bird = Instantiate(prefabBird, parrotView.transform);
+            var birdAnimator = bird.GetComponent<Animator>();
+
+            if (birdAnimator != null)
+                parrotView.SetChaildAnimator(birdAnimator);
+        }
     }
 
     public void MoveBlock(Vector3 newPosition)

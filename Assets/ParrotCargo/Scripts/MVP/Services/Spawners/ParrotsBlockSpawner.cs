@@ -1,16 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UniRx;
-using UnityEngine.UI;
 using Zenject;
-using System;
 
 public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 {
     //_xIncrement = 26f;
     //[SerializeField] private int _activeObjectsMaxCount = 3;
     [SerializeField] private int _ySpawnOffset = 3;
+    [SerializeField] private SkinBirdService _skinBirdService;
 
     private DiContainer _container;
     private List<ParrotBlockPresenter> _parrotBlockPresenters;
@@ -40,7 +39,7 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
             spawnPoint.GetBirds();
 
             var parrotBlockView = SpawnObject(spawnPosition);
-            parrotBlockView.Initialize();
+            parrotBlockView.Initialize(_skinBirdService.CurrentBird.PrefabBird);
             var parrotBlock = new ParrotBlock(parrotBlockView.GetComponent<Transform>());
             var parrotBlockPresenter = new ParrotBlockPresenter(parrotBlock, parrotBlockView);
             parrotBlockPresenter.Initialize();

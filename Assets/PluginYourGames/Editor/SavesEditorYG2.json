@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 139,
+  "idSave": 140,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -68,7 +68,8 @@
       "IsDisposed": false
     },
     "TempPalletsCount": 2,
-    "ShipPalletsCount": 1,
+    "ShipPalletsCount": 2,
     "ShipViews": []
-  }
+  },
+  "currentTypeBird": 1
 }

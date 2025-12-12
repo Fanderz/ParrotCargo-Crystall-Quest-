@@ -1140,6 +1140,7 @@ Transform:
   - {fileID: 989846438}
   - {fileID: 420218715}
   - {fileID: 914918346}
+  - {fileID: 1286349878}
   - {fileID: 562751468}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1645,6 +1646,7 @@ MonoBehaviour:
   - {fileID: 420218716}
   - {fileID: 989846439}
   - {fileID: 1611381664}
+  - {fileID: 1286349877}
   - {fileID: 481253839}
 --- !u!1 &216243036
 GameObject:
@@ -8888,6 +8890,7 @@ MonoBehaviour:
   - {fileID: 1060022939}
   - {fileID: 356335953}
   _ySpawnOffset: 3
+  _skinBirdService: {fileID: 1286349877}
 --- !u!1 &1165613867
 GameObject:
   m_ObjectHideFlags: 0
@@ -9895,6 +9898,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8804679832370006416, guid: 5c8f27d3b582caa489371ee9051bf84c, type: 3}
   m_PrefabInstance: {fileID: 1272990436}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1286349876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1286349878}
+  - component: {fileID: 1286349877}
+  m_Layer: 0
+  m_Name: SkinBirdService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1286349877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286349876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022d8451f8e17a148b757767d509a881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _birdsPrefab:
+  - {fileID: 11400000, guid: b817a5958899d8a439bf9039debd1fda, type: 2}
+  - {fileID: 11400000, guid: 9999954b10ae69545b6852852e7006ba, type: 2}
+--- !u!4 &1286349878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286349876}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 158864309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1295238654
 GameObject:
   m_ObjectHideFlags: 0

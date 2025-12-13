@@ -1,8 +1,6 @@
-﻿
+﻿using System.Collections.Generic;
+
 using Assets.ParrotCargo.Scripts.MVP.Models.Data;
-using System;
-using System.Collections.Generic;
-using UniRx.Diagnostics;
 
 namespace YG
 {
@@ -15,5 +13,6 @@ namespace YG
         public ShopModel shopModel = new ShopModel(
             new List<UpgradeShopItemModel> { new UpgradeShopItemModel(2), new UpgradeShopItemModel(1) }, 
             new List<BaseShipView>());
+        public TypeBird currentTypeBird = TypeBird.Pigeon;
     }
 }

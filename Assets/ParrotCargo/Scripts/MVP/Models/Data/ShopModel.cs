@@ -7,43 +7,39 @@ using YG;
 [Serializable]
 public class ShopModel
 {
-    private int _tempPalletsCnt;
-    private int _shipPalletsCnt;
-
+    private List<UpgradeShopItemModel> _upgradeItems;
     private List<ParrotsBlockView> _parrotBlockViews;
     private List<BaseShipView> _shipViews;
 
-    public int TempPalletsCount => _tempPalletsCnt;
-    public int ShipPalletsCount => _shipPalletsCnt;
     //public IReadOnlyList<ParrotsBlockView> ParrotBlockViews => _parrotBlockViews;
     public List<BaseShipView> ShipViews => _shipViews;
+    public int TempPalletsCnt => _upgradeItems[0].ObjectsCnt;
 
-    public ReactiveCommand<int> TempPalletsCntChanged = new ReactiveCommand<int>();
-    public ReactiveCommand<int> ShipPalletsCntChanged = new ReactiveCommand<int>();
+    public ReactiveCommand UpgradeItemChanged = new ReactiveCommand();
+
     public ReactiveCommand<List<ParrotsBlockView>> ParrotBlockViewsChanged = new ReactiveCommand<List<ParrotsBlockView>>();
     public ReactiveCommand<BaseShipView> ShipViewsChanged = new ReactiveCommand<BaseShipView>();
 
-    public ShopModel(int tempPalletsCount, int shipPalletsCount, List<BaseShipView> shipViews)
+    public ShopModel(List<UpgradeShopItemModel> upgradeItems, List<BaseShipView> shipViews)
     {
-        _tempPalletsCnt = tempPalletsCount;
-        _shipPalletsCnt = shipPalletsCount;
+        _upgradeItems = upgradeItems;
         //_parrotBlockViews = parrotBlockViews;
         _shipViews = shipViews;
     }
 
-    public void SetTempPalletsCount()
-    {
-        _tempPalletsCnt += 1;
-        TempPalletsCntChanged.Execute(_tempPalletsCnt);
-        YG2.SaveProgress();
-    }
+    //public void SetTempPalletsCount()
+    //{
+    //    _tempPalletsCnt += 1;
+    //    TempPalletsCntChanged.Execute(_tempPalletsCnt);
+    //    YG2.SaveProgress();
+    //}
 
-    public void SetShipPalletsCount()
-    {
-        _shipPalletsCnt+=1;
-        TempPalletsCntChanged.Execute(_shipPalletsCnt);
-        YG2.SaveProgress();
-    }
+    //public void SetShipPalletsCount()
+    //{
+    //    _shipPalletsCnt+=1;
+    //    TempPalletsCntChanged.Execute(_shipPalletsCnt);
+    //    YG2.SaveProgress();
+    //}
 
     //public void SetParrotsViews(List<ParrotsBlockView> parrotBlockViews)
     //{

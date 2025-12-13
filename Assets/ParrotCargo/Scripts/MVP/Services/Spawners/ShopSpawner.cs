@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 public class ShopSpawner : MonoBehaviour
@@ -15,20 +16,34 @@ public class ShopSpawner : MonoBehaviour
 
     public IReadOnlyList<ShopItem> ShopItems => _items;
 
+    public ReactiveCommand<int> PurchaseCommand = new ReactiveCommand<int>();
+
     public void Spawn()
     {
         _items = new List<ShopItem>();
 
-        foreach (var item in _upgradeItemValues)
+        SpawnItems(_upgradesParentUI, _upgradeItemValues);
+        SpawnItems(_purchaseParentUI, _purchaseItemValues);
+    }
+
+    private void SpawnItems(Transform parent, List<ShopItemValues> items)
+    {
+        foreach (var item in items)
         {
-            var obj = SpawnItem(_upgradesParentUI, item);
+            var obj = SpawnItem(parent, item);
+            obj.Initialize(item);
             _items.Add(obj);
         }
+    }
 
-        foreach (var item in _purchaseItemValues)
+    private void Subscribes(ShopItem item)
+    {
+        if(item is UpgradesShopItem)
         {
-            var obj = SpawnItem(_purchaseParentUI, item);
-            _items.Add(obj);
+            UpgradesShopItem newItem = (UpgradesShopItem)item;
+
+            foreach (var subItem in newItem.SubItems)
+                subItem.StarFilledCommand.Subscribe(price => { PurchaseCommand.Execute(price); });
         }
     }
 

@@ -36,7 +36,6 @@ public class PlayerProgressService : BaseService
         _shopCoinsPresenter = new CoinsPresenter(YG2.saves.coinsProgress,  _shopCoinsView, _smoothChangeWait);
         _gameCoinsPresenter = new CoinsPresenter(_gameCoinsModel, _gameCoinsView, _smoothChangeWait);
 
-
         _gamePointsPresenter = new PointsPresenter(_pointsModel, _gamePointsView, _smoothChangeWait);
         //_lederboardPointsPresenter = new PointsPresenter(YG2.saves.pointsProgress, _leaderbordPointsView, _smoothChangeWait);
     }
@@ -44,9 +43,12 @@ public class PlayerProgressService : BaseService
     public void IncreaseValuesOnBagRelease()
     {
         _gameCoinsPresenter.IncreaseCoins(_crystallBagPrice);
-        //_shopCoinsPresenter.IncreaseCoins(_crystallBagPrice);
-
         _gamePointsPresenter.IncreaseScore(_pointsIncreaseValue);
+    }
+
+    public void DecreaseOnPurchase(int price)
+    {
+        _gameCoinsPresenter.DecreaseCoins(price);
     }
 
     public void SaveProgress()
@@ -60,9 +62,6 @@ public class PlayerProgressService : BaseService
 
     public async void ResetProgress()
     {
-        ////TODO: Сброс прогресса игры при выходе в главное меню из игры. Как сбросить корабли, мешочки и птичек???
-        ///
-
         SceneManager.LoadScene("GameScene");
     }
 }

@@ -14,6 +14,6 @@ public class PalletService : BaseService
     public override void Initialize()
     {
         _palletSpawner.Initialize();
-        _palletSpawner.Spawn(_shopSettings.ShopPresenter.ShopModel.TempPalletsCount);
+        _palletSpawner.Spawn(_shopSettings.ShopPresenter.ShopModel.TempPalletsCnt);
     }
 }

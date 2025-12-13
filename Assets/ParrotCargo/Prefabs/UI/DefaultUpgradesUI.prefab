@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9177807125317615092}
-  - component: {fileID: -5457329417436599585}
+  - component: {fileID: 6989523096462491045}
   m_Layer: 5
   m_Name: DefaultUpgradesUI
   m_TagString: Untagged
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 1114, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-5457329417436599585
+--- !u!114 &6989523096462491045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,11 +47,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 946728537140087744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6d635c7f92456d448d59b61a7793828, type: 3}
+  m_Script: {fileID: 11500000, guid: f9fdc486151c5d54cb45e2666361fb17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grid: {fileID: 8557027001724526263}
-  _headerText: {fileID: 7121860662885362182}
+  grid: {fileID: 8557027001724526263}
+  headerText: {fileID: 7121860662885362182}
+  _upgradesCnt: 2
 --- !u!1 &1442937199727562922
 GameObject:
   m_ObjectHideFlags: 0

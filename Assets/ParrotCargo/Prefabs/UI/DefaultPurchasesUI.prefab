@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d635c7f92456d448d59b61a7793828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grid: {fileID: 8557027001724526263}
-  _headerText: {fileID: 7121860662885362182}
+  grid: {fileID: 8557027001724526263}
+  headerText: {fileID: 7121860662885362182}
 --- !u!1 &1442937199727562922
 GameObject:
   m_ObjectHideFlags: 0

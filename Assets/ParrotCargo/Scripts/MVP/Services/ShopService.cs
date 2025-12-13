@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using YG;
+using Zenject;
+using UniRx;
 
 public class ShopService : BaseService
 {
@@ -11,6 +13,8 @@ public class ShopService : BaseService
     [SerializeField] private List<ShipSetting> _ship;
     [SerializeField] private ShopSpawner _shopSpawner;
 
+    [Inject] PlayerProgressService _playerProgressService;
+
     private ShopPresenter _shopPresenter;
 
     public ShopPresenter ShopPresenter => _shopPresenter;
@@ -18,6 +22,7 @@ public class ShopService : BaseService
     public override void Initialize()
     {
         _shopSpawner.Spawn();
+        _shopSpawner.PurchaseCommand.Subscribe(price => { _playerProgressService.DecreaseOnPurchase(price); });
 
         _shopPresenter = new ShopPresenter(YG2.saves.shopModel, _view, _shopSpawner.ShopItems.ToList());
         _shopPresenter.Initialize();

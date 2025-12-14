@@ -2371,31 +2371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9b2b79384b2a8488c3e05df9571bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipCapacityItemName: {fileID: 0}
-  _palletsCapacityItemName: {fileID: 0}
-  _shipViewsItemName: {fileID: 0}
-  _parrotViewsItemName: {fileID: 0}
-  _shipCapacityStars:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _tempPalletsCapacityStars:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _shipViews:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _parrotViews:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _shopItems: []
   _filledStarSprite: {fileID: 1156858509, guid: c98907908c4af3b4db4f75742d52fcc6, type: 3}
 --- !u!1 &293212724
 GameObject:
@@ -10696,6 +10671,8 @@ MonoBehaviour:
   _pointsIncreaseValue: 10
   _smoothChangeWait: 0.07
   _settingService: {fileID: 1736250304}
+  _shopService: {fileID: 1701543416}
+  _palletService: {fileID: 989846439}
 --- !u!1 &1422415226
 GameObject:
   m_ObjectHideFlags: 0
@@ -17061,31 +17038,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9b2b79384b2a8488c3e05df9571bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipCapacityItemName: {fileID: 0}
-  _palletsCapacityItemName: {fileID: 0}
-  _shipViewsItemName: {fileID: 0}
-  _parrotViewsItemName: {fileID: 0}
-  _shipCapacityStars:
-  - {fileID: 7476201845347789833}
-  - {fileID: 4270238238082881259}
-  - {fileID: 2588263565302617484}
-  - {fileID: 9109639842145817662}
-  _tempPalletsCapacityStars:
-  - {fileID: 1101789653085525317}
-  - {fileID: 2898870795708782509}
-  - {fileID: 8105843605087764391}
-  - {fileID: 1787281592356481507}
-  _shipViews:
-  - {fileID: 7228692367526212358}
-  - {fileID: 9186415620183072174}
-  - {fileID: 8202441675706567846}
-  - {fileID: 8958872242786838389}
-  _parrotViews:
-  - {fileID: 6155332975016775077}
-  - {fileID: 8425234326385533419}
-  - {fileID: 7493781666010591992}
-  - {fileID: 8718243769812371183}
-  _shopItems: []
   _filledStarSprite: {fileID: 1156858509, guid: c98907908c4af3b4db4f75742d52fcc6, type: 3}
 --- !u!1 &1356321000486275684
 GameObject:

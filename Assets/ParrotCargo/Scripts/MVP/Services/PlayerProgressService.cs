@@ -20,6 +20,12 @@ public class PlayerProgressService : BaseService
     [Header("Sounds Setts")]
     [SerializeField] private SettingsService _settingService;
 
+    [Header("Shop Setts")]
+    [SerializeField] private ShopService _shopService;
+
+    [Header("Pallet Setts")]
+    [SerializeField] private PalletService _palletService;
+
     private CoinsModel _gameCoinsModel;
     private PointsModel _pointsModel;
 
@@ -48,19 +54,22 @@ public class PlayerProgressService : BaseService
 
     public void DecreaseOnPurchase(int price)
     {
-        _gameCoinsPresenter.DecreaseCoins(price);
+        _shopCoinsPresenter.DecreaseCoins(price);
+        SaveProgress();
     }
 
     public void SaveProgress()
     {
         YG2.saves.coinsProgress.Value += _gameCoinsModel.Value;
         YG2.saves.pointsProgress.Value += _pointsModel.Value;
-        _settingService.SetSettings();
+        _settingService.OnSave();
+        _shopService.OnSave();
+        _palletService.OnSave();
 
         YG2.SaveProgress();
     }
 
-    public async void ResetProgress()
+    public void ResetProgress()
     {
         SceneManager.LoadScene("GameScene");
     }

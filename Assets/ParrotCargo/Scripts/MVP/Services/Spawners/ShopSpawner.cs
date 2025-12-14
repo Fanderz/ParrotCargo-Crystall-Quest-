@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class ShopSpawner : MonoBehaviour
 {
-    //[SerializeField] private ShopItem _upgradesItemPrefab;
-    //[SerializeField] private ShopItem _purchasesItemPrefab;
     [SerializeField] private List<ShopItemValues> _upgradeItemValues;
     [SerializeField] private List<ShopItemValues> _purchaseItemValues;
     [SerializeField] private Transform _upgradesParentUI;
@@ -28,30 +26,28 @@ public class ShopSpawner : MonoBehaviour
 
     private void SpawnItems(Transform parent, List<ShopItemValues> items)
     {
-        foreach (var item in items)
+        foreach (ShopItemValues itemValues in items)
         {
-            var obj = SpawnItem(parent, item);
-            obj.Initialize(item);
-            _items.Add(obj);
+            ShopItem shopItem = SpawnItem(parent, itemValues);
+            shopItem.Initialize(itemValues);
+            //Subscribes(shopItem);
+            _items.Add(shopItem);
         }
     }
 
-    private void Subscribes(ShopItem item)
-    {
-        if(item is UpgradesShopItem)
-        {
-            UpgradesShopItem newItem = (UpgradesShopItem)item;
+    //private void Subscribes(ShopItem item)
+    //{
+    //    if(item is UpgradesShopItem)
+    //    {
+    //        UpgradesShopItem newItem = (UpgradesShopItem)item;
 
-            foreach (var subItem in newItem.SubItems)
-                subItem.StarFilledCommand.Subscribe(price => { PurchaseCommand.Execute(price); });
-        }
-    }
+    //        foreach (UpgradeShopSubItem subItem in newItem.SubItems)
+    //            subItem.PurchaseCommand.Subscribe(price => { PurchaseCommand.Execute(price); });
+    //    }
+    //}
 
     private ShopItem SpawnItem(Transform parent, ShopItemValues values)
     {
-        ShopItem item = Instantiate(values.Prefab, parent);
-        item.Initialize(values);
-
-        return item;
+        return Instantiate(values.Prefab, parent); ;
     }
 }

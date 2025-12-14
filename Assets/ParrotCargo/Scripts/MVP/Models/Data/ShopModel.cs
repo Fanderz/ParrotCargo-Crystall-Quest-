@@ -13,6 +13,8 @@ public class ShopModel
 
     //public IReadOnlyList<ParrotsBlockView> ParrotBlockViews => _parrotBlockViews;
     public List<BaseShipView> ShipViews => _shipViews;
+
+    public IReadOnlyList<UpgradeShopItemModel> UpgradeItems => _upgradeItems;
     public int TempPalletsCnt => _upgradeItems[0].ObjectsCnt;
 
     public ReactiveCommand UpgradeItemChanged = new ReactiveCommand();
@@ -23,29 +25,13 @@ public class ShopModel
     public ShopModel(List<UpgradeShopItemModel> upgradeItems, List<BaseShipView> shipViews)
     {
         _upgradeItems = upgradeItems;
-        //_parrotBlockViews = parrotBlockViews;
         _shipViews = shipViews;
     }
 
-    //public void SetTempPalletsCount()
-    //{
-    //    _tempPalletsCnt += 1;
-    //    TempPalletsCntChanged.Execute(_tempPalletsCnt);
-    //    YG2.SaveProgress();
-    //}
-
-    //public void SetShipPalletsCount()
-    //{
-    //    _shipPalletsCnt+=1;
-    //    TempPalletsCntChanged.Execute(_shipPalletsCnt);
-    //    YG2.SaveProgress();
-    //}
-
-    //public void SetParrotsViews(List<ParrotsBlockView> parrotBlockViews)
-    //{
-    //    _parrotBlockViews = parrotBlockViews.ToList();
-    //    ParrotBlockViewsChanged.Execute(_parrotBlockViews);
-    //}
+    public void SetTempPalletsOnSave(UpgradeShopItemModel model)
+    {
+        _upgradeItems[0] = model;
+    }
 
     public void SetShipView(List<BaseShipView> shipViews)
     {

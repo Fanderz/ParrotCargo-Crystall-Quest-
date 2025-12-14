@@ -9,7 +9,7 @@ public class BaseScoreView : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI valueView;
 
-    protected bool isIncreasingValue;
+    //protected bool isIncreasingValue;
     protected int targetValue;
 
     protected WaitForSeconds smoothWait;
@@ -27,26 +27,31 @@ public class BaseScoreView : MonoBehaviour
     {
         if (this.IsDestroyed() == false)
         {
-            isIncreasingValue = true;
+            //isIncreasingValue = true;
             targetValue = value;
 
             if (smoothIncreaserValueCoroutine != null)
                 StopCoroutine(smoothIncreaserValueCoroutine);
 
             if (smoothWait != null && this.gameObject.activeInHierarchy)
-                smoothIncreaserValueCoroutine = StartCoroutine(SmoothIncreaser(valueView, Convert.ToInt32(valueView.text), value));
+                smoothIncreaserValueCoroutine = StartCoroutine(SmoothChanger(valueView, Convert.ToInt32(valueView.text), value));
             else
                 valueView.text = value.ToString();
-            
+
             ValueChanged.Execute(value);
         }
     }
 
-    private IEnumerator SmoothIncreaser(TextMeshProUGUI textView, int startValue, int endValue)
+    private IEnumerator SmoothChanger(TextMeshProUGUI textView, int startValue, int endValue)
     {
         while (startValue != endValue && this.gameObject.activeInHierarchy)
         {
-            startValue += 1;
+            if (startValue < endValue)
+                startValue += 1;
+
+            if (startValue > endValue)
+                startValue -= 1;
+
             textView.text = startValue.ToString();
 
             yield return smoothWait;

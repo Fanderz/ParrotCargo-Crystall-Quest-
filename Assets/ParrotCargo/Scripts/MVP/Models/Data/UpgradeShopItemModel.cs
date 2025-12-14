@@ -8,7 +8,6 @@ public class UpgradeShopItemModel : ShopItemModel
 {
     private int _objectsCnt;
 
-    //public ReactiveCommand<int> CountChanged = new ReactiveCommand<int>();
     public int ObjectsCnt => _objectsCnt;
 
     public UpgradeShopItemModel(int objectsCnt)
@@ -16,10 +15,8 @@ public class UpgradeShopItemModel : ShopItemModel
         _objectsCnt = objectsCnt;
     }
 
-    public void SetTempPalletsCount()
+    public void AddObject()
     {
         _objectsCnt += 1;
-        //CountChanged.Execute(_objectsCnt);
-        YG2.SaveProgress();
     }
 }

@@ -20,15 +20,16 @@ public class SettingsService : BaseService
         _settingsPresenter = new SettingsPresenter(_settingsModel, _settingsView);
     }
 
-    public void SetSettings()
+    public void OnSave()
     {
-        YG2.saves.playerSettings.Sound = _settingsModel.Sound;
-        YG2.saves.playerSettings.Music = _settingsModel.Music;
+        YG2.saves.playerSettings = _settingsModel;
+        //YG2.saves.playerSettings.Sound = _settingsModel.Sound;
+        //YG2.saves.playerSettings.Music = _settingsModel.Music;
     }
 
     public void SaveSettings()
     {
-        SetSettings();
+        OnSave();
         YG2.SaveProgress();
     }
 }

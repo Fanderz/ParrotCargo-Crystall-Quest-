@@ -12,7 +12,8 @@ public class UpgradeShopSubItem : ShopSubItem
     private Button _button;
     private Image _buttonImage;
 
-    public ReactiveCommand<int> StarFilledCommand = new ReactiveCommand<int>();
+    public ReactiveCommand<int> PurchaseCommand = new ReactiveCommand<int>();
+    public ReactiveCommand StarFilledCommand = new ReactiveCommand();
 
     public int Price => _price;
     public Button Button => _button;
@@ -21,17 +22,27 @@ public class UpgradeShopSubItem : ShopSubItem
     private void Awake()
     {
         _priceText.text = _price.ToString();
-        _button = GetComponent<Button>();
-        _buttonImage = _button.GetComponent<Image>();
-        _button.onClick.AddListener(() => { SetStarFilled(); });
+        //_button.onClick.AddListener(() => { OnPurchase(); });
     }
 
-    private void SetStarFilled()
+    public void Initialize()
+    {
+        _button = GetComponent<Button>();
+        _buttonImage = _button.GetComponent<Image>();
+    }
+
+    public void SetStarFilled()
     {
         if (_buttonImage.sprite != _filledImageSprite)
         {
             _buttonImage.sprite = _filledImageSprite;
-            StarFilledCommand.Execute(_price);
+            StarFilledCommand.Execute();
         }
+    }
+
+    public void OnPurchase()
+    {
+        SetStarFilled();
+        //PurchaseCommand.Execute(_price);
     }
 }

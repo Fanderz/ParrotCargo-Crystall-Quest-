@@ -16,15 +16,22 @@ public class ShopService : BaseService
     [Inject] PlayerProgressService _playerProgressService;
 
     private ShopPresenter _shopPresenter;
+    private ShopModel _shopModel;
 
     public ShopPresenter ShopPresenter => _shopPresenter;
 
     public override void Initialize()
     {
+        _shopModel = YG2.saves.shopModel;
         _shopSpawner.Spawn();
-        _shopSpawner.PurchaseCommand.Subscribe(price => { _playerProgressService.DecreaseOnPurchase(price); });
 
-        _shopPresenter = new ShopPresenter(YG2.saves.shopModel, _view, _shopSpawner.ShopItems.ToList());
+        _shopPresenter = new ShopPresenter(_shopModel, _view, _shopSpawner.ShopItems.ToList());
+        _shopPresenter.PurchaseCommand.Subscribe(price => _playerProgressService.DecreaseOnPurchase(price));
         _shopPresenter.Initialize();
+    }
+
+    public void OnSave()
+    {
+        YG2.saves.shopModel = _shopModel;
     }
 }

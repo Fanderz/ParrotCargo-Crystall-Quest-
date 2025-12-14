@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 140,
+  "idSave": 8,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 700
+    "Value": 100
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -32,21 +32,14 @@
       },
       "IsDisposed": false
     },
-    "Value": 1180
+    "Value": 0
   },
   "playerSettings": {
-    "Sound": 0.598700345,
-    "Music": 0.608244
+    "Sound": 1.0,
+    "Music": 1.0
   },
   "shopModel": {
-    "TempPalletsCntChanged": {
-      "CanExecute": {
-        "Value": true,
-        "HasValue": true
-      },
-      "IsDisposed": false
-    },
-    "ShipPalletsCntChanged": {
+    "UpgradeItemChanged": {
       "CanExecute": {
         "Value": true,
         "HasValue": true
@@ -67,9 +60,52 @@
       },
       "IsDisposed": false
     },
-    "TempPalletsCount": 2,
-    "ShipPalletsCount": 2,
-    "ShipViews": []
+    "ShipViews": [],
+    "UpgradeItems": [
+      {
+        "ObjectsCnt": 3
+      },
+      {
+        "ObjectsCnt": 1
+      },
+      {
+        "ObjectsCnt": 3
+      },
+      {
+        "ObjectsCnt": 1
+      },
+      {
+        "ObjectsCnt": 3
+      },
+      {
+        "ObjectsCnt": 1
+      },
+      {
+        "ObjectsCnt": 3
+      },
+      {
+        "ObjectsCnt": 1
+      },
+      {
+        "ObjectsCnt": 3
+      },
+      {
+        "ObjectsCnt": 1
+      },
+      {
+        "ObjectsCnt": 3
+      },
+      {
+        "ObjectsCnt": 1
+      },
+      {
+        "ObjectsCnt": 3
+      },
+      {
+        "ObjectsCnt": 1
+      }
+    ],
+    "TempPalletsCnt": 3
   },
   "currentTypeBird": 1
 }

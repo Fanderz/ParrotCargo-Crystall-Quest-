@@ -1,23 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+using UniRx;
 
 public class Ship
 {
-    private List<Pallet> _pallets;
+    private int _palletsCount;
 
-    public Ship(Vector3 pointOnFilled)
+    public ReactiveCommand PalletsCntChanged = new ReactiveCommand();
+
+    public Ship(Vector3 pointOnFilled, int activePalletsCount)
     {
-        _pallets = new List<Pallet>();
         TargetOnFilled = pointOnFilled;
+        _palletsCount = activePalletsCount;
     }
 
     public Vector3 TargetOnFilled { get; private set; }
     public bool isGoingToRelease { get; private set; }
 
-    public void AddPallet(Pallet pallet)
+    public void Initialize(int activePalletsCount)
     {
-        _pallets.Add(pallet);
+        for (int i = 0; i < activePalletsCount; i++)
+            AddPallet();
+    }
+
+    public void AddPallet()
+    {
+        _palletsCount++;
+        PalletsCntChanged.Execute();
     }
 
     public void SetGoingToRelease(bool value)

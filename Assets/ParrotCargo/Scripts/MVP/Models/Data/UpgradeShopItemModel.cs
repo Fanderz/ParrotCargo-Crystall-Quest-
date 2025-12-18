@@ -1,22 +1,26 @@
 using System;
-using UniRx;
+
 using UnityEngine;
-using YG;
+using UniRx;
 
 [Serializable]
 public class UpgradeShopItemModel : ShopItemModel
 {
-    private int _objectsCnt;
+    [SerializeField] private int _objectsCnt;
 
     public int ObjectsCnt => _objectsCnt;
 
-    public UpgradeShopItemModel(int objectsCnt)
+    public ReactiveCommand ObjectsCntChanged = new ReactiveCommand();
+
+    public UpgradeShopItemModel(int objectsCnt, TypeShopItem itemType)
     {
         _objectsCnt = objectsCnt;
+        ItemType = itemType;
     }
 
     public void AddObject()
     {
-        _objectsCnt += 1;
+        _objectsCnt++;
+        ObjectsCntChanged.Execute();
     }
 }

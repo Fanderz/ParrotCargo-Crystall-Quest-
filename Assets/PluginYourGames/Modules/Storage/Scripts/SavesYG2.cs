@@ -7,12 +7,10 @@ namespace YG
     public partial class SavesYG
     {
         public int idSave;
-        public CoinsModel coinsProgress = new CoinsModel(0);
-        public PointsModel pointsProgress = new PointsModel(0);
-        public SettingsModel playerSettings = new SettingsModel(1.0f, 1.0f);
-        public ShopModel shopModel = new ShopModel(
-            new List<UpgradeShopItemModel> { new UpgradeShopItemModel(2), new UpgradeShopItemModel(1) }, 
-            new List<BaseShipView>());
+        public CoinsModel coinsProgress;
+        public PointsModel pointsProgress;
+        public SettingsModel playerSettings;
+        public ShopModel shopModel;
         public TypeBird currentTypeBird = TypeBird.Pigeon;
     }
 }

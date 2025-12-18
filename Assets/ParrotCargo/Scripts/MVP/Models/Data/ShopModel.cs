@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
-using YG;
 
 [Serializable]
 public class ShopModel
@@ -11,14 +10,12 @@ public class ShopModel
     private List<ParrotsBlockView> _parrotBlockViews;
     private List<BaseShipView> _shipViews;
 
-    //public IReadOnlyList<ParrotsBlockView> ParrotBlockViews => _parrotBlockViews;
-    public List<BaseShipView> ShipViews => _shipViews;
-
+    public int TempPalletsCnt => _upgradeItems.First(upgradeItem => upgradeItem.ItemType == TypeShopItem.PalletUpgrade).ObjectsCnt;
+    public int ShipPalletsCnt => _upgradeItems.First(upgradeItem => upgradeItem.ItemType == TypeShopItem.ShipUpgrade).ObjectsCnt;
     public IReadOnlyList<UpgradeShopItemModel> UpgradeItems => _upgradeItems;
-    public int TempPalletsCnt => _upgradeItems[0].ObjectsCnt;
+
 
     public ReactiveCommand UpgradeItemChanged = new ReactiveCommand();
-
     public ReactiveCommand<List<ParrotsBlockView>> ParrotBlockViewsChanged = new ReactiveCommand<List<ParrotsBlockView>>();
     public ReactiveCommand<BaseShipView> ShipViewsChanged = new ReactiveCommand<BaseShipView>();
 
@@ -28,14 +25,18 @@ public class ShopModel
         _shipViews = shipViews;
     }
 
-    public void SetTempPalletsOnSave(UpgradeShopItemModel model)
+    public void OnSave(UpgradeShopItemModel model)
     {
-        _upgradeItems[0] = model;
+        UpgradeShopItemModel item = _upgradeItems.Find(item => item.ItemType == model.ItemType);
+
+        if (item == null)
+            return;
+
+        item = model;
     }
 
-    public void SetShipView(List<BaseShipView> shipViews)
-    {
-        _shipViews = shipViews.ToList();
-        //ShipViewsChanged.Execute(_shipView);
-    }
+    //public void SetShipView(List<BaseShipView> shipViews)
+    //{
+    //    _shipViews = shipViews.ToList();
+    //}
 }

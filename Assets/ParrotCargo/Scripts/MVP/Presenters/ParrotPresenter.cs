@@ -1,7 +1,4 @@
-using System.Collections;
 using UniRx;
-using UnityEngine;
-using Zenject;
 
 public class ParrotPresenter
 {
@@ -11,7 +8,7 @@ public class ParrotPresenter
     private PalletPresenter _tempPallet;
 
     public BaseCrystallBagView CrystallBag => _view.CrystallBag;
-    public bool HaveBag => _view.HaveBag;
+    //public bool HaveBag => _view.HaveBag;
     public bool isActive => _view.gameObject.activeSelf;
 
     public ReactiveCommand PickedBag = new ReactiveCommand();
@@ -61,11 +58,6 @@ public class ParrotPresenter
 
         _view.CarryBag(TargetPallet.ViewTransform, isTargetShip);
     }
-
-    //public void SetActive(bool value)
-    //{
-    //    _view.SetActive(value);
-    //}
 
     public void ReturnParrotOnStart() =>
         _view.ReturnToStartPoint();

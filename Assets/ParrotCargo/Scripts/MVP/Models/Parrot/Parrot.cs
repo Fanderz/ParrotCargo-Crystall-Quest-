@@ -1,7 +1,3 @@
-using System;
-using UnityEngine;
-using UniRx;
-
 public class Parrot
 {
     private bool _haveBag;

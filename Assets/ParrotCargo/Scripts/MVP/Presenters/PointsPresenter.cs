@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UniRx;
 
 public class PointsPresenter
@@ -20,7 +17,6 @@ public class PointsPresenter
     public void Initialize()
     {
         _model.ValueChanged.Subscribe(value => { _view.ChangeValue(value); });
-        //_view.ValueChanged.Subscribe(value => { _model.ChangeValue(value); });
 
         _model.Initialize();
     }

@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
+
 using UnityEngine;
+using Unity.VisualScripting;
+
 using UniRx;
 using TMPro;
-using Unity.VisualScripting;
 
 public class BaseScoreView : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI valueView;
 
-    //protected bool isIncreasingValue;
     protected int targetValue;
 
     protected WaitForSeconds smoothWait;
@@ -27,7 +28,6 @@ public class BaseScoreView : MonoBehaviour
     {
         if (this.IsDestroyed() == false)
         {
-            //isIncreasingValue = true;
             targetValue = value;
 
             if (smoothIncreaserValueCoroutine != null)

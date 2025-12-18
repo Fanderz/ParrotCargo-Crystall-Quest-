@@ -1,7 +1,9 @@
-﻿using Assets.ParrotCargo.Scripts.MVP.Models.Data;
-using UniRx;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+
+using Assets.ParrotCargo.Scripts.MVP.Models.Data;
+
+using UniRx;
 using YG;
 
 namespace Assets.ParrotCargo.Scripts.MVP.Views

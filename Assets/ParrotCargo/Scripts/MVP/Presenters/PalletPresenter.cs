@@ -9,6 +9,7 @@ public class PalletPresenter
     private BaseCrystallBagView _bagView;
 
     public bool isEmpty => _view.HaveBag == false;
+    public bool isActive => _view.isActiveAndEnabled;
     public Transform ViewTransform => _view.transform;
 
     public ReactiveCommand TakedBag = new ReactiveCommand();

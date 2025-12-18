@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ShopSubItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] protected TextMeshProUGUI priceText;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    protected int price;
+
+    public int Price => price;
+
+    public virtual void OnPurchase()
+    { }
 }

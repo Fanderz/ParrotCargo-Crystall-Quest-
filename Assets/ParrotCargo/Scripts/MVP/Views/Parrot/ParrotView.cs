@@ -1,6 +1,7 @@
+using System.Linq;
+
 using UnityEngine;
 using UnityEngine.AI;
-using System.Linq;
 
 using UniRx;
 using Cysharp.Threading.Tasks;

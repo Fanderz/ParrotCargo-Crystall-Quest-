@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
+
+using UniRx;
 
 public class DraggableParrotBlock : MonoBehaviour, IDraggable
 {

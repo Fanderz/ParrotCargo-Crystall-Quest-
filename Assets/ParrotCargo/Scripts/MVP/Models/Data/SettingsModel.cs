@@ -1,6 +1,4 @@
 ﻿using System;
-using UniRx;
-using YG;
 
 namespace Assets.ParrotCargo.Scripts.MVP.Models.Data
 {

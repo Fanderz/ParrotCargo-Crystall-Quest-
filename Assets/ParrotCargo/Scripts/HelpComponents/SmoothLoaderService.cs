@@ -1,8 +1,9 @@
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
 using Cysharp.Threading.Tasks;
-using System.Collections.Generic;
 
 public class SmoothLoaderService : MonoBehaviour
 {

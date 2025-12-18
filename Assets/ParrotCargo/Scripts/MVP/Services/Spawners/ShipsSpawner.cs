@@ -1,15 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+
 using Zenject;
 using UniRx;
-using System.Linq;
+using YG;
 
 public class ShipsSpawner : BaseSpawner<BaseShipView>
 {
     [SerializeField] private List<ShipStopPoint> _targetPoints;
     [SerializeField] private Transform _pointToRelease;
-    //[SerializeField] private int _activeObjectsCnt;
 
     private List<ShipPresenter> _shipPresenters;
     private DiContainer _container;
@@ -19,42 +19,33 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
     public void Initialize()
     {
         _shipPresenters = new List<ShipPresenter>();
-        //Prefab = shipViews;
     }
 
     public void Spawn()
     {
         var emptyPoints = _targetPoints.FindAll(point => point.isEmpty);
+        var activePallets = YG2.saves.shopModel.ShipPalletsCnt;
 
         for (int i = 0; i < emptyPoints.Count; i++)
         {
-            var ship = new Ship(_pointToRelease.position);
+            var ship = new Ship(_pointToRelease.position, activePallets);
 
             var shipView = SpawnObject(SpawnPoints[i].position);
-            shipView.Initialize(emptyPoints[i]);
 
+            var shipPresenter = new ShipPresenter(shipView, ship);
+            shipPresenter.Initialize(activePallets, emptyPoints[i]);
+            shipPresenter.Releasing.Subscribe(presenter => { Spawn(); });
+            _shipPresenters.Add(shipPresenter);
 
             shipView.Releasing.Subscribe(view => 
             { 
                 Release(shipView); 
                 _shipPresenters.Remove(_shipPresenters.Find(ship => ship.GetView() == shipView));
-                //shipView.PalletViews.ToList().ForEach(pallet => pallet.RemoveBag());
             });
-
-            var shipPresenter = new ShipPresenter(shipView, ship);
-            shipPresenter.Initialize();
-            shipPresenter.Releasing.Subscribe(presenter => { Spawn(); });
-
-            _shipPresenters.Add(shipPresenter);
 
             emptyPoints[i].ChangeEmpty(false);
         }
     }
-
-    //public ShipPresenter GetShip(int index)
-    //{
-    //    return _shipPresenters[index];
-    //}
 
     protected override void CreatePool()
     {

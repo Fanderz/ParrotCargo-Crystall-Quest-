@@ -1,7 +1,8 @@
 using UnityEngine;
-using Zenject;
-using System.Collections.Generic;
+
 using Assets.Scripts.MVP.Services.Spawners;
+
+using Zenject;
 using UniRx;
 
 public class CrystallBagsService : BaseService

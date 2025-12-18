@@ -1,8 +1,11 @@
 using System.Collections.Generic;
-using UniRx;
+using System.Linq;
+
 using UnityEngine;
-using YG;
+
 using Zenject;
+using UniRx;
+using YG;
 
 public class PalletService : BaseService
 {
@@ -16,13 +19,18 @@ public class PalletService : BaseService
 
     public override void Initialize()
     {
-        _palletShopItemModel = YG2.saves.shopModel.UpgradeItems[0];
+        _palletShopItemModel = YG2.saves.shopModel.UpgradeItems.First(item => item.ItemType == TypeShopItem.PalletUpgrade);
         _palletSpawner.Initialize();
         _palletSpawner.Spawn(_palletShopItemModel.ObjectsCnt);
     }
 
     public void OnSave()
     {
-        YG2.saves.shopModel.SetTempPalletsOnSave(_palletShopItemModel);
+        YG2.saves.shopModel.OnSave(_palletShopItemModel);
+    }
+
+    public void OnPalletUpgrade()
+    {
+        _palletSpawner.Spawn(1);
     }
 }

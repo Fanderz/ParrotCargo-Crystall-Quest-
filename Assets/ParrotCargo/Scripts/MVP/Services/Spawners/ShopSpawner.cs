@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -30,21 +29,9 @@ public class ShopSpawner : MonoBehaviour
         {
             ShopItem shopItem = SpawnItem(parent, itemValues);
             shopItem.Initialize(itemValues);
-            //Subscribes(shopItem);
             _items.Add(shopItem);
         }
     }
-
-    //private void Subscribes(ShopItem item)
-    //{
-    //    if(item is UpgradesShopItem)
-    //    {
-    //        UpgradesShopItem newItem = (UpgradesShopItem)item;
-
-    //        foreach (UpgradeShopSubItem subItem in newItem.SubItems)
-    //            subItem.PurchaseCommand.Subscribe(price => { PurchaseCommand.Execute(price); });
-    //    }
-    //}
 
     private ShopItem SpawnItem(Transform parent, ShopItemValues values)
     {

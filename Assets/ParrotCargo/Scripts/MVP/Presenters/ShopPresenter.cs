@@ -1,6 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
 using UniRx;
 using YG;
 
@@ -13,7 +12,7 @@ public class ShopPresenter
     private List<ShopItemPresenter> _shopItemPresenters;
 
     public ReactiveCommand<int> PurchaseCommand = new ReactiveCommand<int>();
-    public ShopModel ShopModel => _model;
+    public ReactiveCommand<TypeShopItem> SubModelChanged = new ReactiveCommand<TypeShopItem>();
 
     public ShopPresenter(ShopModel model, ShopView view, List<ShopItem> shopItems)
     {
@@ -37,13 +36,14 @@ public class ShopPresenter
                 ShopItemPresenter shopItemPresenter = new ShopItemPresenter(upgradesShopItem, upgradeShopItemModel);
                 shopItemPresenter.Initialize();
                 shopItemPresenter.TryPurchase.Subscribe(subItem => TryPurchase(subItem));
+                shopItemPresenter.ModelChangedCommand.Subscribe(subModel => SubModelChanged.Execute(subModel));
 
                 _shopItemPresenters.Add(shopItemPresenter);
             }
         }
     }
 
-    private void TryPurchase(UpgradeShopSubItem subItem)
+    private void TryPurchase(ShopSubItem subItem)
     {
         if(CanPurchase(subItem.Price))
         {
@@ -54,6 +54,6 @@ public class ShopPresenter
 
     private bool CanPurchase(int price)
     {
-        return price <= _wallet.Value;
+        return _wallet.Value != 0 ? price <= _wallet.Value : false;
     }
 }

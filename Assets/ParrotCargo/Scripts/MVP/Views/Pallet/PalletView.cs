@@ -1,5 +1,6 @@
-using UniRx;
 using UnityEngine;
+
+using UniRx;
 
 public class PalletView : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class PalletView : MonoBehaviour
     private BaseCrystallBagView _crystallBag;
 
     public bool HaveBag { get; private set; }
-    //public bool HaveCourier { get; private set; }
 
     public ReactiveCommand<bool> EmptyChanged = new ReactiveCommand<bool>();
 
@@ -17,8 +17,6 @@ public class PalletView : MonoBehaviour
     public void TakeBag(BaseCrystallBagView crystallBag)
     {
         _crystallBag = crystallBag;
-        //_crystallBag.transform.SetParent(transform);
-        //_crystallBag.transform.position = new Vector3(transform.position.x, transform.position.y + _bagTargetOffsetY, transform.position.z);
         ChangeEmpty(true);
     }
 

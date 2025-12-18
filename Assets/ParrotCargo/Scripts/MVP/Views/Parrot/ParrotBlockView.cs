@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using UnityEngine;
 
 using UniRx;
@@ -58,7 +59,6 @@ public class ParrotsBlockView : MonoBehaviour
         _zPickingValue = transform.position.z - _zOffsetOnPick / 2;
 
         ActivateChildParrots();
-        //Activation.Execute(gameObject.activeSelf);
         _draggableBlock = GetComponent<DraggableParrotBlock>();
         GetComponent<BoxCollider>().enabled = true;
 

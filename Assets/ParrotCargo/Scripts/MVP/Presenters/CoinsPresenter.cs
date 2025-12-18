@@ -1,7 +1,4 @@
-using UnityEngine;
 using UniRx;
-using static UnityEngine.Rendering.DebugUI;
-using YG;
 
 public class CoinsPresenter
 {

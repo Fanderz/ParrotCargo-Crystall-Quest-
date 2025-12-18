@@ -1,11 +1,11 @@
-using Cysharp.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+using Assets.ParrotCargo.Scripts.MVP.Models.Data;
+
 using YG;
-using YG.Insides;
 
 public class PlayerProgressService : BaseService
 {
@@ -36,10 +36,9 @@ public class PlayerProgressService : BaseService
 
     public override void Initialize()
     {
-        _gameCoinsModel = new CoinsModel(0);
-        _pointsModel = new PointsModel(0);
+        OnYGInit();
 
-        _shopCoinsPresenter = new CoinsPresenter(YG2.saves.coinsProgress,  _shopCoinsView, _smoothChangeWait);
+        _shopCoinsPresenter = new CoinsPresenter(YG2.saves.coinsProgress, _shopCoinsView, _smoothChangeWait);
         _gameCoinsPresenter = new CoinsPresenter(_gameCoinsModel, _gameCoinsView, _smoothChangeWait);
 
         _gamePointsPresenter = new PointsPresenter(_pointsModel, _gamePointsView, _smoothChangeWait);
@@ -72,5 +71,34 @@ public class PlayerProgressService : BaseService
     public void ResetProgress()
     {
         SceneManager.LoadScene("GameScene");
+    }
+
+    private ShopModel CreateDefault()
+    {
+        return new ShopModel(
+            new List<UpgradeShopItemModel>
+            {
+                new UpgradeShopItemModel(2, TypeShopItem.PalletUpgrade),
+                new UpgradeShopItemModel(1, TypeShopItem.ShipUpgrade)
+            },
+            new List<BaseShipView>());
+    }
+
+    private void OnYGInit()
+    {
+        _gameCoinsModel = new CoinsModel(0);
+        _pointsModel = new PointsModel(0);
+
+        if (YG2.saves.shopModel == null)
+        {
+            YG2.saves.shopModel = CreateDefault();
+            YG2.SaveProgress();
+        }
+
+        if (YG2.saves.shopModel == null)
+        {
+            YG2.saves.playerSettings = new SettingsModel(1f, 1f);
+            YG2.SaveProgress();
+        }
     }
 }

@@ -1,5 +1,6 @@
-﻿using Assets.ParrotCargo.Scripts.MVP.Models.Data;
-using Assets.ParrotCargo.Scripts.MVP.Views;
+﻿using Assets.ParrotCargo.Scripts.MVP.Views;
+using Assets.ParrotCargo.Scripts.MVP.Models.Data;
+
 using UniRx;
 
 namespace Assets.ParrotCargo.Scripts.MVP.Presenters

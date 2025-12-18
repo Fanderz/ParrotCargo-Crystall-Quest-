@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UniRx;
+using System.Linq;
 
 public class BaseShipView : MonoBehaviour
 {
@@ -17,14 +18,6 @@ public class BaseShipView : MonoBehaviour
     public IReadOnlyList<PalletView> PalletViews => _palletsForBags;
 
     public ReactiveCommand Releasing;
-
-    public bool IsStopped()
-    {
-        if (_agent.enabled)
-            return _agent.isStopped;
-        else
-            return false;
-    }
 
     private void Awake()
     {
@@ -42,9 +35,6 @@ public class BaseShipView : MonoBehaviour
     {
         foreach (PalletView pallet in _palletsForBags)
             pallet.Clear();
-
-        //if (Releasing.IsDisposed == false)
-        //    Releasing.Dispose();
     }
 
     private void FixedUpdate()
@@ -65,16 +55,19 @@ public class BaseShipView : MonoBehaviour
         }
     }
 
+    public bool IsStopped()
+    {
+        if (_agent.enabled)
+            return _agent.isStopped;
+        else
+            return false;
+    }
+
     public void Initialize(ShipStopPoint targetPoint)
     {
         _targetPoint = targetPoint;
 
         SetDestination(_targetPoint.transform.position, false);
-    }
-
-    public PalletView GetEmptyPallet()
-    {
-        return _palletsForBags.Find(pallet => pallet.HaveBag == false);
     }
 
     public void SetDestination(Vector3 targetPosition, bool isGoingToRelease)
@@ -90,5 +83,13 @@ public class BaseShipView : MonoBehaviour
 
         if (_isGoingToRelease)
             _targetPoint.ChangeEmpty(true);
+    }
+
+    public void ActivatePallet()
+    {
+        if(_palletsForBags.Any(pallet => pallet.gameObject.activeSelf == false) == false)
+                return;
+
+        _palletsForBags.First(pallet => pallet.gameObject.activeSelf == false).gameObject.SetActive(true);
     }
 }

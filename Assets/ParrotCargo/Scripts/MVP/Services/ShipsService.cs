@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
-using UniRx;
+
 using UnityEngine;
+
 using Zenject;
+using UniRx;
 
 public class ShipsService : BaseService
 {
@@ -19,5 +20,11 @@ public class ShipsService : BaseService
         _shipSpawner.Initialize();
         _shipSpawner.CreateObjects();
         _shipSpawner.Spawn();
+    }
+
+    public void OnShipUpgrade()
+    {
+        foreach (ShipPresenter shipPresenter in _shipSpawner.ShipPresenters)
+            shipPresenter.ActivatePallet();
     }
 }

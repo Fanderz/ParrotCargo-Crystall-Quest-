@@ -6,8 +6,6 @@ using Zenject;
 
 public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 {
-    //_xIncrement = 26f;
-    //[SerializeField] private int _activeObjectsMaxCount = 3;
     [SerializeField] private int _ySpawnOffset = 3;
     [SerializeField] private SkinBirdService _skinBirdService;
 
@@ -17,7 +15,7 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 
     public ReactiveCommand RespawnBlocks = new ReactiveCommand();
 
-    private void Awake()
+    protected override void Awake()
     {
         _spawnPoints = new List<SpawnPoint>();
 

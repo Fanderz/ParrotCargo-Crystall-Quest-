@@ -14,12 +14,4 @@ public class BaseCrystallBag
     {
         IsPicked = value;
     }
-
-    //public bool GetEqual(Ship ship)
-    //{
-    //    if (ship == null)
-    //        return false;
-
-    //    return true;
-    //}
 }

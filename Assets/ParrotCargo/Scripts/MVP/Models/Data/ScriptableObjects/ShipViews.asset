@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ffa23ad43a0924c887ed76057b5e4e, type: 3}
   m_Name: ShipViews
   m_EditorClassIdentifier: 
-  _itemName: ShipPurchase
+  _itemType: 3
   _itemHeaderText: "\u041A\u043E\u0440\u0430\u0431\u043B\u0438"
   _childItemsCount: 4
   _prefab: {fileID: -5457329417436599585, guid: 59a27fe41e1b3ea42907ce36ed2a6251, type: 3}

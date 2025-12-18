@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ffa23ad43a0924c887ed76057b5e4e, type: 3}
   m_Name: ParrotViews
   m_EditorClassIdentifier: 
-  _itemName: ParrotPurchase
+  _itemType: 2
   _itemHeaderText: "\u041F\u043E\u043F\u0443\u0433\u0430\u0438"
   _childItemsCount: 4
   _prefab: {fileID: -5457329417436599585, guid: 59a27fe41e1b3ea42907ce36ed2a6251, type: 3}

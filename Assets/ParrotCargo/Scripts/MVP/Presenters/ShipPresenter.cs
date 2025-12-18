@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using UnityEngine;
 
 using UniRx;
@@ -12,7 +13,7 @@ public class ShipPresenter
     private List<PalletPresenter> _palletPresenters;
     private Vector3 _pointOnFilled;
 
-    public int EmptyPalletsCnt => _palletPresenters.FindAll(pallet => pallet.HaveCourier == false && pallet.isEmpty).Count;
+    public int EmptyPalletsCnt => _palletPresenters.FindAll(pallet => pallet.HaveCourier == false && pallet.isEmpty && pallet.isActive).Count;
     public bool isGoingToRelease => _model.isGoingToRelease;
     public bool IsStopped => _view.IsStopped();
 
@@ -27,12 +28,15 @@ public class ShipPresenter
         _palletPresenters = new List<PalletPresenter>();
     }
 
-    public void Initialize()
+    public void Initialize(int activePalletsCnt, ShipStopPoint stopPoint)
     {
+        _model.PalletsCntChanged.Subscribe(exec => _view.ActivatePallet());
+        _view.Initialize(stopPoint);
+        _model.Initialize(activePalletsCnt);
+
         foreach (PalletView palletView in _view.PalletViews)
         {
             Pallet pallet = new Pallet();
-            _model.AddPallet(pallet);
 
             PalletPresenter palletPresenter = new PalletPresenter(palletView, pallet);
             palletPresenter.TakedBag.Subscribe(pallet => { CheckShipFilled(); });
@@ -43,7 +47,7 @@ public class ShipPresenter
 
     public PalletPresenter GetEmptyPallet()
     {
-        return _palletPresenters.Find(presenter => presenter.isEmpty && presenter.HaveCourier == false);
+        return _palletPresenters.Find(presenter => presenter.isActive && presenter.isEmpty && presenter.HaveCourier == false);
     }
 
     public BaseShipView GetView()
@@ -51,18 +55,18 @@ public class ShipPresenter
         return _view;
     }
 
-    public Ship GetModel()
-    {
-        return _model;
-    }
-
     private void CheckShipFilled()
     {
-        if (_palletPresenters.TrueForAll(pallet => pallet.isEmpty == false))
+        if (_palletPresenters.FindAll(palletPresenter => palletPresenter.isActive).TrueForAll(pallet => pallet.isEmpty == false))
         {
             _model.SetGoingToRelease(true);
             _view.SetDestination(_model.TargetOnFilled, _model.isGoingToRelease);
             Releasing.Execute();
         }
+    }
+
+    public void ActivatePallet()
+    {
+        _model.AddPallet();
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 using TMPro;
 
-public class ShopItem : MonoBehaviour
+public class ShopItemView : MonoBehaviour
 {
     [SerializeField] protected GridLayoutGroup grid;
     [SerializeField] protected TextMeshProUGUI headerText;

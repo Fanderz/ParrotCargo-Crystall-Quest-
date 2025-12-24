@@ -11,26 +11,33 @@ public class PalletService : BaseService
 {
     [SerializeField] private PalletsSpawner _palletSpawner;
 
-    private UpgradeShopItemModel _palletShopItemModel; 
-
-    [Inject] private ShopService _shopSettings;
+    [Inject] private ShopService _shopService;
 
     public IReadOnlyList<PalletPresenter> Pallets => _palletSpawner.PalletPresenters;
 
+    private int _currentPalletsCnt;
+
     public override void Initialize()
     {
-        _palletShopItemModel = YG2.saves.shopModel.UpgradeItems.First(item => item.ItemType == TypeShopItem.PalletUpgrade);
         _palletSpawner.Initialize();
-        _palletSpawner.Spawn(_palletShopItemModel.ObjectsCnt);
+
+        _currentPalletsCnt = _shopService.Model.TempPalletsCnt;
+        _palletSpawner.Spawn(_currentPalletsCnt);
+
+        _shopService.Model.UpgradeItemChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
-    public void OnSave()
+    private void OnUpgradeChanged(TypeShopItem type)
     {
-        YG2.saves.shopModel.OnSave(_palletShopItemModel);
-    }
+        if (type != TypeShopItem.PalletUpgrade)
+            return;
 
-    public void OnPalletUpgrade()
-    {
-        _palletSpawner.Spawn(1);
+        int newCnt = _shopService.Model.TempPalletsCnt;
+        int delta = newCnt - _currentPalletsCnt;
+
+        if (delta > 0)
+            _palletSpawner.Spawn(delta);
+
+        _currentPalletsCnt = newCnt;
     }
 }

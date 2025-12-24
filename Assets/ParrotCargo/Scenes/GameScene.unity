@@ -1202,9 +1202,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _services:
   - {fileID: 1165613869}
+  - {fileID: 1420005906}
   - {fileID: 1736250304}
   - {fileID: 1701543416}
-  - {fileID: 1420005906}
   - {fileID: 420218716}
   - {fileID: 989846439}
   - {fileID: 1611381664}
@@ -10014,7 +10014,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 129.1
+  m_fontSize: 126.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -10,7 +10,7 @@ namespace YG
         public CoinsModel coinsProgress;
         public PointsModel pointsProgress;
         public SettingsModel playerSettings;
-        public ShopModel shopModel;
+        public ShopSaveModel shopModel;
         public TypeBird currentTypeBird = TypeBird.Pigeon;
     }
 }

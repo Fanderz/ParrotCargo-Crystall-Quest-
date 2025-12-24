@@ -9,15 +9,15 @@ public class ShopSpawner : MonoBehaviour
     [SerializeField] private Transform _upgradesParentUI;
     [SerializeField] private Transform _purchaseParentUI;
 
-    private List<ShopItem> _items;
+    private List<ShopItemView> _items;
 
-    public IReadOnlyList<ShopItem> ShopItems => _items;
+    public IReadOnlyList<ShopItemView> ShopItems => _items;
 
     public ReactiveCommand<int> PurchaseCommand = new ReactiveCommand<int>();
 
     public void Spawn()
     {
-        _items = new List<ShopItem>();
+        _items = new List<ShopItemView>();
 
         SpawnItems(_upgradesParentUI, _upgradeItemValues);
         SpawnItems(_purchaseParentUI, _purchaseItemValues);
@@ -27,13 +27,13 @@ public class ShopSpawner : MonoBehaviour
     {
         foreach (ShopItemValues itemValues in items)
         {
-            ShopItem shopItem = SpawnItem(parent, itemValues);
+            ShopItemView shopItem = SpawnItem(parent, itemValues);
             shopItem.Initialize(itemValues);
             _items.Add(shopItem);
         }
     }
 
-    private ShopItem SpawnItem(Transform parent, ShopItemValues values)
+    private ShopItemView SpawnItem(Transform parent, ShopItemValues values)
     {
         return Instantiate(values.Prefab, parent); ;
     }

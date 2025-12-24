@@ -9,22 +9,43 @@ public class ShipsService : BaseService
 {
     [SerializeField] private ShipsSpawner _shipSpawner;
 
+
+    private int _currentShipUpgrades;
+
     [Inject] private ShopService _shopService;
 
     public IReadOnlyList<ShipPresenter> Ships => _shipSpawner.ShipPresenters;
-
-    public ReactiveCommand OnShipsChanged = new ReactiveCommand();
 
     public override void Initialize()
     {
         _shipSpawner.Initialize();
         _shipSpawner.CreateObjects();
         _shipSpawner.Spawn();
+
+        _currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
+        ApplyUpgrades(_currentShipUpgrades);
+
+        _shopService.Model.UpgradeItemChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
-    public void OnShipUpgrade()
+    private void OnUpgradeChanged(TypeShopItem type)
     {
-        foreach (ShipPresenter shipPresenter in _shipSpawner.ShipPresenters)
-            shipPresenter.ActivatePallet();
+        if (type != TypeShopItem.ShipUpgrade)
+            return;
+
+        int newCnt = _shopService.Model.ShipPalletsCnt;
+        int delta = newCnt - _currentShipUpgrades;
+
+        if (delta > 0)
+            ApplyUpgrades(delta);
+
+        _currentShipUpgrades = newCnt;
+    }
+
+    private void ApplyUpgrades(int count)
+    {
+        for (int i = 0; i < count; i++)
+            foreach (ShipPresenter shipPresenter in _shipSpawner.ShipPresenters)
+                shipPresenter.ActivatePallet();
     }
 }

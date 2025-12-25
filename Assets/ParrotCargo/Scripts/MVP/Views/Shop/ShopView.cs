@@ -7,11 +7,11 @@ public class ShopView : MonoBehaviour
 {
     [SerializeField] private Sprite _filledStarSprite;
 
-    private List<ShopItem> _shopItems;
+    private List<ShopItemView> _shopItems;
 
-    public IReadOnlyList<ShopItem> ShopItems => _shopItems;
+    public IReadOnlyList<ShopItemView> ShopItems => _shopItems;
 
-    public void Initialize(List<ShopItem> shopItems)
+    public void Initialize(List<ShopItemView> shopItems)
     {
         _shopItems = shopItems;
     }

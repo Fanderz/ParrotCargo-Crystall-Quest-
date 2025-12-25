@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 
@@ -24,7 +25,7 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
     public void Spawn()
     {
         var emptyPoints = _targetPoints.FindAll(point => point.isEmpty);
-        var activePallets = YG2.saves.shopModel.ShipPalletsCnt;
+        var activePallets = YG2.saves.shopModel.upgradeItems.Count(item => item.Type == TypeShopItem.ShipUpgrade && item.IsPurchased);
 
         for (int i = 0; i < emptyPoints.Count; i++)
         {

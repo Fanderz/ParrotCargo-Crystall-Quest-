@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 3,
+  "idSave": 5,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 800
+    "Value": 670
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -32,11 +32,11 @@
       },
       "IsDisposed": false
     },
-    "Value": 0
+    "Value": 40
   },
   "playerSettings": {
     "Sound": 1.0,
-    "Music": 1.0
+    "Music": 0.715071261
   },
   "shopModel": {
     "UpgradeItemChanged": {
@@ -60,52 +60,76 @@
       },
       "IsDisposed": false
     },
-    "ShipViews": [],
+    "TempPalletsCnt": 3,
+    "ShipPalletsCnt": 2,
     "UpgradeItems": [
       {
-        "ObjectsCnt": {
-          "Value": 3,
-          "HasValue": true
+        "ObjectsCntChanged": {
+          "CanExecute": {
+            "Value": true,
+            "HasValue": true
+          },
+          "IsDisposed": false
         },
+        "ObjectsCnt": 3,
         "ItemType": 0
       },
       {
-        "ObjectsCnt": {
-          "Value": 1,
-          "HasValue": true
+        "ObjectsCntChanged": {
+          "CanExecute": {
+            "Value": true,
+            "HasValue": true
+          },
+          "IsDisposed": false
         },
+        "ObjectsCnt": 2,
         "ItemType": 1
       },
       {
-        "ObjectsCnt": {
-          "Value": 3,
-          "HasValue": true
+        "ObjectsCntChanged": {
+          "CanExecute": {
+            "Value": true,
+            "HasValue": true
+          },
+          "IsDisposed": false
         },
+        "ObjectsCnt": 2,
         "ItemType": 0
       },
       {
-        "ObjectsCnt": {
-          "Value": 1,
-          "HasValue": true
+        "ObjectsCntChanged": {
+          "CanExecute": {
+            "Value": true,
+            "HasValue": true
+          },
+          "IsDisposed": false
         },
+        "ObjectsCnt": 2,
         "ItemType": 1
       },
       {
-        "ObjectsCnt": {
-          "Value": 2,
-          "HasValue": true
+        "ObjectsCntChanged": {
+          "CanExecute": {
+            "Value": true,
+            "HasValue": true
+          },
+          "IsDisposed": false
         },
+        "ObjectsCnt": 2,
         "ItemType": 0
       },
       {
-        "ObjectsCnt": {
-          "Value": 2,
-          "HasValue": true
+        "ObjectsCntChanged": {
+          "CanExecute": {
+            "Value": true,
+            "HasValue": true
+          },
+          "IsDisposed": false
         },
+        "ObjectsCnt": 1,
         "ItemType": 1
       }
-    ],
-    "TempPalletsCnt": 3
+    ]
   },
   "currentTypeBird": 1
 }

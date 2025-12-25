@@ -23,7 +23,7 @@ public class ParrotsBlockService : BaseService
     {
         _parrotsBlockSpawner.CreateObjects();
         CreateBlocks();
-        _shipsService.OnShipsChanged.Subscribe(changed => { UpdateTargets(); });
+        //_shipsService.OnShipsChanged.Subscribe(changed => { UpdateTargets(); });
 
         _parrotsBlockSpawner.RespawnBlocks.Subscribe(respawn =>
         {

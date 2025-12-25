@@ -47,12 +47,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 946728537140087744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9fdc486151c5d54cb45e2666361fb17, type: 3}
+  m_Script: {fileID: 11500000, guid: f15d4887aaa7802488499e91c6e82e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 8557027001724526263}
   headerText: {fileID: 7121860662885362182}
-  _upgradesCnt: 2
 --- !u!1 &1442937199727562922
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ffa23ad43a0924c887ed76057b5e4e, type: 3}
   m_Name: TempPalletsCount
   m_EditorClassIdentifier: 
-  _itemName: TempPalletsCount
+  _itemType: 0
   _itemHeaderText: "\u041A\u041E\u041B\u0418\u0427\u0415\u0421\u0422\u0412\u041E
     \u0412\u0420\u0415\u041C\u0415\u041D\u041D\u042B\u0425 \u041F\u0410\u041B\u0415\u0422\u041E\u0412"
   _childItemsCount: 4
+  _defaultPurchasedCount: 1
   _prefab: {fileID: 6989523096462491045, guid: 3da9b84d3148d094b949631de80ab607, type: 3}
   _childItemPrefab: {fileID: -2343576939814225008, guid: 6d2d478435f354446baf9b24cd4202b1, type: 3}
   _childItemPrice: 50

@@ -1,10 +1,8 @@
+using Assets.ParrotCargo.Scripts.MVP.Models.Data;
 using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-using Assets.ParrotCargo.Scripts.MVP.Models.Data;
-
 using YG;
 
 public class PlayerProgressService : BaseService
@@ -62,8 +60,8 @@ public class PlayerProgressService : BaseService
         YG2.saves.coinsProgress.Value += _gameCoinsModel.Value;
         YG2.saves.pointsProgress.Value += _pointsModel.Value;
         _settingService.OnSave();
-        _shopService.OnSave();
-        _palletService.OnSave();
+        //_shopService.OnSave();
+        //_palletService.OnSave();
 
         YG2.SaveProgress();
     }
@@ -73,15 +71,17 @@ public class PlayerProgressService : BaseService
         SceneManager.LoadScene("GameScene");
     }
 
-    private ShopModel CreateDefault()
+    private List<ShopSaveData> CreateDefaultItems(List<ShopItemValues> shopItemSettings)
     {
-        return new ShopModel(
-            new List<UpgradeShopItemModel>
-            {
-                new UpgradeShopItemModel(2, TypeShopItem.PalletUpgrade),
-                new UpgradeShopItemModel(1, TypeShopItem.ShipUpgrade)
-            },
-            new List<BaseShipView>());
+        List<ShopSaveData> save = new List<ShopSaveData>();
+
+        foreach (ShopItemValues setting in shopItemSettings)
+        {
+            for (int j = 1; j <= setting.ItemChildCount; j++)
+                save.Add(new ShopSaveData { IsPurchased = (j <= setting.DefaulPurchasedCount ? true : false), Type = setting.ItemName });
+        }
+
+        return save;
     }
 
     private void OnYGInit()
@@ -90,15 +90,33 @@ public class PlayerProgressService : BaseService
         _pointsModel = new PointsModel(0);
 
         if (YG2.saves.shopModel == null)
-        {
-            YG2.saves.shopModel = CreateDefault();
-            YG2.SaveProgress();
-        }
+            YG2.saves.shopModel = new ShopSaveModel
+            {
+                upgradeItems = CreateDefaultItems(_shopService.UpgradeItemsSettings.ToList()),
+                purchaseItems = CreateDefaultItems(_shopService.PurchaseItemsSettings.ToList())
+            };
 
-        if (YG2.saves.shopModel == null)
-        {
+        if (YG2.saves.playerSettings == null)
             YG2.saves.playerSettings = new SettingsModel(1f, 1f);
-            YG2.SaveProgress();
-        }
+
+        if (YG2.saves.coinsProgress == null)
+            YG2.saves.coinsProgress = new CoinsModel(0);
+
+        if (YG2.saves.pointsProgress == null)
+            YG2.saves.pointsProgress = new PointsModel(0);
+
+        YG2.SaveProgress();
     }
+}
+
+public class ShopItemTest
+{
+    public ShopItemTest(TypeShopItem typeShopItem, int purchasedCount)
+    {
+        TypeShopItem = typeShopItem;
+        PurchasedCount = purchasedCount;
+    }
+
+    public TypeShopItem TypeShopItem { get; private set; }
+    public int PurchasedCount { get; private set; }
 }

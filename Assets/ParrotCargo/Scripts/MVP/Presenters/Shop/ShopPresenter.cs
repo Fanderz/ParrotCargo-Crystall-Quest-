@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using System.Linq;
 using UniRx;
 using YG;
 
@@ -14,40 +14,21 @@ public class ShopPresenter
     public ReactiveCommand<int> PurchaseCommand = new ReactiveCommand<int>();
     public ReactiveCommand<TypeShopItem> SubModelChanged = new ReactiveCommand<TypeShopItem>();
 
-    public ShopPresenter(ShopModel model, ShopView view, List<ShopItemView> shopItems)
+    public ShopPresenter(ShopModel model, ShopView view, List<ShopItemPresenter> shopItems)
     {
-        _shopItemPresenters = new List<ShopItemPresenter>();
 
         _model = model;
         _view = view;
+        _shopItemPresenters = shopItems;
         _wallet = YG2.saves.coinsProgress;
 
-        _view.Initialize(shopItems);
-
+        //_view.Initialize(shopItems);
     }
 
     public void Initialize()
     {
-        foreach (var itemView in _view.ShopItems)
-        {
-            if (itemView is not UpgradesShopItemView upgradesView)
-                continue;
-
-            var presenter = new ShopItemPresenter(upgradesView);
-
-            int initialCnt = upgradesView.ItemType switch
-            {
-                TypeShopItem.PalletUpgrade => _model.TempPalletsCnt,
-                TypeShopItem.ShipUpgrade => _model.ShipPalletsCnt,
-                _ => 1
-            };
-
-            presenter.Initialize(initialCnt);
-
+        foreach (var presenter in _shopItemPresenters)
             presenter.TryPurchase.Subscribe(subItem => TryPurchase(subItem, presenter.ItemType));
-
-            _shopItemPresenters.Add(presenter);
-        }
 
         _model.UpgradeItemChanged.Subscribe(type =>
             {

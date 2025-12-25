@@ -6,6 +6,7 @@ public class ShopItemValues : ScriptableObject
     [SerializeField] private TypeShopItem _itemType;
     [SerializeField] private string _itemHeaderText;
     [SerializeField] private int _childItemsCount;
+    [SerializeField] private int _defaultPurchasedCount;
     [SerializeField] private ShopItemView _prefab;
     [SerializeField] private ShopSubItemView _childItemPrefab;
     [SerializeField] private int _childItemPrice;
@@ -13,6 +14,7 @@ public class ShopItemValues : ScriptableObject
     public TypeShopItem ItemName => _itemType;
     public string ItemHeader => _itemHeaderText;
     public int ItemChildCount => _childItemsCount;
+    public int DefaulPurchasedCount => _defaultPurchasedCount;
     public ShopItemView Prefab => _prefab;
     public ShopSubItemView ChildItemPrefab => _childItemPrefab;
     public int Price => _childItemPrice;

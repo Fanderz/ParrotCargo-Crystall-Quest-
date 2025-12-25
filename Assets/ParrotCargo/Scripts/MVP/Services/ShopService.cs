@@ -21,6 +21,8 @@ public class ShopService : BaseService
     private ShopPresenter _shopPresenter;
     private ShopModel _shopModel;
 
+    public IReadOnlyList<ShopItemValues> UpgradeItemsSettings => _shopSpawner.UpgradeItemSettings;
+    public IReadOnlyList<ShopItemValues> PurchaseItemsSettings => _shopSpawner.PurchaseItemsSettings;
     public ShopModel Model => _shopModel;
 
     public override void Initialize()

@@ -14,4 +14,13 @@ public class ShopItemView : MonoBehaviour
         ItemType = shopItemValues.ItemName;
         headerText.text = shopItemValues.ItemHeader;
     }
+
+    public virtual void SetPurchasedOnLoad(int filledCount)
+    {
+    }
+
+    public virtual void SetPurchasedOnLoad(ShopSubItemView view)
+    {
+    }
+
 }

@@ -10,12 +10,12 @@ public class UpgradeShopSubItemView : ShopSubItemView
     private Button _button;
     private Image _buttonImage;
 
-    public void Initialize(ShopItemValues values)
+    public void Initialize(int priceValue)
     {
         _button = GetComponent<Button>();
         _buttonImage = _button.GetComponent<Image>();
 
-        price = values.Price;
+        price = priceValue;
         priceText.text = price.ToString();
 
         _button.onClick.AddListener(OnButtonClicked);
@@ -26,23 +26,23 @@ public class UpgradeShopSubItemView : ShopSubItemView
         if (_button != null)
             _button.onClick.RemoveListener(OnButtonClicked);
     }
+    public override void OnPurchase()
+    {
+        SetStarFilled();
+    }
 
     private void OnButtonClicked()
     {
         TryPurchase.Execute(this);
     }
 
-    public override void OnPurchase()
-    {
-        SetStarFilled();
-    }
-
-    public void SetStarFilled()
+    private void SetStarFilled()
     {
         if (_buttonImage.sprite != _filledImageSprite)
         {
             _buttonImage.sprite = _filledImageSprite;
-            //_button.interactable = false;
+            priceText.gameObject.SetActive(false);
+            priceImage.gameObject.SetActive(false);
         }
     }
 }

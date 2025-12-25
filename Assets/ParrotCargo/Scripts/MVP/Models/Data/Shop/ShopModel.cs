@@ -8,6 +8,8 @@ public class ShopModel
 {
     private ShopSaveModel _shopSaveModel;
 
+    public ShopSaveModel ShopSaveModel => _shopSaveModel;
+
     public int TempPalletsCnt => _shopSaveModel.upgradeItems.Count(x => x.Type == TypeShopItem.PalletUpgrade && x.IsPurchased);
     public int ShipPalletsCnt => _shopSaveModel.upgradeItems.Count(x => x.Type == TypeShopItem.ShipUpgrade && x.IsPurchased);
 

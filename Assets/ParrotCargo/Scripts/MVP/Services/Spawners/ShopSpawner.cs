@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using YG;
 
 public class ShopSpawner : MonoBehaviour
 {
@@ -9,15 +10,17 @@ public class ShopSpawner : MonoBehaviour
     [SerializeField] private Transform _upgradesParentUI;
     [SerializeField] private Transform _purchaseParentUI;
 
-    private List<ShopItemView> _items;
+    private List<ShopItemPresenter> _presenters;
 
-    public IReadOnlyList<ShopItemView> ShopItems => _items;
+    public IReadOnlyList<ShopItemValues> UpgradeItemSettings => _upgradeItemValues;
+    public IReadOnlyList<ShopItemValues> PurchaseItemsSettings => _purchaseItemValues;
+    public IReadOnlyList<ShopItemPresenter> ShopItems => _presenters;
 
     public ReactiveCommand<int> PurchaseCommand = new ReactiveCommand<int>();
 
     public void Spawn()
     {
-        _items = new List<ShopItemView>();
+        _presenters = new List<ShopItemPresenter>();
 
         SpawnItems(_upgradesParentUI, _upgradeItemValues);
         SpawnItems(_purchaseParentUI, _purchaseItemValues);
@@ -27,9 +30,20 @@ public class ShopSpawner : MonoBehaviour
     {
         foreach (ShopItemValues itemValues in items)
         {
+            List<ShopSaveData> saveData = itemValues.ItemName switch
+            {
+                TypeShopItem.PalletUpgrade => YG2.saves.shopModel.upgradeItems.FindAll(item => item.Type == TypeShopItem.PalletUpgrade),
+                TypeShopItem.ShipUpgrade => YG2.saves.shopModel.upgradeItems.FindAll(item => item.Type == TypeShopItem.ShipUpgrade),
+                TypeShopItem.ParrotPurchase => YG2.saves.shopModel.purchaseItems.FindAll(item => item.Type == TypeShopItem.ParrotPurchase),
+                TypeShopItem.ShipPurchase => YG2.saves.shopModel.purchaseItems.FindAll(item => item.Type == TypeShopItem.ShipPurchase),
+                _ => new List<ShopSaveData> { new NullableShopSaveData() }
+            };
+
             ShopItemView shopItem = SpawnItem(parent, itemValues);
-            shopItem.Initialize(itemValues);
-            _items.Add(shopItem);
+            ShopItemPresenter presenter = new ShopItemPresenter(shopItem, saveData);
+            presenter.Initialize(itemValues);
+
+            _presenters.Add(presenter);
         }
     }
 

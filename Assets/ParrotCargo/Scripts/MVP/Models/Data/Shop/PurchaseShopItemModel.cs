@@ -17,6 +17,4 @@ public class PurchaseShopItemModel : ShopItemModel
         _items = items;
         ItemType = itemType;
     }
-
-
 }

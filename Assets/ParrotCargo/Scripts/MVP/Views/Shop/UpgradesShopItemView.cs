@@ -14,20 +14,21 @@ public class UpgradesShopItemView : ShopItemView
     {
         base.Initialize(values);
         _subItems = new List<UpgradeShopSubItemView>();
-
-        for (int i = 0; i < values.ItemChildCount; i++)
-        {
-            UpgradeShopSubItemView subItem = Instantiate((UpgradeShopSubItemView)values.ChildItemPrefab, grid.transform);
-            subItem.Initialize(values);
-            subItem.TryPurchase.Subscribe(clicked => TryPurchase.Execute((UpgradeShopSubItemView)clicked));
-            //TryPurchase.Execute(subItem));
-            _subItems.Add(subItem);
-        }
     }
 
-    public void SetStarsFilledOnLoad(int filledCount)
+    //public override void SetPurchasedOnLoad(ShopSubItemView view)
+    //{
+    //    _subItems.Find(subItem => subItem == (UpgradeShopSubItemView)view).SetStarFilled();
+    //}  
+
+    public UpgradeShopSubItemView CreateSubItem(ShopSubItemView prefab, int price)
     {
-        for (int i = 0; i < filledCount; i++)
-            _subItems[i].SetStarFilled();
-    }  
+        UpgradeShopSubItemView subItem = Instantiate((UpgradeShopSubItemView)prefab, grid.transform);
+        subItem.Initialize(price);
+        subItem.TryPurchase.Subscribe(clicked => TryPurchase.Execute((UpgradeShopSubItemView)clicked));
+
+        _subItems.Add(subItem);
+
+        return subItem;
+    }
 }

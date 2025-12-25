@@ -281,8 +281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8021c392bd6690249bd8a7acf9b3fd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 0
   priceText: {fileID: 4760544834347438326}
+  priceImage: {fileID: 5127700612487920050}
   _filledImageSprite: {fileID: 1156858509, guid: c98907908c4af3b4db4f75742d52fcc6, type: 3}
 --- !u!1 &7791917867772491083
 GameObject:

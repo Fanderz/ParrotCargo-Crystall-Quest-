@@ -7,3 +7,8 @@ public class ShopSaveData
     public bool IsPurchased;
     public bool isActive;
 }
+
+public class NullableShopSaveData : ShopSaveData
+{
+
+}

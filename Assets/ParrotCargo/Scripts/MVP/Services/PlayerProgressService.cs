@@ -1,5 +1,6 @@
 using Assets.ParrotCargo.Scripts.MVP.Models.Data;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
@@ -70,58 +71,17 @@ public class PlayerProgressService : BaseService
         SceneManager.LoadScene("GameScene");
     }
 
-    //private ShopModel CreateDefault()
-    //{
-    //    return new ShopModel(
-    //        new List<UpgradeShopItemModel>
-    //        {
-    //            new UpgradeShopItemModel( new List<ShopSaveData> {
-    //                    new ShopSaveData { IsPurchased = true },
-    //                    new ShopSaveData { IsPurchased = true },
-    //                    new ShopSaveData { IsPurchased = false },
-    //                    new ShopSaveData { IsPurchased = false }
-    //            }, TypeShopItem.PalletUpgrade),
-
-    //            new UpgradeShopItemModel( new List<ShopSaveData> {
-    //                    new ShopSaveData { IsPurchased = true },
-    //                    new ShopSaveData { IsPurchased = false },
-    //                    new ShopSaveData { IsPurchased = false },
-    //                    new ShopSaveData { IsPurchased = false }
-    //            }, TypeShopItem.ShipUpgrade)
-    //        },
-
-    //        new List<PurchaseShopItemModel>
-    //        {
-    //            new PurchaseShopItemModel( new List<ShopSaveData> {
-    //                    new ShopSaveData { IsPurchased = false },
-    //                    new ShopSaveData { IsPurchased = false },
-    //                    new ShopSaveData { IsPurchased = false },
-    //                    new ShopSaveData { IsPurchased = false }
-    //        }, TypeShopItem.ParrotPurchase),
-
-    //            new PurchaseShopItemModel( new List<ShopSaveData> {
-    //                    new ShopSaveData { IsPurchased = false },
-    //                    new ShopSaveData { IsPurchased = false },
-    //                    new ShopSaveData { IsPurchased = false },
-    //                    new ShopSaveData { IsPurchased = false }
-    //        }, TypeShopItem.ShipPurchase)
-    //        });
-    //}
-
-    private List<ShopSaveData> CreateDefaultUpgradeItems()
+    private List<ShopSaveData> CreateDefaultItems(List<ShopItemValues> shopItemSettings)
     {
-        return new List<ShopSaveData>
-        {
-            new ShopSaveData { IsPurchased = true,  Type = TypeShopItem.PalletUpgrade },
-            new ShopSaveData { IsPurchased = true,  Type = TypeShopItem.PalletUpgrade },
-            new ShopSaveData { IsPurchased = false, Type = TypeShopItem.PalletUpgrade },
-            new ShopSaveData { IsPurchased = false, Type = TypeShopItem.PalletUpgrade },
+        List<ShopSaveData> save = new List<ShopSaveData>();
 
-            new ShopSaveData { IsPurchased = true,  Type = TypeShopItem.ShipUpgrade },
-            new ShopSaveData { IsPurchased = false, Type = TypeShopItem.ShipUpgrade },
-            new ShopSaveData { IsPurchased = false, Type = TypeShopItem.ShipUpgrade },
-            new ShopSaveData { IsPurchased = false, Type = TypeShopItem.ShipUpgrade }
-         };
+        foreach (ShopItemValues setting in shopItemSettings)
+        {
+            for (int j = 1; j <= setting.ItemChildCount; j++)
+                save.Add(new ShopSaveData { IsPurchased = (j <= setting.DefaulPurchasedCount ? true : false), Type = setting.ItemName });
+        }
+
+        return save;
     }
 
     private void OnYGInit()
@@ -132,8 +92,8 @@ public class PlayerProgressService : BaseService
         if (YG2.saves.shopModel == null)
             YG2.saves.shopModel = new ShopSaveModel
             {
-                upgradeItems = CreateDefaultUpgradeItems()
-                //purchaseItems = CreateDefaultPurchaseItems()
+                upgradeItems = CreateDefaultItems(_shopService.UpgradeItemsSettings.ToList()),
+                purchaseItems = CreateDefaultItems(_shopService.PurchaseItemsSettings.ToList())
             };
 
         if (YG2.saves.playerSettings == null)
@@ -147,4 +107,16 @@ public class PlayerProgressService : BaseService
 
         YG2.SaveProgress();
     }
+}
+
+public class ShopItemTest
+{
+    public ShopItemTest(TypeShopItem typeShopItem, int purchasedCount)
+    {
+        TypeShopItem = typeShopItem;
+        PurchasedCount = purchasedCount;
+    }
+
+    public TypeShopItem TypeShopItem { get; private set; }
+    public int PurchasedCount { get; private set; }
 }

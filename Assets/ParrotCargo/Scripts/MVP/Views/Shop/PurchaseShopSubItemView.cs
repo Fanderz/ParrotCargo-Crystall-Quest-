@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class PurchaseShopSubItemView : ShopSubItemView
 {
+    [SerializeField] private RawImage _modelRaw;
+
     private Button _button;
     private Image _buttonImage;
 
@@ -25,6 +27,15 @@ public class PurchaseShopSubItemView : ShopSubItemView
     public override void OnPurchase()
     {
         SetPurchased();
+    }
+
+    public void BindPreview(RenderTexture rt)
+    {
+        if (_modelRaw == null) 
+            return;
+
+        _modelRaw.texture = rt;
+        _modelRaw.enabled = (rt != null);
     }
 
     private void OnButtonClicked()

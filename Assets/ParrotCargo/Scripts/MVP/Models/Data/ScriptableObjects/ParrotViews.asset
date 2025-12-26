@@ -18,4 +18,15 @@ MonoBehaviour:
   _defaultPurchasedCount: 1
   _prefab: {fileID: 5660819917928178560, guid: 59a27fe41e1b3ea42907ce36ed2a6251, type: 3}
   _childItemPrefab: {fileID: -6795223793443808201, guid: 00840701c9ed5b14c8559eaac7ade99a, type: 3}
+  _previewRigPrefab: {fileID: 2844839539983795163, guid: 7f3f87381c50e7e4a85954f2c57dc549, type: 3}
+  _previewRenderTextures:
+  - {fileID: 8400000, guid: 55cc76c79b6c9d34a84c6d9c1c41ae82, type: 2}
+  - {fileID: 8400000, guid: 853b2cb3bf8d757408bd36bec1929d9c, type: 2}
+  - {fileID: 8400000, guid: 4f45cfe4c3b2d9b4d85235cc52d7df77, type: 2}
+  - {fileID: 8400000, guid: b3ef68effc27eea4092a99df94c14ace, type: 2}
+  _previewPrefabs:
+  - {fileID: 6329328860557119958, guid: a98f29eb6a48c324d84e2b6ff57ee52a, type: 3}
+  - {fileID: 2407069512299389510, guid: cab949d257553d448ad041a2ad13aed9, type: 3}
+  - {fileID: 5299068046021713873, guid: c4991df121e6d4b44a259091c931b9fb, type: 3}
+  - {fileID: 6524234347665576043, guid: 6788650c0015c1946a13f003a66602e8, type: 3}
   _childItemPrice: 100

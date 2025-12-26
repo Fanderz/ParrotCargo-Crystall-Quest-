@@ -10,9 +10,10 @@ using YG;
 public class ShopService : BaseService
 {
     [SerializeField] private ShopView _view;
-    [SerializeField] private List<ParrotsBlockView> _parrotViews;
-    [SerializeField] private List<ShipSetting> _ship;
+    //[SerializeField] private List<ParrotsBlockView> _parrotViews;
+    //[SerializeField] private List<ShipSetting> _ship;
     [SerializeField] private ShopSpawner _shopSpawner;
+    //[SerializeField] private Camera _previewCamera;
 
     [Inject] PlayerProgressService _playerProgressService;
     [Inject] PalletService _palletService;
@@ -32,9 +33,7 @@ public class ShopService : BaseService
         _shopSpawner.Spawn();
 
         _shopPresenter = new ShopPresenter(_shopModel, _view, _shopSpawner.ShopItems.ToList());
-
         _shopPresenter.PurchaseCommand.Subscribe(price => _playerProgressService.DecreaseOnPurchase(price)).AddTo(this);
-
         _shopPresenter.Initialize();
     }
 }

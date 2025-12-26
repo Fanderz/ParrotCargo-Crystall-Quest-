@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 2,
+  "idSave": 25,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 0
+    "Value": 850
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -47,7 +47,7 @@
       },
       {
         "Type": 0,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {

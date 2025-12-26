@@ -16,16 +16,12 @@ public class UpgradesShopItemView : ShopItemView
         _subItems = new List<UpgradeShopSubItemView>();
     }
 
-    //public override void SetPurchasedOnLoad(ShopSubItemView view)
-    //{
-    //    _subItems.Find(subItem => subItem == (UpgradeShopSubItemView)view).SetStarFilled();
-    //}  
-
     public UpgradeShopSubItemView CreateSubItem(ShopSubItemView prefab, int price)
     {
         UpgradeShopSubItemView subItem = Instantiate((UpgradeShopSubItemView)prefab, grid.transform);
         subItem.Initialize(price);
-        subItem.TryPurchase.Subscribe(clicked => TryPurchase.Execute((UpgradeShopSubItemView)clicked));
+        subItem.TryPurchase.Subscribe(clicked =>
+        TryPurchase.Execute((UpgradeShopSubItemView)clicked));
 
         _subItems.Add(subItem);
 

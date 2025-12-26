@@ -5,10 +5,14 @@ using YG;
 
 public class ShopSpawner : MonoBehaviour
 {
-    [SerializeField] private List<ShopItemValues> _upgradeItemValues;
-    [SerializeField] private List<ShopItemValues> _purchaseItemValues;
     [SerializeField] private Transform _upgradesParentUI;
     [SerializeField] private Transform _purchaseParentUI;
+
+    [SerializeField] private List<ShopItemValues> _upgradeItemValues;
+    [SerializeField] private List<ShopItemValues> _purchaseItemValues;
+
+    private List<Transform> _previewPivots;
+    private List<RenderTexture> _previewTextures;
 
     private List<ShopItemPresenter> _presenters;
 
@@ -21,6 +25,8 @@ public class ShopSpawner : MonoBehaviour
     public void Spawn()
     {
         _presenters = new List<ShopItemPresenter>();
+        _previewPivots = new List<Transform>();
+        _previewTextures = new List<RenderTexture>();
 
         SpawnItems(_upgradesParentUI, _upgradeItemValues);
         SpawnItems(_purchaseParentUI, _purchaseItemValues);

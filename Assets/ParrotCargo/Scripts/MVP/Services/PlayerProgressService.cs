@@ -40,7 +40,6 @@ public class PlayerProgressService : BaseService
         _gameCoinsPresenter = new CoinsPresenter(_gameCoinsModel, _gameCoinsView, _smoothChangeWait);
 
         _gamePointsPresenter = new PointsPresenter(_pointsModel, _gamePointsView, _smoothChangeWait);
-        //_lederboardPointsPresenter = new PointsPresenter(YG2.saves.pointsProgress, _leaderbordPointsView, _smoothChangeWait);
     }
 
     public void IncreaseValuesOnBagRelease()
@@ -60,8 +59,6 @@ public class PlayerProgressService : BaseService
         YG2.saves.coinsProgress.Value += _gameCoinsModel.Value;
         YG2.saves.pointsProgress.Value += _pointsModel.Value;
         _settingService.OnSave();
-        //_shopService.OnSave();
-        //_palletService.OnSave();
 
         YG2.SaveProgress();
     }

@@ -18,19 +18,11 @@ public class PurchaseShopItemView : ShopItemView
         _subItems = new List<PurchaseShopSubItemView>();
     }
 
-    //public override void SetPurchasedOnLoad(ShopSubItemView view)
-    //{
-    //    //_subItems.Find(subItem => subItem == (PurchaseShopSubItemView)view);
-
-    //    //if (view is PurchaseShopSubItemView purchaseSubItemView && _subItems.Exists(subItem => subItem == purchaseSubItemView))
-    //    //    purchaseSubItemView.SetPurchased();
-    //}
-
     public PurchaseShopSubItemView CreateSubItem(ShopSubItemView prefab, int price)
     {
-        PurchaseShopSubItemView subItem = Instantiate((PurchaseShopSubItemView)prefab, grid.transform);
+        PurchaseShopSubItemView subItem = Instantiate(prefab, grid.transform).GetComponent<PurchaseShopSubItemView>();
         subItem.Initialize(price);
-        subItem.TryPurchase.Subscribe(clicked => TryPurchase.Execute((PurchaseShopSubItemView)clicked));
+        subItem.TryPurchase.Subscribe(clicked => TryPurchase.Execute(clicked.GetComponent<PurchaseShopSubItemView>()));
 
         _subItems.Add(subItem);
 

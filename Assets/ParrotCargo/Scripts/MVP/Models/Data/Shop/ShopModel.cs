@@ -13,8 +13,6 @@ public class ShopModel
     public int TempPalletsCnt => _shopSaveModel.upgradeItems.Count(x => x.Type == TypeShopItem.PalletUpgrade && x.IsPurchased);
     public int ShipPalletsCnt => _shopSaveModel.upgradeItems.Count(x => x.Type == TypeShopItem.ShipUpgrade && x.IsPurchased);
 
-    //public IReadOnlyList<UpgradeShopItemModel> UpgradeItems => _shopSaveModel.upgradeItems;
-
     public ReactiveCommand<TypeShopItem> UpgradeItemChanged = new ReactiveCommand<TypeShopItem>();
     public ReactiveCommand<List<ParrotsBlockView>> ParrotBlockViewsChanged = new ReactiveCommand<List<ParrotsBlockView>>();
     public ReactiveCommand<BaseShipView> ShipViewsChanged = new ReactiveCommand<BaseShipView>();

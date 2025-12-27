@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36ebe5edb260bad4cbe4a9c6ecd71090, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36ebe5edb260bad4cbe4a9c6ecd71090, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36ebe5edb260bad4cbe4a9c6ecd71090, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.5
+      value: 4.38
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36ebe5edb260bad4cbe4a9c6ecd71090, type: 3}
       propertyPath: m_LocalRotation.w
@@ -290,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 36ebe5edb260bad4cbe4a9c6ecd71090, type: 3}
       propertyPath: m_Name
-      value: model
+      value: FourthShipPreview
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 36ebe5edb260bad4cbe4a9c6ecd71090, type: 3}
       propertyPath: m_Layer

@@ -58,6 +58,10 @@ public class PlayerProgressService : BaseService
     {
         YG2.saves.coinsProgress.Value += _gameCoinsModel.Value;
         YG2.saves.pointsProgress.Value += _pointsModel.Value;
+
+        if (_pointsModel.Value > YG2.saves.pointsProgress.Value)
+            YG2.SetLeaderboard("BestPlayers", _pointsModel.Value);
+
         _settingService.OnSave();
 
         YG2.SaveProgress();

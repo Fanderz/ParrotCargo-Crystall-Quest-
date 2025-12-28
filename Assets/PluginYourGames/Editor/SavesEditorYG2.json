@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 87,
+  "idSave": 94,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 850
+    "Value": 875
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -32,7 +32,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 0
+    "Value": 50
   },
   "playerSettings": {
     "Sound": 1.0,

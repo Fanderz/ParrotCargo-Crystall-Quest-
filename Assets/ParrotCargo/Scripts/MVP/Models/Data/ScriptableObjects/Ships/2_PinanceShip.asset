@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c5adb5e256ba774087682587807063e, type: 3}
+  m_Name: 2_PinanceShip
+  m_EditorClassIdentifier: 
+  _typeShip: 1
+  _shipPrefabs:
+  - {fileID: 5751431174766030201, guid: 48de4dff755a9404884ddc932e10ea66, type: 3}
+  - {fileID: 7352008108770320480, guid: d44a6244ddddf224caad1a6fbd4e8fed, type: 3}
+  - {fileID: -936134504098335322, guid: d7a9bc7951ec4fd4b8136e37addcf334, type: 3}
+  - {fileID: 4005000980403077129, guid: 96ce00a4881f0f14c9d982e3b7d89786, type: 3}

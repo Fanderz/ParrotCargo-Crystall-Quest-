@@ -11,6 +11,7 @@ namespace YG
         public PointsModel pointsProgress;
         public SettingsModel playerSettings;
         public ShopSaveModel shopModel;
-        public TypeBird currentTypeBird = TypeBird.Pigeon;
+        public TypeBird currentTypeBird = TypeBird.Parrot;
+        public TypeShip currentTypeShip = TypeShip.Pirate;
     }
 }

@@ -1,5 +1,7 @@
 public enum TypeBird
 {
     Parrot,
-    Pigeon
+    Pigeon,
+    Eagle,
+    AngryBird
 }

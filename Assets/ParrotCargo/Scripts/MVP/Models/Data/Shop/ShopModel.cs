@@ -13,7 +13,7 @@ public class ShopModel
 
     public ReactiveCommand<ShopSaveData> ModelChanged = new ReactiveCommand<ShopSaveData>();
     public ReactiveCommand<ShopSaveData> PurchaseItemChanged = new ReactiveCommand<ShopSaveData>();
-    public ReactiveCommand PurchaseItemActivated = new ReactiveCommand();
+    public ReactiveCommand<(int, TypeShopItem)> PurchaseItemActivated = new ReactiveCommand<(int, TypeShopItem)>();
 
     public ShopModel(ShopSaveModel save)
     {
@@ -50,7 +50,11 @@ public class ShopModel
     public void ActivatePurchase(ShopSaveData data)
     {
         var item = _shopSaveModel.purchaseItems.FirstOrDefault(model => model == data);
+
+        if (item != null)
+            _shopSaveModel.purchaseItems.ForEach(purchaseItem => purchaseItem.isActive = false);
+
         item.isActive = true;
-        PurchaseItemActivated.Execute();
+        PurchaseItemActivated.Execute((_shopSaveModel.purchaseItems.Where(purchaseItem => purchaseItem.Type == item.Type).ToList().IndexOf(item), item.Type));
     }
 }

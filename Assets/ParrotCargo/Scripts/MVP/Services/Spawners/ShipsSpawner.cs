@@ -48,6 +48,11 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
         }
     }
 
+    public void ChangeShips(List<BaseShipView> ships)
+    {
+        Prefab = ships;
+    }
+
     protected override void CreatePool()
     {
         if (Pool == null)

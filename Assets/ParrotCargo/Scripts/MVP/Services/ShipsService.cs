@@ -28,6 +28,12 @@ public class ShipsService : BaseService
         _shopService.Model.ModelChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
+    //public void OnStart()
+    //{
+    //    _shipSpawner.CreateObjects();
+    //    _shipSpawner.Spawn();
+    //}
+
     private void OnUpgradeChanged(ShopSaveData data)
     {
         if (data.Type != TypeShopItem.ShipUpgrade)

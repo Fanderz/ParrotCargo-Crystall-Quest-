@@ -9,52 +9,89 @@ public class ShopItemPresenter
     private readonly List<ShopSaveData> _model;
     private readonly TypeShopItem _type;
 
-    public ReactiveCommand<ShopSubItemView> TryPurchase = new ReactiveCommand<ShopSubItemView>();
+    private List<ShopSubItemPresenter> _subItemPresenters;
+
+    public ReactiveCommand<ShopSubItemPresenter> Purchasing = new ReactiveCommand<ShopSubItemPresenter>();
 
     public ShopItemPresenter(ShopItemView view, List<ShopSaveData> model)
     {
+        _subItemPresenters = new List<ShopSubItemPresenter>();
+
         _view = view;
         _model = model;
         _type = view.ItemType;
     }
 
     public TypeShopItem ItemType => _type;
+    public IReadOnlyList<ShopSubItemPresenter> SubItemPresenters => _subItemPresenters;
 
     public void Initialize(ShopItemValues values)
     {
         _view.Initialize(values);
 
-        if (_view is UpgradesShopItemView upgradesItemView)
+        //if (_view is UpgradesShopItemView upgradesItemView)
+        //{
+        //    foreach (var item in _model)
+        //    {
+        //        UpgradeShopSubItemView subItem = upgradesItemView.CreateSubItem(values.ChildItemPrefab, values.Price);
+        //        ShopSubItemPresenter subItemPresenter = new ShopSubItemPresenter(subItem, item);
+        //        subItemPresenter.Initialize();
+        //        subItemPresenter.PurchaseClicked.Subscribe(clicked => 
+        //        Purchasing.Execute(clicked));
+
+        //        _subItemPresenters.Add(subItemPresenter);
+        //    }
+        //}
+
+        //if (_view is PurchaseShopItemView purchaseItemView)
+        //{
+        //    for (int i = 0; i < _model.Count; i++)
+        //    {
+        //        var saveData = _model[i];
+        //        var subItem = purchaseItemView.CreateSubItem(values.ChildItemPrefab, values.Price);
+
+        //        SetupPurchaseSubItemPreview(subItem, values, i);
+
+        //        var presenter = new ShopSubItemPresenter(subItem, saveData);
+        //        presenter.Initialize();
+        //        presenter.PurchaseClicked.Subscribe(clicked => 
+        //        Purchasing.Execute(clicked));
+
+        //        _subItemPresenters.Add(presenter);
+        //    }
+        //}
+
+        foreach (var item in _model)
         {
-            foreach (var item in _model)
+            ShopSubItemView itemView;
+
+            if (_view is UpgradesShopItemView)
             {
-                UpgradeShopSubItemView subItem = upgradesItemView.CreateSubItem(values.ChildItemPrefab, values.Price);
-                ShopSubItemPresenter subItemPresenter = new ShopSubItemPresenter(subItem, item);
-                subItemPresenter.Initialize();
+                itemView = _view.GetComponent<UpgradesShopItemView>().CreateSubItem(values.ChildItemPrefab, values.Price);
+            }
+            else
+            {
+                itemView = _view.GetComponent<PurchaseShopItemView>().CreateSubItem(values.ChildItemPrefab, values.Price);
+                SetupPurchaseSubItemPreview(itemView.GetComponent<PurchaseShopSubItemView>(), values, _model.IndexOf(item));
             }
 
-            upgradesItemView.TryPurchase.Subscribe(subItem =>
-            TryPurchase.Execute(subItem));
+            ShopSubItemPresenter subItemPresenter = new ShopSubItemPresenter(itemView, item);
+            subItemPresenter.Initialize();
+            subItemPresenter.PurchaseClicked.Subscribe(clicked => Purchasing.Execute(clicked));
+
+            _subItemPresenters.Add(subItemPresenter);
         }
 
-        if (_view is PurchaseShopItemView purchaseItemView)
-        {
-            for (int i = 0; i < _model.Count; i++)
-            {
-                var saveData = _model[i];
-                var subItem = purchaseItemView.CreateSubItem(values.ChildItemPrefab, values.Price);
-
-                SetupPurchaseSubItemPreview(subItem, values, i);
-
-                var presenter = new ShopSubItemPresenter(subItem, saveData);
-                presenter.Initialize();
-            }
-        }
     }
 
-    public void OnModelChanged(int newPurchasedCount)
+    public void OnModelChanged(ShopSaveData data)
     {
-        _view.SetPurchasedOnLoad(newPurchasedCount);
+        ShopSubItemPresenter subItem = _subItemPresenters.Find(presenter => presenter.SaveData == data);
+
+        if (subItem == null)
+            return;
+
+        subItem.SetPurchased();
     }
 
     private void SetupPurchaseSubItemPreview(PurchaseShopSubItemView subItem, ShopItemValues values, int index)

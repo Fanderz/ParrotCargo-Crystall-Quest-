@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 5,
+  "idSave": 15,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 670
+    "Value": 850
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -32,104 +32,56 @@
       },
       "IsDisposed": false
     },
-    "Value": 40
+    "Value": 0
   },
   "playerSettings": {
     "Sound": 1.0,
-    "Music": 0.715071261
+    "Music": 1.0
   },
   "shopModel": {
-    "UpgradeItemChanged": {
-      "CanExecute": {
-        "Value": true,
-        "HasValue": true
-      },
-      "IsDisposed": false
-    },
-    "ParrotBlockViewsChanged": {
-      "CanExecute": {
-        "Value": true,
-        "HasValue": true
-      },
-      "IsDisposed": false
-    },
-    "ShipViewsChanged": {
-      "CanExecute": {
-        "Value": true,
-        "HasValue": true
-      },
-      "IsDisposed": false
-    },
-    "TempPalletsCnt": 3,
-    "ShipPalletsCnt": 2,
-    "UpgradeItems": [
+    "upgradeItems": [
       {
-        "ObjectsCntChanged": {
-          "CanExecute": {
-            "Value": true,
-            "HasValue": true
-          },
-          "IsDisposed": false
-        },
-        "ObjectsCnt": 3,
-        "ItemType": 0
+        "Type": 0,
+        "IsPurchased": true,
+        "isActive": false
       },
       {
-        "ObjectsCntChanged": {
-          "CanExecute": {
-            "Value": true,
-            "HasValue": true
-          },
-          "IsDisposed": false
-        },
-        "ObjectsCnt": 2,
-        "ItemType": 1
+        "Type": 0,
+        "IsPurchased": true,
+        "isActive": false
       },
       {
-        "ObjectsCntChanged": {
-          "CanExecute": {
-            "Value": true,
-            "HasValue": true
-          },
-          "IsDisposed": false
-        },
-        "ObjectsCnt": 2,
-        "ItemType": 0
+        "Type": 0,
+        "IsPurchased": true,
+        "isActive": false
       },
       {
-        "ObjectsCntChanged": {
-          "CanExecute": {
-            "Value": true,
-            "HasValue": true
-          },
-          "IsDisposed": false
-        },
-        "ObjectsCnt": 2,
-        "ItemType": 1
+        "Type": 0,
+        "IsPurchased": false,
+        "isActive": false
       },
       {
-        "ObjectsCntChanged": {
-          "CanExecute": {
-            "Value": true,
-            "HasValue": true
-          },
-          "IsDisposed": false
-        },
-        "ObjectsCnt": 2,
-        "ItemType": 0
+        "Type": 1,
+        "IsPurchased": true,
+        "isActive": false
       },
       {
-        "ObjectsCntChanged": {
-          "CanExecute": {
-            "Value": true,
-            "HasValue": true
-          },
-          "IsDisposed": false
-        },
-        "ObjectsCnt": 1,
-        "ItemType": 1
+        "Type": 1,
+        "IsPurchased": false,
+        "isActive": false
+      },
+      {
+        "Type": 1,
+        "IsPurchased": false,
+        "isActive": false
+      },
+      {
+        "Type": 1,
+        "IsPurchased": false,
+        "isActive": false
       }
-    ]
+    ],
+    "purchaseItems": null
   },
   "currentTypeBird": 1
 }

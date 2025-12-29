@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UniRx;
 using YG;
 
@@ -21,44 +20,40 @@ public class ShopPresenter
         _view = view;
         _shopItemPresenters = shopItems;
         _wallet = YG2.saves.coinsProgress;
-
-        //_view.Initialize(shopItems);
     }
 
     public void Initialize()
     {
         foreach (var presenter in _shopItemPresenters)
-            presenter.TryPurchase.Subscribe(subItem => TryPurchase(subItem, presenter.ItemType));
-
-        _model.UpgradeItemChanged.Subscribe(type =>
-            {
-                foreach (var presenter in _shopItemPresenters)
-                {
-                    if (presenter.ItemType != type)
-                        continue;
-
-                    int cnt = type == TypeShopItem.PalletUpgrade ? _model.TempPalletsCnt : _model.ShipPalletsCnt;
-
-                    presenter.OnModelChanged(cnt);
-                }
-            });
+        {
+            presenter.Purchasing.Subscribe(subItem => TryPurchase(subItem, presenter.ItemType));
+            _model.ModelChanged.Subscribe(data => presenter.OnModelChanged(data));
+        }
     }
 
-    private void TryPurchase(ShopSubItemView subItem, TypeShopItem type)
+    private void TryPurchase(ShopSubItemPresenter subItemPresenter, TypeShopItem type)
     {
-        if (CanPurchase(subItem.Price) == false)
+        bool success;
+
+        if (subItemPresenter.IsActivated)
             return;
 
-        if (_model.CanPurchaseUpgrade(type) == false)
+        if (subItemPresenter.IsPurchaseItem && subItemPresenter.IsPurchased)
+        {
+            _model.ActivatePurchase(subItemPresenter.SaveData);
+            return;
+        }
+
+        if (CanPurchase(subItemPresenter.Price) == false)
             return;
 
-        bool success = _model.PurchaseUpgrade(type);
+        success = _model.Purchase(subItemPresenter.SaveData);
 
-        if (!success)
+
+        if (success == false)
             return;
 
-        PurchaseCommand.Execute(subItem.Price);
-        subItem.OnPurchase();
+        PurchaseCommand.Execute(subItemPresenter.Price);
     }
 
     private bool CanPurchase(int price)

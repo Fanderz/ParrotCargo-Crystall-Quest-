@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 15,
+  "idSave": 6,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -48,11 +48,11 @@
       {
         "Type": 0,
         "IsPurchased": true,
-        "isActive": false
+        "isActive": true
       },
       {
         "Type": 0,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
@@ -81,7 +81,48 @@
         "isActive": false
       }
     ],
-    "purchaseItems": null
+    "purchaseItems": [
+      {
+        "Type": 3,
+        "IsPurchased": true,
+        "isActive": false
+      },
+      {
+        "Type": 3,
+        "IsPurchased": false,
+        "isActive": false
+      },
+      {
+        "Type": 3,
+        "IsPurchased": false,
+        "isActive": false
+      },
+      {
+        "Type": 3,
+        "IsPurchased": false,
+        "isActive": false
+      },
+      {
+        "Type": 2,
+        "IsPurchased": true,
+        "isActive": false
+      },
+      {
+        "Type": 2,
+        "IsPurchased": false,
+        "isActive": false
+      },
+      {
+        "Type": 2,
+        "IsPurchased": false,
+        "isActive": false
+      },
+      {
+        "Type": 2,
+        "IsPurchased": false,
+        "isActive": false
+      }
+    ]
   },
   "currentTypeBird": 1
 }

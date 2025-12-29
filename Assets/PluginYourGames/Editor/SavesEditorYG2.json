@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 87,
+  "idSave": 9,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 850
+    "Value": 700
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -48,12 +48,12 @@
       {
         "Type": 0,
         "IsPurchased": true,
-        "isActive": false
+        "isActive": true
       },
       {
         "Type": 0,
-        "IsPurchased": false,
-        "isActive": false
+        "IsPurchased": true,
+        "isActive": true
       },
       {
         "Type": 0,
@@ -109,7 +109,7 @@
       },
       {
         "Type": 2,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {

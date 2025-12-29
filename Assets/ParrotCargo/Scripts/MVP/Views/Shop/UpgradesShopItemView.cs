@@ -18,10 +18,9 @@ public class UpgradesShopItemView : ShopItemView
 
     public UpgradeShopSubItemView CreateSubItem(ShopSubItemView prefab, int price)
     {
-        UpgradeShopSubItemView subItem = Instantiate((UpgradeShopSubItemView)prefab, grid.transform);
+        UpgradeShopSubItemView subItem = Instantiate(prefab.GetComponent<UpgradeShopSubItemView>(), grid.transform);
         subItem.Initialize(price);
-        subItem.TryPurchase.Subscribe(clicked =>
-        TryPurchase.Execute((UpgradeShopSubItemView)clicked));
+        subItem.TryPurchase.Subscribe(clicked => TryPurchase.Execute(clicked.GetComponent<UpgradeShopSubItemView>()));
 
         _subItems.Add(subItem);
 

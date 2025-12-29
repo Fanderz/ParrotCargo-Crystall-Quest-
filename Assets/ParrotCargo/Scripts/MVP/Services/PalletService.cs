@@ -24,12 +24,12 @@ public class PalletService : BaseService
         _currentPalletsCnt = _shopService.Model.TempPalletsCnt;
         _palletSpawner.Spawn(_currentPalletsCnt);
 
-        _shopService.Model.UpgradeItemChanged.Subscribe(OnUpgradeChanged).AddTo(this);
+        _shopService.Model.ModelChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
-    private void OnUpgradeChanged(TypeShopItem type)
+    private void OnUpgradeChanged(ShopSaveData data)
     {
-        if (type != TypeShopItem.PalletUpgrade)
+        if (data.Type != TypeShopItem.PalletUpgrade)
             return;
 
         int newCnt = _shopService.Model.TempPalletsCnt;

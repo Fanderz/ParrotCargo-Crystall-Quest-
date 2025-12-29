@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+
 using UniRx;
 
 [Serializable]
@@ -8,34 +8,49 @@ public class ShopModel
 {
     private ShopSaveModel _shopSaveModel;
 
-    public ShopSaveModel ShopSaveModel => _shopSaveModel;
-
     public int TempPalletsCnt => _shopSaveModel.upgradeItems.Count(x => x.Type == TypeShopItem.PalletUpgrade && x.IsPurchased);
     public int ShipPalletsCnt => _shopSaveModel.upgradeItems.Count(x => x.Type == TypeShopItem.ShipUpgrade && x.IsPurchased);
 
-    public ReactiveCommand<TypeShopItem> UpgradeItemChanged = new ReactiveCommand<TypeShopItem>();
-    public ReactiveCommand<List<ParrotsBlockView>> ParrotBlockViewsChanged = new ReactiveCommand<List<ParrotsBlockView>>();
-    public ReactiveCommand<BaseShipView> ShipViewsChanged = new ReactiveCommand<BaseShipView>();
+    public ReactiveCommand<ShopSaveData> ModelChanged = new ReactiveCommand<ShopSaveData>();
+    public ReactiveCommand<ShopSaveData> PurchaseItemChanged = new ReactiveCommand<ShopSaveData>();
+    public ReactiveCommand PurchaseItemActivated = new ReactiveCommand();
 
     public ShopModel(ShopSaveModel save)
     {
         _shopSaveModel = save;
     }
 
-    public bool CanPurchaseUpgrade(TypeShopItem type)
+    public bool Purchase(ShopSaveData data)
     {
-        return _shopSaveModel.upgradeItems.Any(x => x.Type == type && !x.IsPurchased);
-    }
+        ShopSaveData item;
 
-    public bool PurchaseUpgrade(TypeShopItem type)
-    {
-        var item = _shopSaveModel.upgradeItems.FirstOrDefault(x => x.Type == type && !x.IsPurchased);
-
-        if (item == null)
+        if (data is NullableShopSaveData)
             return false;
 
+        if (data.Type == TypeShopItem.PalletUpgrade || data.Type == TypeShopItem.ShipUpgrade)
+            item = _shopSaveModel.upgradeItems.FirstOrDefault(finded => finded == data && finded.IsPurchased == false);
+        else
+            item = _shopSaveModel.purchaseItems.FirstOrDefault(finded => finded == data && finded.IsPurchased == false);
+
         item.IsPurchased = true;
-        UpgradeItemChanged.Execute(type);
+
+        if (item.Type == TypeShopItem.PalletUpgrade || item.Type == TypeShopItem.ShipUpgrade)
+        {
+            item.isActive = true;
+            ModelChanged.Execute(data);
+        }
+        else
+        {
+            ModelChanged.Execute(data);
+        }
+
         return true;
+    }
+
+    public void ActivatePurchase(ShopSaveData data)
+    {
+        var item = _shopSaveModel.purchaseItems.FirstOrDefault(model => model == data);
+        item.isActive = true;
+        PurchaseItemActivated.Execute();
     }
 }

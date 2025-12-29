@@ -10,10 +10,7 @@ using YG;
 public class ShopService : BaseService
 {
     [SerializeField] private ShopView _view;
-    //[SerializeField] private List<ParrotsBlockView> _parrotViews;
-    //[SerializeField] private List<ShipSetting> _ship;
     [SerializeField] private ShopSpawner _shopSpawner;
-    //[SerializeField] private Camera _previewCamera;
 
     [Inject] PlayerProgressService _playerProgressService;
     [Inject] PalletService _palletService;

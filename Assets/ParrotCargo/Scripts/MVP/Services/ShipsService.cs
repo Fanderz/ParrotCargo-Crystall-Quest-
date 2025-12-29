@@ -25,12 +25,12 @@ public class ShipsService : BaseService
         _currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
         ApplyUpgrades(_currentShipUpgrades);
 
-        _shopService.Model.UpgradeItemChanged.Subscribe(OnUpgradeChanged).AddTo(this);
+        _shopService.Model.ModelChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
-    private void OnUpgradeChanged(TypeShopItem type)
+    private void OnUpgradeChanged(ShopSaveData data)
     {
-        if (type != TypeShopItem.ShipUpgrade)
+        if (data.Type != TypeShopItem.ShipUpgrade)
             return;
 
         int newCnt = _shopService.Model.ShipPalletsCnt;

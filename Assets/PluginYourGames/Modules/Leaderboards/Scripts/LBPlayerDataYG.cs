@@ -10,7 +10,10 @@ namespace YG
     public class LBPlayerDataYG : MonoBehaviour
     {
         public ImageLoadYG imageLoad;
-
+        [SerializeField] private Image _iconRank;
+        [SerializeField] private Sprite _iconFirst;
+        [SerializeField] private Sprite _iconSecond;
+        [SerializeField] private Sprite _iconThird;
         [Serializable]
         public struct TextLegasy
         {
@@ -101,6 +104,31 @@ namespace YG
                 {
                     objects[i].enabled = activity;
                 }
+            }
+
+            if (int.Parse(data.rank) > 3)
+                _iconRank.gameObject.SetActive(false);
+            else
+            {
+                textLegasy.score.gameObject.SetActive(false);
+                SetIconRank();
+            }
+        }
+
+        private void SetIconRank()
+        {
+            var rank = int.Parse(data.rank);
+            switch (rank)
+            {
+                case 1:
+                    _iconRank.sprite = _iconFirst;
+                    break;
+                case 2:
+                    _iconRank.sprite = _iconSecond;
+                    break;
+                case 3:
+                    _iconRank.sprite = _iconThird;
+                    break;
             }
         }
     }

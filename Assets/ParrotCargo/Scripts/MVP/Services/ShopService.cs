@@ -13,8 +13,6 @@ public class ShopService : BaseService
     [SerializeField] private ShopSpawner _shopSpawner;
 
     [Inject] PlayerProgressService _playerProgressService;
-    [Inject] PalletService _palletService;
-    [Inject] ShipsService _shipService;
 
     private ShopPresenter _shopPresenter;
     private ShopModel _shopModel;

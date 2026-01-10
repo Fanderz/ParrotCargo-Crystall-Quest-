@@ -15,7 +15,6 @@ public class ShopPresenter
 
     public ShopPresenter(ShopModel model, ShopView view, List<ShopItemPresenter> shopItems)
     {
-
         _model = model;
         _view = view;
         _shopItemPresenters = shopItems;

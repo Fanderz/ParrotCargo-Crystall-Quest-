@@ -68,7 +68,7 @@ public class ParrotsBlockView : MonoBehaviour
             var birdAnimator = bird.GetComponent<Animator>();
 
             if (birdAnimator != null)
-                parrotView.SetChaildAnimator(birdAnimator);
+                parrotView.SetChildAnimator(birdAnimator);
         }
     }
 

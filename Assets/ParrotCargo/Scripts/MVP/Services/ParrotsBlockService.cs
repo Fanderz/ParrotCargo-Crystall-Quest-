@@ -21,15 +21,17 @@ public class ParrotsBlockService : BaseService
 
     public override void Initialize()
     {
-        _parrotsBlockSpawner.CreateObjects();
-        CreateBlocks();
-        //_shipsService.OnShipsChanged.Subscribe(changed => { UpdateTargets(); });
-
         _parrotsBlockSpawner.RespawnBlocks.Subscribe(respawn =>
         {
             if (_spawnPlatforms.TrueForAll(platform => platform.haveBirds == false))
                 CreateBlocks();
         });
+    }
+
+    public void StartGame()
+    {
+        _parrotsBlockSpawner.CreateObjects();
+        CreateBlocks();
     }
 
     private void CreateBlocks()

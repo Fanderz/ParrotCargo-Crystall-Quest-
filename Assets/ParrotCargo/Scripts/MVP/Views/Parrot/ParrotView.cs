@@ -66,7 +66,7 @@ public class ParrotView : MonoBehaviour
         }
     }
 
-    public void SetChaildAnimator(Animator animator)
+    public void SetChildAnimator(Animator animator)
     {
         var s = transform.GetChild(0);
         s.gameObject.SetActive(false);

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 
 using UniRx;
+using YG;
 
 [Serializable]
 public class ShopModel

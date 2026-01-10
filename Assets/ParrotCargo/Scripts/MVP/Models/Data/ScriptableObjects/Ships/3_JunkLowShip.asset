@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c5adb5e256ba774087682587807063e, type: 3}
+  m_Name: 3_JunkLowShip
+  m_EditorClassIdentifier: 
+  _typeShip: 2
+  _shipPrefabs:
+  - {fileID: 4171624389823105516, guid: 8db13d63c2fb4ce42b9b2dc7e291cf85, type: 3}
+  - {fileID: 4315547248759363149, guid: 34c4243a7abde1548912ada1849ead49, type: 3}
+  - {fileID: 410913180464716082, guid: b64915b4b10871742b00eba3067e4f4b, type: 3}
+  - {fileID: -6358742747160308891, guid: 53b8abf7550e8a24886e994fc182598f, type: 3}

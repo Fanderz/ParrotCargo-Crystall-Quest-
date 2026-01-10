@@ -14,16 +14,11 @@ public class SkinService : BaseService
 
     [Inject] private ShopService _shopService;
 
-    public Bird CurrentBird { get; private set; }
-    public ShipSO CurrentShip { get; private set; }
+    public Bird CurrentBird => _birdsPrefab.Find(bird => bird.TypeBird == YG2.saves.currentTypeBird);
+    public ShipSO CurrentShip => _shipsPrefab.Find(ship => ship.TypeShip == YG2.saves.currentTypeShip);
 
     public override void Initialize()
     {
-        var savedCurrentBird = YG2.saves.currentTypeBird;
-        var savedCurrentShip = YG2.saves.currentTypeShip;
-        CurrentBird = _birdsPrefab.Find(bird => bird.TypeBird == savedCurrentBird);
-        CurrentShip = _shipsPrefab.Find(ship => ship.TypeShip == savedCurrentShip);
-
         _shopService.Model.PurchaseItemActivated.Subscribe(SetSkin).AddTo(this);
     }
 

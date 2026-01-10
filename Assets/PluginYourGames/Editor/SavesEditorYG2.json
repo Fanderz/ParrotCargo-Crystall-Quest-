@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 1,
+  "idSave": 48,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -89,7 +89,7 @@
       },
       {
         "Type": 3,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
@@ -109,8 +109,8 @@
       },
       {
         "Type": 2,
-        "IsPurchased": false,
-        "isActive": false
+        "IsPurchased": true,
+        "isActive": true
       },
       {
         "Type": 2,
@@ -124,6 +124,6 @@
       }
     ]
   },
-  "currentTypeBird": 0,
-  "currentTypeShip": 0
+  "currentTypeBird": 1,
+  "currentTypeShip": 1
 }

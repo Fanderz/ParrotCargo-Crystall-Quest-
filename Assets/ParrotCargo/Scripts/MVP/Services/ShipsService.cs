@@ -4,6 +4,7 @@ using UnityEngine;
 
 using Zenject;
 using UniRx;
+using System.Linq;
 
 public class ShipsService : BaseService
 {
@@ -13,26 +14,23 @@ public class ShipsService : BaseService
     private int _currentShipUpgrades;
 
     [Inject] private ShopService _shopService;
+    [Inject] private SkinService _skinService;
 
     public IReadOnlyList<ShipPresenter> Ships => _shipSpawner.ShipPresenters;
 
     public override void Initialize()
     {
-        _shipSpawner.Initialize();
-        _shipSpawner.CreateObjects();
-        _shipSpawner.Spawn();
-
-        _currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
-        ApplyUpgrades(_currentShipUpgrades);
-
         _shopService.Model.ModelChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
-    //public void OnStart()
-    //{
-    //    _shipSpawner.CreateObjects();
-    //    _shipSpawner.Spawn();
-    //}
+    public void StartGame()
+    {
+        _shipSpawner.Initialize(_skinService.CurrentShip.ShipPrefabs.ToList());
+        _shipSpawner.CreateObjects();
+        _shipSpawner.Spawn();
+        _currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
+        ApplyUpgrades(_currentShipUpgrades);
+    }
 
     private void OnUpgradeChanged(ShopSaveData data)
     {

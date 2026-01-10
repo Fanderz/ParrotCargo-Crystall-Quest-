@@ -7,7 +7,7 @@ using Zenject;
 public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
 {
     [SerializeField] private int _ySpawnOffset = 3;
-    [SerializeField] private SkinService _skinBirdService;
+    [SerializeField] private SkinService _skinService;
 
     private DiContainer _container;
     private List<ParrotBlockPresenter> _parrotBlockPresenters;
@@ -37,7 +37,7 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
             spawnPoint.GetBirds();
 
             var parrotBlockView = SpawnObject(spawnPosition);
-            parrotBlockView.Initialize(_skinBirdService.CurrentBird.PrefabBird);
+            parrotBlockView.Initialize(_skinService.CurrentBird.PrefabBird);
             var parrotBlock = new ParrotBlock(parrotBlockView.GetComponent<Transform>());
             var parrotBlockPresenter = new ParrotBlockPresenter(parrotBlock, parrotBlockView);
             parrotBlockPresenter.Initialize();

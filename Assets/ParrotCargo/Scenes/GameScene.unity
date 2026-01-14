@@ -5912,6 +5912,8 @@ MonoBehaviour:
   _birdsPrefab:
   - {fileID: 11400000, guid: b817a5958899d8a439bf9039debd1fda, type: 2}
   - {fileID: 11400000, guid: 9999954b10ae69545b6852852e7006ba, type: 2}
+  - {fileID: 11400000, guid: ab5c04c23bb38594f81dbbeb8ec50a0f, type: 2}
+  - {fileID: 11400000, guid: df97a99595a695749ba39f9dc363bb34, type: 2}
   _shipsPrefab:
   - {fileID: 11400000, guid: ab3495698813d214ca532dab9958c202, type: 2}
   - {fileID: 11400000, guid: 5110bf9e6f0f6334583ade0e94b73a0b, type: 2}
@@ -10061,7 +10063,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 122.5
+  m_fontSize: 149.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10927,7 +10929,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 83.95
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13861,7 +13863,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 88.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

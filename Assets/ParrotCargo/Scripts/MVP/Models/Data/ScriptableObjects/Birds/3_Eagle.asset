@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 3_Eagle
   m_EditorClassIdentifier: 
   _typeBird: 2
-  _prefabBird: {fileID: 0}
+  _prefabBird: {fileID: 5236519592906022519, guid: b589de4e6886f424aa182a57ca1a8f92, type: 3}

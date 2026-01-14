@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 4_AngryBird
   m_EditorClassIdentifier: 
   _typeBird: 3
-  _prefabBird: {fileID: 0}
+  _prefabBird: {fileID: 2674544274999864568, guid: 0dabc15b1b7b2f44a8c532b4f7550906, type: 3}

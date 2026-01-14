@@ -37,6 +37,10 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
             spawnPoint.GetBirds();
 
             var parrotBlockView = SpawnObject(spawnPosition);
+
+            if (parrotBlockView == null)
+                Debug.Log("ParrotBlockView is null");
+
             parrotBlockView.Initialize(_skinService.CurrentBird.PrefabBird);
             var parrotBlock = new ParrotBlock(parrotBlockView.GetComponent<Transform>());
             var parrotBlockPresenter = new ParrotBlockPresenter(parrotBlock, parrotBlockView);

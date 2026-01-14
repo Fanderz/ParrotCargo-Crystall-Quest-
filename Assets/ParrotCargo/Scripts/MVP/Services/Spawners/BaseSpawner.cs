@@ -31,8 +31,8 @@ public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
 
         var randomIndex = Random.Range(0, Prefab.Count);
         var prefab = Prefab[randomIndex];
-        
-        var  obj = Pool.Get(prefab, Parent);
+
+        var obj = Pool.Get(prefab, Parent);
 
         if (obj != null)
         {

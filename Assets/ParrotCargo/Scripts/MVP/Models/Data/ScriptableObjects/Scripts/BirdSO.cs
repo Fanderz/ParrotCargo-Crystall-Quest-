@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Bird", menuName = "ScriptableObject/Bird")]
-public class Bird : ScriptableObject
+[CreateAssetMenu(fileName = "BirdSO", menuName = "ScriptableObject/BirdSO")]
+public class BirdSO : BaseShopObjectSO
 {
     [SerializeField] private TypeBird _typeBird;
     [SerializeField] private GameObject _prefabBird;

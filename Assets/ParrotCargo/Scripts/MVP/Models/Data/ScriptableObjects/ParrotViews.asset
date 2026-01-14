@@ -9,24 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40ffa23ad43a0924c887ed76057b5e4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 39e4c6f9fdf2c89439c34ff87c4b9361, type: 3}
   m_Name: ParrotViews
   m_EditorClassIdentifier: 
-  _itemType: 2
-  _itemHeaderText: "\u041F\u043E\u043F\u0443\u0433\u0430\u0438"
-  _childItemsCount: 4
-  _defaultPurchasedCount: 1
-  _prefab: {fileID: 5660819917928178560, guid: 59a27fe41e1b3ea42907ce36ed2a6251, type: 3}
-  _childItemPrefab: {fileID: -6795223793443808201, guid: 00840701c9ed5b14c8559eaac7ade99a, type: 3}
+  itemType: 2
+  itemHeaderText: "\u041F\u043E\u043F\u0443\u0433\u0430\u0438"
+  childItemsCount: 4
+  defaultPurchasedCount: 1
+  _defaultActiveCount: 1
+  prefab: {fileID: 5660819917928178560, guid: 59a27fe41e1b3ea42907ce36ed2a6251, type: 3}
+  childItemPrefab: {fileID: -6795223793443808201, guid: 00840701c9ed5b14c8559eaac7ade99a, type: 3}
+  shopObject:
+  - {fileID: 11400000, guid: b817a5958899d8a439bf9039debd1fda, type: 2}
+  - {fileID: 11400000, guid: 9999954b10ae69545b6852852e7006ba, type: 2}
+  - {fileID: 11400000, guid: df97a99595a695749ba39f9dc363bb34, type: 2}
+  - {fileID: 11400000, guid: ab5c04c23bb38594f81dbbeb8ec50a0f, type: 2}
   _previewRigPrefab: {fileID: 2844839539983795163, guid: 7f3f87381c50e7e4a85954f2c57dc549, type: 3}
   _previewRenderTextures:
-  - {fileID: 8400000, guid: 55cc76c79b6c9d34a84c6d9c1c41ae82, type: 2}
-  - {fileID: 8400000, guid: 853b2cb3bf8d757408bd36bec1929d9c, type: 2}
-  - {fileID: 8400000, guid: 4f45cfe4c3b2d9b4d85235cc52d7df77, type: 2}
-  - {fileID: 8400000, guid: b3ef68effc27eea4092a99df94c14ace, type: 2}
-  _previewPrefabs:
-  - {fileID: 6329328860557119958, guid: a98f29eb6a48c324d84e2b6ff57ee52a, type: 3}
-  - {fileID: 2407069512299389510, guid: cab949d257553d448ad041a2ad13aed9, type: 3}
-  - {fileID: 5299068046021713873, guid: c4991df121e6d4b44a259091c931b9fb, type: 3}
-  - {fileID: 6524234347665576043, guid: 6788650c0015c1946a13f003a66602e8, type: 3}
-  _childItemPrice: 100
+  - {fileID: 8400000, guid: 1bd6d240c14c34544a29a31cd65e3b7e, type: 2}
+  - {fileID: 8400000, guid: 26b091d1ec0c6e947bf9d10d81021bbf, type: 2}
+  - {fileID: 8400000, guid: 86a9e2d0ad534d64f874de5eb569c1d8, type: 2}
+  - {fileID: 8400000, guid: 013041951065c4d49b89b91d8b534cbe, type: 2}

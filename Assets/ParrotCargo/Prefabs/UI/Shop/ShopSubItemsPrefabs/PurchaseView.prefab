@@ -273,6 +273,8 @@ MonoBehaviour:
   priceText: {fileID: 8837057754839661514}
   priceImage: {fileID: 3392431372838609465}
   _modelRaw: {fileID: 2519984953793490331}
+  _activeColor: {r: 0.4745098, g: 1, b: 0.34117648, a: 1}
+  _unactiveColor: {r: 0.7058824, g: 0.63529414, b: 0.4, a: 1}
 --- !u!1 &5000659132022862918
 GameObject:
   m_ObjectHideFlags: 0

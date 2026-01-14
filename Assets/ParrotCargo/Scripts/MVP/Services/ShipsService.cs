@@ -20,7 +20,7 @@ public class ShipsService : BaseService
 
     public override void Initialize()
     {
-        _shopService.Model.ModelChanged.Subscribe(OnUpgradeChanged).AddTo(this);
+        _shopService.Model.UpgradeChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
     public void StartGame()

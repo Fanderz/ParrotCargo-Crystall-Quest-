@@ -9,24 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40ffa23ad43a0924c887ed76057b5e4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 39e4c6f9fdf2c89439c34ff87c4b9361, type: 3}
   m_Name: ShipViews
   m_EditorClassIdentifier: 
-  _itemType: 3
-  _itemHeaderText: "\u041A\u043E\u0440\u0430\u0431\u043B\u0438"
-  _childItemsCount: 4
-  _defaultPurchasedCount: 1
-  _prefab: {fileID: 5660819917928178560, guid: 59a27fe41e1b3ea42907ce36ed2a6251, type: 3}
-  _childItemPrefab: {fileID: -6795223793443808201, guid: 00840701c9ed5b14c8559eaac7ade99a, type: 3}
+  itemType: 3
+  itemHeaderText: "\u041A\u043E\u0440\u0430\u0431\u043B\u0438"
+  childItemsCount: 4
+  defaultPurchasedCount: 1
+  _defaultActiveCount: 1
+  prefab: {fileID: 5660819917928178560, guid: 59a27fe41e1b3ea42907ce36ed2a6251, type: 3}
+  childItemPrefab: {fileID: -6795223793443808201, guid: 00840701c9ed5b14c8559eaac7ade99a, type: 3}
+  shopObject:
+  - {fileID: 11400000, guid: ab3495698813d214ca532dab9958c202, type: 2}
+  - {fileID: 11400000, guid: 5110bf9e6f0f6334583ade0e94b73a0b, type: 2}
+  - {fileID: 11400000, guid: 19ef6775b40b0c0489932130a12bf8c8, type: 2}
+  - {fileID: 11400000, guid: de0df8d2850c99f4da75b9b49ef7c231, type: 2}
   _previewRigPrefab: {fileID: 2844839539983795163, guid: 7f3f87381c50e7e4a85954f2c57dc549, type: 3}
   _previewRenderTextures:
-  - {fileID: 8400000, guid: 1bd6d240c14c34544a29a31cd65e3b7e, type: 2}
-  - {fileID: 8400000, guid: 26b091d1ec0c6e947bf9d10d81021bbf, type: 2}
-  - {fileID: 8400000, guid: 86a9e2d0ad534d64f874de5eb569c1d8, type: 2}
-  - {fileID: 8400000, guid: 013041951065c4d49b89b91d8b534cbe, type: 2}
-  _previewPrefabs:
-  - {fileID: 8966965887739933395, guid: 9533efe382b7a4a46a2dedf4eaff1e1b, type: 3}
-  - {fileID: 5144628792697708996, guid: 69aca25845701af41af729eb06db1ed0, type: 3}
-  - {fileID: 3824549234756542245, guid: 03b3bb84144201a46b0fe66257004468, type: 3}
-  - {fileID: 6197875784009701726, guid: 7d3e763e209c12f49970633f9afdb36c, type: 3}
-  _childItemPrice: 100
+  - {fileID: 8400000, guid: 55cc76c79b6c9d34a84c6d9c1c41ae82, type: 2}
+  - {fileID: 8400000, guid: 853b2cb3bf8d757408bd36bec1929d9c, type: 2}
+  - {fileID: 8400000, guid: 4f45cfe4c3b2d9b4d85235cc52d7df77, type: 2}
+  - {fileID: 8400000, guid: b3ef68effc27eea4092a99df94c14ace, type: 2}

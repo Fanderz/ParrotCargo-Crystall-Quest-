@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bd0c4e750700964eb637feb9f8d4bdb, type: 3}
-  m_Name: 2_Pigeon
+  m_Script: {fileID: 11500000, guid: 23029dd6a5e850743ba22dd0ef70b8be, type: 3}
+  m_Name: 2_TempPallet
   m_EditorClassIdentifier: 
   price: 100
-  previewPrefab: {fileID: 2407069512299389510, guid: cab949d257553d448ad041a2ad13aed9, type: 3}
-  _typeBird: 1
-  _prefabBird: {fileID: 4798860986884711699, guid: 69dce1309cba3074e8aabdb80cf9469f, type: 3}
+  previewPrefab: {fileID: 0}

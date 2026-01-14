@@ -9,14 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40ffa23ad43a0924c887ed76057b5e4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f12b87e8aa709041b162aa3b4620683, type: 3}
   m_Name: TempPalletsCount
   m_EditorClassIdentifier: 
-  _itemType: 0
-  _itemHeaderText: "\u041A\u041E\u041B\u0418\u0427\u0415\u0421\u0422\u0412\u041E
-    \u0412\u0420\u0415\u041C\u0415\u041D\u041D\u042B\u0425 \u041F\u0410\u041B\u0415\u0422\u041E\u0412"
-  _childItemsCount: 4
-  _defaultPurchasedCount: 1
-  _prefab: {fileID: 6989523096462491045, guid: 3da9b84d3148d094b949631de80ab607, type: 3}
-  _childItemPrefab: {fileID: -2343576939814225008, guid: 6d2d478435f354446baf9b24cd4202b1, type: 3}
-  _childItemPrice: 50
+  itemType: 0
+  itemHeaderText: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0445
+    \u043F\u0430\u043B\u0435\u0442\u043E\u0432"
+  childItemsCount: 4
+  defaultPurchasedCount: 1
+  prefab: {fileID: 6989523096462491045, guid: 3da9b84d3148d094b949631de80ab607, type: 3}
+  childItemPrefab: {fileID: -2343576939814225008, guid: 6d2d478435f354446baf9b24cd4202b1, type: 3}
+  shopObject:
+  - {fileID: 11400000, guid: 44dad572d48cebf4382150ca2ae4ab16, type: 2}
+  - {fileID: 11400000, guid: 18fac6784494ae3438d5353f71116603, type: 2}
+  - {fileID: 11400000, guid: bcd9e9ae4de401442a1e479a6880c1c1, type: 2}
+  - {fileID: 11400000, guid: 2bb0036956fe4ce449236e0b2373efba, type: 2}

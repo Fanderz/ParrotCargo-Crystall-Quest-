@@ -9,7 +9,7 @@ public class ShopItemView : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI headerText;
 
     public TypeShopItem ItemType { get; protected set; }
-    public virtual void Initialize(ShopItemValues shopItemValues)
+    public virtual void Initialize(BaseShopItemValuesSO shopItemValues)
     {
         ItemType = shopItemValues.ItemName;
         headerText.text = shopItemValues.ItemHeader;

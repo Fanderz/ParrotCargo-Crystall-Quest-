@@ -21,10 +21,6 @@ public class BasePool<T> where T : MonoBehaviour
         _container = container;
     }
 
-    //public int Count => _objects.Count;
-
-    //public int ActiveCount => _objects.FindAll(finded => finded.gameObject.activeSelf == true).Count;
-
     public T Get(T prefab, Transform parent)
     {
         foreach (T obj in _objects)

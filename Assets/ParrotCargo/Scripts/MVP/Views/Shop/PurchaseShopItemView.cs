@@ -10,7 +10,7 @@ public class PurchaseShopItemView : ShopItemView
 
     public ReactiveCommand<PurchaseShopSubItemView> TryPurchase = new ReactiveCommand<PurchaseShopSubItemView>();
 
-    public override void Initialize(ShopItemValues values)
+    public override void Initialize(BaseShopItemValuesSO values)
     {
         base.Initialize(values);
         _subItems = new List<PurchaseShopSubItemView>();

@@ -10,7 +10,7 @@ public class UpgradesShopItemView : ShopItemView
 
     public ReactiveCommand<UpgradeShopSubItemView> TryPurchase = new ReactiveCommand<UpgradeShopSubItemView>();
 
-    public override void Initialize(ShopItemValues values)
+    public override void Initialize(BaseShopItemValuesSO values)
     {
         base.Initialize(values);
         _subItems = new List<UpgradeShopSubItemView>();

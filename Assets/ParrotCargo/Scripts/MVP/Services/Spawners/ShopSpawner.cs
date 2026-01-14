@@ -8,16 +8,16 @@ public class ShopSpawner : MonoBehaviour
     [SerializeField] private Transform _upgradesParentUI;
     [SerializeField] private Transform _purchaseParentUI;
 
-    [SerializeField] private List<ShopItemValues> _upgradeItemValues;
-    [SerializeField] private List<ShopItemValues> _purchaseItemValues;
+    [SerializeField] private List<BaseShopItemValuesSO> _upgradeItemValues;
+    [SerializeField] private List<BaseShopItemValuesSO> _purchaseItemValues;
 
     private List<Transform> _previewPivots;
     private List<RenderTexture> _previewTextures;
 
     private List<ShopItemPresenter> _presenters;
 
-    public IReadOnlyList<ShopItemValues> UpgradeItemSettings => _upgradeItemValues;
-    public IReadOnlyList<ShopItemValues> PurchaseItemsSettings => _purchaseItemValues;
+    public IReadOnlyList<BaseShopItemValuesSO> UpgradeItemSettings => _upgradeItemValues;
+    public IReadOnlyList<BaseShopItemValuesSO> PurchaseItemsSettings => _purchaseItemValues;
     public IReadOnlyList<ShopItemPresenter> ShopItems => _presenters;
 
     public ReactiveCommand<int> PurchaseCommand = new ReactiveCommand<int>();
@@ -32,9 +32,9 @@ public class ShopSpawner : MonoBehaviour
         SpawnItems(_purchaseParentUI, _purchaseItemValues);
     }
 
-    private void SpawnItems(Transform parent, List<ShopItemValues> items)
+    private void SpawnItems(Transform parent, List<BaseShopItemValuesSO> items)
     {
-        foreach (ShopItemValues itemValues in items)
+        foreach (BaseShopItemValuesSO itemValues in items)
         {
             List<ShopSaveData> saveData = itemValues.ItemName switch
             {
@@ -53,7 +53,7 @@ public class ShopSpawner : MonoBehaviour
         }
     }
 
-    private ShopItemView SpawnItem(Transform parent, ShopItemValues values)
+    private ShopItemView SpawnItem(Transform parent, BaseShopItemValuesSO values)
     {
         return Instantiate(values.Prefab, parent); ;
     }

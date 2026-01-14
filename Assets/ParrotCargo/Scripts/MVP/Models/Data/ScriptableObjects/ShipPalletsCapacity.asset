@@ -9,14 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40ffa23ad43a0924c887ed76057b5e4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f12b87e8aa709041b162aa3b4620683, type: 3}
   m_Name: ShipPalletsCapacity
   m_EditorClassIdentifier: 
-  _itemType: 1
-  _itemHeaderText: "\u0412\u041C\u0415\u0421\u0422\u0418\u041C\u041E\u0421\u0422\u042C
-    \u041A\u041E\u0420\u0410\u0411\u041B\u042F"
-  _childItemsCount: 4
-  _defaultPurchasedCount: 1
-  _prefab: {fileID: 6989523096462491045, guid: 3da9b84d3148d094b949631de80ab607, type: 3}
-  _childItemPrefab: {fileID: -2343576939814225008, guid: 6d2d478435f354446baf9b24cd4202b1, type: 3}
-  _childItemPrice: 50
+  itemType: 1
+  itemHeaderText: "\u0412\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C
+    \u043A\u043E\u0440\u0430\u0431\u043B\u044F"
+  childItemsCount: 4
+  defaultPurchasedCount: 1
+  prefab: {fileID: 6989523096462491045, guid: 3da9b84d3148d094b949631de80ab607, type: 3}
+  childItemPrefab: {fileID: -2343576939814225008, guid: 6d2d478435f354446baf9b24cd4202b1, type: 3}
+  shopObject:
+  - {fileID: 11400000, guid: 7f17e731b1b88ee4e938f82b1d0392b2, type: 2}
+  - {fileID: 11400000, guid: abb42e060e8423d4aaec6a8f81d4b757, type: 2}
+  - {fileID: 11400000, guid: 0176be739e8918a4b8aac2f804653a43, type: 2}
+  - {fileID: 11400000, guid: 5613b15b0a1a9ba468827bece102bc11, type: 2}

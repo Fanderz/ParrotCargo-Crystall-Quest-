@@ -12,9 +12,8 @@ public class ShopModel
     public int TempPalletsCnt => _shopSaveModel.upgradeItems.Count(x => x.Type == TypeShopItem.PalletUpgrade && x.IsPurchased);
     public int ShipPalletsCnt => _shopSaveModel.upgradeItems.Count(x => x.Type == TypeShopItem.ShipUpgrade && x.IsPurchased);
 
-    public ReactiveCommand<ShopSaveData> ModelChanged = new ReactiveCommand<ShopSaveData>();
-    public ReactiveCommand<ShopSaveData> PurchaseItemChanged = new ReactiveCommand<ShopSaveData>();
-    public ReactiveCommand<(int, TypeShopItem)> PurchaseItemActivated = new ReactiveCommand<(int, TypeShopItem)>();
+    public ReactiveCommand<ShopSaveData> UpgradeChanged = new ReactiveCommand<ShopSaveData>();
+    public ReactiveCommand<(int, TypeShopItem)> SkinChanged = new ReactiveCommand<(int, TypeShopItem)>();
 
     public ShopModel(ShopSaveModel save)
     {
@@ -38,11 +37,11 @@ public class ShopModel
         if (item.Type == TypeShopItem.PalletUpgrade || item.Type == TypeShopItem.ShipUpgrade)
         {
             item.isActive = true;
-            ModelChanged.Execute(data);
+            UpgradeChanged.Execute(data);
         }
         else
         {
-            ModelChanged.Execute(data);
+            UpgradeChanged.Execute(data);
         }
 
         return true;
@@ -53,9 +52,10 @@ public class ShopModel
         var item = _shopSaveModel.purchaseItems.FirstOrDefault(model => model == data);
 
         if (item != null)
-            _shopSaveModel.purchaseItems.ForEach(purchaseItem => purchaseItem.isActive = false);
+            _shopSaveModel.purchaseItems.Where(purchaseItem => purchaseItem.Type == item.Type).ToList().ForEach(purchaseItem => purchaseItem.isActive = false);
 
         item.isActive = true;
-        PurchaseItemActivated.Execute((_shopSaveModel.purchaseItems.Where(purchaseItem => purchaseItem.Type == item.Type).ToList().IndexOf(item), item.Type));
+
+        SkinChanged.Execute((_shopSaveModel.purchaseItems.Where(purchaseItem => purchaseItem.Type == item.Type).ToList().IndexOf(item), item.Type));
     }
 }

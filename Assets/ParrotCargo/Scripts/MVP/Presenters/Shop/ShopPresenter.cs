@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using YG;
 
@@ -26,7 +27,8 @@ public class ShopPresenter
         foreach (var presenter in _shopItemPresenters)
         {
             presenter.Purchasing.Subscribe(subItem => TryPurchase(subItem, presenter.ItemType));
-            _model.ModelChanged.Subscribe(data => presenter.OnModelChanged(data));
+            _model.UpgradeChanged.Subscribe(data => presenter.OnModelChanged(data));
+            _model.SkinChanged.Subscribe(OnActivateSubItem);
         }
     }
 
@@ -40,6 +42,8 @@ public class ShopPresenter
         if (subItemPresenter.IsPurchaseItem && subItemPresenter.IsPurchased)
         {
             _model.ActivatePurchase(subItemPresenter.SaveData);
+            _shopItemPresenters.First(presenter => presenter.ItemType == type).SubItemPresenters.ToList().ForEach(subItemPresenter => subItemPresenter.SetUnActive());
+            subItemPresenter.SetActive();
             return;
         }
 
@@ -58,5 +62,11 @@ public class ShopPresenter
     private bool CanPurchase(int price)
     {
         return _wallet.Value != 0 ? price <= _wallet.Value : false;
+    }
+
+    private void OnActivateSubItem((int index, TypeShopItem type) input)
+    {
+        _shopItemPresenters.First(presenter => presenter.ItemType == input.type).SubItemPresenters.ToList().ForEach(subItemPresenter => subItemPresenter.SetUnActive());
+        _shopItemPresenters.First(presenter => presenter.ItemType == input.type).SubItemPresenters[input.index].SetActive();
     }
 }

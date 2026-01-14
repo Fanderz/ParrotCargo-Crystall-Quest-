@@ -1,4 +1,6 @@
+using System.Drawing;
 using UniRx;
+using UnityEngine;
 
 public class ShopSubItemPresenter
 {
@@ -22,9 +24,26 @@ public class ShopSubItemPresenter
     public void Initialize()
     {
         SetPurchasedOnLoad();
+        SetActivatedOnLoad();
 
-        _view.Button.onClick.AddListener(() =>
-        PurchaseClicked.Execute(this));
+        _view.Button.onClick.AddListener(() => PurchaseClicked.Execute(this));
+    }
+
+    public void SetPurchased()
+    {
+        _view.OnPurchase();
+    }
+
+    public void SetActive()
+    {
+        var item = _view.GetComponent<PurchaseShopSubItemView>();
+        item.SetActiveView();
+    }
+
+    public void SetUnActive()
+    {
+        var item = _view.GetComponent<PurchaseShopSubItemView>();
+        item.SetUnActiveView();
     }
 
     private void SetPurchasedOnLoad()
@@ -33,8 +52,9 @@ public class ShopSubItemPresenter
             _view.OnPurchase();
     }
 
-    public void SetPurchased()
+    private void SetActivatedOnLoad()
     {
-        _view.OnPurchase();
+        if (_model.IsPurchased && _model.isActive)
+            SetActive();
     }
 }

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5adb5e256ba774087682587807063e, type: 3}
   m_Name: 3_JunkLowShip
   m_EditorClassIdentifier: 
+  price: 200
+  previewPrefab: {fileID: 3824549234756542245, guid: 03b3bb84144201a46b0fe66257004468, type: 3}
   _typeShip: 2
   _shipPrefabs:
   - {fileID: 4171624389823105516, guid: 8db13d63c2fb4ce42b9b2dc7e291cf85, type: 3}

@@ -25,57 +25,25 @@ public class ShopItemPresenter
     public TypeShopItem ItemType => _type;
     public IReadOnlyList<ShopSubItemPresenter> SubItemPresenters => _subItemPresenters;
 
-    public void Initialize(ShopItemValues values)
+    public void Initialize(BaseShopItemValuesSO values)
     {
         _view.Initialize(values);
 
-        //if (_view is UpgradesShopItemView upgradesItemView)
-        //{
-        //    foreach (var item in _model)
-        //    {
-        //        UpgradeShopSubItemView subItem = upgradesItemView.CreateSubItem(values.ChildItemPrefab, values.Price);
-        //        ShopSubItemPresenter subItemPresenter = new ShopSubItemPresenter(subItem, item);
-        //        subItemPresenter.Initialize();
-        //        subItemPresenter.PurchaseClicked.Subscribe(clicked => 
-        //        Purchasing.Execute(clicked));
-
-        //        _subItemPresenters.Add(subItemPresenter);
-        //    }
-        //}
-
-        //if (_view is PurchaseShopItemView purchaseItemView)
-        //{
-        //    for (int i = 0; i < _model.Count; i++)
-        //    {
-        //        var saveData = _model[i];
-        //        var subItem = purchaseItemView.CreateSubItem(values.ChildItemPrefab, values.Price);
-
-        //        SetupPurchaseSubItemPreview(subItem, values, i);
-
-        //        var presenter = new ShopSubItemPresenter(subItem, saveData);
-        //        presenter.Initialize();
-        //        presenter.PurchaseClicked.Subscribe(clicked => 
-        //        Purchasing.Execute(clicked));
-
-        //        _subItemPresenters.Add(presenter);
-        //    }
-        //}
-
-        foreach (var item in _model)
+        for (int i = 0; i < _model.Count; i++)
         {
             ShopSubItemView itemView;
 
             if (_view is UpgradesShopItemView)
             {
-                itemView = _view.GetComponent<UpgradesShopItemView>().CreateSubItem(values.ChildItemPrefab, values.Price);
+                itemView = _view.GetComponent<UpgradesShopItemView>().CreateSubItem(values.ChildItemPrefab, values.GetItemPriceAtIndex(i));
             }
             else
             {
-                itemView = _view.GetComponent<PurchaseShopItemView>().CreateSubItem(values.ChildItemPrefab, values.Price);
-                SetupPurchaseSubItemPreview(itemView.GetComponent<PurchaseShopSubItemView>(), values, _model.IndexOf(item));
+                itemView = _view.GetComponent<PurchaseShopItemView>().CreateSubItem(values.ChildItemPrefab, values.GetItemPriceAtIndex(i));
+                SetupPurchaseSubItemPreview(itemView.GetComponent<PurchaseShopSubItemView>(), (PurchaseShopItemValues)values, i);
             }
 
-            ShopSubItemPresenter subItemPresenter = new ShopSubItemPresenter(itemView, item);
+            ShopSubItemPresenter subItemPresenter = new ShopSubItemPresenter(itemView, _model[i]);
             subItemPresenter.Initialize();
             subItemPresenter.PurchaseClicked.Subscribe(clicked => Purchasing.Execute(clicked));
 
@@ -94,12 +62,12 @@ public class ShopItemPresenter
         subItem.SetPurchased();
     }
 
-    private void SetupPurchaseSubItemPreview(PurchaseShopSubItemView subItem, ShopItemValues values, int index)
+    private void SetupPurchaseSubItemPreview(PurchaseShopSubItemView subItem, PurchaseShopItemValues values, int index)
     {
         int layer = LayerMask.NameToLayer($"ShopPreview{index}");
 
         ShopPreviewRig rig = Object.Instantiate(values.PreviewRigPrefab, subItem.transform);
-        GameObject preview = Object.Instantiate(values.PreviewPrefabs[index], rig.PivotTransform, false);
+        GameObject preview = Object.Instantiate(values.GetPreviewPrefabAtIndex(index), rig.PivotTransform, false);
 
         rig.name = $"PreviewRig_{index}";
         rig.transform.position = new Vector3(10000, 10000, 10000);

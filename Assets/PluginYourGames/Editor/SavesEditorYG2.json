@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 48,
+  "idSave": 94,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -85,12 +85,7 @@
       {
         "Type": 3,
         "IsPurchased": true,
-        "isActive": false
-      },
-      {
-        "Type": 3,
-        "IsPurchased": true,
-        "isActive": false
+        "isActive": true
       },
       {
         "Type": 3,
@@ -103,8 +98,8 @@
         "isActive": false
       },
       {
-        "Type": 2,
-        "IsPurchased": true,
+        "Type": 3,
+        "IsPurchased": false,
         "isActive": false
       },
       {
@@ -121,9 +116,14 @@
         "Type": 2,
         "IsPurchased": false,
         "isActive": false
+      },
+      {
+        "Type": 2,
+        "IsPurchased": false,
+        "isActive": false
       }
     ]
   },
-  "currentTypeBird": 1,
-  "currentTypeShip": 1
+  "currentTypeBird": 0,
+  "currentTypeShip": 0
 }

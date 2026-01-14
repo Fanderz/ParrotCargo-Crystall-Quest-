@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5adb5e256ba774087682587807063e, type: 3}
   m_Name: 1_PirateShip
   m_EditorClassIdentifier: 
+  price: 0
+  previewPrefab: {fileID: 8966965887739933395, guid: 9533efe382b7a4a46a2dedf4eaff1e1b, type: 3}
   _typeShip: 0
   _shipPrefabs:
   - {fileID: 7992923773610316608, guid: 8b2b9bbab02e78147a83057cf98606a1, type: 3}

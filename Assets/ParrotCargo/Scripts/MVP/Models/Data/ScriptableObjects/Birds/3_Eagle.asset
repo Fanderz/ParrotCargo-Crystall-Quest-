@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd0c4e750700964eb637feb9f8d4bdb, type: 3}
   m_Name: 3_Eagle
   m_EditorClassIdentifier: 
+  price: 200
+  previewPrefab: {fileID: 5299068046021713873, guid: c4991df121e6d4b44a259091c931b9fb, type: 3}
   _typeBird: 2
   _prefabBird: {fileID: 0}

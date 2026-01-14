@@ -72,14 +72,14 @@ public class PlayerProgressService : BaseService
         SceneManager.LoadScene("GameScene");
     }
 
-    private List<ShopSaveData> CreateDefaultItems(List<ShopItemValues> shopItemSettings)
+    private List<ShopSaveData> CreateDefaultItems(List<BaseShopItemValuesSO> shopItemSettings)
     {
         List<ShopSaveData> save = new List<ShopSaveData>();
 
-        foreach (ShopItemValues setting in shopItemSettings)
+        foreach (BaseShopItemValuesSO setting in shopItemSettings)
         {
             for (int j = 1; j <= setting.ItemChildCount; j++)
-                save.Add(new ShopSaveData { IsPurchased = (j <= setting.DefaulPurchasedCount ? true : false), Type = setting.ItemName });
+                save.Add(new ShopSaveData { IsPurchased = (j <= setting.DefaulPurchasedCount ? true : false), isActive = (j <= setting.DefaultActiveCount ? true : false), Type = setting.ItemName });
         }
 
         return save;

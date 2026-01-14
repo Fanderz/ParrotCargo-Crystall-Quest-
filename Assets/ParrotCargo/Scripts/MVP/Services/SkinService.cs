@@ -9,17 +9,17 @@ using Zenject;
 public class SkinService : BaseService
 {
     [Header("Settings")]
-    [SerializeField] private List<Bird> _birdsPrefab;
+    [SerializeField] private List<BirdSO> _birdsPrefab;
     [SerializeField] private List<ShipSO> _shipsPrefab;
 
     [Inject] private ShopService _shopService;
 
-    public Bird CurrentBird => _birdsPrefab.Find(bird => bird.TypeBird == YG2.saves.currentTypeBird);
+    public BirdSO CurrentBird => _birdsPrefab.Find(bird => bird.TypeBird == YG2.saves.currentTypeBird);
     public ShipSO CurrentShip => _shipsPrefab.Find(ship => ship.TypeShip == YG2.saves.currentTypeShip);
 
     public override void Initialize()
     {
-        _shopService.Model.PurchaseItemActivated.Subscribe(SetSkin).AddTo(this);
+        _shopService.Model.SkinChanged.Subscribe(SetSkin).AddTo(this);
     }
 
     private void SetSkin((int index, TypeShopItem itemType) input)

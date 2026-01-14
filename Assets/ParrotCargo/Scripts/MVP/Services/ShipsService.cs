@@ -10,7 +10,6 @@ public class ShipsService : BaseService
 {
     [SerializeField] private ShipsSpawner _shipSpawner;
 
-
     private int _currentShipUpgrades;
 
     [Inject] private ShopService _shopService;

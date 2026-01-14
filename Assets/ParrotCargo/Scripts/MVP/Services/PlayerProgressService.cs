@@ -109,15 +109,3 @@ public class PlayerProgressService : BaseService
         YG2.SaveProgress();
     }
 }
-
-public class ShopItemTest
-{
-    public ShopItemTest(TypeShopItem typeShopItem, int purchasedCount)
-    {
-        TypeShopItem = typeShopItem;
-        PurchasedCount = purchasedCount;
-    }
-
-    public TypeShopItem TypeShopItem { get; private set; }
-    public int PurchasedCount { get; private set; }
-}

@@ -6,9 +6,11 @@ using Unity.VisualScripting;
 
 using UniRx;
 using TMPro;
+using DG.Tweening;
 
 public class BaseScoreView : MonoBehaviour
 {
+    [SerializeField] protected float _durationIncrease = 1f;
     [SerializeField] protected TextMeshProUGUI valueView;
 
     protected int targetValue;
@@ -28,34 +30,18 @@ public class BaseScoreView : MonoBehaviour
     {
         if (this.IsDestroyed() == false)
         {
-            targetValue = value;
-
-            if (smoothIncreaserValueCoroutine != null)
-                StopCoroutine(smoothIncreaserValueCoroutine);
-
-            if (smoothWait != null && this.gameObject.activeInHierarchy)
-                smoothIncreaserValueCoroutine = StartCoroutine(SmoothChanger(valueView, Convert.ToInt32(valueView.text), value));
+            if (this.gameObject.activeInHierarchy)
+                UpdateCount(valueView, value);
             else
                 valueView.text = value.ToString();
-
-            ValueChanged.Execute(value);
         }
     }
 
-    private IEnumerator SmoothChanger(TextMeshProUGUI textView, int startValue, int endValue)
+    public void UpdateCount(TextMeshProUGUI textView, int countValue)
     {
-        while (startValue != endValue && this.gameObject.activeInHierarchy)
-        {
-            if (startValue < endValue)
-                startValue += 1;
+        int addedValue = int.Parse(textView.text);
 
-            if (startValue > endValue)
-                startValue -= 1;
-
-            textView.text = startValue.ToString();
-
-            yield return smoothWait;
-        }
+        DOTween.To(() => int.Parse(textView.text), x => { addedValue = x; textView.text = addedValue.ToString(); }, countValue, _durationIncrease);
     }
 
     private void OnDestroy()

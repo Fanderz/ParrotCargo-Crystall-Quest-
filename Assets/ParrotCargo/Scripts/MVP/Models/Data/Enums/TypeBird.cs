@@ -2,6 +2,6 @@ public enum TypeBird
 {
     Parrot,
     Pigeon,
-    Eagle,
+    Bat,
     AngryBird
 }

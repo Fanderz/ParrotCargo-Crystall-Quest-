@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -19,7 +20,7 @@ public class ShopItemPresenter
 
         _view = view;
         _model = model;
-        _type = view.ItemType;
+        _type = model.FirstOrDefault().Type;
     }
 
     public TypeShopItem ItemType => _type;

@@ -66,7 +66,7 @@ public class ShopPresenter
 
     private void OnActivateSubItem((int index, TypeShopItem type) input)
     {
-        _shopItemPresenters.First(presenter => presenter.ItemType == input.type).SubItemPresenters.ToList().ForEach(subItemPresenter => subItemPresenter.SetUnActive());
-        _shopItemPresenters.First(presenter => presenter.ItemType == input.type).SubItemPresenters[input.index].SetActive();
+        _shopItemPresenters.Find(presenter => presenter.ItemType == input.type).SubItemPresenters.ToList().ForEach(subItemPresenter => subItemPresenter.SetUnActive());
+        _shopItemPresenters.Find(presenter => presenter.ItemType == input.type).SubItemPresenters[input.index].SetActive();
     }
 }

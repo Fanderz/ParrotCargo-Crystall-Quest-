@@ -27,7 +27,7 @@ public class PalletPresenter
 
     public void TakeBag(BaseCrystallBagView crystallBagView)
     {
-        _view.TakeBag(crystallBagView);
+        _view.OnTakeBag(crystallBagView);
         crystallBagView.ChangePicked(false);
         HaveCourier = false;
         TakedBag.Execute();

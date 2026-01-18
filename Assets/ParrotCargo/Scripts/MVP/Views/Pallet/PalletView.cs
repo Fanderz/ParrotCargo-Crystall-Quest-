@@ -14,7 +14,7 @@ public class PalletView : MonoBehaviour
 
     public Vector3 BagTargetPosition => new Vector3(transform.position.x, transform.position.y + _bagTargetOffsetY, transform.position.z);
 
-    public void TakeBag(BaseCrystallBagView crystallBag)
+    public void OnTakeBag(BaseCrystallBagView crystallBag)
     {
         _crystallBag = crystallBag;
         ChangeEmpty(true);

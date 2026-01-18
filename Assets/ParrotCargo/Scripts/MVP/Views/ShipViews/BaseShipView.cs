@@ -7,6 +7,7 @@ using System.Linq;
 public class BaseShipView : MonoBehaviour
 {
     [SerializeField] private List<PalletView> _palletsForBags;
+    [SerializeField] private CountPalletsFreeView _countPalletsFreeView;
     [SerializeField] private float _rotationOffDistance = 10f;
     [SerializeField] private float _stopDistance = 0.3f;
 
@@ -14,7 +15,7 @@ public class BaseShipView : MonoBehaviour
     private ShipStopPoint _targetPoint;
     private NavMeshAgent _agent;
 
-    public int EmptyPalletsCount => _palletsForBags.FindAll(pallet => pallet.HaveBag == false).Count;
+    public int EmptyPalletsCount => _palletsForBags.FindAll(pallet => pallet.HaveBag == false && pallet.gameObject.activeSelf).Count;
     public IReadOnlyList<PalletView> PalletViews => _palletsForBags;
 
     public ReactiveCommand Releasing;
@@ -68,6 +69,9 @@ public class BaseShipView : MonoBehaviour
         _targetPoint = targetPoint;
 
         SetDestination(_targetPoint.transform.position, false);
+
+        foreach (var palletView in _palletsForBags)
+            palletView.EmptyChanged.Subscribe(haveBag => { _countPalletsFreeView.UpdateCountPalletFree(EmptyPalletsCount); });
     }
 
     public void SetDestination(Vector3 targetPosition, bool isGoingToRelease)
@@ -91,5 +95,13 @@ public class BaseShipView : MonoBehaviour
                 return;
 
         _palletsForBags.First(pallet => pallet.gameObject.activeSelf == false).gameObject.SetActive(true);
+
+        _countPalletsFreeView.UpdateCountPalletFree(EmptyPalletsCount);
+    }
+
+    private void OnValidate()
+    {
+        if(_countPalletsFreeView == null)
+            _countPalletsFreeView = gameObject.GetComponentInChildren<CountPalletsFreeView>();
     }
 }

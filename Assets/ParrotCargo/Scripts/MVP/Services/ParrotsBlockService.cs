@@ -12,6 +12,7 @@ public class ParrotsBlockService : BaseService
 
     [Inject] private ShipsService _shipsService;
     [Inject] private PalletService _palletsService;
+    [Inject] private PlayerProgressService _playerProgressService;
 
     private List<ParrotBlockPresenter> _parrotBlockPresenters;
 
@@ -28,6 +29,11 @@ public class ParrotsBlockService : BaseService
         });
     }
 
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void StartGame()
     {
         _parrotsBlockSpawner.CreateObjects();
@@ -38,6 +44,7 @@ public class ParrotsBlockService : BaseService
     {
         _parrotBlockPresenters = new List<ParrotBlockPresenter>();
         _parrotBlockPresenters = _parrotsBlockSpawner.Spawn();
+        _parrotBlockPresenters.ForEach(block => block.GameOverCommand.Subscribe(bl => _playerProgressService.OnGameOver()));
         UpdateTargets();
     }
 

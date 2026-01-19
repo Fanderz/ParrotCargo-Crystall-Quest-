@@ -45,3 +45,8 @@ public class PalletView : MonoBehaviour
         EmptyChanged.Execute(HaveBag);
     }
 }
+
+public class NullablePalletView : PalletView
+{
+
+}

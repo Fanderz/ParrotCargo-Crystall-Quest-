@@ -31,4 +31,9 @@ public class ShopService : BaseService
         _shopPresenter.PurchaseCommand.Subscribe(price => _playerProgressService.DecreaseOnPurchase(price)).AddTo(this);
         _shopPresenter.Initialize();
     }
+
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
 }

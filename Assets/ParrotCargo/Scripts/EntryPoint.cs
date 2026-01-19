@@ -8,8 +8,13 @@ public class EntryPoint : MonoInstaller
 {
     [SerializeField] private List<BaseService> _services;
 
+    [Header("GameOver Setts")]
+    [SerializeField] private Canvas _canvas;
+
     public override void InstallBindings()
     {
+        DontDestroyOnLoad(_canvas);
+
         foreach (var service in _services)
         {
             Container.Bind(service.GetType()).FromInstance(service).AsSingle().IfNotBound();

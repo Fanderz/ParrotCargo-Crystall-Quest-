@@ -56,7 +56,7 @@ public class BaseShipView : MonoBehaviour
         }
     }
 
-    public bool IsStopped()
+    public virtual bool IsStopped()
     {
         if (_agent.enabled)
             return _agent.isStopped;
@@ -103,5 +103,13 @@ public class BaseShipView : MonoBehaviour
     {
         if(_countPalletsFreeView == null)
             _countPalletsFreeView = gameObject.GetComponentInChildren<CountPalletsFreeView>();
+    }
+}
+
+public class NullableShipView : BaseShipView
+{
+    public override bool IsStopped()
+    {
+        return false;
     }
 }

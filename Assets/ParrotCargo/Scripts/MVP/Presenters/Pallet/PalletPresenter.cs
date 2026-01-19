@@ -43,3 +43,10 @@ public class PalletPresenter
         _view.EmptyChanged.Subscribe((value => { _model.ChangeEmpty(value); }));
     }
 }
+
+public class NullablePalletPresenter : PalletPresenter
+{
+    public NullablePalletPresenter(PalletView view, Pallet model) : base(view, model)
+    {
+    }
+}

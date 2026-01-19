@@ -15,7 +15,7 @@ public class ShipPresenter
 
     public int EmptyPalletsCnt => _palletPresenters.FindAll(pallet => pallet.HaveCourier == false && pallet.isEmpty && pallet.isActive).Count;
     public bool isGoingToRelease => _model.isGoingToRelease;
-    public bool IsStopped => _view.IsStopped();
+    public bool IsStopped => _view != null ? _view.IsStopped() : false;
 
     public ReactiveCommand Releasing = new ReactiveCommand();
 
@@ -68,5 +68,12 @@ public class ShipPresenter
     public void ActivatePallet()
     {
         _model.AddPallet();
+    }
+}
+
+public class NullableShipPresenter : ShipPresenter
+{
+    public NullableShipPresenter(BaseShipView view, Ship model) : base(view, model)
+    {
     }
 }

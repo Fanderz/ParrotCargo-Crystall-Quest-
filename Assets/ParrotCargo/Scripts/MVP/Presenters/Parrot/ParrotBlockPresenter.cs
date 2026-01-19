@@ -23,6 +23,7 @@ public class ParrotBlockPresenter
     public ReactiveCommand ChangingActive = new ReactiveCommand();
     public ReactiveCommand SittingWithBag = new ReactiveCommand();
     public ReactiveCommand PickedBags = new ReactiveCommand();
+    public ReactiveCommand GameOverCommand = new ReactiveCommand();
 
     public ParrotBlockPresenter(ParrotBlock parrotBlock, ParrotsBlockView parrotsBlockView)
     {
@@ -113,7 +114,12 @@ public class ParrotBlockPresenter
         if (_pallets == null)
             throw new ZenjectException("Injected List<PalletPresenter> in ParrotBlockPresenter is null");
 
-        return _pallets.First(pallet => pallet.HaveCourier == false);
+        PalletPresenter targetPallet = _pallets.ToList().Find(pallet => pallet.HaveCourier == false);
+
+        if (targetPallet == null)
+            return new NullablePalletPresenter(new NullablePalletView(), null);
+
+        return targetPallet;
     }
 
     #region Движение блока и каждого попугая
@@ -166,8 +172,15 @@ public class ParrotBlockPresenter
                 ShipPresenter targetShip;
 
                 List<ShipPresenter> targetShips = GetShipsMatchedBag(parrotPresenter);
+
                 targetShip = GetSmallerEmptyShip(targetShips);
                 targetPallet = GetTargetPallet(targetShip, out bool isTargetShip);
+
+                if(targetPallet is NullablePalletPresenter)
+                {
+                    GameOverCommand.Execute();
+                    return;
+                }
 
                 targetPallet.SetCourier(true);
                 parrotPresenter.CarryBag(targetPallet, isTargetShip);
@@ -204,6 +217,9 @@ public class ParrotBlockPresenter
 
     private ShipPresenter GetSmallerEmptyShip(List<ShipPresenter> ships)
     {
+        if (ships.Count == 0)
+            return new NullableShipPresenter(null, null);
+
         return ships.OrderBy(ship => ship.EmptyPalletsCnt > 0).FirstOrDefault();
     }
 

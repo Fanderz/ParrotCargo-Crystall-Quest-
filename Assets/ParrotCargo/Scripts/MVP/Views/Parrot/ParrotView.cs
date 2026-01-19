@@ -147,7 +147,6 @@ public class ParrotView : MonoBehaviour
 
     private async void PutBag()
     {
-
         while (_agent.remainingDistance > 0.05f)
             await UniTask.Delay(1000);
 

@@ -1,6 +1,7 @@
 using Assets.ParrotCargo.Scripts.MVP.Models.Data;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
@@ -14,6 +15,11 @@ public class PlayerProgressService : BaseService
     [SerializeField] private int _crystallBagPrice;
     [SerializeField] private int _pointsIncreaseValue;
     [SerializeField] private float _smoothChangeWait;
+
+    [Header("GameOver Setts")]
+    [SerializeField] private GameObject _gameOverView;
+    [SerializeField] private TextMeshProUGUI _collectedScoreText;
+    [SerializeField] private TextMeshProUGUI _collectedCoinsText;
 
     [Header("Sounds Setts")]
     [SerializeField] private SettingsService _settingService;
@@ -42,6 +48,11 @@ public class PlayerProgressService : BaseService
         _gamePointsPresenter = new PointsPresenter(_pointsModel, _gamePointsView, _smoothChangeWait);
     }
 
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void IncreaseValuesOnBagRelease()
     {
         _gameCoinsPresenter.IncreaseCoins(_crystallBagPrice);
@@ -52,6 +63,13 @@ public class PlayerProgressService : BaseService
     {
         _shopCoinsPresenter.DecreaseCoins(price);
         SaveProgress();
+    }
+
+    public void OnGameOver()
+    {
+        _gameOverView.SetActive(true);
+        _collectedCoinsText.text = _gameCoinsModel.Value.ToString();
+        _collectedCoinsText.text = _pointsModel.Value.ToString();
     }
 
     public void SaveProgress()

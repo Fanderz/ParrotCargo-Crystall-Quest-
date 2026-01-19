@@ -20,6 +20,10 @@ public class InputSystemService : BaseService
         _mouseClick.canceled += MousePressCanceled;
     }
 
+    public override void Reset()
+    {
+    }
+
     private void MousePressed(InputAction.CallbackContext ctx)
     {
         Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -70,4 +74,5 @@ public class InputSystemService : BaseService
         _mouseClick.performed -= MousePressed;
         _mouseClick.canceled -= MousePressCanceled;
     }
+
 }

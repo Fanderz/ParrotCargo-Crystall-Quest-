@@ -22,6 +22,11 @@ public class SkinService : BaseService
         _shopService.Model.SkinChanged.Subscribe(SetSkin).AddTo(this);
     }
 
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void SetSkin((int index, TypeShopItem itemType) input)
     {
         if (input.itemType == TypeShopItem.ParrotPurchase)

@@ -31,11 +31,6 @@ public class ShipsService : BaseService
         ApplyUpgrades(_currentShipUpgrades);
     }
 
-    public override void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
-
     private void OnUpgradeChanged(ShopSaveData data)
     {
         if (data.Type != TypeShopItem.ShipUpgrade)

@@ -20,9 +20,4 @@ public class CrystallBagsService : BaseService
         foreach (CrystallBagPresenter presenter in _crystallBagSpawner.CrystallBags)
             presenter.BagReleased.Subscribe(released => { _playerProgressService.IncreaseValuesOnBagRelease(); });
     }
-
-    public override void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
 }

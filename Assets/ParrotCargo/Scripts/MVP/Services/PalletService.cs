@@ -27,10 +27,6 @@ public class PalletService : BaseService
         _shopService.Model.UpgradeChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
-    public override void Reset()
-    {
-    }
-
     private void OnUpgradeChanged(ShopSaveData data)
     {
         if (data.Type != TypeShopItem.PalletUpgrade)

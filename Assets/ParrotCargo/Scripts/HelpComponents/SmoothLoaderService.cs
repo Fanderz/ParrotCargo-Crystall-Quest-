@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 using Cysharp.Threading.Tasks;
 
-public class SmoothLoaderService : MonoBehaviour
+public class SmoothLoaderService : BaseService
 {
     [SerializeField] private Slider _loadingSlider;
     [SerializeField] private List<GameObject> _startingUI;
@@ -16,9 +16,17 @@ public class SmoothLoaderService : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float _stopProgress;
     [SerializeField] [Range(0, 1)] private float _progressMultiplier;
 
+    public override void Initialize()
+    {
+
+    }
+
     public async void Loading()
     {
-        while(_startProgress != _stopProgress)
+        _startProgress = 0;
+        _loadingSlider.value = 0;
+
+        while (_startProgress != _stopProgress)
         {
             _startProgress += _progressMultiplier;
             _loadingSlider.value = _startProgress;

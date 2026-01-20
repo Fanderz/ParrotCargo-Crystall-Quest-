@@ -29,11 +29,6 @@ public class ParrotsBlockService : BaseService
         });
     }
 
-    public override void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void StartGame()
     {
         _parrotsBlockSpawner.CreateObjects();

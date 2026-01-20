@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 using UniRx;
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class ParrotView : MonoBehaviour
 {
@@ -130,7 +131,7 @@ public class ParrotView : MonoBehaviour
         _agent.SetDestination(targetPalletPosition.position);
         _agent.baseOffset = targetPalletPosition.position.y + _bagOffset;
 
-        while (_agent.hasPath == false)
+        while (_agent.IsDestroyed() == false && _agent?.hasPath == false)
             await UniTask.Delay(_waitMiliseconds);
 
         if (isTargetShip)
@@ -147,7 +148,7 @@ public class ParrotView : MonoBehaviour
 
     private async void PutBag()
     {
-        while (_agent.remainingDistance > 0.05f)
+        while (_agent?.remainingDistance > 0.05f)
             await UniTask.Delay(1000);
 
         _crystallBag.transform.SetParent(_targetPalletTransform.transform);

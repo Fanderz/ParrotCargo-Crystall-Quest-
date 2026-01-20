@@ -48,11 +48,6 @@ public class PlayerProgressService : BaseService
         _gamePointsPresenter = new PointsPresenter(_pointsModel, _gamePointsView, _smoothChangeWait);
     }
 
-    public override void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void IncreaseValuesOnBagRelease()
     {
         _gameCoinsPresenter.IncreaseCoins(_crystallBagPrice);

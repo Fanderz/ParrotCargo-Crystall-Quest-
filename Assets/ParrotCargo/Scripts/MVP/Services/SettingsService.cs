@@ -25,11 +25,6 @@ public class SettingsService : BaseService
         YG2.saves.playerSettings = _settingsModel;
     }
 
-    public override void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void SaveSettings()
     {
         OnSave();

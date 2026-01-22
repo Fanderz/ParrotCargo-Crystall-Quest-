@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StartGameButtonView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Button _buttonStartGame;
 
-    // Update is called once per frame
-    void Update()
+    public void InvokeButtonStartGame()
+        => _buttonStartGame.onClick.Invoke();
+
+    private void OnValidate()
     {
-        
+        if (_buttonStartGame == null)
+            _buttonStartGame = GetComponent<Button>();
     }
 }

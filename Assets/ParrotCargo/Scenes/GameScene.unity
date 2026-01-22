@@ -913,12 +913,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140475432}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.519999, y: -25.294436, z: 113.43792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 158864309}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &140475434
 MonoBehaviour:
@@ -971,7 +971,6 @@ Transform:
   - {fileID: 420218715}
   - {fileID: 914918346}
   - {fileID: 1286349878}
-  - {fileID: 140475433}
   - {fileID: 1744022359}
   - {fileID: 562751468}
   m_Father: {fileID: 0}
@@ -1274,7 +1273,6 @@ MonoBehaviour:
   - {fileID: 481253839}
   - {fileID: 1611381664}
   - {fileID: 914918347}
-  - {fileID: 140475434}
   - {fileID: 1744022358}
 --- !u!1 &219022031
 GameObject:
@@ -8399,6 +8397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonRealodGame: {fileID: 1706169773}
+  _buttonReloadGame: {fileID: 4020635553910358669}
 --- !u!4 &1744022359
 Transform:
   m_ObjectHideFlags: 0
@@ -11817,7 +11816,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 132.15
+  m_fontSize: 127.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16965,6 +16964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c93d7cddab1d214baf4bb66e50adf04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonStartGame: {fileID: 4020635553910358669}
 --- !u!114 &8048905431540739355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18041,6 +18041,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
+  - {fileID: 140475433}
   - {fileID: 705507995}
   - {fileID: 7654286658990979086}
   - {fileID: 135454175}

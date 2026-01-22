@@ -1,18 +1,12 @@
-using System;
 using System.Threading.Tasks;
-using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class SceneService : BaseService
+public class SceneService : MonoBehaviour
 {
-    public ReactiveCommand ReloadScene = new ReactiveCommand();
+    private static SceneService _instance;
 
-    public override void Initialize()
-    {
-
-    }
+    public static SceneService Instance => _instance;
 
     public async void ReloadGame()
     {
@@ -21,7 +15,17 @@ public class SceneService : BaseService
         while (loadOperation.progress < 0.9)
             await Task.Delay(1);
 
-        var startGameButtonView = FindObjectOfType<StartGameButtonView>();
-        startGameButtonView.GetComponent<Button>().onClick.Invoke();
+        GameOverService.Instance.InvokeReloadGame();
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+            Destroy(gameObject);
     }
 }

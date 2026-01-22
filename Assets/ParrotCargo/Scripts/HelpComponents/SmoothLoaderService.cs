@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UniRx;
 using Cysharp.Threading.Tasks;
 
 public class SmoothLoaderService : BaseService
@@ -15,6 +16,8 @@ public class SmoothLoaderService : BaseService
     [SerializeField] private int _waitLoadingMiliseconds;
     [SerializeField] [Range(0, 1)] private float _stopProgress;
     [SerializeField] [Range(0, 1)] private float _progressMultiplier;
+
+    public ReactiveCommand LoadingCompletedCommand = new();
 
     public override void Initialize()
     {
@@ -45,5 +48,7 @@ public class SmoothLoaderService : BaseService
             obj.SetActive(false);
 
         _gameUI.SetActive(true);
+
+        LoadingCompletedCommand.Execute();
     }
 }

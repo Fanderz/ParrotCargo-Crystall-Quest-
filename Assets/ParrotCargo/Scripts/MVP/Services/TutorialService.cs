@@ -1,0 +1,113 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.UI;
+
+using TMPro;
+using UniRx;
+using Zenject;
+using Cysharp.Threading.Tasks;
+
+public class TutorialService : BaseService
+{
+    [Header("Settings")]
+    [SerializeField] private List<TutorialStep> _tutorialSteps;
+    [SerializeField] private GameObject _parrotBlockViews;
+    [SerializeField] private GameObject _palletViews;
+    [SerializeField] private GameObject _crystallBagViews;
+    [SerializeField] private GameObject _shipViews;
+    [Header("UI")]
+    [SerializeField] private Button _nextStep;
+    [SerializeField] private TextMeshProUGUI _textStep;
+    [SerializeField] private GameObject _panelTutorial;
+    [SerializeField] private PanelAnimationView _panelTutorialTextAnimationView;
+
+    [Inject]
+    private SmoothLoaderService _smoothLoaderService;
+
+    private TutorialPresenter _tutorialPresenter;
+
+    public override void Initialize()
+    {
+        _tutorialPresenter = new TutorialPresenter(_tutorialSteps);
+        _tutorialPresenter.Initialize();
+
+        _smoothLoaderService.LoadingCompletedCommand.Subscribe(_ =>
+        {
+            SetActive(true);
+            _panelTutorialTextAnimationView.Show();
+        });
+        _tutorialPresenter.GoNextStepCommand.Subscribe(stepTutorial =>
+        {
+            SelecetObjectTutorial(stepTutorial.TypeObjectSelectTutorial);
+            UpdateTextStep(stepTutorial.TextStep);
+        });
+        _tutorialPresenter.FinishedTutorialCommand.Subscribe(async _ =>
+        {
+            _panelTutorialTextAnimationView.Hide();
+            await UniTask.Delay(1000);
+            SetActive(false);
+        });
+        _nextStep.onClick.AddListener(() => _tutorialPresenter.NextStep());
+
+        _tutorialPresenter.NextStep();
+    }
+
+    public void SetActive(bool isActive)
+        => _panelTutorial.gameObject.SetActive(isActive);
+
+    private void UpdateTextStep(string textStep)
+        => _textStep.text = textStep;
+
+    private void SelecetObjectTutorial(TypeObjectSelectTutorial typeObjectSelectTutorial)
+    {
+        OutlineNoActive(_parrotBlockViews);
+        OutlineNoActive(_palletViews);
+        OutlineNoActive(_crystallBagViews);
+        OutlineNoActive(_shipViews);
+
+        switch (typeObjectSelectTutorial)
+        {
+            case TypeObjectSelectTutorial.PalletViews:
+                AddOutlineComponent(_palletViews);
+                break;
+            case TypeObjectSelectTutorial.ShipViews:
+                AddOutlineComponent(_shipViews);
+                break;
+            case TypeObjectSelectTutorial.ParrotBlockViews:
+                AddOutlineComponent(_parrotBlockViews);
+                break;
+            case TypeObjectSelectTutorial.CrystallBagViews:
+                AddOutlineComponent(_crystallBagViews);
+                break;
+        }
+    }
+
+    private void OutlineNoActive(GameObject gameObject)
+    {
+        Outline outline = null;
+
+        if (gameObject.TryGetComponent(out outline))
+            outline.enabled = false;
+    }
+
+    private void AddOutlineComponent(GameObject gameObject)
+    {
+        Outline outline = null;
+
+        if (gameObject.TryGetComponent(out outline))
+        {
+            outline.enabled = true;
+            return;
+        }
+
+        var outlineComponent = gameObject.AddComponent<Outline>();
+        outlineComponent.OutlineColor = new Color(0.1283184f, 1, 0, 1);
+        outlineComponent.OutlineWidth = 6;
+    }
+
+    private void OnDestroy()
+    {
+        _nextStep.onClick.RemoveAllListeners();
+    }
+}

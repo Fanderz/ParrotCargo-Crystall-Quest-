@@ -55,6 +55,6 @@ public class ShopSpawner : MonoBehaviour
 
     private ShopItemView SpawnItem(Transform parent, BaseShopItemValuesSO values)
     {
-        return Instantiate(values.Prefab, parent); ;
+        return Instantiate(values.Prefab, parent);
     }
 }

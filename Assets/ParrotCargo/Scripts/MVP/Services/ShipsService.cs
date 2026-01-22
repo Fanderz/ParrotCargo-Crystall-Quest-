@@ -19,7 +19,6 @@ public class ShipsService : BaseService
 
     public override void Initialize()
     {
-        _shopService.Model.UpgradeChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
     public void StartGame()
@@ -29,20 +28,6 @@ public class ShipsService : BaseService
         _shipSpawner.Spawn();
         _currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
         ApplyUpgrades(_currentShipUpgrades);
-    }
-
-    private void OnUpgradeChanged(ShopSaveData data)
-    {
-        if (data.Type != TypeShopItem.ShipUpgrade)
-            return;
-
-        int newCnt = _shopService.Model.ShipPalletsCnt;
-        int delta = newCnt - _currentShipUpgrades;
-
-        if (delta > 0)
-            ApplyUpgrades(delta);
-
-        _currentShipUpgrades = newCnt;
     }
 
     private void ApplyUpgrades(int count)

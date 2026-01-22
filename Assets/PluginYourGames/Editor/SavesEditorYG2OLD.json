@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 2,
+  "idSave": 298,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 10000
+    "Value": 6875
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -32,7 +32,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 0
+    "Value": 150
   },
   "playerSettings": {
     "Sound": 1.0,
@@ -47,7 +47,7 @@
       },
       {
         "Type": 0,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
@@ -67,12 +67,12 @@
       },
       {
         "Type": 1,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
         "Type": 1,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
@@ -89,17 +89,17 @@
       },
       {
         "Type": 3,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
         "Type": 3,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
         "Type": 3,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
@@ -124,6 +124,6 @@
       }
     ]
   },
-  "currentTypeBird": 0,
-  "currentTypeShip": 0
+  "currentTypeBird": 2,
+  "currentTypeShip": 2
 }

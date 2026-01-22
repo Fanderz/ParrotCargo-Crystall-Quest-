@@ -19,26 +19,13 @@ public class PalletService : BaseService
 
     public override void Initialize()
     {
-        _palletSpawner.Initialize();
-
-        _currentPalletsCnt = _shopService.Model.TempPalletsCnt;
-        _palletSpawner.Spawn(_currentPalletsCnt);
-
-        _shopService.Model.UpgradeChanged.Subscribe(OnUpgradeChanged).AddTo(this);
     }
 
-    private void OnUpgradeChanged(ShopSaveData data)
+    public void StartGame()
     {
-        if (data.Type != TypeShopItem.PalletUpgrade)
-            return;
+        _currentPalletsCnt = _shopService.Model.TempPalletsCnt;
 
-        int newCnt = _shopService.Model.TempPalletsCnt;
-        int delta = newCnt - _currentPalletsCnt;
-
-        if (delta > 0)
-            _palletSpawner.Spawn(delta);
-
-        _currentPalletsCnt = newCnt;
+        _palletSpawner.Initialize();
+        _palletSpawner.Spawn(_currentPalletsCnt);
     }
-
 }

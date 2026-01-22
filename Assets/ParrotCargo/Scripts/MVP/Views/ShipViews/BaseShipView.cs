@@ -66,12 +66,14 @@ public class BaseShipView : MonoBehaviour
 
     public void Initialize(ShipStopPoint targetPoint)
     {
+        _palletsForBags.ForEach(pallet => pallet.gameObject.SetActive(false));
+
         _targetPoint = targetPoint;
 
         SetDestination(_targetPoint.transform.position, false);
 
-        foreach (var palletView in _palletsForBags)
-            palletView.EmptyChanged.Subscribe(haveBag => { _countPalletsFreeView.UpdateCountPalletFree(EmptyPalletsCount); });
+        _palletsForBags.ForEach(pallet => pallet.EmptyChanged.Subscribe(haveBag =>
+            { _countPalletsFreeView.UpdateCountPalletFree(EmptyPalletsCount); }));
     }
 
     public void SetDestination(Vector3 targetPosition, bool isGoingToRelease)
@@ -91,8 +93,8 @@ public class BaseShipView : MonoBehaviour
 
     public void ActivatePallet()
     {
-        if(_palletsForBags.Any(pallet => pallet.gameObject.activeSelf == false) == false)
-                return;
+        if (_palletsForBags.Any(pallet => pallet.gameObject.activeSelf == false) == false)
+            return;
 
         _palletsForBags.First(pallet => pallet.gameObject.activeSelf == false).gameObject.SetActive(true);
 
@@ -101,7 +103,7 @@ public class BaseShipView : MonoBehaviour
 
     private void OnValidate()
     {
-        if(_countPalletsFreeView == null)
+        if (_countPalletsFreeView == null)
             _countPalletsFreeView = gameObject.GetComponentInChildren<CountPalletsFreeView>();
     }
 }

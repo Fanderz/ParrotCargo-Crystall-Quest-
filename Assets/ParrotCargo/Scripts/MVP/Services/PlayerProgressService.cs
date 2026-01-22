@@ -92,7 +92,10 @@ public class PlayerProgressService : BaseService
         foreach (BaseShopItemValuesSO setting in shopItemSettings)
         {
             for (int j = 1; j <= setting.ItemChildCount; j++)
-                save.Add(new ShopSaveData { IsPurchased = (j <= setting.DefaulPurchasedCount ? true : false), isActive = (j <= setting.DefaultActiveCount ? true : false), Type = setting.ItemName });
+                save.Add(new ShopSaveData { 
+                    IsPurchased = (j <= setting.DefaulPurchasedCount ? true : false), 
+                    isActive = (j <= setting.DefaultActiveCount ? true : false), 
+                    Type = setting.ItemName });
         }
 
         return save;

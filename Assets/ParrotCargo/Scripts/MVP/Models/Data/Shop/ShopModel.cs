@@ -33,16 +33,7 @@ public class ShopModel
             item = _shopSaveModel.purchaseItems.FirstOrDefault(finded => finded == data && finded.IsPurchased == false);
 
         item.IsPurchased = true;
-
-        if (item.Type == TypeShopItem.PalletUpgrade || item.Type == TypeShopItem.ShipUpgrade)
-        {
-            item.isActive = true;
-            UpgradeChanged.Execute(data);
-        }
-        else
-        {
-            UpgradeChanged.Execute(data);
-        }
+        UpgradeChanged.Execute(data);
 
         return true;
     }

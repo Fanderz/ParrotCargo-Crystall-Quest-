@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-using Cysharp.Threading.Tasks;
 using UniRx;
-using Zenject;
+using Cysharp.Threading.Tasks;
 
 public class SmoothLoaderService : BaseService
 {
@@ -18,7 +17,7 @@ public class SmoothLoaderService : BaseService
     [SerializeField] [Range(0, 1)] private float _stopProgress;
     [SerializeField] [Range(0, 1)] private float _progressMultiplier;
 
-    [Inject] private AudioService _audioService;
+    public ReactiveCommand LoadingCompletedCommand = new();
 
     public override void Initialize()
     {
@@ -49,6 +48,7 @@ public class SmoothLoaderService : BaseService
             obj.SetActive(false);
 
         _gameUI.SetActive(true);
-        _audioService.OnGameStarted();
+
+        LoadingCompletedCommand.Execute();
     }
 }

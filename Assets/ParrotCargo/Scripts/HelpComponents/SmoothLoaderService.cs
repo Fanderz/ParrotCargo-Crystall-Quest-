@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 using UniRx;
 using Cysharp.Threading.Tasks;
+using Zenject;
 
 public class SmoothLoaderService : BaseService
 {
@@ -18,6 +19,8 @@ public class SmoothLoaderService : BaseService
     [SerializeField] [Range(0, 1)] private float _progressMultiplier;
 
     public ReactiveCommand LoadingCompletedCommand = new();
+
+    [Inject] private AudioService _audioService;
 
     public override void Initialize()
     {
@@ -49,6 +52,7 @@ public class SmoothLoaderService : BaseService
 
         _gameUI.SetActive(true);
 
+        _audioService.OnGameStarted();
         LoadingCompletedCommand.Execute();
     }
 }

@@ -20,10 +20,13 @@ public class ParrotBlockPresenter
     private IReadOnlyList<PalletPresenter> _pallets;
     private BoxCollider _draggableCollider;
 
-    public ReactiveCommand ChangingActive = new ReactiveCommand();
-    public ReactiveCommand SittingWithBag = new ReactiveCommand();
-    public ReactiveCommand PickedBags = new ReactiveCommand();
+    public ReactiveCommand ChangingActiveCommand = new ReactiveCommand();
+    //public ReactiveCommand SittingWithBag = new ReactiveCommand();
+    public ReactiveCommand PickedBagsCommand = new ReactiveCommand();
     public ReactiveCommand GameOverCommand = new ReactiveCommand();
+
+    public ReactiveCommand ParrotDroppedBagSoundCommand = new ReactiveCommand();
+    public ReactiveCommand PickedParrotSoundCommand = new ReactiveCommand();
 
     public ParrotBlockPresenter(ParrotBlock parrotBlock, ParrotsBlockView parrotsBlockView)
     {
@@ -48,7 +51,7 @@ public class ParrotBlockPresenter
 
             _parrotPresenters.Add(presenter);
 
-            presenter.DroppedBag.Subscribe(parrot => { presenter.TargetPallet.TakeBag(presenter.CrystallBag); });
+            presenter.DroppedBag.Subscribe(parrot => { presenter.TargetPallet.TakeBag(presenter.CrystallBag); ParrotDroppedBagSoundCommand.Execute(); });
             presenter.ChangedActive.Subscribe(block => { ReleasingBlock(); });
         }
 
@@ -70,8 +73,8 @@ public class ParrotBlockPresenter
         _draggableParrotBlock.MoveCommand = new();
         _draggableParrotBlock.MoveCommand.Subscribe(target =>
         {
+            //PickedParrotSoundCommand.Execute();
             Vector3 targetPosition = new Vector3(target.x, _model.StartPosition.y + _draggableParrotBlock.YFlyingOffset, target.z);
-
             MoveBlock(targetPosition);
             ScanBags();
         });
@@ -97,7 +100,7 @@ public class ParrotBlockPresenter
         if (IsBlockReleased)
         {
             _view.Release();
-            ChangingActive.Execute();
+            ChangingActiveCommand.Execute();
         }
     }
 
@@ -150,7 +153,7 @@ public class ParrotBlockPresenter
         if (_view.CanPickBag)
         {
             _view.PickBags();
-            PickedBags.Execute();
+            PickedBagsCommand.Execute();
         }
         else
         {

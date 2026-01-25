@@ -13,6 +13,7 @@ public class ParrotsBlockService : BaseService
     [Inject] private ShipsService _shipsService;
     [Inject] private PalletService _palletsService;
     [Inject] private PlayerProgressService _playerProgressService;
+    [Inject] private AudioService _audioService;
 
     private List<ParrotBlockPresenter> _parrotBlockPresenters;
 
@@ -39,16 +40,23 @@ public class ParrotsBlockService : BaseService
     {
         _parrotBlockPresenters = new List<ParrotBlockPresenter>();
         _parrotBlockPresenters = _parrotsBlockSpawner.Spawn();
-        _parrotBlockPresenters.ForEach(block => block.GameOverCommand.Subscribe(bl => _playerProgressService.OnGameOver()));
+
+        _parrotBlockPresenters.ForEach(block =>
+        {
+            block.GameOverCommand.Subscribe(bl => _playerProgressService.OnGameOver());
+            block.ParrotDroppedBagSoundCommand.Subscribe(bl => _audioService.OnBagDroppedSound());
+            //block.PickedParrotSoundCommand.Subscribe(bl => _audioService.OnBirdPickedSound());
+        });
+
         UpdateTargets();
     }
 
     private void UpdateTargets()
     {
-        foreach (var parrotBlock in _parrotBlockPresenters)
+        _parrotBlockPresenters.ForEach(block =>
         {
-            parrotBlock.SetShipTargets(_shipsService.Ships);
-            parrotBlock.SetPalletTargets(_palletsService.Pallets);
-        }
+            block.SetShipTargets(_shipsService.Ships);
+            block.SetPalletTargets(_palletsService.Pallets);
+        });
     }
 }

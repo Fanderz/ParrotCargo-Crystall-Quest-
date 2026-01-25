@@ -19,6 +19,7 @@ public class BaseShipView : MonoBehaviour
     public IReadOnlyList<PalletView> PalletViews => _palletsForBags;
 
     public ReactiveCommand Releasing;
+    public ReactiveCommand ShipStopped = new ReactiveCommand();
 
     private void Awake()
     {
@@ -49,7 +50,10 @@ public class BaseShipView : MonoBehaviour
             }
 
             if (!_agent.isStopped && _agent.remainingDistance <= _stopDistance)
+            {
                 _agent.isStopped = true;
+                ShipStopped.Execute();
+            }
 
             if (_agent.isStopped && _isGoingToRelease)
                 Releasing.Execute();
@@ -64,7 +68,7 @@ public class BaseShipView : MonoBehaviour
             return false;
     }
 
-    public void Initialize(ShipStopPoint targetPoint)
+    public void Initialize(ShipStopPoint targetPoint, int activePalletsCnt)
     {
         _palletsForBags.ForEach(pallet => pallet.gameObject.SetActive(false));
 

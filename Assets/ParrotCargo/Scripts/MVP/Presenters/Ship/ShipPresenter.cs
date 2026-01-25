@@ -18,6 +18,7 @@ public class ShipPresenter
     public bool IsStopped => _view != null ? _view.IsStopped() : false;
 
     public ReactiveCommand Releasing = new ReactiveCommand();
+    public ReactiveCommand PlayAudio = new ReactiveCommand();
 
     [Inject]
     public ShipPresenter(BaseShipView view, Ship model)
@@ -30,8 +31,7 @@ public class ShipPresenter
 
     public void Initialize(int activePalletsCnt, ShipStopPoint stopPoint)
     {
-        _model.PalletsCntChanged.Subscribe(exec => _view.ActivatePallet());
-        _view.Initialize(stopPoint);
+        _view.Initialize(stopPoint, activePalletsCnt);
         _model.Initialize(activePalletsCnt);
 
         foreach (PalletView palletView in _view.PalletViews)
@@ -43,6 +43,9 @@ public class ShipPresenter
 
             _palletPresenters.Add(palletPresenter);
         }
+
+        _view.ShipStopped.Subscribe(exec => PlayAudio.Execute());
+        _model.PalletsCntChanged.Subscribe(exec => _view.ActivatePallet());
     }
 
     public PalletPresenter GetEmptyPallet()
@@ -60,6 +63,7 @@ public class ShipPresenter
         if (_palletPresenters.FindAll(palletPresenter => palletPresenter.isActive).TrueForAll(pallet => pallet.isEmpty == false))
         {
             _model.SetGoingToRelease(true);
+            PlayAudio.Execute();
             _view.SetDestination(_model.TargetOnFilled, _model.isGoingToRelease);
             Releasing.Execute();
         }

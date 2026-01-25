@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using Zenject;
 
 public class InputSystemService : BaseService
 {
@@ -12,6 +13,8 @@ public class InputSystemService : BaseService
     private IDraggable _draggableObject;
     private Transform _draggableTransform;
     private Coroutine _movingBlockCoroutine;
+
+    [Inject] private AudioService _audioService;
 
     public override void Initialize()
     {
@@ -28,6 +31,7 @@ public class InputSystemService : BaseService
         {
             if (hit.collider.TryGetComponent(out DraggableParrotBlock draggable))
             {
+                _audioService.OnBirdPickedSound();
                 _draggableObject = draggable;
                 _draggableTransform = draggable.transform;
                 _movingBlockCoroutine = StartCoroutine(Drag());

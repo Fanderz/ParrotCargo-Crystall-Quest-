@@ -5,6 +5,8 @@ using Assets.ParrotCargo.Scripts.MVP.Presenters;
 using Assets.ParrotCargo.Scripts.MVP.Views;
 
 using YG;
+using UniRx;
+using Zenject;
 
 public class SettingsService : BaseService
 {
@@ -13,11 +15,16 @@ public class SettingsService : BaseService
     private SettingsModel _settingsModel;
     private SettingsPresenter _settingsPresenter;
 
+    [Inject] private AudioService _audioService;
+
     public override void Initialize()
     {
         _settingsModel = YG2.saves.playerSettings;
 
         _settingsPresenter = new SettingsPresenter(_settingsModel, _settingsView);
+
+        _settingsView.SoundChanged.Subscribe(volume => _audioService.SetEffectsVolume(volume));
+        _settingsView.MusicChanged.Subscribe(volume => _audioService.SetMusicVolume(volume));
     }
 
     public void OnSave()

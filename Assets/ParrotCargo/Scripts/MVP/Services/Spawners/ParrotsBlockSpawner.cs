@@ -46,12 +46,12 @@ public class ParrotsBlockSpawner : BaseSpawner<ParrotsBlockView>
             var parrotBlockPresenter = new ParrotBlockPresenter(parrotBlock, parrotBlockView);
             parrotBlockPresenter.Initialize();
 
-            parrotBlockPresenter.ChangingActive.Subscribe(presenter =>
+            parrotBlockPresenter.ChangingActiveCommand.Subscribe(presenter =>
             {
                 Release(parrotBlockView);
             });
 
-            parrotBlockPresenter.PickedBags.Subscribe(block => { 
+            parrotBlockPresenter.PickedBagsCommand.Subscribe(block => { 
                 spawnPoint.GiveAwayBirds(); });
 
             _parrotBlockPresenters.Add(parrotBlockPresenter);

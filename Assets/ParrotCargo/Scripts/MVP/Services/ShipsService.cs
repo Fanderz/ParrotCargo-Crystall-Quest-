@@ -14,6 +14,7 @@ public class ShipsService : BaseService
 
     [Inject] private ShopService _shopService;
     [Inject] private SkinService _skinService;
+    [Inject] private AudioService _audioService;
 
     public IReadOnlyList<ShipPresenter> Ships => _shipSpawner.ShipPresenters;
 
@@ -26,6 +27,8 @@ public class ShipsService : BaseService
         _shipSpawner.Initialize(_skinService.CurrentShip.ShipPrefabs.ToList());
         _shipSpawner.CreateObjects();
         _shipSpawner.Spawn();
+        Ships.ToList().ForEach(ship => ship.PlayAudio.Subscribe(state => _audioService.OnShipStateChangedSound()));
+
         _currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
         ApplyUpgrades(_currentShipUpgrades);
     }

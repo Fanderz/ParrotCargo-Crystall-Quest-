@@ -1,4 +1,5 @@
 using UnityEngine;
+
 using TMPro;
 
 public class CountPalletsFreeView : MonoBehaviour
@@ -7,4 +8,9 @@ public class CountPalletsFreeView : MonoBehaviour
 
     public void UpdateCountPalletFree(int value)
         => _countPalletFreeView.text = value.ToString();
+
+    private void FixedUpdate()
+    {
+        transform.forward = Camera.main.transform.forward;
+    }
 }

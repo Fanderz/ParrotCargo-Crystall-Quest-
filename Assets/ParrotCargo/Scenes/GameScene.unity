@@ -1270,13 +1270,14 @@ MonoBehaviour:
   - {fileID: 1736250304}
   - {fileID: 1701543416}
   - {fileID: 1286349877}
-  - {fileID: 420218716}
   - {fileID: 989846439}
-  - {fileID: 481253839}
+  - {fileID: 420218716}
   - {fileID: 1611381664}
+  - {fileID: 481253839}
   - {fileID: 914918347}
   - {fileID: 256543749}
   - {fileID: 327380070}
+  - {fileID: 1744022358}
 --- !u!1 &219022031
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,6 +1519,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fcea1f7781754f848bf00f02f754d67d, type: 2}
   - {fileID: 11400000, guid: 132061a460b279d4baec1800244b1fcb, type: 2}
   - {fileID: 11400000, guid: 454e178ecbd899c47bd5f94e9347bd5b, type: 2}
+  - {fileID: 11400000, guid: 2f0b1c1b52a16e74eb69b0c0d3f1b18e, type: 2}
   - {fileID: 11400000, guid: afa6cf6a018ee3b449c48f8464142435, type: 2}
   _parrotBlockViews: {fileID: 2103674091}
   _palletViews: {fileID: 1677520484}
@@ -2261,6 +2263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd501293c9138894298cf6c700ada3a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _multiplierStartCreatedObjects: 2
   _shipSpawner: {fileID: 1935337921}
 --- !u!1 &440141294
 GameObject:
@@ -3897,6 +3900,7 @@ GameObject:
   - component: {fileID: 788974023}
   - component: {fileID: 788974025}
   - component: {fileID: 788974024}
+  - component: {fileID: 788974026}
   m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
@@ -3920,7 +3924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1246}
   m_SizeDelta: {x: 1000, y: 400}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &788974024
@@ -3961,6 +3965,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788974022}
   m_CullTransparentMesh: 1
+--- !u!114 &788974026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788974022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c1389b16874eb4fae46e5d900e37fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startPosition: {x: 0, y: 1246}
+  _finishPosition: {x: 0, y: 0}
+  _durationMoving: 1
+  _rectTransform: {fileID: 788974023}
 --- !u!1001 &805497161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6295,13 +6315,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156173233}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 763351893}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -121, y: 127}
@@ -7845,6 +7865,9 @@ MonoBehaviour:
   _gameOverView: {fileID: 1920865144}
   _collectedScoreText: {fileID: 1245027400}
   _collectedCoinsText: {fileID: 2077930883}
+  _panelsAnimationView:
+  - {fileID: 1668651884}
+  - {fileID: 788974026}
   _settingService: {fileID: 1736250304}
   _shopService: {fileID: 1701543416}
   _palletService: {fileID: 989846439}
@@ -8895,6 +8918,7 @@ GameObject:
   - component: {fileID: 1668651881}
   - component: {fileID: 1668651883}
   - component: {fileID: 1668651882}
+  - component: {fileID: 1668651884}
   m_Layer: 5
   m_Name: MiddleBackGround
   m_TagString: Untagged
@@ -8921,7 +8945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1246}
   m_SizeDelta: {x: 900, y: 900}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1668651882
@@ -8962,6 +8986,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668651880}
   m_CullTransparentMesh: 1
+--- !u!114 &1668651884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668651880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c1389b16874eb4fae46e5d900e37fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startPosition: {x: 0, y: 1246}
+  _finishPosition: {x: 0, y: 0}
+  _durationMoving: 1
+  _rectTransform: {fileID: 1668651881}
 --- !u!1001 &1672880335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9383,8 +9423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf83994f5cb1d7440b2eb92e130cd7a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonRealodGame: {fileID: 1706169773}
-  _buttonReloadGame: {fileID: 4020635553910358669}
+  _buttonReloadGame: {fileID: 1706169773}
+  _buttonStartGame: {fileID: 4020635553910358669}
 --- !u!4 &1744022359
 Transform:
   m_ObjectHideFlags: 0
@@ -10333,7 +10373,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278339465
-  m_fontColor: {r: 0.5372549, g: 0.2784314, b: 0.007843138, a: 1}
+  m_fontColor: {r: 0.3962264, g: 0.21530789, b: 0.02616584, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -13195,7 +13235,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 139.35
+  m_fontSize: 130.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -15217,8 +15257,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 481253839}
-        m_TargetAssemblyTypeName: ParrotsBlockService, Assembly-CSharp
+      - m_Target: {fileID: 989846439}
+        m_TargetAssemblyTypeName: PalletService, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -15229,8 +15269,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 989846439}
-        m_TargetAssemblyTypeName: PalletService, Assembly-CSharp
+      - m_Target: {fileID: 481253839}
+        m_TargetAssemblyTypeName: ParrotsBlockService, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:

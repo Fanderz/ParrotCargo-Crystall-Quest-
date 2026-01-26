@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 2577268841433563167}
   - {fileID: 8629412301701645040}
   - {fileID: 4072475137380295190}
+  _countPalletsFreeView: {fileID: 5889082554355063143}
   _rotationOffDistance: 10
   _stopDistance: 5
 --- !u!195 &8818371693699025706
@@ -654,6 +655,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8261259608256671932, guid: 8b04e28f3bb7c3643b096b99b12c6da4, type: 3}
+      propertyPath: m_text
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -664,6 +669,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3201383769430772679, guid: 8b04e28f3bb7c3643b096b99b12c6da4, type: 3}
   m_PrefabInstance: {fileID: 3233167694275221861}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5889082554355063143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9035555122310250498, guid: 8b04e28f3bb7c3643b096b99b12c6da4, type: 3}
+  m_PrefabInstance: {fileID: 3233167694275221861}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e735a2ec43924bd48a71c5f336c21d89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7508486757491718000
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TutorialStep", menuName = "ScriptableObject/TutorialStep")]
 public class TutorialStep : ScriptableObject
 {
+    [TextArea(1, 5)]
     [SerializeField] private string _textStep;
     [SerializeField] private bool _isCompleted;
     [SerializeField] private TypeObjectSelectTutorial _typeObjectSelectTutorial;

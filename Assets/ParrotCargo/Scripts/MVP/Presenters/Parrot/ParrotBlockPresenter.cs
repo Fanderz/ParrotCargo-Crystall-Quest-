@@ -73,7 +73,6 @@ public class ParrotBlockPresenter
         _draggableParrotBlock.MoveCommand = new();
         _draggableParrotBlock.MoveCommand.Subscribe(target =>
         {
-            //PickedParrotSoundCommand.Execute();
             Vector3 targetPosition = new Vector3(target.x, _model.StartPosition.y + _draggableParrotBlock.YFlyingOffset, target.z);
             MoveBlock(targetPosition);
             ScanBags();

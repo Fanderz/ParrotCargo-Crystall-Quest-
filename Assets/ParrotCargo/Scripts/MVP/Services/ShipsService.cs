@@ -8,6 +8,7 @@ using System.Linq;
 
 public class ShipsService : BaseService
 {
+    [SerializeField] private int _multiplierStartCreatedObjects;
     [SerializeField] private ShipsSpawner _shipSpawner;
 
     private int _currentShipUpgrades;
@@ -24,20 +25,25 @@ public class ShipsService : BaseService
 
     public void StartGame()
     {
+        _currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
+
         _shipSpawner.Initialize(_skinService.CurrentShip.ShipPrefabs.ToList());
-        _shipSpawner.CreateObjects();
+
+        for (int i = 0; i < _multiplierStartCreatedObjects; i++)
+            _shipSpawner.CreateObjects();
+
         _shipSpawner.Spawn();
+
         Ships.ToList().ForEach(ship => ship.PlayAudio.Subscribe(state => _audioService.OnShipStateChangedSound()));
 
-        _currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
-        ApplyUpgrades(_currentShipUpgrades);
+
     }
 
     private void ApplyUpgrades(int count)
     {
         for (int i = 0; i < count; i++)
             foreach (ShipPresenter shipPresenter in _shipSpawner.ShipPresenters)
-                shipPresenter.ActivatePallet();
+                shipPresenter.AddPallet();
     }
 
 }

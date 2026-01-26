@@ -30,7 +30,7 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
 
         for (int i = 0; i < emptyPoints.Count; i++)
         {
-            var ship = new Ship(_pointToRelease.position, activePallets);
+            var ship = new Ship(_pointToRelease.position);
 
             var shipView = SpawnObject(SpawnPoints[i].position);
 

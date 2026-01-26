@@ -68,7 +68,7 @@ public class BaseShipView : MonoBehaviour
             return false;
     }
 
-    public void Initialize(ShipStopPoint targetPoint, int activePalletsCnt)
+    public void Initialize(ShipStopPoint targetPoint)
     {
         _palletsForBags.ForEach(pallet => pallet.gameObject.SetActive(false));
 

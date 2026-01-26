@@ -5,8 +5,8 @@ using UniRx;
 
 public class GameOverService : BaseService
 {
-    [SerializeField] private Button _buttonRealodGame;
     [SerializeField] private Button _buttonReloadGame;
+    [SerializeField] private Button _buttonStartGame;
 
     private static GameOverService _instance;
 
@@ -14,14 +14,17 @@ public class GameOverService : BaseService
 
     public override void Initialize()
     {
-        _buttonRealodGame.onClick.AddListener(() =>
+        _buttonReloadGame.onClick.AddListener(() =>
         {
             SceneService.Instance.ReloadGame();
         });
     }
 
     public void InvokeReloadGame()
-        => _buttonReloadGame.onClick.Invoke();
+    {
+        Time.timeScale = 1f;
+        _buttonStartGame.onClick.Invoke();
+    }
 
     private void Awake()
     {
@@ -30,6 +33,6 @@ public class GameOverService : BaseService
 
     private void OnDestroy()
     {
-        _buttonRealodGame.onClick.RemoveAllListeners();
+        _buttonReloadGame.onClick.RemoveAllListeners();
     }
 }

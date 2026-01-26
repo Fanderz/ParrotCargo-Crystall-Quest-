@@ -8,10 +8,9 @@ public class Ship
 
     public ReactiveCommand PalletsCntChanged = new ReactiveCommand();
 
-    public Ship(Vector3 pointOnFilled, int activePalletsCount)
+    public Ship(Vector3 pointOnFilled)
     {
         TargetOnFilled = pointOnFilled;
-        _palletsCount = activePalletsCount;
     }
 
     public Vector3 TargetOnFilled { get; private set; }
@@ -19,8 +18,8 @@ public class Ship
 
     public void Initialize(int activePalletsCount)
     {
-        //for (int i = 0; i < activePalletsCount; i++)
-        //    AddPallet();
+        for (int i = 0; i < activePalletsCount; i++)
+            AddPallet();
     }
 
     public void AddPallet()

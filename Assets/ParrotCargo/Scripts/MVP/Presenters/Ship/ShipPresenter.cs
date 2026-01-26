@@ -31,7 +31,12 @@ public class ShipPresenter
 
     public void Initialize(int activePalletsCnt, ShipStopPoint stopPoint)
     {
-        _view.Initialize(stopPoint, activePalletsCnt);
+        _view.Initialize(stopPoint);
+
+        _model.PalletsCntChanged.Subscribe(exec => 
+        _view.ActivatePallet()
+        );
+        
         _model.Initialize(activePalletsCnt);
 
         foreach (PalletView palletView in _view.PalletViews)
@@ -45,7 +50,6 @@ public class ShipPresenter
         }
 
         _view.ShipStopped.Subscribe(exec => PlayAudio.Execute());
-        _model.PalletsCntChanged.Subscribe(exec => _view.ActivatePallet());
     }
 
     public PalletPresenter GetEmptyPallet()
@@ -69,7 +73,7 @@ public class ShipPresenter
         }
     }
 
-    public void ActivatePallet()
+    public void AddPallet()
     {
         _model.AddPallet();
     }

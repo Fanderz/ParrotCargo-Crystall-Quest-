@@ -21,16 +21,28 @@ public class BasePool<T> where T : MonoBehaviour
         _container = container;
     }
 
+    public int InActiveCount => _objects.FindAll(obj => obj.gameObject.activeSelf == false).Count;
+    public IReadOnlyList<T> Objects => _objects;
+
     public T Get(T prefab, Transform parent)
     {
-        foreach (T obj in _objects)
+        var findedObjects = _objects.FindAll(obj => TryCheckGetObjectPool(obj, prefab));
+
+        if (findedObjects != null && findedObjects.Count != 0)
         {
-            if (TryCheckGetObjectPool(obj, prefab))
-            {
-                obj.transform.SetParent(parent);
-                return obj;
-            }
+            var indexRandom = Random.Range(0, findedObjects.Count);
+            findedObjects[indexRandom].transform.SetParent(parent);
+            return findedObjects[indexRandom];
         }
+
+        //foreach (T obj in _objects)
+        //{
+        //    if (TryCheckGetObjectPool(obj, prefab))
+        //    {
+        //        obj.transform.SetParent(parent);
+        //        return obj;
+        //    }
+        //}
 
         return CreateObject(prefab, parent);
     }
@@ -52,7 +64,7 @@ public class BasePool<T> where T : MonoBehaviour
             obj.gameObject.SetActive(false);
     }
 
-    protected virtual bool TryCheckGetObjectPool(T obj, T prefab)
+    protected virtual bool TryCheckGetObjectPool(T obj, T prefab = null)
         => obj.gameObject.activeSelf == false;
 
     private T Create(T prefab, Transform parent = null)

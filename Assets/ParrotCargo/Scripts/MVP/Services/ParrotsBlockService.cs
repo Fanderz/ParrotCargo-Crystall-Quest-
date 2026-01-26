@@ -45,7 +45,6 @@ public class ParrotsBlockService : BaseService
         {
             block.GameOverCommand.Subscribe(bl => _playerProgressService.OnGameOver());
             block.ParrotDroppedBagSoundCommand.Subscribe(bl => _audioService.OnBagDroppedSound());
-            //block.PickedParrotSoundCommand.Subscribe(bl => _audioService.OnBirdPickedSound());
         });
 
         UpdateTargets();

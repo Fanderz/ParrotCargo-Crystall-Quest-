@@ -1,10 +1,13 @@
 using Assets.ParrotCargo.Scripts.MVP.Models.Data;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+using TMPro;
+using Cysharp.Threading.Tasks;
 using YG;
+using UnityEditor.VersionControl;
 
 public class PlayerProgressService : BaseService
 {
@@ -20,6 +23,7 @@ public class PlayerProgressService : BaseService
     [SerializeField] private GameObject _gameOverView;
     [SerializeField] private TextMeshProUGUI _collectedScoreText;
     [SerializeField] private TextMeshProUGUI _collectedCoinsText;
+    [SerializeField] private List<PanelAnimationView> _panelsAnimationView;
 
     [Header("Sounds Setts")]
     [SerializeField] private SettingsService _settingService;
@@ -60,11 +64,18 @@ public class PlayerProgressService : BaseService
         SaveProgress();
     }
 
-    public void OnGameOver()
+    public async void OnGameOver()
     {
         _gameOverView.SetActive(true);
         _collectedCoinsText.text = _gameCoinsModel.Value.ToString();
         _collectedCoinsText.text = _pointsModel.Value.ToString();
+
+        foreach (var panelAnimationView in _panelsAnimationView)
+            panelAnimationView.Show();
+
+        await UniTask.Delay(1200);
+
+        Time.timeScale = 0;
     }
 
     public void SaveProgress()

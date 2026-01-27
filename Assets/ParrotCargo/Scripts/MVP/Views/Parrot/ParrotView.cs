@@ -6,6 +6,8 @@ using UnityEngine.AI;
 using UniRx;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
+using System.Threading;
+using System;
 
 public class ParrotView : MonoBehaviour
 {
@@ -25,6 +27,7 @@ public class ParrotView : MonoBehaviour
     private BaseCrystallBagView _crystallBag;
     private BaseCrystallBagView _lastCrystallBag;
     private NavMeshAgent _agent;
+    private CancellationTokenSource _cancellationToken;
 
     public BaseCrystallBagView CrystallBag => _crystallBag;
 
@@ -65,6 +68,11 @@ public class ParrotView : MonoBehaviour
                     SitWithBag();
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        _cancellationToken?.Cancel();
     }
 
     public void SetChildAnimator(Animator animator)
@@ -135,7 +143,7 @@ public class ParrotView : MonoBehaviour
             await UniTask.Delay(_waitMiliseconds);
 
         if (isTargetShip)
-            PutBag();
+            await PutBag();
     }
 
     public void ReturnToStartPoint()
@@ -146,10 +154,20 @@ public class ParrotView : MonoBehaviour
         transform.localRotation = _startRotation;
     }
 
-    private async void PutBag()
+    private async UniTask PutBag()
     {
-        while (_agent?.remainingDistance > 0.05f)
-            await UniTask.Delay(1000);
+        if (_agent == null)
+            return;
+        _cancellationToken = new CancellationTokenSource();
+
+        try
+        {
+            await UniTask.WaitUntil(() => _agent.remainingDistance <= 0.05f, cancellationToken: _cancellationToken.Token);
+        }
+        catch(OperationCanceledException)
+        {
+            return;
+        }
 
         _crystallBag.transform.SetParent(_targetPalletTransform.transform);
 

@@ -69,7 +69,6 @@ public class ShipPresenter
         if (_palletPresenters.FindAll(palletPresenter => palletPresenter.isActive).TrueForAll(pallet => pallet.isEmpty == false))
         {
             _model.SetGoingToRelease(true);
-            PlayAudio.Execute();
             _view.SetDestination(_model.TargetOnFilled, _model.isGoingToRelease);
             Releasing.Execute();
         }

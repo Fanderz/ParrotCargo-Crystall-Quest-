@@ -7,6 +7,7 @@ using UniRx;
 
 public class ParrotsBlockService : BaseService
 {
+    [SerializeField] private int _multiplierStartCreatedObjects;
     [SerializeField] private ParrotsBlockSpawner _parrotsBlockSpawner;
     [SerializeField] private List<SpawnPoint> _spawnPlatforms;
 
@@ -23,6 +24,9 @@ public class ParrotsBlockService : BaseService
 
     public override void Initialize()
     {
+        for (int i = 0; i < _multiplierStartCreatedObjects; i++)
+            _parrotsBlockSpawner.CreateObjects();
+
         _parrotsBlockSpawner.RespawnBlocks.Subscribe(respawn =>
         {
             if (_spawnPlatforms.TrueForAll(platform => platform.haveBirds == false))
@@ -32,7 +36,6 @@ public class ParrotsBlockService : BaseService
 
     public void StartGame()
     {
-        _parrotsBlockSpawner.CreateObjects();
         CreateBlocks();
     }
 

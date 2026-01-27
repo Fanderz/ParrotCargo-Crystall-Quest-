@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using YG;
+using UniRx;
 using TMPro;
 using Zenject;
 using Cysharp.Threading.Tasks;
@@ -44,6 +45,7 @@ public class PlayerProgressService : BaseService
     private PointsPresenter _lederboardPointsPresenter;
 
     [Inject] private AudioService _audioService;
+    [Inject] private SmoothLoaderService _smoothLoaderService;
 
     public override void Initialize()
     {
@@ -84,7 +86,7 @@ public class PlayerProgressService : BaseService
 
         await UniTask.Delay(1200);
 
-        Time.timeScale = 0;
+        SetTimeScale(0);
     }
 
     public void SaveProgress()

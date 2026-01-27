@@ -30,11 +30,13 @@ public class ParrotBlockPresenter
 
     public ParrotBlockPresenter(ParrotBlock parrotBlock, ParrotsBlockView parrotsBlockView)
     {
+        _parrotPresenters = new List<ParrotPresenter>();
+
         _model = parrotBlock;
         _view = parrotsBlockView;
+
         _draggableParrotBlock = _view.GetComponent<DraggableParrotBlock>();
         _draggableCollider = _view.GetComponent<BoxCollider>();
-        _parrotPresenters = new List<ParrotPresenter>();
     }
 
     public bool IsBlockReleased { get; private set; }
@@ -118,11 +120,6 @@ public class ParrotBlockPresenter
 
         PalletPresenter targetPallet = _pallets.ToList().Find(pallet => pallet.HaveCourier == false);
 
-        //if (targetPallet == null)
-        //    targetPallet = new NullablePalletPresenter(null, null);
-        //else
-        //    targetPallet.SetCourier(true);
-
         return targetPallet != null ? targetPallet : new NullablePalletPresenter(null, null);
     }
 
@@ -186,7 +183,6 @@ public class ParrotBlockPresenter
                     return;
                 }
 
-                //targetPallet.SetCourier(true);
                 parrotPresenter.CarryBag(targetPallet, isTargetShip);
             }
         }
@@ -210,9 +206,10 @@ public class ParrotBlockPresenter
 
                 if (targetPallet is NullablePalletPresenter)
                     return;
+                else
+                    targetPallet.SetCourier(true);
 
                 parrotPresenter.CarryBag(targetPallet, true);
-                //targetPallet.SetCourier(true);
             }
             else
                 return;

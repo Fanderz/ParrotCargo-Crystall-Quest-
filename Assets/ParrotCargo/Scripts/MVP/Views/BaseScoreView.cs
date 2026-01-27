@@ -17,7 +17,7 @@ public class BaseScoreView : MonoBehaviour
 
     protected WaitForSeconds smoothWait;
 
-    protected Coroutine smoothIncreaserValueCoroutine;
+    //protected Coroutine smoothIncreaserValueCoroutine;
 
     public ReactiveCommand<int> ValueChanged = new ReactiveCommand<int>();
 
@@ -46,7 +46,7 @@ public class BaseScoreView : MonoBehaviour
 
     private void OnDestroy()
     {
-        StopAllCoroutines();
+        //StopAllCoroutines();
         valueView.text = targetValue.ToString();
     }
 }

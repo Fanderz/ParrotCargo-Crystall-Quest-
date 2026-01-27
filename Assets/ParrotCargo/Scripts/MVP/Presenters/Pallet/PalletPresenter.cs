@@ -9,18 +9,18 @@ public class PalletPresenter
     private BaseCrystallBagView _bagView;
 
     public bool isEmpty => _view.HaveBag == false;
-    public bool isActive =>  _view.gameObject.activeSelf;
+    public bool isActive => _view.gameObject.activeSelf;
     public Transform ViewTransform => _view.transform;
 
     public ReactiveCommand TakedBag = new ReactiveCommand();
 
-    [Inject]
     public PalletPresenter(PalletView view, Pallet model)
     {
         _view = view;
         _model = model;
 
-        Subscribes();
+        if (_view != null && _model != null)
+            _view.EmptyChanged.Subscribe(value => _model.ChangeEmpty(value));
     }
 
     public bool HaveCourier { get; private set; }
@@ -36,11 +36,6 @@ public class PalletPresenter
     public void SetCourier(bool value)
     {
         HaveCourier = value;
-    }
-
-    private void Subscribes()
-    {
-        _view.EmptyChanged.Subscribe((value => { _model.ChangeEmpty(value); }));
     }
 }
 

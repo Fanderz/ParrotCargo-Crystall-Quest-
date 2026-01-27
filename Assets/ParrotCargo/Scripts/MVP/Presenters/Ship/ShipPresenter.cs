@@ -54,7 +54,9 @@ public class ShipPresenter
 
     public PalletPresenter GetEmptyPallet()
     {
-        return _palletPresenters.Find(presenter => presenter.isActive && presenter.isEmpty && presenter.HaveCourier == false);
+        PalletPresenter pallet = _palletPresenters.Find(presenter => presenter.isActive && presenter.isEmpty && presenter.HaveCourier == false); ;
+
+        return pallet != null ? pallet : new NullablePalletPresenter(null, null);
     }
 
     public BaseShipView GetView()

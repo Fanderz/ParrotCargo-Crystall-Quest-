@@ -30,19 +30,10 @@ public class BasePool<T> where T : MonoBehaviour
 
         if (findedObjects != null && findedObjects.Count != 0)
         {
-            var indexRandom = Random.Range(0, findedObjects.Count);
-            findedObjects[indexRandom].transform.SetParent(parent);
-            return findedObjects[indexRandom];
+            var randomIndex = Random.Range(0, findedObjects.Count);
+            findedObjects[randomIndex].transform.SetParent(parent);
+            return findedObjects[randomIndex];
         }
-
-        //foreach (T obj in _objects)
-        //{
-        //    if (TryCheckGetObjectPool(obj, prefab))
-        //    {
-        //        obj.transform.SetParent(parent);
-        //        return obj;
-        //    }
-        //}
 
         return CreateObject(prefab, parent);
     }

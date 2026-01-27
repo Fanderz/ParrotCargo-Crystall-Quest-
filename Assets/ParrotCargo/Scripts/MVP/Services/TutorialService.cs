@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,27 +31,34 @@ public class TutorialService : BaseService
     public override void Initialize()
     {
         _tutorialPresenter = new TutorialPresenter(_tutorialSteps);
-        _tutorialPresenter.Initialize();
+
 
         _smoothLoaderService.LoadingCompletedCommand.Subscribe(_ =>
         {
+            _tutorialPresenter.Initialize();
             SetActive(true);
             _panelTutorialTextAnimationView.Show();
+            _tutorialPresenter.NextStep();
         });
+
         _tutorialPresenter.GoNextStepCommand.Subscribe(stepTutorial =>
         {
-            SelecetObjectTutorial(stepTutorial.TypeObjectSelectTutorial);
+            DeselectAll();
+            stepTutorial.TypeObjectSelectTutorial.ToList().ForEach(obj => SelectObjectTutorial(obj));
             UpdateTextStep(stepTutorial.TextStep);
         });
+
         _tutorialPresenter.FinishedTutorialCommand.Subscribe(async _ =>
         {
+            DeselectAll();
             _panelTutorialTextAnimationView.Hide();
             await UniTask.Delay(1000);
             SetActive(false);
         });
+
         _nextStep.onClick.AddListener(() => _tutorialPresenter.NextStep());
 
-        _tutorialPresenter.NextStep();
+
     }
 
     public void SetActive(bool isActive)
@@ -59,13 +67,8 @@ public class TutorialService : BaseService
     private void UpdateTextStep(string textStep)
         => _textStep.text = textStep;
 
-    private void SelecetObjectTutorial(TypeObjectSelectTutorial typeObjectSelectTutorial)
+    private void SelectObjectTutorial(TypeObjectSelectTutorial typeObjectSelectTutorial)
     {
-        OutlineNoActive(_parrotBlockViews);
-        OutlineNoActive(_palletViews);
-        OutlineNoActive(_crystallBagViews);
-        OutlineNoActive(_shipViews);
-
         switch (typeObjectSelectTutorial)
         {
             case TypeObjectSelectTutorial.PalletViews:
@@ -81,6 +84,14 @@ public class TutorialService : BaseService
                 AddOutlineComponent(_crystallBagViews);
                 break;
         }
+    }
+
+    private void DeselectAll()
+    {
+        OutlineNoActive(_parrotBlockViews);
+        OutlineNoActive(_palletViews);
+        OutlineNoActive(_crystallBagViews);
+        OutlineNoActive(_shipViews);
     }
 
     private void OutlineNoActive(GameObject gameObject)

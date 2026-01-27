@@ -14,6 +14,8 @@ public class AudioService : BaseService
     [SerializeField] private AudioSource _seaSound;
     [SerializeField] private AudioSource _crystallsDroppedSound;
     [SerializeField] private AudioSource _birdSound;
+    [SerializeField] private AudioSource _failSound;
+    [SerializeField] private AudioSource _buttonSound;
 
     public override void Initialize()
     {
@@ -31,11 +33,22 @@ public class AudioService : BaseService
         ChangeLoud(_mixerEffectsParameterName, volume);
     }
 
-
     public void OnGameStarted()
     {
         if (!_seaSound.isPlaying)
             _seaSound.Play();
+    }
+
+    public void OnGameLose()
+    {
+        if(!_failSound.isPlaying)
+            _failSound.PlayOneShot(_failSound.clip);
+    }
+
+    public void OnButtonPress()
+    {
+        if(!_buttonSound.isPlaying)
+            _buttonSound.PlayOneShot(_buttonSound.clip);
     }
 
     public void OnShipStateChangedSound()

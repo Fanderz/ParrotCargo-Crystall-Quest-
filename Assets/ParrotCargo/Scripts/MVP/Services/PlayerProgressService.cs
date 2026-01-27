@@ -1,13 +1,14 @@
-using Assets.ParrotCargo.Scripts.MVP.Models.Data;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-using TMPro;
-using Cysharp.Threading.Tasks;
 using YG;
-using UnityEditor.VersionControl;
+using TMPro;
+using Zenject;
+using Cysharp.Threading.Tasks;
+using Assets.ParrotCargo.Scripts.MVP.Models.Data;
 
 public class PlayerProgressService : BaseService
 {
@@ -42,6 +43,8 @@ public class PlayerProgressService : BaseService
     private PointsPresenter _gamePointsPresenter;
     private PointsPresenter _lederboardPointsPresenter;
 
+    [Inject] private AudioService _audioService;
+
     public override void Initialize()
     {
         OnYGInit();
@@ -64,11 +67,17 @@ public class PlayerProgressService : BaseService
         SaveProgress();
     }
 
+    public void SetTimeScale(float value)
+    {
+        Time.timeScale = value;
+    }
+
     public async void OnGameOver()
     {
+        _audioService.OnGameLose();
         _gameOverView.SetActive(true);
         _collectedCoinsText.text = _gameCoinsModel.Value.ToString();
-        _collectedCoinsText.text = _pointsModel.Value.ToString();
+        _collectedScoreText.text = _pointsModel.Value.ToString();
 
         foreach (var panelAnimationView in _panelsAnimationView)
             panelAnimationView.Show();

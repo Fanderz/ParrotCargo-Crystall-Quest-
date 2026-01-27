@@ -118,10 +118,12 @@ public class ParrotBlockPresenter
 
         PalletPresenter targetPallet = _pallets.ToList().Find(pallet => pallet.HaveCourier == false);
 
-        if (targetPallet == null)
-            return new NullablePalletPresenter(new NullablePalletView(), null);
+        //if (targetPallet == null)
+        //    targetPallet = new NullablePalletPresenter(null, null);
+        //else
+        //    targetPallet.SetCourier(true);
 
-        return targetPallet;
+        return targetPallet != null ? targetPallet : new NullablePalletPresenter(null, null);
     }
 
     #region Движение блока и каждого попугая
@@ -178,13 +180,13 @@ public class ParrotBlockPresenter
                 targetShip = GetSmallerEmptyShip(targetShips);
                 targetPallet = GetTargetPallet(targetShip, out bool isTargetShip);
 
-                if(targetPallet is NullablePalletPresenter)
+                if (targetPallet is NullablePalletPresenter)
                 {
                     GameOverCommand.Execute();
                     return;
                 }
 
-                targetPallet.SetCourier(true);
+                //targetPallet.SetCourier(true);
                 parrotPresenter.CarryBag(targetPallet, isTargetShip);
             }
         }
@@ -206,11 +208,11 @@ public class ParrotBlockPresenter
             {
                 targetPallet = targetShip.GetEmptyPallet();
 
-                if (targetPallet == null)
+                if (targetPallet is NullablePalletPresenter)
                     return;
 
                 parrotPresenter.CarryBag(targetPallet, true);
-                targetPallet.SetCourier(true);
+                //targetPallet.SetCourier(true);
             }
             else
                 return;
@@ -219,30 +221,38 @@ public class ParrotBlockPresenter
 
     private ShipPresenter GetSmallerEmptyShip(List<ShipPresenter> ships)
     {
-        if (ships.Count == 0)
-            return new NullableShipPresenter(null, null);
+        ShipPresenter ship = ships.Where(s => s != null && s.IsStopped && !s.isGoingToRelease && s.EmptyPalletsCnt > 0).OrderBy(s => s.EmptyPalletsCnt).FirstOrDefault();
 
-        return ships.OrderBy(ship => ship.EmptyPalletsCnt > 0).FirstOrDefault();
+        return ship != null ? ship : new NullableShipPresenter(null, null);
     }
 
     private PalletPresenter GetTargetPallet(ShipPresenter targetShip, out bool isTargetShip)
     {
-        PalletPresenter targetPallet;
+        PalletPresenter targetPallet = new NullablePalletPresenter(null, null);
         isTargetShip = false;
 
-        if (targetShip != null && targetShip.IsStopped && targetShip.isGoingToRelease == false)
-        {
-            targetPallet = targetShip.GetEmptyPallet();
-
-            if (targetPallet == null)
-                 targetPallet = _tempPallet = GetEmptyTempPallet();
-            else
-                isTargetShip = true;
-        }
+        if (targetShip is NullableShipPresenter)
+            targetPallet = _tempPallet = GetEmptyTempPallet();
         else
         {
-            targetPallet = _tempPallet = GetEmptyTempPallet();
+            if (targetShip.IsStopped && targetShip.isGoingToRelease == false)
+            {
+                if (targetShip.EmptyPalletsCnt > 0)
+                    targetPallet = targetShip.GetEmptyPallet();
+
+                if (targetPallet is NullablePalletPresenter)
+                    targetPallet = _tempPallet = GetEmptyTempPallet();
+                else
+                    isTargetShip = true;
+            }
+            else
+            {
+                targetPallet = _tempPallet = GetEmptyTempPallet();
+            }
         }
+
+        if (targetPallet is not NullablePalletPresenter)
+            targetPallet.SetCourier(true);
 
         return targetPallet;
     }

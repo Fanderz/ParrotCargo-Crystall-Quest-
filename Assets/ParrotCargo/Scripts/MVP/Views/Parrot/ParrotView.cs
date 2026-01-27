@@ -57,7 +57,7 @@ public class ParrotView : MonoBehaviour
     {
         if (gameObject.activeSelf && _agent.enabled)
         {
-            if (_agent.hasPath && _agent.remainingDistance < 1f && _agent.isStopped == false)
+            if (_agent.hasPath && _agent.remainingDistance < 1.5f && _agent.isStopped == false)
             {
                 _agent.isStopped = true;
 

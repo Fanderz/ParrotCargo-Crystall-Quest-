@@ -58,7 +58,6 @@ public class TutorialService : BaseService
 
         _nextStep.onClick.AddListener(() => _tutorialPresenter.NextStep());
 
-
     }
 
     public void SetActive(bool isActive)

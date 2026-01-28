@@ -62,7 +62,7 @@ public class TutorialService : BaseService
     }
 
     public void SetActive(bool isActive)
-        => _panelTutorial.gameObject.SetActive(isActive);
+        => _panelTutorial?.gameObject?.SetActive(isActive);
 
     private void UpdateTextStep(string textStep)
         => _textStep.text = textStep;

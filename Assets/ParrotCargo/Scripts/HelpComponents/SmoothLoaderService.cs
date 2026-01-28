@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using YG;
 using UniRx;
-using Cysharp.Threading.Tasks;
 using Zenject;
+using Cysharp.Threading.Tasks;
 
 public class SmoothLoaderService : BaseService
 {
@@ -24,7 +25,6 @@ public class SmoothLoaderService : BaseService
 
     public override void Initialize()
     {
-
     }
 
     public async void Loading()
@@ -32,18 +32,21 @@ public class SmoothLoaderService : BaseService
         _startProgress = 0;
         _loadingSlider.value = 0;
 
+        YG2.InterstitialAdvShow();
+        YG2.onCloseInterAdv += LoadCompleted;
+
         while (_startProgress != _stopProgress)
         {
             _startProgress += _progressMultiplier;
             _loadingSlider.value = _startProgress;
             await UniTask.Delay(_waitLoadingMiliseconds);
         }
-
-        LoadCompleted();
     }
 
     private void LoadCompleted()
     {
+        YG2.onCloseInterAdv -= LoadCompleted;
+
         _loadingSlider.gameObject.SetActive(false);
         _startUIButtons.gameObject.SetActive(true);
 

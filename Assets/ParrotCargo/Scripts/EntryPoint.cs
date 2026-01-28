@@ -1,12 +1,17 @@
 using System.Collections.Generic;
 
 using UnityEngine;
-
+using YG;
 using Zenject;
 
 public class EntryPoint : MonoInstaller
 {
     [SerializeField] private List<BaseService> _services;
+
+    //public override void Start()
+    //{
+    //    YG2.StickyAdActivity(true);
+    //}
 
     public override void InstallBindings()
     {

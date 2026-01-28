@@ -23,8 +23,9 @@ public class PlayerProgressService : BaseService
 
     [Header("GameOver Setts")]
     [SerializeField] private GameObject _gameOverView;
-    [SerializeField] private TextMeshProUGUI _collectedScoreText;
-    [SerializeField] private TextMeshProUGUI _collectedCoinsText;
+    [SerializeField] private GameObject _rewardButton;
+    [SerializeField] private PointsView _gameOverScoreView;
+    [SerializeField] private CoinsView _gameOverCoinsView;
     [SerializeField] private List<PanelAnimationView> _panelsAnimationView;
 
     [Header("Sounds Setts")]
@@ -41,7 +42,9 @@ public class PlayerProgressService : BaseService
 
     private CoinsPresenter _shopCoinsPresenter;
     private CoinsPresenter _gameCoinsPresenter;
+    private CoinsPresenter _gameOverCoinsPresenter;
     private PointsPresenter _gamePointsPresenter;
+    private PointsPresenter _gameOverPointsPresenter;
     private PointsPresenter _lederboardPointsPresenter;
 
     [Inject] private AudioService _audioService;
@@ -53,8 +56,10 @@ public class PlayerProgressService : BaseService
 
         _shopCoinsPresenter = new CoinsPresenter(YG2.saves.coinsProgress, _shopCoinsView, _smoothChangeWait);
         _gameCoinsPresenter = new CoinsPresenter(_gameCoinsModel, _gameCoinsView, _smoothChangeWait);
+        _gameOverCoinsPresenter = new CoinsPresenter(_gameCoinsModel, _gameOverCoinsView, _smoothChangeWait);
 
         _gamePointsPresenter = new PointsPresenter(_pointsModel, _gamePointsView, _smoothChangeWait);
+        _gameOverPointsPresenter = new PointsPresenter(_pointsModel, _gameOverScoreView, _smoothChangeWait);
     }
 
     public void IncreaseValuesOnBagRelease()
@@ -78,8 +83,9 @@ public class PlayerProgressService : BaseService
     {
         _audioService.OnGameLose();
         _gameOverView.SetActive(true);
-        _collectedCoinsText.text = _gameCoinsModel.Value.ToString();
-        _collectedScoreText.text = _pointsModel.Value.ToString();
+
+        if (_gameCoinsModel.Value == 0)
+            _rewardButton.SetActive(false);
 
         foreach (var panelAnimationView in _panelsAnimationView)
             panelAnimationView.Show();
@@ -89,8 +95,20 @@ public class PlayerProgressService : BaseService
         SetTimeScale(0);
     }
 
+    public void OnReward()
+    {
+        _gameOverCoinsPresenter.IncreaseCoins(_gameCoinsModel.Value);
+
+        YG2.onCloseRewardedAdv += (async () =>
+        {
+            await UniTask.Delay(1200);
+            SetTimeScale(0);
+        });
+    }
+
     public void SaveProgress()
     {
+        SetTimeScale(1f);
         YG2.saves.coinsProgress.Value += _gameCoinsModel.Value;
         YG2.saves.pointsProgress.Value += _pointsModel.Value;
 
@@ -100,11 +118,13 @@ public class PlayerProgressService : BaseService
         _settingService.OnSave();
 
         YG2.SaveProgress();
+        SetTimeScale(0f);
     }
 
     public void ResetProgress()
     {
         SceneManager.LoadScene("GameScene");
+        SetTimeScale(1f);
     }
 
     private List<ShopSaveData> CreateDefaultItems(List<BaseShopItemValuesSO> shopItemSettings)
@@ -114,10 +134,12 @@ public class PlayerProgressService : BaseService
         foreach (BaseShopItemValuesSO setting in shopItemSettings)
         {
             for (int j = 1; j <= setting.ItemChildCount; j++)
-                save.Add(new ShopSaveData { 
-                    IsPurchased = (j <= setting.DefaulPurchasedCount ? true : false), 
-                    isActive = (j <= setting.DefaultActiveCount ? true : false), 
-                    Type = setting.ItemName });
+                save.Add(new ShopSaveData
+                {
+                    IsPurchased = (j <= setting.DefaulPurchasedCount ? true : false),
+                    isActive = (j <= setting.DefaultActiveCount ? true : false),
+                    Type = setting.ItemName
+                });
         }
 
         return save;

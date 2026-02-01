@@ -49,11 +49,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7439443ffd77849a13f4a559708f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zOffsetOnPick: -3
+  _zOffsetOnPick: -5
   _parrots:
   - {fileID: 4279148495752438542}
   - {fileID: 6992141055257160794}
   - {fileID: 1188433691322160872}
+  _typeParrotsBlock: 0
 --- !u!114 &6808225386207718567
 MonoBehaviour:
   m_ObjectHideFlags: 0

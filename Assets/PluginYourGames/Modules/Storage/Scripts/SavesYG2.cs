@@ -13,5 +13,6 @@ namespace YG
         public ShopSaveModel shopModel;
         public TypeBird currentTypeBird = TypeBird.Parrot;
         public TypeShip currentTypeShip = TypeShip.Pirate;
+        public bool isFirstGame;
     }
 }

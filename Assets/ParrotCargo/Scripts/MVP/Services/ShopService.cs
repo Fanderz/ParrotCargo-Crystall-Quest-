@@ -29,6 +29,7 @@ public class ShopService : BaseService
 
         _shopPresenter = new ShopPresenter(_shopModel, _view, _shopSpawner.ShopItems.ToList());
         _shopPresenter.PurchaseCommand.Subscribe(price => _playerProgressService.DecreaseOnPurchase(price)).AddTo(this);
+        _shopPresenter.ActivatedItem.Subscribe(exec => _playerProgressService.SaveProgress());
         _shopPresenter.Initialize();
     }
 }

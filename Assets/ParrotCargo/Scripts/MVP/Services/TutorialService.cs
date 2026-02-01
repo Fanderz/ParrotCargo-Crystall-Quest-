@@ -1,9 +1,10 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
+using YG;
 using TMPro;
 using UniRx;
 using Zenject;
@@ -30,8 +31,10 @@ public class TutorialService : BaseService
 
     public override void Initialize()
     {
-        _tutorialPresenter = new TutorialPresenter(_tutorialSteps);
+        if (YG2.saves.isFirstGame == false)
+            return;
 
+        _tutorialPresenter = new TutorialPresenter(_tutorialSteps);
 
         _smoothLoaderService.LoadingCompletedCommand.Subscribe(_ =>
         {
@@ -54,6 +57,7 @@ public class TutorialService : BaseService
             _panelTutorialTextAnimationView.Hide();
             await UniTask.Delay(1000);
             SetActive(false);
+            YG2.saves.isFirstGame = false;
         });
 
         _nextStep.onClick.AddListener(() => _tutorialPresenter.NextStep());

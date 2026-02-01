@@ -12,6 +12,7 @@ public class ShopPresenter
     private List<ShopItemPresenter> _shopItemPresenters;
 
     public ReactiveCommand<int> PurchaseCommand = new ReactiveCommand<int>();
+    public ReactiveCommand ActivatedItem = new ReactiveCommand();
     public ReactiveCommand<TypeShopItem> SubModelChanged = new ReactiveCommand<TypeShopItem>();
 
     public ShopPresenter(ShopModel model, ShopView view, List<ShopItemPresenter> shopItems)
@@ -44,6 +45,7 @@ public class ShopPresenter
             _model.ActivatePurchase(subItemPresenter.SaveData);
             _shopItemPresenters.First(presenter => presenter.ItemType == type).SubItemPresenters.ToList().ForEach(subItemPresenter => subItemPresenter.SetUnActive());
             subItemPresenter.SetActive();
+            ActivatedItem.Execute();
             return;
         }
 

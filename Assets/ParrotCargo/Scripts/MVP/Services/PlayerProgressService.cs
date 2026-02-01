@@ -49,6 +49,7 @@ public class PlayerProgressService : BaseService
 
     [Inject] private AudioService _audioService;
     [Inject] private SmoothLoaderService _smoothLoaderService;
+    [Inject] private AdsService _adsService;
 
     public override void Initialize()
     {
@@ -95,20 +96,22 @@ public class PlayerProgressService : BaseService
         SetTimeScale(0);
     }
 
-    public void OnReward()
+    public void OnReward(string id)
     {
-        _gameOverCoinsPresenter.IncreaseCoins(_gameCoinsModel.Value);
-
-        YG2.onCloseRewardedAdv += (async () =>
+        if (id == _adsService.Id)
         {
-            await UniTask.Delay(1200);
-            SetTimeScale(0);
-        });
+            _gameOverCoinsPresenter.IncreaseCoins(_gameCoinsModel.Value);
+
+            YG2.onCloseRewardedAdv += (async () =>
+            {
+                await UniTask.Delay(1200);
+                SetTimeScale(0);
+            });
+        }
     }
 
     public void SaveProgress()
     {
-        SetTimeScale(1f);
         YG2.saves.coinsProgress.Value += _gameCoinsModel.Value;
         YG2.saves.pointsProgress.Value += _pointsModel.Value;
 
@@ -118,13 +121,12 @@ public class PlayerProgressService : BaseService
         _settingService.OnSave();
 
         YG2.SaveProgress();
-        SetTimeScale(0f);
     }
 
     public void ResetProgress()
     {
-        SceneManager.LoadScene("GameScene");
         SetTimeScale(1f);
+        SceneManager.LoadScene("GameScene");
     }
 
     private List<ShopSaveData> CreateDefaultItems(List<BaseShopItemValuesSO> shopItemSettings)
@@ -165,6 +167,13 @@ public class PlayerProgressService : BaseService
 
         if (YG2.saves.pointsProgress == null)
             YG2.saves.pointsProgress = new PointsModel(0);
+
+        if (YG2.saves.pointsProgress.Value == 0)
+        {
+            YG2.saves.isFirstGame = true;
+            YG2.saves.currentTypeBird = TypeBird.Parrot;
+            YG2.saves.currentTypeShip = TypeShip.Pirate;
+        }
 
         YG2.SaveProgress();
     }

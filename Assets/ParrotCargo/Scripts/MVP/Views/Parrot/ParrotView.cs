@@ -8,6 +8,7 @@ using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using System.Threading;
 using System;
+using DG.Tweening;
 
 public class ParrotView : MonoBehaviour
 {
@@ -17,10 +18,12 @@ public class ParrotView : MonoBehaviour
     [SerializeField] private float _bagOffset = 5f;
     [SerializeField] private Animator _childAnimator;
 
+    private float _rotationTime = 0.3f;
     private int _waitMiliseconds = 1000;
 
     private Transform _parent;
     private Transform _targetPalletTransform;
+    private Quaternion _agentStartRotation;
     private Quaternion _startRotation;
     private Vector3 _startPosition;
     private Vector3 _continueMovingPosition;
@@ -47,13 +50,13 @@ public class ParrotView : MonoBehaviour
         _parent = transform.parent;
         _startPosition = transform.localPosition;
         _startRotation = transform.localRotation;
+        _agentStartRotation = _agent.transform.rotation;
     }
 
     private void OnEnable()
     {
         CanPick = false;
         HaveBag = false;
-        //_childAnimator.SetTrigger("Sitting");
     }
 
     private void FixedUpdate()
@@ -130,6 +133,7 @@ public class ParrotView : MonoBehaviour
 
     public async void CarryBag(Transform targetPalletPosition, bool isTargetShip)
     {
+        _agent.updateRotation = true;
         _childAnimator.SetTrigger("Flying");
         IsTargetShip = isTargetShip;
         _targetPalletTransform = targetPalletPosition;
@@ -158,6 +162,7 @@ public class ParrotView : MonoBehaviour
     {
         if (_agent == null)
             return;
+
         _cancellationToken = new CancellationTokenSource();
 
         try
@@ -185,6 +190,10 @@ public class ParrotView : MonoBehaviour
         targetPosition.y += _bagOffset;
 
         transform.position = targetPosition;
+        _agent.updateRotation = false;
+        _agent.transform.DORotateQuaternion(_agentStartRotation, _rotationTime).SetEase(Ease.Linear);
+        //_agent.transform.rotation = Quaternion.Slerp(_agent.transform.rotation, _agentStartRotation, _rotationSlerpTime * Time.deltaTime);
+
         _continueMovingPosition = transform.position;
 
         while (IsTargetShip == false)

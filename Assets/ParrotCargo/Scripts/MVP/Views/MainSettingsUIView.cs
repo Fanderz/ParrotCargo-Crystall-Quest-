@@ -17,8 +17,9 @@ public class MainSettingsUIView : MonoBehaviour
     public async void ChangeActive(bool isInGame)
     {
         ChangeActiveButtons(isInGame);
+        var isActive = gameObject.activeSelf;
 
-        if (isInGame)
+        if (isActive == false)
         {
             gameObject.SetActive(true);
             _panelAnimationView.Show();
@@ -27,6 +28,7 @@ public class MainSettingsUIView : MonoBehaviour
         }
         else
         {
+            _playerProgressService.SetTimeScale(1);
             _panelAnimationView.Hide();
             await UniTask.Delay(1000);
             gameObject.SetActive(false);

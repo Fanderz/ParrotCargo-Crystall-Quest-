@@ -8,13 +8,25 @@ public class AdsService : BaseService
 
     [Inject] private PlayerProgressService _playerProgressService;
 
+    public string Id => _rewardID;
+
     public override void Initialize()
     {
         _rewardID = "Coins";
     }
 
+    private void OnEnable()
+    {
+        YG2.onRewardAdv += _playerProgressService.OnReward;
+    }
+
     public void ShowRewardAd()
     {
-        YG2.RewardedAdvShow(_rewardID, () => _playerProgressService.OnReward());
+        YG2.RewardedAdvShow(_rewardID);
+    }
+
+    private void OnDisable()
+    {
+        YG2.onRewardAdv += _playerProgressService.OnReward;
     }
 }

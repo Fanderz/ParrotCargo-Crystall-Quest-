@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ShopItemPresenter
 {

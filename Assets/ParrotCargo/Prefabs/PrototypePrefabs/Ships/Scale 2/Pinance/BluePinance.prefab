@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 7991745387585946879}
   - {fileID: 6050436878284565841}
   - {fileID: 9205316059780219808}
+  _countPalletsFreeView: {fileID: 3597275074626395299}
   _rotationOffDistance: 10
   _stopDistance: 5
 --- !u!195 &3510641935486044375
@@ -178,7 +179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3201383769430772679, guid: 8b04e28f3bb7c3643b096b99b12c6da4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 70
+      value: 85
       objectReference: {fileID: 0}
     - target: {fileID: 3201383769430772679, guid: 8b04e28f3bb7c3643b096b99b12c6da4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -201,6 +202,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b04e28f3bb7c3643b096b99b12c6da4, type: 3}
+--- !u!114 &3597275074626395299 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9035555122310250498, guid: 8b04e28f3bb7c3643b096b99b12c6da4, type: 3}
+  m_PrefabInstance: {fileID: 5514845888578231457}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e735a2ec43924bd48a71c5f336c21d89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6982042384874198886 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3201383769430772679, guid: 8b04e28f3bb7c3643b096b99b12c6da4, type: 3}

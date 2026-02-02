@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2_PinanceShip
   m_EditorClassIdentifier: 
   price: 100
-  previewPrefab: {fileID: 5144628792697708996, guid: 69aca25845701af41af729eb06db1ed0, type: 3}
+  previewPrefab: {fileID: 3988509673095342170, guid: 3a0011fe8f47bab4ea134e949678dec6, type: 3}
   _typeShip: 1
   _shipPrefabs:
   - {fileID: 5751431174766030201, guid: 48de4dff755a9404884ddc932e10ea66, type: 3}

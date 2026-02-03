@@ -107,7 +107,7 @@ public class ParrotView : MonoBehaviour
         CanPick = IsHittedBag(hits);
 
         if (CanPick)
-            _crystallBag.RaiseOnRaycast();
+            _crystallBag?.RaiseOnRaycast();
         else
             _crystallBag?.ReturnScale();
 
@@ -128,7 +128,7 @@ public class ParrotView : MonoBehaviour
 
         PickedBag.Execute(HaveBag);
         _crystallBag.ChangePicked(HaveBag);
-        _crystallBag.ReturnScale();
+        _crystallBag?.ReturnScale();
     }
 
     public async void CarryBag(Transform targetPalletPosition, bool isTargetShip)
@@ -167,7 +167,7 @@ public class ParrotView : MonoBehaviour
 
         try
         {
-            await UniTask.WaitUntil(() => _agent.remainingDistance <= 0.05f, cancellationToken: _cancellationToken.Token);
+            await UniTask.WaitUntil(() => _agent.remainingDistance <= 0.4f, cancellationToken: _cancellationToken.Token);
         }
         catch(OperationCanceledException)
         {

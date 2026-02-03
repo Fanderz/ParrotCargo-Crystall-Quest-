@@ -15,4 +15,4 @@ MonoBehaviour:
   price: 0
   previewPrefab: {fileID: 6329328860557119958, guid: a98f29eb6a48c324d84e2b6ff57ee52a, type: 3}
   _typeBird: 0
-  _prefabBird: {fileID: 3809769933044386942, guid: 67a48053abe65854e95457b49543a906, type: 3}
+  _prefabBird: {fileID: 7447001183306466552, guid: fa1d6c3568ee66341bd8318680e3f18c, type: 3}

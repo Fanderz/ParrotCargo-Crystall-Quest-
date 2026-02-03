@@ -101,6 +101,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkeletBird (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1673380031932092282, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397796618262904405, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4263862123799718044, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
@@ -142,7 +150,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3397796618262904405, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
@@ -173,6 +182,14 @@ PrefabInstance:
     - target: {fileID: 581828627307875772, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
       propertyPath: m_Name
       value: SkeletBird (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673380031932092282, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397796618262904405, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4263862123799718044, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -215,7 +232,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3397796618262904405, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
@@ -246,6 +264,14 @@ PrefabInstance:
     - target: {fileID: 581828627307875772, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
       propertyPath: m_Name
       value: SkeletBird
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673380031932092282, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397796618262904405, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4263862123799718044, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -288,7 +314,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3397796618262904405, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}

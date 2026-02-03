@@ -50,6 +50,7 @@ MonoBehaviour:
   _zOffsetOnPick: -3
   _parrots:
   - {fileID: 3622778094012637356}
+  _typeParrotsBlock: 0
 --- !u!114 &6808225386207718567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +97,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkeletBird
       objectReference: {fileID: 0}
+    - target: {fileID: 581828627307875772, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085209731065435893, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: _birdSkin
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673380031932092282, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397796618262904405, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4263862123799718044, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -137,7 +154,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3397796618262904405, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f05a58ec25bf294889cd1f9b155ce5b, type: 3}

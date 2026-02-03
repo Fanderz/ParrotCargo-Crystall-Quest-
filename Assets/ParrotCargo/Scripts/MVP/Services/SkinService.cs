@@ -19,7 +19,7 @@ public class SkinService : BaseService
 
     public override void Initialize()
     {
-        _shopService.Model.SkinChanged.Subscribe(SetSkin).AddTo(this);
+        _shopService.Model.SkinChanged.Subscribe(SetSkin);
     }
 
     private void SetSkin((int index, TypeShopItem itemType) input)

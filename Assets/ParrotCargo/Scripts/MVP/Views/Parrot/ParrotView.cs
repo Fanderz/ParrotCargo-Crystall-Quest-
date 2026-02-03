@@ -17,6 +17,7 @@ public class ParrotView : MonoBehaviour
     [SerializeField] private LayerMask _pickableLayer;
     [SerializeField] private float _bagOffset = 5f;
     [SerializeField] private Animator _childAnimator;
+    [SerializeField] private GameObject _birdSkin;
 
     private float _rotationTime = 0.3f;
     private int _waitMiliseconds = 1000;
@@ -33,6 +34,7 @@ public class ParrotView : MonoBehaviour
     private CancellationTokenSource _cancellationToken;
 
     public BaseCrystallBagView CrystallBag => _crystallBag;
+    public GameObject ViewSkin => _birdSkin;
 
     public bool HaveBag { get; private set; }
     public bool IsTargetShip { get; private set; }
@@ -158,6 +160,11 @@ public class ParrotView : MonoBehaviour
         transform.localRotation = _startRotation;
     }
 
+    public void SetSkin(GameObject skin)
+    {
+        _birdSkin = skin;
+    }
+
     private async UniTask PutBag()
     {
         if (_agent == null)
@@ -169,7 +176,7 @@ public class ParrotView : MonoBehaviour
         {
             await UniTask.WaitUntil(() => _agent.remainingDistance <= 0.4f, cancellationToken: _cancellationToken.Token);
         }
-        catch(OperationCanceledException)
+        catch (OperationCanceledException)
         {
             return;
         }

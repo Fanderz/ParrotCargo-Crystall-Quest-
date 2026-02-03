@@ -64,11 +64,16 @@ public class ParrotsBlockView : MonoBehaviour
 
         foreach (var parrotView in _parrots)
         {
-            var bird = Instantiate(prefabBird, parrotView.transform);
-            var birdAnimator = bird.GetComponent<Animator>();
+            if (parrotView.ViewSkin == null)
+            {
+                var bird = Instantiate(prefabBird, parrotView.transform);
+                parrotView.SetSkin(bird);
 
-            if (birdAnimator != null)
-                parrotView.SetChildAnimator(birdAnimator);
+                var birdAnimator = bird.GetComponent<Animator>();
+
+                if (birdAnimator != null)
+                    parrotView.SetChildAnimator(birdAnimator);
+            }
         }
     }
 

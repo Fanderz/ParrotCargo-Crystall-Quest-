@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 154,
+  "idSave": 162,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -90,17 +90,17 @@
       {
         "Type": 3,
         "IsPurchased": true,
+        "isActive": false
+      },
+      {
+        "Type": 3,
+        "IsPurchased": true,
+        "isActive": false
+      },
+      {
+        "Type": 3,
+        "IsPurchased": true,
         "isActive": true
-      },
-      {
-        "Type": 3,
-        "IsPurchased": true,
-        "isActive": false
-      },
-      {
-        "Type": 3,
-        "IsPurchased": true,
-        "isActive": false
       },
       {
         "Type": 2,
@@ -125,6 +125,6 @@
     ]
   },
   "currentTypeBird": 1,
-  "currentTypeShip": 1,
+  "currentTypeShip": 3,
   "isFirstGame": false
 }

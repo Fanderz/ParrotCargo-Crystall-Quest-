@@ -95,9 +95,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""Press"",
                     ""type"": ""Button"",
                     ""id"": ""5a09cea1-45f9-443c-8f9c-3ced938ee62c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -124,33 +124,22 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7553762b-755f-4256-bc3e-86ae9bc06a8f"",
-                    ""path"": ""<Touchscreen>/Press"",
+                    ""id"": ""5cd599df-9b5f-430b-86a8-69af13703bf7"",
+                    ""path"": ""<Pointer>/press"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Mobile"",
+                    ""groups"": """",
                     ""action"": ""Press"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""faa96e0b-60c8-4ed8-9a0b-7d27f746bea4"",
-                    ""path"": ""<Mouse>/position"",
+                    ""id"": ""15040862-57e4-4d1f-8b30-6a97fca9f8fb"",
+                    ""path"": ""<Pointer>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PK"",
-                    ""action"": ""Point"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3667c763-a865-4f18-b0ae-e9c33a011a83"",
-                    ""path"": ""<Touchscreen>/primaryTouch/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mobile"",
+                    ""groups"": """",
                     ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

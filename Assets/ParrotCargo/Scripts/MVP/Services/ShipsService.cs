@@ -11,7 +11,7 @@ public class ShipsService : BaseService
     [SerializeField] private int _multiplierStartCreatedObjects;
     [SerializeField] private ShipsSpawner _shipSpawner;
 
-    private int _currentShipUpgrades;
+    //private int _currentShipUpgrades;
 
     [Inject] private ShopService _shopService;
     [Inject] private SkinService _skinService;
@@ -23,9 +23,9 @@ public class ShipsService : BaseService
     {
     }
 
-    public void StartGame()
+    public void OnStartGame()
     {
-        _currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
+        //_currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
 
         _shipSpawner.Initialize(_skinService.CurrentShip.ShipPrefabs.ToList());
 
@@ -35,8 +35,6 @@ public class ShipsService : BaseService
         _shipSpawner.Spawn();
 
         Ships.ToList().ForEach(ship => ship.PlayAudio.Subscribe(state => _audioService.OnShipStateChangedSound()));
-
-
     }
 
     private void ApplyUpgrades(int count)
@@ -45,5 +43,4 @@ public class ShipsService : BaseService
             foreach (ShipPresenter shipPresenter in _shipSpawner.ShipPresenters)
                 shipPresenter.AddPallet();
     }
-
 }

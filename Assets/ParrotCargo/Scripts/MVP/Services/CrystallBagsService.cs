@@ -15,6 +15,10 @@ public class CrystallBagsService : BaseService
     {
         _crystallBagSpawner.Initialize();
         _crystallBagSpawner.CreateObjects();
+    }
+
+    public void OnStartGame()
+    {
         _crystallBagSpawner.Spawn();
 
         foreach (CrystallBagPresenter presenter in _crystallBagSpawner.CrystallBags)

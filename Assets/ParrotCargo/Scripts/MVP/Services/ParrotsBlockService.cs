@@ -34,7 +34,7 @@ public class ParrotsBlockService : BaseService
         });
     }
 
-    public void StartGame()
+    public void OnStartGame()
     {
         CreateBlocks();
     }

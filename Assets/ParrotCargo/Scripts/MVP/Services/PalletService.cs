@@ -21,7 +21,7 @@ public class PalletService : BaseService
     {
     }
 
-    public void StartGame()
+    public void OnStartGame()
     {
         _currentPalletsCnt = _shopService.Model.TempPalletsCnt;
 

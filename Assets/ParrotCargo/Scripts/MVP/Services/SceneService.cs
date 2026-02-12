@@ -1,7 +1,9 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Scripting;
 
+[Preserve]
 public class SceneService : MonoBehaviour
 {
     private static SceneService _instance;
@@ -13,7 +15,7 @@ public class SceneService : MonoBehaviour
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync("GameScene");
 
         while (loadOperation.progress < 0.9)
-            await Task.Delay(1);
+            await UniTask.Delay(1);
 
         GameOverService.Instance.InvokeReloadGame();
     }

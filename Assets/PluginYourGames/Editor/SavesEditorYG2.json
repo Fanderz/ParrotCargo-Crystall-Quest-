@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 270,
+  "idSave": 308,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -35,7 +35,7 @@
     "Value": 800
   },
   "playerSettings": {
-    "Sound": 0.333690584,
+    "Sound": 0.0001,
     "Music": 0.0001
   },
   "shopModel": {

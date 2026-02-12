@@ -4,7 +4,9 @@ using Assets.Scripts.MVP.Services.Spawners;
 
 using Zenject;
 using UniRx;
+using UnityEngine.Scripting;
 
+[Preserve]
 public class CrystallBagsService : BaseService
 {
     [SerializeField] private CrystallBagSpawner _crystallBagSpawner;
@@ -13,12 +15,13 @@ public class CrystallBagsService : BaseService
 
     public override void Initialize()
     {
-        _crystallBagSpawner.Initialize();
-        _crystallBagSpawner.CreateObjects();
     }
 
     public void OnStartGame()
     {
+        _crystallBagSpawner.Initialize();
+        _crystallBagSpawner.CreateObjects();
+
         _crystallBagSpawner.Spawn();
 
         foreach (CrystallBagPresenter presenter in _crystallBagSpawner.CrystallBags)

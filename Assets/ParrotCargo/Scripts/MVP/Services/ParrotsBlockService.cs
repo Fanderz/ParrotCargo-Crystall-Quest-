@@ -4,7 +4,9 @@ using UnityEngine;
 
 using Zenject;
 using UniRx;
+using UnityEngine.Scripting;
 
+[Preserve]
 public class ParrotsBlockService : BaseService
 {
     [SerializeField] private int _multiplierStartCreatedObjects;
@@ -24,6 +26,11 @@ public class ParrotsBlockService : BaseService
 
     public override void Initialize()
     {
+
+    }
+
+    public void OnStartGame()
+    {
         for (int i = 0; i < _multiplierStartCreatedObjects; i++)
             _parrotsBlockSpawner.CreateObjects();
 
@@ -32,10 +39,7 @@ public class ParrotsBlockService : BaseService
             if (_spawnPlatforms.TrueForAll(platform => platform.haveBirds == false))
                 CreateBlocks();
         });
-    }
 
-    public void OnStartGame()
-    {
         CreateBlocks();
     }
 

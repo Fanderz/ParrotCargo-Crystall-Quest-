@@ -9,7 +9,11 @@ public class InputSystemService : BaseService
     [SerializeField] private Camera _camera;
     [SerializeField] private float _dragSpeed;
 
-    private Vector3 _velocity = Vector3.zero;
+    private Plane _dragPlane;
+    private Vector3 _dragOffset;
+    private float _dragY;
+
+    private Vector3 _velocity;
     private IDraggable _draggableObject;
     private Transform _draggableTransform;
     private Coroutine _movingBlockCoroutine;
@@ -18,6 +22,8 @@ public class InputSystemService : BaseService
 
     public override void Initialize()
     {
+        _velocity = Vector3.zero;
+
         _mouseClick.Enable();
         _mouseClick.performed += MousePressed;
         _mouseClick.canceled += MousePressCanceled;
@@ -31,9 +37,14 @@ public class InputSystemService : BaseService
         {
             if (hit.collider.TryGetComponent(out DraggableParrotBlock draggable))
             {
-                _audioService.OnBirdPickedSound();
-                _draggableObject = draggable;
                 _draggableTransform = draggable.transform;
+                _draggableObject = draggable;
+                _dragY = _draggableTransform.position.y;
+                _dragPlane = new Plane(Vector3.up, new Vector3(0f, _dragY, 0f));
+                _dragOffset = _draggableTransform.position - hit.point;
+                _dragOffset.y = 0f;
+
+                _audioService.OnBirdPickedSound();
                 _movingBlockCoroutine = StartCoroutine(Drag());
             }
         }
@@ -62,8 +73,14 @@ public class InputSystemService : BaseService
         {
             Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-            _draggableObject.SetDraggable(true);
-            _draggableObject.MoveCommand.Execute(Vector3.SmoothDamp(_draggableTransform.position, ray.GetPoint(initialDistance), ref _velocity, _dragSpeed));
+            if (_dragPlane.Raycast(ray, out float enter))
+            {
+                Vector3 target = ray.GetPoint(enter) + _dragOffset;
+                target.y = _dragY;
+
+                _draggableObject.SetDraggable(true);
+                _draggableObject.MoveCommand.Execute(target);
+            }
 
             yield return null;
         }
@@ -74,5 +91,4 @@ public class InputSystemService : BaseService
         _mouseClick.performed -= MousePressed;
         _mouseClick.canceled -= MousePressCanceled;
     }
-
 }

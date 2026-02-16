@@ -160,7 +160,7 @@ public class PlayerProgressService : BaseService
             };
 
         if (YG2.saves.playerSettings == null)
-            YG2.saves.playerSettings = new SettingsModel(1f, 1f);
+            YG2.saves.playerSettings = new SettingsModel(1f, 0.05f);
 
         if (YG2.saves.coinsProgress == null)
             YG2.saves.coinsProgress = new CoinsModel(0);

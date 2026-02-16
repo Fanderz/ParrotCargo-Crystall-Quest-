@@ -49,7 +49,10 @@ public class ShopSubItemPresenter
     private void SetPurchasedOnLoad()
     {
         if (_model.IsPurchased)
+        {
             _view.OnPurchase();
+            _view.Button.onClick.RemoveListener(() => PurchaseClicked.Execute(this));
+        }
     }
 
     private void SetActivatedOnLoad()

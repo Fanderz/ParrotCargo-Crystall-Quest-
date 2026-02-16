@@ -49,7 +49,7 @@ public class ShopPresenter
             return;
         }
 
-        if (CanPurchase(subItemPresenter.Price) == false)
+        if (CanPurchase(subItemPresenter.Price) == false || subItemPresenter.IsPurchased == true)
             return;
 
         success = _model.Purchase(subItemPresenter.SaveData);

@@ -5,7 +5,8 @@ using Zenject;
 
 public class InputSystemService : BaseService
 {
-    [SerializeField] private InputAction _mouseClick;
+    [SerializeField] private InputActionReference _press;
+    [SerializeField] private InputActionReference _point;
     [SerializeField] private Camera _camera;
     [SerializeField] private float _dragSpeed;
 
@@ -24,14 +25,14 @@ public class InputSystemService : BaseService
     {
         _velocity = Vector3.zero;
 
-        _mouseClick.Enable();
-        _mouseClick.performed += MousePressed;
-        _mouseClick.canceled += MousePressCanceled;
+        _press.action.Enable();
+        _press.action.performed += Pressed;
+        _press.action.canceled += PressCanceled;
     }
 
-    private void MousePressed(InputAction.CallbackContext ctx)
+    private void Pressed(InputAction.CallbackContext ctx)
     {
-        Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = _camera.ScreenPointToRay(_point.action.ReadValue<Vector2>());
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
@@ -50,7 +51,7 @@ public class InputSystemService : BaseService
         }
     }
 
-    private void MousePressCanceled(InputAction.CallbackContext ctx)
+    private void PressCanceled(InputAction.CallbackContext ctx)
     {
         if (_movingBlockCoroutine != null)
         {
@@ -69,9 +70,9 @@ public class InputSystemService : BaseService
     {
         float initialDistance = Vector3.Distance(_draggableTransform.position, _camera.transform.position);
 
-        while (_mouseClick.ReadValue<float>() != 0)
+        while (_press.action.ReadValue<float>() != 0)
         {
-            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = _camera.ScreenPointToRay(_point.action.ReadValue<Vector2>());
 
             if (_dragPlane.Raycast(ray, out float enter))
             {
@@ -88,7 +89,7 @@ public class InputSystemService : BaseService
 
     private void OnDestroy()
     {
-        _mouseClick.performed -= MousePressed;
-        _mouseClick.canceled -= MousePressCanceled;
+        _press.action.performed -= Pressed;
+        _press.action.canceled -= PressCanceled;
     }
 }

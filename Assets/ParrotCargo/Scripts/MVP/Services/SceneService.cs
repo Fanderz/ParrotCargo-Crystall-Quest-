@@ -27,7 +27,7 @@ public class SceneService : MonoBehaviour
             await Task.Delay(1);
     }
 
-    public async void SetTimeScale(float value)
+    public void SetTimeScale(float value)
     {
         Time.timeScale = value;
     }

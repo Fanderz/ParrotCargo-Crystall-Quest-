@@ -10994,6 +10994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19827fc810ca80748945b858aac5acad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startGameButton: {fileID: 4020635553910358669}
 --- !u!1001 &1900316636
 PrefabInstance:
   m_ObjectHideFlags: 0

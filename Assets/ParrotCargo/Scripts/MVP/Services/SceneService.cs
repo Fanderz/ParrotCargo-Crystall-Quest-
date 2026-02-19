@@ -9,9 +9,12 @@ public class SceneService : MonoBehaviour
 
     public static SceneService Instance => _instance;
 
-    public void ReloadGame()
+    public async void ReloadGame()
     {
-        RestartScene();
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync("GameScene");
+
+        while (loadOperation.progress < 0.9)
+            await Task.Delay(1);
 
         GameOverService.Instance.InvokeReloadGame();
     }

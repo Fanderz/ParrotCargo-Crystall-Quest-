@@ -21,7 +21,7 @@ public class GameOverService : BaseService
         });
     }
 
-    public async void InvokeReloadGame()
+    public void InvokeReloadGame()
     {
         Time.timeScale = 1f;
         _buttonStartGame.onClick.Invoke();

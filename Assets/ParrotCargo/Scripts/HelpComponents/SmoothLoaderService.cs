@@ -25,7 +25,7 @@ public class SmoothLoaderService : BaseService
 
     public override void Initialize()
     {
-        YG2.onCloseInterAdv += LoadCompleted;
+        YG2.onCloseInterAdv += Loading;
     }
 
     public async void Loading()
@@ -33,19 +33,19 @@ public class SmoothLoaderService : BaseService
         _startProgress = 0;
         _loadingSlider.value = 0;
 
-        YG2.InterstitialAdvShow();
-
         while (_startProgress != _stopProgress)
         {
             _startProgress += _progressMultiplier;
             _loadingSlider.value = _startProgress;
             await UniTask.Delay(_waitLoadingMiliseconds);
         }
+
+        LoadCompleted();
     }
 
     private void LoadCompleted()
     {
-        YG2.onCloseInterAdv -= LoadCompleted;
+        YG2.onCloseInterAdv -= Loading;
 
         _loadingSlider.gameObject.SetActive(false);
         _startUIButtons.gameObject.SetActive(true);

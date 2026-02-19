@@ -1,9 +1,13 @@
 using YG;
 using UniRx;
 using Zenject;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class AdsService : BaseService
 {
+    [SerializeField] private Button _startGameButton;
+
     private string _rewardID;
 
     [Inject] private PlayerProgressService _playerProgressService;
@@ -18,6 +22,7 @@ public class AdsService : BaseService
     private void OnEnable()
     {
         YG2.onRewardAdv += _playerProgressService.OnReward;
+        _startGameButton.onClick.AddListener(() => YG2.InterstitialAdvShow());
     }
 
     public void ShowRewardAd()

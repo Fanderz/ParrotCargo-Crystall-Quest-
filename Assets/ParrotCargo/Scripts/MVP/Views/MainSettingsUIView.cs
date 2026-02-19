@@ -21,6 +21,7 @@ public class MainSettingsUIView : MonoBehaviour
 
         if (isActive == false)
         {
+            _buttonSettingsOpen.gameObject.SetActive(false);
             gameObject.SetActive(true);
             _panelAnimationView.Show();
             await UniTask.Delay(1000);
@@ -30,8 +31,9 @@ public class MainSettingsUIView : MonoBehaviour
         {
             _playerProgressService.SetTimeScale(1);
             _panelAnimationView.Hide();
-            await UniTask.Delay(1000);
+            await UniTask.Delay(700);
             gameObject.SetActive(false);
+            _buttonSettingsOpen.gameObject.SetActive(true);
         }
     }
 

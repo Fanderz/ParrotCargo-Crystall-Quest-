@@ -1,3 +1,4 @@
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityTime;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -12,6 +13,11 @@ public class EntryPoint : MonoInstaller
     //{
     //    YG2.StickyAdActivity(true);
     //}
+
+    private void Awake()
+    {
+        Time.timeScale = 1f;
+    }
 
     public override void InstallBindings()
     {

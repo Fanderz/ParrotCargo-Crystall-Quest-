@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using UniRx;
+using Cysharp.Threading.Tasks;
 
 public class GameOverService : BaseService
 {
@@ -20,7 +21,7 @@ public class GameOverService : BaseService
         });
     }
 
-    public void InvokeReloadGame()
+    public async void InvokeReloadGame()
     {
         Time.timeScale = 1f;
         _buttonStartGame.onClick.Invoke();

@@ -91,7 +91,7 @@ public class PlayerProgressService : BaseService
         foreach (var panelAnimationView in _panelsAnimationView)
             panelAnimationView.Show();
 
-        await UniTask.Delay(1200);
+        await UniTask.Delay(1000);
 
         SetTimeScale(0);
     }
@@ -123,10 +123,10 @@ public class PlayerProgressService : BaseService
         YG2.SaveProgress();
     }
 
-    public void ResetProgress()
+    public async void ResetProgress()
     {
-        SetTimeScale(1f);
-        SceneManager.LoadScene("GameScene");
+        SceneService.Instance.RestartScene();
+        SceneService.Instance.SetTimeScale(1f);
     }
 
     private List<ShopSaveData> CreateDefaultItems(List<BaseShopItemValuesSO> shopItemSettings)

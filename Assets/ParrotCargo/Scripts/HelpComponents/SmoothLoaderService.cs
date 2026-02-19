@@ -16,8 +16,8 @@ public class SmoothLoaderService : BaseService
     [SerializeField] private GameObject _startUIButtons;
     [SerializeField] private float _startProgress;
     [SerializeField] private int _waitLoadingMiliseconds;
-    [SerializeField] [Range(0, 1)] private float _stopProgress;
-    [SerializeField] [Range(0, 1)] private float _progressMultiplier;
+    [SerializeField][Range(0, 1)] private float _stopProgress;
+    [SerializeField][Range(0, 1)] private float _progressMultiplier;
 
     public ReactiveCommand LoadingCompletedCommand = new();
 
@@ -25,6 +25,7 @@ public class SmoothLoaderService : BaseService
 
     public override void Initialize()
     {
+        YG2.onCloseInterAdv += LoadCompleted;
     }
 
     public async void Loading()
@@ -33,7 +34,6 @@ public class SmoothLoaderService : BaseService
         _loadingSlider.value = 0;
 
         YG2.InterstitialAdvShow();
-        YG2.onCloseInterAdv += LoadCompleted;
 
         while (_startProgress != _stopProgress)
         {
@@ -51,9 +51,9 @@ public class SmoothLoaderService : BaseService
         _startUIButtons.gameObject.SetActive(true);
 
         foreach (GameObject obj in _startingUI)
-            obj.SetActive(false);
+            obj?.SetActive(false);
 
-        _gameUI.SetActive(true);
+        _gameUI?.SetActive(true);
 
         _audioService.OnGameStarted();
         LoadingCompletedCommand.Execute();

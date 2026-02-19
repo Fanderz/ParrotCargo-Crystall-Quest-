@@ -199,7 +199,6 @@ public class ParrotView : MonoBehaviour
         transform.position = targetPosition;
         _agent.updateRotation = false;
         _agent.transform.DORotateQuaternion(_agentStartRotation, _rotationTime).SetEase(Ease.Linear);
-        //_agent.transform.rotation = Quaternion.Slerp(_agent.transform.rotation, _agentStartRotation, _rotationSlerpTime * Time.deltaTime);
 
         _continueMovingPosition = transform.position;
 

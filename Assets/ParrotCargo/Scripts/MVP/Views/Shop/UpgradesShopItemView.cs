@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 using UniRx;
+using YG.LanguageLegacy;
 
 public class UpgradesShopItemView : ShopItemView
 {
@@ -13,7 +14,14 @@ public class UpgradesShopItemView : ShopItemView
     public override void Initialize(BaseShopItemValuesSO values)
     {
         base.Initialize(values);
+        languageYG = headerText.GetComponent<LanguageYG>();
         _subItems = new List<UpgradeShopSubItemView>();
+
+        languageYG.text = itemValues.ItemHeader;
+        languageYG.textMPComponent.SetText(itemValues.ItemHeader);
+        languageYG.AssignTranslate();
+        languageYG.Translate(languageYG.countLang);
+        languageYG.AssignTranslate();
     }
 
     public UpgradeShopSubItemView CreateSubItem(ShopSubItemView prefab, int price)

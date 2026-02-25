@@ -302,7 +302,7 @@ MonoBehaviour:
         score: 127000
         extraData: 
   Localization:
-    setLanguageMod: 1
+    setLanguageMod: 0
   Metrica:
     enable: 0
     metricaCounterID: 0
@@ -392,6 +392,7 @@ MonoBehaviour:
     autoGRA: 1
     logInEditor: 1
     archivingBuild: 1
+    autoDefineSymbols: 1
     syncInitSDK: 0
     loadSceneIfSDKLate: 0
     loadSceneIndex: 0
@@ -399,7 +400,7 @@ MonoBehaviour:
     buildNumber: 0
   Simulation:
     device: 0
-    language: ru
+    language: tr
     advIntervalSimulation: 0
     durationAdv: 3
     loadAdv: 0

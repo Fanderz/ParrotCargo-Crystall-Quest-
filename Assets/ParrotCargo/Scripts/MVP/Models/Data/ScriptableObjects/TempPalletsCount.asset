@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: TempPalletsCount
   m_EditorClassIdentifier: 
   itemType: 0
-  itemHeaderText: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0445
-    \u043F\u0430\u043B\u0435\u0442\u043E\u0432"
+  ruItemHeaderText: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E
+    \u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0445 \u043F\u0430\u043B\u0435\u0442\u043E\u0432"
+  enItemHeaderText: Number of temporary pallets
+  trItemHeaderText: "Ge\xE7ici palet say\u0131s\u0131"
   childItemsCount: 4
   defaultPurchasedCount: 1
+  _defaultActiveCount: 0
   prefab: {fileID: 6989523096462491045, guid: 3da9b84d3148d094b949631de80ab607, type: 3}
   childItemPrefab: {fileID: -2343576939814225008, guid: 6d2d478435f354446baf9b24cd4202b1, type: 3}
   shopObject:

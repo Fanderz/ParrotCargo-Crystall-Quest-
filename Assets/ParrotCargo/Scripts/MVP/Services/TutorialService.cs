@@ -25,9 +25,6 @@ public class TutorialService : BaseService
     [SerializeField] private GameObject _panelTutorial;
     [SerializeField] private PanelAnimationView _panelTutorialTextAnimationView;
 
-    private LangYGAdditionalText _additionalText;
-    private LanguageYG _languageYG;
-
     [Inject]
     private SmoothLoaderService _smoothLoaderService;
 
@@ -37,9 +34,6 @@ public class TutorialService : BaseService
     {
         if (YG2.saves.isFirstGame == false)
             return;
-
-        _additionalText = _textStep.GetComponent<LangYGAdditionalText>();
-        _languageYG = _textStep.GetComponent<LanguageYG>();
 
         _tutorialPresenter = new TutorialPresenter(_tutorialSteps);
 
@@ -55,7 +49,7 @@ public class TutorialService : BaseService
         {
             DeselectAll();
             stepTutorial.TypeObjectSelectTutorial.ToList().ForEach(obj => SelectObjectTutorial(obj));
-            UpdateTextStep(stepTutorial.TextStep);
+            UpdateTextStep(stepTutorial.GetCurrentTextStep());
         });
 
         _tutorialPresenter.FinishedTutorialCommand.Subscribe(async _ =>
@@ -76,18 +70,7 @@ public class TutorialService : BaseService
 
     private void UpdateTextStep(string textStep)
     {
-        _languageYG.text = textStep;
-        _languageYG.textMPComponent.SetText(textStep);
-        ClearTraslation();
-        _languageYG.AssignTranslate();
-        _languageYG.Translate(_languageYG.countLang);
-        _languageYG.AssignTranslate();
-    }
-
-    private void ClearTraslation()
-    {
-        for (int i = 0; i < _languageYG.languages.Length; i++)
-            _languageYG.SetLang(i, "");
+        _textStep.text = textStep;
     }
 
     private void SelectObjectTutorial(TypeObjectSelectTutorial typeObjectSelectTutorial)

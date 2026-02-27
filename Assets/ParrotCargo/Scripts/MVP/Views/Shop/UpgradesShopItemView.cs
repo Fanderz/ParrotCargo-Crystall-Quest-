@@ -14,14 +14,9 @@ public class UpgradesShopItemView : ShopItemView
     public override void Initialize(BaseShopItemValuesSO values)
     {
         base.Initialize(values);
-        languageYG = headerText.GetComponent<LanguageYG>();
         _subItems = new List<UpgradeShopSubItemView>();
 
-        languageYG.text = itemValues.ItemHeader;
-        languageYG.textMPComponent.SetText(itemValues.ItemHeader);
-        languageYG.AssignTranslate();
-        languageYG.Translate(languageYG.countLang);
-        languageYG.AssignTranslate();
+        headerText.text = values.GetItemHeader();
     }
 
     public UpgradeShopSubItemView CreateSubItem(ShopSubItemView prefab, int price)

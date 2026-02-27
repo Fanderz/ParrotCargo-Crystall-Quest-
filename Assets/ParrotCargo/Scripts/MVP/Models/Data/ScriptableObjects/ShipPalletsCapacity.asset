@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: ShipPalletsCapacity
   m_EditorClassIdentifier: 
   itemType: 1
-  itemHeaderText: "\u0412\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C
+  ruItemHeaderText: "\u0412\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C
     \u043A\u043E\u0440\u0430\u0431\u043B\u044F"
+  enItemHeaderText: Ship capacity
+  trItemHeaderText: Gemi kapasitesi
   childItemsCount: 4
   defaultPurchasedCount: 1
+  _defaultActiveCount: 0
   prefab: {fileID: 6989523096462491045, guid: 3da9b84d3148d094b949631de80ab607, type: 3}
   childItemPrefab: {fileID: -2343576939814225008, guid: 6d2d478435f354446baf9b24cd4202b1, type: 3}
   shopObject:

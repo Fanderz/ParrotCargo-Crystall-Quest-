@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 594,
+  "idSave": 605,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 1695
+    "Value": 1595
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -47,7 +47,7 @@
       },
       {
         "Type": 0,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
@@ -126,5 +126,6 @@
   },
   "currentTypeBird": 0,
   "currentTypeShip": 0,
-  "isFirstGame": true
+  "isFirstGame": false,
+  "currentNumberLevel": 0
 }

@@ -6,8 +6,9 @@ using Cysharp.Threading.Tasks;
 
 public class TypeGameUIView : MonoBehaviour
 {
-    [Header("Settings")]
+    [Header("References")]
     [SerializeField] private List<PanelAnimationView> _panelAnimationViews;
+    [SerializeField] private LevelsView _levelsView;
     [Header("UI")]
     [SerializeField] private Button _playEndlessGame;
     [SerializeField] private Button _playLevelsGame;
@@ -25,6 +26,7 @@ public class TypeGameUIView : MonoBehaviour
     private void Start()
     {
         _playEndlessGame.onClick.AddListener(() => { SetActive(false); });
+        _playLevelsGame.onClick.AddListener(() => { _levelsView.SetActive(true); });
     }
 
     private void HandlerPanelAnimation(bool isActive)

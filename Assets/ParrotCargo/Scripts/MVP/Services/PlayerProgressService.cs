@@ -2,11 +2,9 @@ using System.Linq;
 using System.Collections.Generic;
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 using YG;
 using UniRx;
-using TMPro;
 using Zenject;
 using Cysharp.Threading.Tasks;
 using Assets.ParrotCargo.Scripts.MVP.Models.Data;

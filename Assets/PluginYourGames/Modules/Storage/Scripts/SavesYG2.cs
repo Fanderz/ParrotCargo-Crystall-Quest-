@@ -14,5 +14,6 @@ namespace YG
         public TypeBird currentTypeBird = TypeBird.Parrot;
         public TypeShip currentTypeShip = TypeShip.Pirate;
         public bool isFirstGame;
+        public int currentNumberLevel;
     }
 }

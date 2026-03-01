@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 602,
+  "idSave": 1013,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -36,7 +36,7 @@
   },
   "playerSettings": {
     "Sound": 0.333690584,
-    "Music": 0.0001
+    "Music": 0.0518520363
   },
   "shopModel": {
     "upgradeItems": [
@@ -126,6 +126,6 @@
   },
   "currentTypeBird": 0,
   "currentTypeShip": 0,
-  "isFirstGame": true,
+  "isFirstGame": false,
   "currentNumberLevel": 0
 }

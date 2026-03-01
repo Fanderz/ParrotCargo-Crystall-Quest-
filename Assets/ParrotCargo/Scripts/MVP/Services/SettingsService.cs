@@ -12,6 +12,8 @@ public class SettingsService : BaseService
 {
     [SerializeField] private SettingsView _settingsView;
 
+    private bool _isChanged;
+
     private SettingsModel _settingsModel;
     private SettingsPresenter _settingsPresenter;
 
@@ -23,18 +25,22 @@ public class SettingsService : BaseService
 
         _settingsPresenter = new SettingsPresenter(_settingsModel, _settingsView);
 
-        _settingsView.SoundChanged.Subscribe(volume => _audioService.SetEffectsVolume(volume));
-        _settingsView.MusicChanged.Subscribe(volume => _audioService.SetMusicVolume(volume));
+        _settingsView.SoundChanged.Subscribe(volume => { _audioService.SetEffectsVolume(volume); _isChanged = true; });
+        _settingsView.MusicChanged.Subscribe(volume => { _audioService.SetMusicVolume(volume); _isChanged = true; });
     }
 
-    public void OnSave()
-    {
-        YG2.saves.playerSettings = _settingsModel;
-    }
+    //public void OnSave()
+    //{
+    //    if (YG2.saves.playerSettings.GetHashCode() != _settingsModel.GetHashCode())
+    //        YG2.saves.playerSettings = _settingsModel;
+    //}
 
     public void SaveSettings()
     {
-        OnSave();
-        YG2.SaveProgress();
+        if (_isChanged)
+        {
+            YG2.SaveProgress();
+            _isChanged = false;
+        }
     }
 }

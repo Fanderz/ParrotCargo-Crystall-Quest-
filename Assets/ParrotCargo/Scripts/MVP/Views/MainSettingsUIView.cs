@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 using Cysharp.Threading.Tasks;
 using Zenject;
+using UnityEngine.Accessibility;
 
 public class MainSettingsUIView : MonoBehaviour
 {
@@ -11,17 +12,19 @@ public class MainSettingsUIView : MonoBehaviour
     [SerializeField] private Button _buttonGoHome;
     [SerializeField] private Button _buttonBackToGame;
     [SerializeField] private PanelAnimationView _panelAnimationView;
+    [SerializeField] private GameObject _startingUiView;
+
+    private bool _isInGame;
 
     [Inject] private PlayerProgressService _playerProgressService;
 
-    public async void ChangeActive(bool isInGame)
+    public async void ChangeActive()
     {
-        ChangeActiveButtons(isInGame);
         var isActive = gameObject.activeSelf;
 
         if (isActive == false)
         {
-            _buttonSettingsOpen.gameObject.SetActive(false);
+            ChangeActiveButtons(isActive);
             gameObject.SetActive(true);
             _panelAnimationView.Show();
             await UniTask.Delay(1000);
@@ -33,14 +36,21 @@ public class MainSettingsUIView : MonoBehaviour
             _panelAnimationView.Hide();
             await UniTask.Delay(700);
             gameObject.SetActive(false);
-            _buttonSettingsOpen.gameObject.SetActive(true);
+            ChangeActiveButtons(isActive);
         }
     }
 
-    private void ChangeActiveButtons(bool isInGame)
+    public void SetGameState(bool isInGame)
     {
-        _buttonSettingsClose.gameObject.SetActive(!isInGame);
-        _buttonGoHome.gameObject.SetActive(isInGame);
-        _buttonBackToGame.gameObject.SetActive(isInGame);
+        _isInGame = isInGame;
+    }
+
+    private void ChangeActiveButtons(bool isActive)
+    {
+        _buttonGoHome.gameObject.SetActive(_isInGame);
+        _buttonSettingsOpen.gameObject.SetActive(isActive);
+
+        if (_isInGame == false)
+            _startingUiView.SetActive(isActive);
     }
 }

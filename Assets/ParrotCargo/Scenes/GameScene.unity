@@ -6681,7 +6681,19 @@ MonoBehaviour:
       - m_Target: {fileID: 9156902615103854189}
         m_TargetAssemblyTypeName: MainSettingsUIView, Assembly-CSharp
         m_MethodName: ChangeActive
-        m_Mode: 6
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1736250304}
+        m_TargetAssemblyTypeName: SettingsService, Assembly-CSharp
+        m_MethodName: SaveSettings
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8840,7 +8852,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9156902615103854189}
         m_TargetAssemblyTypeName: MainSettingsUIView, Assembly-CSharp
-        m_MethodName: ChangeActive
+        m_MethodName: SetGameState
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8849,6 +8861,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 9156902615103854189}
+        m_TargetAssemblyTypeName: MainSettingsUIView, Assembly-CSharp
+        m_MethodName: ChangeActive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 327380070}
         m_TargetAssemblyTypeName: AudioService, Assembly-CSharp
@@ -11636,7 +11660,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1482748424203528079, guid: 3d074c4b481eb7842bb045cb944ad1e2, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 2211aea44381d3546ab47cd25a97df58, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 24d3ca380187da34c8bf1f4d0561642c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -13759,7 +13783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1641998592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13940,13 +13964,13 @@ RectTransform:
   m_Children:
   - {fileID: 862779141}
   - {fileID: 820038726}
-  m_Father: {fileID: 8101533616649555326}
+  m_Father: {fileID: 1945447439039200432}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5788203, y: 0.35855767}
-  m_AnchorMax: {x: 0.8461027, y: 0.48600003}
-  m_AnchoredPosition: {x: 6, y: -3.418457}
-  m_SizeDelta: {x: 6, y: 2}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -75, y: -110}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 1, y: 1}
 --- !u!1001 &1663877137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14480,7 +14504,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 69.2
+  m_fontSize: 77.3
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -17757,8 +17781,8 @@ RectTransform:
   - {fileID: 3775356712521143829}
   m_Father: {fileID: 1945447439039200432}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.22755955, y: 0.79300004}
-  m_AnchorMax: {x: 0.83943784, y: 0.9048113}
+  m_AnchorMin: {x: 0.20833334, y: 0.79300004}
+  m_AnchorMax: {x: 0.78950006, y: 0.9048113}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -18044,11 +18068,11 @@ RectTransform:
   - {fileID: 4700611892590453386}
   m_Father: {fileID: 8101533616649555326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.694}
-  m_AnchorMax: {x: 1, y: 0.8553551}
-  m_AnchoredPosition: {x: 0.48291016, y: -1.1655273}
-  m_SizeDelta: {x: -1.4219971, y: 6.331299}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 962, y: 130}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &178713831895215444
 GameObject:
   m_ObjectHideFlags: 0
@@ -18446,7 +18470,7 @@ MonoBehaviour:
       - m_Target: {fileID: 9156902615103854189}
         m_TargetAssemblyTypeName: MainSettingsUIView, Assembly-CSharp
         m_MethodName: ChangeActive
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18793,10 +18817,10 @@ RectTransform:
   - {fileID: 7975831365588793001}
   m_Father: {fileID: 8101533616649555326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5225015}
-  m_AnchorMax: {x: 1, y: 0.694}
-  m_AnchoredPosition: {x: -0.017089844, y: -3.7419434}
-  m_SizeDelta: {x: -0.42199707, y: -0.53808594}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 962, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &769873815450259994
 RectTransform:
@@ -19566,7 +19590,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 81.35
+  m_fontSize: 90
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19738,7 +19762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1635566310391690929
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19925,6 +19949,7 @@ RectTransform:
   - {fileID: 7691300454490384785}
   - {fileID: 2086622716}
   - {fileID: 819398262}
+  - {fileID: 1641998595}
   - {fileID: 8101533616649555326}
   m_Father: {fileID: 7654286658990979086}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20636,7 +20661,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 74.35
+  m_fontSize: 83.05
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -21552,7 +21577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -458, y: 0.0011864}
+  m_AnchoredPosition: {x: -458, y: 0}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3957018729623508607
@@ -25293,11 +25318,10 @@ RectTransform:
   - {fileID: 718080032214974228}
   - {fileID: 3034787030154201644}
   - {fileID: 4831838326383231635}
-  - {fileID: 1641998595}
   m_Father: {fileID: 1945447439039200432}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.10158499, y: 0.087000005}
-  m_AnchorMax: {x: 0.9265, y: 0.8281667}
+  m_AnchorMax: {x: 0.929, y: 0.758}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -26470,19 +26494,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9156902615103854189}
         m_TargetAssemblyTypeName: MainSettingsUIView, Assembly-CSharp
-        m_MethodName: ChangeActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-      - m_Target: {fileID: 260388262644137732}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+        m_MethodName: SetGameState
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26492,6 +26504,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 9156902615103854189}
+        m_TargetAssemblyTypeName: MainSettingsUIView, Assembly-CSharp
+        m_MethodName: ChangeActive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
       - m_Target: {fileID: 327380070}
         m_TargetAssemblyTypeName: AudioService, Assembly-CSharp
         m_MethodName: OnButtonPress
@@ -26558,6 +26582,7 @@ MonoBehaviour:
   _buttonGoHome: {fileID: 1641998592}
   _buttonBackToGame: {fileID: 819398263}
   _panelAnimationView: {fileID: 9156902615103854190}
+  _startingUiView: {fileID: 260388262644137732}
 --- !u!114 &9156902615103854190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26864,7 +26889,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.4
+  m_fontSize: 73.05
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1

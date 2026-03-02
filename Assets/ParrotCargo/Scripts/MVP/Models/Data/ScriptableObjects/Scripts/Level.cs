@@ -10,4 +10,13 @@ public class Level : ScriptableObject
     public int NumberLevel => _numberLevel;
     public int CountBag => _countBag;
     public int —ountBag—ollected => _countBag—ollected;
+
+    public void Add—ountBag—ollected()
+    {
+        if (_countBag—ollected < CountBag)
+            ++_countBag—ollected;
+    }
+
+    public bool TryFinishLevel()
+        => _countBag—ollected == CountBag;
 }

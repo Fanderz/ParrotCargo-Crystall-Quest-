@@ -1,25 +1,28 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-using YG;
+using Zenject;
 
 public class LevelsService : BaseService
 {
-    [Header("Settings")]
-    [SerializeField] private List<Level> _levels;
     [Header("References")]
     [SerializeField] private LevelProgressView _levelProgressView;
 
+    [Inject] private TypeGameService _typeGameService;
+
+    private LevelsProgressPresenter _levelsProgressPresenter;
+
+    public LevelsProgressPresenter LevelsProgressPresenter => _levelsProgressPresenter;
+
     public override void Initialize()
     {
-        var currentNumberLevel = YG2.saves.currentNumberLevel;
+        _levelsProgressPresenter = new LevelsProgressPresenter(_levelProgressView, _typeGameService);
+    }
 
-        var level = _levels.Find(level => level.NumberLevel == currentNumberLevel);
+    public void Initialize(Level enryLevele)
+    {
+        if (enryLevele == null)
+            Debug.Log("Не найден уровень! Проверьте создан ли уровень " + enryLevele.NumberLevel);
 
-        if (level == null)
-            Debug.Log("Не найден уровень! Проверьте создан ли уровень " + currentNumberLevel);
-
-        _levelProgressView.UpdateNumverLevelView(level);
-        _levelProgressView.UpdateCountBagСollectedView(level);
+        _levelsProgressPresenter.Initialize(enryLevele);
     }
 }

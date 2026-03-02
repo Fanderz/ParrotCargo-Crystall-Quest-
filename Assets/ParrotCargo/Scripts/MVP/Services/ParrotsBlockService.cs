@@ -15,6 +15,7 @@ public class ParrotsBlockService : BaseService
     [Inject] private PalletService _palletsService;
     [Inject] private PlayerProgressService _playerProgressService;
     [Inject] private AudioService _audioService;
+    [Inject] private LevelsService _levelsService;
 
     private List<ParrotBlockPresenter> _parrotBlockPresenters;
 
@@ -47,7 +48,11 @@ public class ParrotsBlockService : BaseService
         _parrotBlockPresenters.ForEach(block =>
         {
             block.GameOverCommand.Subscribe(bl => _playerProgressService.OnGameOver());
-            block.ParrotDroppedBagSoundCommand.Subscribe(bl => _audioService.OnBagDroppedSound());
+            block.ParrotDroppedBagSoundCommand.Subscribe(bl =>
+            {
+                _audioService.OnBagDroppedSound();
+                _levelsService.LevelsProgressPresenter.Add—ountBag—ollected();
+            });
         });
 
         UpdateTargets();

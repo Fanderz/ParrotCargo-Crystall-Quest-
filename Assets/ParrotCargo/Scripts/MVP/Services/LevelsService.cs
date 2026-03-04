@@ -6,6 +6,7 @@ public class LevelsService : BaseService
 {
     [Header("References")]
     [SerializeField] private LevelProgressView _levelProgressView;
+    [SerializeField] private GameWinView _gameWinView;
 
     [Inject] private TypeGameService _typeGameService;
 
@@ -15,7 +16,7 @@ public class LevelsService : BaseService
 
     public override void Initialize()
     {
-        _levelsProgressPresenter = new LevelsProgressPresenter(_levelProgressView, _typeGameService);
+        _levelsProgressPresenter = new LevelsProgressPresenter(_levelProgressView, _typeGameService, _gameWinView);
     }
 
     public void Initialize(Level enryLevele)

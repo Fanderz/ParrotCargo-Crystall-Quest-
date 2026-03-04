@@ -2,12 +2,14 @@ public class LevelsProgressPresenter
 {
     private LevelProgressView _levelProgressView;
     private TypeGameService _typeGameService;
+    private GameWinView _gameWinView;
     private Level _currentLevel;
 
-    public LevelsProgressPresenter(LevelProgressView levelProgressView, TypeGameService typeGameService)
+    public LevelsProgressPresenter(LevelProgressView levelProgressView, TypeGameService typeGameService, GameWinView gameWinView)
     {
         _levelProgressView = levelProgressView;
         _typeGameService = typeGameService;
+        _gameWinView = gameWinView;
     }
 
     public void Initialize(Level currentLevel)
@@ -28,6 +30,6 @@ public class LevelsProgressPresenter
         _levelProgressView.UpdateCountBag—ollectedView(_currentLevel);
 
         if (_currentLevel.TryFinishLevel())
-            return;
+            _gameWinView.SetActive(true);
     }
 }

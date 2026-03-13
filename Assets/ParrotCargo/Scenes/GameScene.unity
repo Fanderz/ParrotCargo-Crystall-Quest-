@@ -2707,6 +2707,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelProgressView: {fileID: 2098982664}
   _gameWinView: {fileID: 1192503320}
+  _levels:
+  - {fileID: 11400000, guid: 17910b54007b46d41aa6e218e5078688, type: 2}
+  - {fileID: 11400000, guid: 552d058fb23157549b4bbf6a9380d06a, type: 2}
+  - {fileID: 11400000, guid: 6843dc78a11ca064182a510213c48aea, type: 2}
+  _levelsView: {fileID: 666186199}
 --- !u!1 &309905463
 GameObject:
   m_ObjectHideFlags: 0
@@ -5647,7 +5652,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 71.25
+  m_fontSize: 77.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11886,6 +11891,8 @@ MonoBehaviour:
   _panelAnimationViews:
   - {fileID: 843631842}
   - {fileID: 1317725846}
+  _openMenu: {fileID: 2020429612}
+  _nextLevel: {fileID: 18142589}
 --- !u!1001 &1205757073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16846,7 +16853,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 89.05
+  m_fontSize: 84.3
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -24203,7 +24210,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80.35
+  m_fontSize: 87.55
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -30432,7 +30439,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 86.8
+  m_fontSize: 79.7
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1

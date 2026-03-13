@@ -32,6 +32,17 @@ public class LevelsView : MonoBehaviour
         gameObject.SetActive(isActive);
     }
 
+    public async void OnLoadedLevel(Level level)
+    {
+        SetActive(false);
+        await UniTask.Delay(500);
+        _buttonEndlessTypeGame.onClick.Invoke();
+        _levelsService.StartLevel(level);
+
+        //костыль
+        _typeGameService.SetTypeGame(TypeGame.LevelsTypeGame);
+    }
+
     private void Initialize()
     {
         var currentNumberLevel = YG2.saves.currentNumberLevel;
@@ -43,15 +54,6 @@ public class LevelsView : MonoBehaviour
     private void Start()
     {
         for (int i = 0; i < _levelsView.Count; i++)
-            _levelsView[i].SubscribeButtonClick(async (level) =>
-            {
-                SetActive(false);
-                await UniTask.Delay(500);
-                _buttonEndlessTypeGame.onClick.Invoke();
-                _levelsService.Initialize(level);
-
-                //костыль
-                _typeGameService.SetTypeGame(TypeGame.LevelsTypeGame);
-            });
+            _levelsView[i].SubscribeButtonClick((level) => { OnLoadedLevel(level); });
     }
 }

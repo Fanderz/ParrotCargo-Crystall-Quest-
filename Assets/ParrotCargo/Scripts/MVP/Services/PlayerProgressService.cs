@@ -121,7 +121,13 @@ public class PlayerProgressService : BaseService
         YG2.SaveProgress();
     }
 
-    public async void ResetProgress()
+    public void SaveLevel()
+    {
+        ++YG2.saves.currentNumberLevel;
+        YG2.SaveProgress();
+    }
+
+    public void ResetProgress()
     {
         SceneService.Instance.RestartScene();
         SceneService.Instance.SetTimeScale(1f);

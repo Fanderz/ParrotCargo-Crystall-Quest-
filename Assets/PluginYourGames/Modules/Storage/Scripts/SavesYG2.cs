@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Assets.ParrotCargo.Scripts.MVP.Models.Data;
+﻿using Assets.ParrotCargo.Scripts.MVP.Models.Data;
 
 namespace YG
 {
@@ -14,6 +12,7 @@ namespace YG
         public TypeBird currentTypeBird = TypeBird.Parrot;
         public TypeShip currentTypeShip = TypeShip.Pirate;
         public bool isFirstGame;
-        public int currentNumberLevel;
+        public int currentNumberLevel = 1;
+        public int maxOppenedNumberLevel = 1;
     }
 }

@@ -124,6 +124,10 @@ public class PlayerProgressService : BaseService
     public void SaveLevel()
     {
         ++YG2.saves.currentNumberLevel;
+
+        if (YG2.saves.maxOppenedNumberLevel < YG2.saves.currentNumberLevel)
+            YG2.saves.maxOppenedNumberLevel = YG2.saves.currentNumberLevel;
+
         YG2.SaveProgress();
     }
 

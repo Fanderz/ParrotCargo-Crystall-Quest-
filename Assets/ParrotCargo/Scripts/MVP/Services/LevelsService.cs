@@ -26,23 +26,30 @@ public class LevelsService : BaseService
 
     public void StartLevel(Level enryLevele)
     {
-        if (enryLevele == null)
-            Debug.Log("Не найден уровень! Проверьте создан ли уровень " + enryLevele.NumberLevel);
+        InitializeLevelsProgressPresenter(enryLevele);
+    }
 
-        _levelsProgressPresenter.Initialize(enryLevele);
+    public void ReloadCurrentLevel()
+    {
+        var currentLevel = _levels.Find(level => level.NumberLevel == YG2.saves.currentNumberLevel);
+
+        InitializeLevelsProgressPresenter(currentLevel);
     }
 
     public void NextLevel()
     {
-        var nextLevel = YG2.saves.currentNumberLevel + 1;
-        var currentLevel = _levels.Find(level => level.NumberLevel == nextLevel);
+        var nextLevel = _levels.Find(level => level.NumberLevel == YG2.saves.currentNumberLevel);
 
-        if (currentLevel == null)
-            Debug.Log("Не найден уровень! Проверьте создан ли уровень " + nextLevel);
+        InitializeLevelsProgressPresenter(nextLevel);
 
-        _levelsView.OnLoadedLevel(currentLevel);
-        _playerProgressService.SaveLevel();
-        _levelsProgressPresenter.Initialize(currentLevel);
+        _gameWinView.SetActive(false);
+        _levelsView.OnLoadedLevel(nextLevel);
+    }
+
+    public void SaveProgressLevels()
+    {
+        if(TryNextLevel())
+            _playerProgressService.SaveLevel();
     }
 
     public bool TryNextLevel()
@@ -53,5 +60,13 @@ public class LevelsService : BaseService
             return true;
 
         return false;
+    }
+
+    private void InitializeLevelsProgressPresenter(Level currentLevel)
+    {
+        if (currentLevel == null)
+            Debug.Log("Не найден уровень! Проверьте создан ли уровень " + currentLevel.NumberLevel);
+
+        _levelsProgressPresenter.Initialize(currentLevel);
     }
 }

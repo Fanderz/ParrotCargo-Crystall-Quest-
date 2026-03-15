@@ -11,9 +11,11 @@ public class LevelView : MonoBehaviour
     [SerializeField] private Image _iconLevel;
     [SerializeField] private Button _buttonLevel;
 
-    public void Initialize(bool isActive)
+    public void Initialize(int curentNumberLevel)
     {
-        if(isActive == false)
+        var isActive = _level.NumberLevel <= curentNumberLevel;
+
+        if (isActive == false)
             _iconLevel.color = _colorNoActive;
 
         _buttonLevel.enabled = isActive;

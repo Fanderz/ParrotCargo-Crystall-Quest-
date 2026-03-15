@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   _numberLevel: 2
-  _countBag: 20
+  _countBag: 12
+  "_countBag\u0421ollected": 10

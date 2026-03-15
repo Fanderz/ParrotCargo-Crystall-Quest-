@@ -45,10 +45,10 @@ public class LevelsView : MonoBehaviour
 
     private void Initialize()
     {
-        var currentNumberLevel = YG2.saves.currentNumberLevel;
+        var currentNumberLevel = YG2.saves.maxOppenedNumberLevel;
 
         for (int i = 0; i < _levelsView.Count; i++)
-            _levelsView[i].Initialize(i <= currentNumberLevel);
+            _levelsView[i].Initialize(currentNumberLevel);
     }
 
     private void Start()

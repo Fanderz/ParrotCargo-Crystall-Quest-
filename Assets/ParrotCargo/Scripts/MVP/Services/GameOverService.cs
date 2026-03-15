@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-using UniRx;
-using Cysharp.Threading.Tasks;
+using Zenject;
 
 public class GameOverService : BaseService
 {
     [SerializeField] private Button _buttonReloadGame;
     [SerializeField] private Button _buttonStartGame;
+
+    [Inject] private LevelsService _levelsService;
+    [Inject] private TypeGameService _typeGameService;
 
     private static GameOverService _instance;
 
@@ -17,13 +19,20 @@ public class GameOverService : BaseService
     {
         _buttonReloadGame.onClick.AddListener(() =>
         {
-            SceneService.Instance.ReloadGame();
+            SceneService.Instance.ReloadGame(_typeGameService.CurrentTypeGame);
         });
     }
 
-    public void InvokeReloadGame()
+    public void InvokeReloadGame(TypeGame typeGame)
     {
         Time.timeScale = 1f;
+
+        if (typeGame == TypeGame.LevelsTypeGame)
+        {
+            _typeGameService.SetTypeGame(TypeGame.LevelsTypeGame);
+            _levelsService.ReloadCurrentLevel();
+        }
+
         _buttonStartGame.onClick.Invoke();
     }
 

@@ -3,10 +3,11 @@ using UnityEngine.UI;
 
 public class TypeGameService : BaseService
 {
+    [Header("UI")]
     [SerializeField] private Button _endlessTypeGame;
     [SerializeField] private Button _levelsTypeGame;
 
-    private TypeGame _currentTypeGame;
+    [SerializeField] private TypeGame _currentTypeGame;
 
     public TypeGame CurrentTypeGame => _currentTypeGame;
 

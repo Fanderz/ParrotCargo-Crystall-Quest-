@@ -7,7 +7,11 @@ using Zenject;
 
 public class GameWinView : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private List<PanelAnimationView> _panelAnimationViews;
+    [SerializeField] private GameObject _titleAllLevelsCompleted;
+
+    [Header("UI")]
     [SerializeField] private Button _openMenu;
     [SerializeField] private Button _nextLevel;
 
@@ -23,8 +27,11 @@ public class GameWinView : MonoBehaviour
 
         if (isActive)
         {
-            if (_levelsService.TryNextLevel() == false)
-                _nextLevel.gameObject.SetActive(false);
+            var isNextLevel = _levelsService.TryNextLevel();
+            _nextLevel.gameObject.SetActive(isNextLevel);
+            _titleAllLevelsCompleted.gameObject.SetActive(isNextLevel == false);
+
+            _levelsService.SaveProgressLevels();
         }
 
         gameObject.SetActive(isActive);

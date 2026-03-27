@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UniRx;
 
-public class BaseCrystallBagView : MonoBehaviour
+public abstract class BaseCrystallBagView : MonoBehaviour
 {
     private bool _isPicked;
     private Vector3 _localScale;
@@ -14,6 +14,8 @@ public class BaseCrystallBagView : MonoBehaviour
 
     public ReactiveCommand<bool> Picked = new ReactiveCommand<bool>();
     public ReactiveCommand Releasing = new ReactiveCommand();
+
+    public abstract TypeCrystallBag BagType { get; } 
 
     public bool IsPicked => _isPicked;
 

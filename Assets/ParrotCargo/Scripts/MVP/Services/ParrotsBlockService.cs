@@ -48,10 +48,10 @@ public class ParrotsBlockService : BaseService
         _parrotBlockPresenters.ForEach(block =>
         {
             block.GameOverCommand.Subscribe(bl => _playerProgressService.OnGameOver());
-            block.ParrotDroppedBagSoundCommand.Subscribe(bl =>
+            block.DroppedBagCommand.Subscribe(crystallBag =>
             {
                 _audioService.OnBagDroppedSound();
-                _levelsService.LevelsProgressPresenter.Add—ountBag—ollected();
+                _levelsService.LevelsProgressPresenter.Add—ountBag—ollected(crystallBag);
             });
         });
 

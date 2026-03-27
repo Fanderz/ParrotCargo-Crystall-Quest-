@@ -9,7 +9,6 @@ using TMPro;
 using UniRx;
 using Zenject;
 using Cysharp.Threading.Tasks;
-using YG.LanguageLegacy;
 
 public class TutorialService : BaseService
 {
@@ -49,7 +48,7 @@ public class TutorialService : BaseService
         {
             DeselectAll();
             stepTutorial.TypeObjectSelectTutorial.ToList().ForEach(obj => SelectObjectTutorial(obj));
-            UpdateTextStep(stepTutorial.GetCurrentTextStep());
+            UpdateTextStep(stepTutorial.GetTranslatedText());
         });
 
         _tutorialPresenter.FinishedTutorialCommand.Subscribe(async _ =>

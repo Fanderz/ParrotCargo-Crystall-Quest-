@@ -24,9 +24,9 @@ public class LevelsService : BaseService
         _levelsProgressPresenter = new LevelsProgressPresenter(_levelProgressView, _typeGameService, _gameWinView);
     }
 
-    public void StartLevel(Level enryLevele)
+    public void StartLevel(Level level)
     {
-        InitializeLevelsProgressPresenter(enryLevele);
+        InitializeLevelsProgressPresenter(level);
     }
 
     public void ReloadCurrentLevel()

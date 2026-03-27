@@ -28,7 +28,7 @@ public class BaseScoreView : MonoBehaviour
     {
         if (this.IsDestroyed() == false)
         {
-            if (gameObject.activeSelf)
+            if (gameObject.activeInHierarchy)
                 UpdateCount(valueView, value);
             else
                 valueView.text = value.ToString();

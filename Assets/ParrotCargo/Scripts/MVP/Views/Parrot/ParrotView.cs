@@ -192,6 +192,8 @@ public class ParrotView : MonoBehaviour
 
     private async void SitWithBag()
     {
+        PalletView targetPalletView = _targetPalletTransform.GetComponent<PalletView>();
+
         _childAnimator.SetTrigger("Sitting");
         Vector3 targetPosition = _targetPalletTransform.position;
         targetPosition.y += _bagOffset;
@@ -199,6 +201,7 @@ public class ParrotView : MonoBehaviour
         transform.position = targetPosition;
         _agent.updateRotation = false;
         _agent.transform.DORotateQuaternion(_agentStartRotation, _rotationTime).SetEase(Ease.Linear);
+        targetPalletView.ChangeMaterial(_crystallBag.BagType);
 
         _continueMovingPosition = transform.position;
 
@@ -207,6 +210,8 @@ public class ParrotView : MonoBehaviour
             SittingWithBag.Execute(this);
             await UniTask.Delay(_waitMiliseconds);
         }
+
+        targetPalletView.ReturnMaterial();
     }
 
     private void ReturnBagScale()

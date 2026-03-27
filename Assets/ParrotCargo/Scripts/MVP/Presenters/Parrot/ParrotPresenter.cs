@@ -8,11 +8,10 @@ public class ParrotPresenter
     private PalletPresenter _tempPallet;
 
     public BaseCrystallBagView CrystallBag => _view.CrystallBag;
-    //public bool HaveBag => _view.HaveBag;
     public bool isActive => _view.gameObject.activeSelf;
 
     public ReactiveCommand PickedBag = new ReactiveCommand();
-    public ReactiveCommand DroppedBag = new ReactiveCommand();
+    public ReactiveCommand DroppedBagCommand = new ReactiveCommand();
     public ReactiveCommand ChangedActive = new ReactiveCommand();
     public ReactiveCommand SittingWithBag = new ReactiveCommand();
 
@@ -27,7 +26,11 @@ public class ParrotPresenter
     public void Initialize()
     {
         _view.PickedBag.Subscribe(crystallBag => { _model.PickBag(crystallBag); });
-        _view.DroppedBag.Subscribe(crystallBag => { _model.PutBag(); DroppedBag.Execute(); });
+        _view.DroppedBag.Subscribe(crystallBag => 
+        { 
+            _model.PutBag(); 
+            DroppedBagCommand.Execute(); 
+        });
         _view.ChangedActive.Subscribe(parrot => { ChangedActive.Execute(); });
     }
 

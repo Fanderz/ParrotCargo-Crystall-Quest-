@@ -1,13 +1,15 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Level", menuName = "ScriptableObject/Level")]
-public class Level : ScriptableObject
+public class Level : BaseLangTextSO
 {
     [SerializeField] private int _numberLevel;
     [SerializeField] private int _countBag;
     [SerializeField] private int _countBagÑollected;
+    [SerializeField] private TypeCrystallBag _bagType;
 
     public int NumberLevel => _numberLevel;
+    public TypeCrystallBag BagType => _bagType;
     public int CountBag => _countBag;
     public int ÑountBagÑollected => _countBagÑollected;
 

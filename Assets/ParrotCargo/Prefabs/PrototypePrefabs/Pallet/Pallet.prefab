@@ -47,6 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bagTargetOffsetY: 6
+  _palletMesh: {fileID: 1964653788567597335}
+  _defaultMaterial: {fileID: 2100000, guid: a8ef3b2284aa46146a6f70f9215ff6b6, type: 2}
+  _blueMaterial: {fileID: 2100000, guid: 1a39b57e73a904a4885e2502a8638e7b, type: 2}
+  _greenMaterial: {fileID: 2100000, guid: 1ea2ef12b7570944ab6ff531808a6ec4, type: 2}
+  _yellowMaterial: {fileID: 2100000, guid: a8c6cdc681295104a88c30bafabd6f87, type: 2}
+  _purpleMaterial: {fileID: 2100000, guid: f4ccd4676524a1740aa1efa717c1060b, type: 2}
 --- !u!65 &669731752603787501
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -85,7 +91,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &349644102530862253
 Transform:

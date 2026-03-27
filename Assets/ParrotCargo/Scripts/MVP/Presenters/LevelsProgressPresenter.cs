@@ -21,15 +21,28 @@ public class LevelsProgressPresenter
         _levelProgressView.UpdateCountBag—ollectedView(_currentLevel);
     }
 
-    public void Add—ountBag—ollected()
+    public void Add—ountBag—ollected(TypeCrystallBag bagType)
     {
         if (_typeGameService.CurrentTypeGame == TypeGame.EndlessTypeGame)
             return;
 
-        _currentLevel.Add—ountBag—ollected();
-        _levelProgressView.UpdateCountBag—ollectedView(_currentLevel);
+        if (IsBagSatisfiesLevel(bagType))
+        {
+            _currentLevel.Add—ountBag—ollected();
+            _levelProgressView.UpdateCountBag—ollectedView(_currentLevel);
 
-        if (_currentLevel.TryFinishLevel())
-            _gameWinView.SetActive(true);
+            if (_currentLevel.TryFinishLevel())
+                _gameWinView.SetActive(true);
+        }
+    }
+
+    private bool IsBagSatisfiesLevel(TypeCrystallBag bagType)
+    {
+        if (_currentLevel.BagType == TypeCrystallBag.Other)
+            return true;
+        else if (_currentLevel.BagType == bagType)
+            return true;
+        else
+            return false;
     }
 }

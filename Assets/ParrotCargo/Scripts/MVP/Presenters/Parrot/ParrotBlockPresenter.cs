@@ -21,11 +21,10 @@ public class ParrotBlockPresenter
     private BoxCollider _draggableCollider;
 
     public ReactiveCommand ChangingActiveCommand = new ReactiveCommand();
-    //public ReactiveCommand SittingWithBag = new ReactiveCommand();
     public ReactiveCommand PickedBagsCommand = new ReactiveCommand();
     public ReactiveCommand GameOverCommand = new ReactiveCommand();
 
-    public ReactiveCommand ParrotDroppedBagSoundCommand = new ReactiveCommand();
+    public ReactiveCommand<TypeCrystallBag> DroppedBagCommand = new ReactiveCommand<TypeCrystallBag>();
     public ReactiveCommand PickedParrotSoundCommand = new ReactiveCommand();
 
     public ParrotBlockPresenter(ParrotBlock parrotBlock, ParrotsBlockView parrotsBlockView)
@@ -48,13 +47,17 @@ public class ParrotBlockPresenter
             Parrot parrot = new Parrot();
             _model.AddParrot(parrot);
 
-            ParrotPresenter presenter = new ParrotPresenter(view, parrot);
-            presenter.Initialize();
+            ParrotPresenter parrotPresenter = new ParrotPresenter(view, parrot);
+            parrotPresenter.Initialize();
 
-            _parrotPresenters.Add(presenter);
+            _parrotPresenters.Add(parrotPresenter);
 
-            presenter.DroppedBag.Subscribe(parrot => { presenter.TargetPallet.TakeBag(presenter.CrystallBag); ParrotDroppedBagSoundCommand.Execute(); });
-            presenter.ChangedActive.Subscribe(block => { ReleasingBlock(); });
+            parrotPresenter.DroppedBagCommand.Subscribe(parrot => 
+            { 
+                parrotPresenter.TargetPallet.TakeBag(parrotPresenter.CrystallBag); 
+                DroppedBagCommand.Execute(view.CrystallBag.BagType); 
+            });
+            parrotPresenter.ChangedActive.Subscribe(block => { ReleasingBlock(); });
         }
 
         Subscribe();

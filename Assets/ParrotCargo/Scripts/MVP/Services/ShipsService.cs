@@ -11,8 +11,6 @@ public class ShipsService : BaseService
     [SerializeField] private int _multiplierStartCreatedObjects;
     [SerializeField] private ShipsSpawner _shipSpawner;
 
-    //private int _currentShipUpgrades;
-
     [Inject] private ShopService _shopService;
     [Inject] private SkinService _skinService;
     [Inject] private AudioService _audioService;
@@ -25,8 +23,6 @@ public class ShipsService : BaseService
 
     public void OnStartGame()
     {
-        //_currentShipUpgrades = _shopService.Model.ShipPalletsCnt;
-
         _shipSpawner.Initialize(_skinService.CurrentShip.ShipPrefabs.ToList());
 
         for (int i = 0; i < _multiplierStartCreatedObjects; i++)

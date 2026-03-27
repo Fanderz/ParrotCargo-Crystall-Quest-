@@ -116,8 +116,6 @@ public class PlayerProgressService : BaseService
         if (_pointsModel.Value > YG2.saves.pointsProgress.Value)
             YG2.SetLeaderboard("BestPlayers", _pointsModel.Value);
 
-        //_settingService.OnSave();
-
         YG2.SaveProgress();
     }
 

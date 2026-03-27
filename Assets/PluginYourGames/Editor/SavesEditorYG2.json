@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 1179,
+  "idSave": 1242,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 1895
+    "Value": 2000
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -32,11 +32,11 @@
       },
       "IsDisposed": false
     },
-    "Value": 1240
+    "Value": 1450
   },
   "playerSettings": {
-    "Sound": 1.0,
-    "Music": 1.0
+    "Sound": 0.17036,
+    "Music": 0.0264925417
   },
   "shopModel": {
     "upgradeItems": [
@@ -127,6 +127,6 @@
   "currentTypeBird": 0,
   "currentTypeShip": 0,
   "isFirstGame": false,
-  "currentNumberLevel": 3,
-  "maxOppenedNumberLevel": 3
+  "currentNumberLevel": 5,
+  "maxOppenedNumberLevel": 5
 }

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 using TMPro;
 
@@ -6,18 +6,23 @@ public class LevelProgressView : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI _numverLevelView;
-    [SerializeField] private TextMeshProUGUI _countBagÑollectedView;
+    [SerializeField] private TextMeshProUGUI _countBagĞ¡ollectedView;
+
+    [Header("TranslatedCollectedTitle")]
+    [SerializeField] private string _ruTitle;
+    [SerializeField] private string _enTitle;
+    [SerializeField] private string _trTitle;
 
     public void SetActive(bool isActive)
         => gameObject.SetActive(isActive);
 
     public void UpdateNumverLevelView(Level level)
     {
-        _numverLevelView.text = "Óğîâåíü " + level.NumberLevel;
+        _numverLevelView.text = level.NumberLevel.ToString();
     }
 
-    public void UpdateCountBagÑollectedView(Level level)
+    public void UpdateCountBagĞ¡ollectedView(Level level)
     {
-        _countBagÑollectedView.text = "Ñîáğàíî ìåøî÷êîâ: " + level.ÑountBagÑollected + "/" + level.CountBag;
+        _countBagĞ¡ollectedView.text = $"{level.GetTranslatedText()} {level.Ğ¡ountBagĞ¡ollected}/{level.CountBag}";
     }
 }

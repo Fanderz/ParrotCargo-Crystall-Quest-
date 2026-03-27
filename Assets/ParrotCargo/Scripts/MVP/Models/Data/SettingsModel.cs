@@ -13,8 +13,8 @@ namespace Assets.ParrotCargo.Scripts.MVP.Models.Data
 
         public SettingsModel(float soundValue, float musicValue)
         {
-            _soundValue = soundValue;
-            _musicValue = musicValue;
+            SetSound(soundValue);
+            SetMusic(musicValue);
         }
 
         public void SetSound(float value)

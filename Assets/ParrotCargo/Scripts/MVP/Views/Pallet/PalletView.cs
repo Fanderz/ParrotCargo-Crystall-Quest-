@@ -49,25 +49,30 @@ public class PalletView : MonoBehaviour
 
     public void ChangeMaterial(TypeCrystallBag typeBag)
     {
-            if (typeBag == TypeCrystallBag.BlueBag)
-                _palletMesh.materials[0] = _blueMaterial;
-            else if (typeBag == TypeCrystallBag.YellowBag)
-                _palletMesh.materials[0] = _yellowMaterial;
-            else if (typeBag == TypeCrystallBag.PurpleBag)
-                _palletMesh.materials[0] = _purpleMaterial;
-            else if (typeBag == TypeCrystallBag.GreenBag)
-                _palletMesh.materials[0] = _greenMaterial;
+        _palletMesh.material = GetMaterialByBagType(typeBag);
     }
 
     public void ReturnMaterial()
     {
-        _palletMesh.materials[0] = _defaultMaterial;
+        _palletMesh.material = _defaultMaterial;
     }
 
     private void ChangeEmpty(bool value)
     {
         HaveBag = value;
         EmptyChanged.Execute(HaveBag);
+    }
+
+    private Material GetMaterialByBagType(TypeCrystallBag bagType)
+    {
+        return bagType switch
+        {
+            TypeCrystallBag.BlueBag => _blueMaterial,
+            TypeCrystallBag.YellowBag => _yellowMaterial,
+            TypeCrystallBag.PurpleBag => _purpleMaterial,
+            TypeCrystallBag.GreenBag => _greenMaterial,
+            _ => _defaultMaterial
+        };
     }
 }
 

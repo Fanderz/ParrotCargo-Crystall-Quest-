@@ -21,4 +21,7 @@ public class Level : BaseLangTextSO
 
     public bool TryFinishLevel()
         => _countBagÑollected == CountBag;
+
+    public void ResetCollectedBags() 
+        => _countBagÑollected = 0;
 }

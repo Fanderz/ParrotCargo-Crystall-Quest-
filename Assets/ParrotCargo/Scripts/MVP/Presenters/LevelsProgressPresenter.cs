@@ -16,7 +16,7 @@ public class LevelsProgressPresenter
     {
         _currentLevel = currentLevel;
 
-        _levelProgressView.SetActive(true);
+        _levelProgressView.gameObject.SetActive(true);
         _levelProgressView.UpdateNumverLevelView(_currentLevel);
         _levelProgressView.UpdateCountBag—ollectedView(_currentLevel);
     }

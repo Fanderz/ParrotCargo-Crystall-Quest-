@@ -36,7 +36,6 @@ public class LevelsView : MonoBehaviour
     {
         SetActive(false);
         await UniTask.Delay(500);
-        _buttonEndlessTypeGame.onClick.Invoke();
         _levelsService.StartLevel(level);
 
         //костыль

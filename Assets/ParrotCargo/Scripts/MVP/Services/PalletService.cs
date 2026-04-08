@@ -23,7 +23,13 @@ public class PalletService : BaseService
 
     public void OnStartGame()
     {
+        Debug.Log("<size=50>Вызвался PalletService.OnStartGame</size>");
+
+        if (_shopService.Model == null)
+            _shopService.Initialize();
+
         _currentPalletsCnt = _shopService.Model.TempPalletsCnt;
+        //_currentPalletsCnt = YG2.saves.shopModel.upgradeItems.Count(x => x.Type == TypeShopItem.PalletUpgrade && x.IsPurchased); ;
 
         _palletSpawner.Initialize();
         _palletSpawner.Spawn(_currentPalletsCnt);

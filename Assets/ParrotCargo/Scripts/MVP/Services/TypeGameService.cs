@@ -6,6 +6,7 @@ public class TypeGameService : BaseService
     [Header("UI")]
     [SerializeField] private Button _endlessTypeGame;
     [SerializeField] private Button _levelsTypeGame;
+    [SerializeField] private TypeGameUIView _view;
 
     [SerializeField] private TypeGame _currentTypeGame;
 
@@ -19,4 +20,9 @@ public class TypeGameService : BaseService
 
     public void SetTypeGame(TypeGame typeGame)
         => _currentTypeGame = typeGame;
+
+    public void OnStartGame()
+    {
+        _view.gameObject.SetActive(false);
+    }
 }

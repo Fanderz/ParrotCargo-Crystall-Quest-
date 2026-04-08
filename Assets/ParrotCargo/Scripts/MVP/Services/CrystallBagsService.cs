@@ -19,6 +19,7 @@ public class CrystallBagsService : BaseService
 
     public void OnStartGame()
     {
+        Debug.Log("<size=50>Вызвался CrystallBagsService.OnStartGame</size>");
         _crystallBagSpawner.Spawn();
 
         foreach (CrystallBagPresenter presenter in _crystallBagSpawner.CrystallBags)

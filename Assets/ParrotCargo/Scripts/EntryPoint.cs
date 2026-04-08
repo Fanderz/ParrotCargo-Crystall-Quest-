@@ -1,6 +1,6 @@
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityTime;
 using System.Collections.Generic;
-
+using UniRx;
 using UnityEngine;
 using YG;
 using Zenject;
@@ -9,10 +9,7 @@ public class EntryPoint : MonoInstaller
 {
     [SerializeField] private List<BaseService> _services;
 
-    //public override void Start()
-    //{
-    //    YG2.StickyAdActivity(true);
-    //}
+    public ReactiveCommand BindingsEnded = new ReactiveCommand();
 
     private void Awake()
     {
@@ -26,6 +23,8 @@ public class EntryPoint : MonoInstaller
             Container.Bind(service.GetType()).FromInstance(service).AsSingle().IfNotBound();
             Container.Bind<IInitializable>().To(service.GetType()).FromResolve();
         }
+
+        BindingsEnded.Execute();
     }
 
     private T GetService<T>() where T : BaseService

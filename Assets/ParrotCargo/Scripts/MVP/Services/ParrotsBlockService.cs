@@ -37,6 +37,7 @@ public class ParrotsBlockService : BaseService
 
     public void OnStartGame()
     {
+        Debug.Log("<size=50>Вызвался ParrotsBlockService.OnStartGame</size>");
         CreateBlocks();
     }
 

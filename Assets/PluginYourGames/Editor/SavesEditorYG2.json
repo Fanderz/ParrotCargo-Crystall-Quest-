@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 1243,
+  "idSave": 92,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 2000
+    "Value": 0
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -32,11 +32,11 @@
       },
       "IsDisposed": false
     },
-    "Value": 1450
+    "Value": 0
   },
   "playerSettings": {
-    "Sound": 0.17036,
-    "Music": 0.0264925417
+    "Sound": 1.0,
+    "Music": 0.05
   },
   "shopModel": {
     "upgradeItems": [
@@ -89,17 +89,17 @@
       },
       {
         "Type": 3,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
         "Type": 3,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
         "Type": 3,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
@@ -109,24 +109,24 @@
       },
       {
         "Type": 2,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
         "Type": 2,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
         "Type": 2,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       }
     ]
   },
   "currentTypeBird": 0,
   "currentTypeShip": 0,
-  "isFirstGame": false,
-  "currentNumberLevel": 5,
-  "maxOppenedNumberLevel": 5
+  "isFirstGame": true,
+  "currentNumberLevel": 1,
+  "maxOppenedNumberLevel": 1
 }

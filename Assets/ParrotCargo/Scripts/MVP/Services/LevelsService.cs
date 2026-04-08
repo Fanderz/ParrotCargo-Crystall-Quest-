@@ -27,6 +27,7 @@ public class LevelsService : BaseService
     public void StartLevel(Level level)
     {
         InitializeLevelsProgressPresenter(level);
+        _typeGameService.OnStartGame();
     }
 
     public void ReloadCurrentLevel()
@@ -34,6 +35,8 @@ public class LevelsService : BaseService
         var currentLevel = _levels.Find(level => level.NumberLevel == YG2.saves.currentNumberLevel);
 
         InitializeLevelsProgressPresenter(currentLevel);
+
+        _levelsView.OnLoadedLevel(currentLevel);
     }
 
     public void NextLevel()
@@ -54,7 +57,8 @@ public class LevelsService : BaseService
 
     public bool TryNextLevel()
     {
-        var nextLevel = YG2.saves.currentNumberLevel + 1;
+        int currentLevel = YG2.saves.currentNumberLevel;
+        int nextLevel = currentLevel++;
 
         if (nextLevel <= _levels.Count)
             return true;
@@ -67,6 +71,7 @@ public class LevelsService : BaseService
         if (currentLevel == null)
             Debug.Log("Не найден уровень! Проверьте создан ли уровень " + currentLevel.NumberLevel);
 
+        currentLevel.ResetCollectedBags();
         _levelsProgressPresenter.Initialize(currentLevel);
     }
 }

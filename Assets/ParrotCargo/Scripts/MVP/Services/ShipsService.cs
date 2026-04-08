@@ -23,6 +23,8 @@ public class ShipsService : BaseService
 
     public void OnStartGame()
     {
+        Debug.Log("<size=50>Вызвался ShipsService.OnStartGame</size>");
+
         _shipSpawner.Initialize(_skinService.CurrentShip.ShipPrefabs.ToList());
 
         for (int i = 0; i < _multiplierStartCreatedObjects; i++)

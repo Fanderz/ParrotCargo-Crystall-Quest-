@@ -18,12 +18,13 @@ public class GameWinView : MonoBehaviour
     [Inject] private PlayerProgressService _playerProgressService;
     [Inject] private LevelsService _levelsService;
 
-    public async void SetActive(bool isActive)
+    public void SetActive(bool isActive)
     {
         HandlerPanelAnimation(isActive);
 
-        if (isActive == false)
-            await UniTask.Delay(1000);
+        //if (isActive == false)
+        //    return;
+            //await UniTask.Delay(1000);
 
         if (isActive)
         {
@@ -59,7 +60,8 @@ public class GameWinView : MonoBehaviour
         _nextLevel.onClick.AddListener(() =>
         {
             _playerProgressService.SaveProgress();
-            _levelsService.NextLevel();
+            //_levelsService.NextLevel();
+            SceneService.Instance.ReloadGame(TypeGame.LevelsTypeGame);
         });
     }
 

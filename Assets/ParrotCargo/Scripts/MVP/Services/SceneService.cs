@@ -1,7 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+using Cysharp.Threading.Tasks;
 
 public class SceneService : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class SceneService : MonoBehaviour
 
         while (loadOperation.progress < 0.9)
         {
-            await Task.Delay(1);
+            await UniTask.Delay(1000);
             Debug.Log("Загрузка сцены...");
             Debug.Log("<size=50>Загрузка сцены...</size>");
         }

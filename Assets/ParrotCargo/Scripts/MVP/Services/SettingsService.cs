@@ -29,18 +29,12 @@ public class SettingsService : BaseService
         _settingsView.MusicChanged.Subscribe(volume => { _audioService.SetMusicVolume(volume); _isChanged = true; });
     }
 
-    //public void OnSave()
+    //public void SaveSettings()
     //{
-    //    if (YG2.saves.playerSettings.GetHashCode() != _settingsModel.GetHashCode())
-    //        YG2.saves.playerSettings = _settingsModel;
+    //    if (_isChanged)
+    //    {
+    //        YG2.SaveProgress();
+    //        _isChanged = false;
+    //    }
     //}
-
-    public void SaveSettings()
-    {
-        if (_isChanged)
-        {
-            YG2.SaveProgress();
-            _isChanged = false;
-        }
-    }
 }

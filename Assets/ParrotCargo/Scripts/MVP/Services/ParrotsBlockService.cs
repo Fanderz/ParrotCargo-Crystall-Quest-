@@ -37,7 +37,6 @@ public class ParrotsBlockService : BaseService
 
     public void OnStartGame()
     {
-        Debug.Log("<size=50>¬˚Á‚‡ÎÒˇ ParrotsBlockService.OnStartGame</size>");
         CreateBlocks();
     }
 
@@ -52,7 +51,9 @@ public class ParrotsBlockService : BaseService
             block.DroppedBagCommand.Subscribe(crystallBag =>
             {
                 _audioService.OnBagDroppedSound();
-                _levelsService.LevelsProgressPresenter.Add—ountBag—ollected(crystallBag);
+
+                if (_levelsService.CurrentTypeGame == TypeGame.LevelsTypeGame)
+                    _levelsService.LevelsProgressPresenter.Add—ountBag—ollected(crystallBag);
             });
         });
 

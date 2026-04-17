@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using Zenject;
+using YG;
 
 public class InputSystemService : BaseService
 {
@@ -44,6 +45,9 @@ public class InputSystemService : BaseService
                 _dragPlane = new Plane(Vector3.up, new Vector3(0f, _dragY, 0f));
                 _dragOffset = _draggableTransform.position - hit.point;
                 _dragOffset.y = 0f;
+
+                if (YG2.envir.isDesktop == false)
+                    _dragOffset.z += 2f;
 
                 _audioService.OnBirdPickedSound();
                 _movingBlockCoroutine = StartCoroutine(Drag());

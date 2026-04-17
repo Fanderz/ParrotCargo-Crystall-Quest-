@@ -1,5 +1,3 @@
-using System.Linq;
-
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +7,7 @@ using Unity.VisualScripting;
 using System.Threading;
 using System;
 using DG.Tweening;
+using System.Linq;
 
 public class ParrotView : MonoBehaviour
 {
@@ -109,9 +108,9 @@ public class ParrotView : MonoBehaviour
         CanPick = IsHittedBag(hits);
 
         if (CanPick)
-            _crystallBag?.RaiseOnRaycast();
+            _crystallBag.RaiseOnRaycast();
         else
-            _crystallBag?.ReturnScale();
+            _lastCrystallBag?.ReturnScale();
 
         ReturnBagScale();
 

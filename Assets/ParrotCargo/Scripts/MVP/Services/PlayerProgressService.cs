@@ -26,6 +26,12 @@ public class PlayerProgressService : BaseService
     [SerializeField] private CoinsView _gameOverCoinsView;
     [SerializeField] private List<PanelAnimationView> _panelsAnimationView;
 
+    [Header("LevelWin Setts")]
+    [SerializeField] private GameWinView _gameWinView;
+    [SerializeField] private GameObject _gameWinRewardButton;
+    [SerializeField] private PointsView _gameWinScoreView;
+    [SerializeField] private CoinsView _gameWinCoinsView;
+
     [Header("Sounds Setts")]
     [SerializeField] private SettingsService _settingService;
 
@@ -41,13 +47,17 @@ public class PlayerProgressService : BaseService
     private CoinsPresenter _shopCoinsPresenter;
     private CoinsPresenter _gameCoinsPresenter;
     private CoinsPresenter _gameOverCoinsPresenter;
+    private CoinsPresenter _gameWinCoinsPresenter;
     private PointsPresenter _gamePointsPresenter;
     private PointsPresenter _gameOverPointsPresenter;
+    private PointsPresenter _gameWinPointsPresenter;
     private PointsPresenter _lederboardPointsPresenter;
 
     [Inject] private AudioService _audioService;
     [Inject] private SmoothLoaderService _smoothLoaderService;
     [Inject] private AdsService _adsService;
+    [Inject] private ShipsService _shipsService;
+    [Inject] private PauseService _pauseService;
 
     public override void Initialize()
     {
@@ -56,15 +66,17 @@ public class PlayerProgressService : BaseService
         _shopCoinsPresenter = new CoinsPresenter(YG2.saves.coinsProgress, _shopCoinsView, _smoothChangeWait);
         _gameCoinsPresenter = new CoinsPresenter(_gameCoinsModel, _gameCoinsView, _smoothChangeWait);
         _gameOverCoinsPresenter = new CoinsPresenter(_gameCoinsModel, _gameOverCoinsView, _smoothChangeWait);
+        _gameWinCoinsPresenter = new CoinsPresenter(_gameCoinsModel, _gameWinCoinsView, _smoothChangeWait);
 
         _gamePointsPresenter = new PointsPresenter(_pointsModel, _gamePointsView, _smoothChangeWait);
         _gameOverPointsPresenter = new PointsPresenter(_pointsModel, _gameOverScoreView, _smoothChangeWait);
+        _gameWinPointsPresenter = new PointsPresenter(_pointsModel, _gameWinScoreView, _smoothChangeWait);
     }
 
-    public void IncreaseValuesOnBagRelease()
+    public void IncreaseValuesOnBagRelease(int bagsCount)
     {
-        _gameCoinsPresenter.IncreaseCoins(_crystallBagPrice);
-        _gamePointsPresenter.IncreaseScore(_pointsIncreaseValue);
+        _gameCoinsPresenter.IncreaseCoins(bagsCount * _crystallBagPrice);
+        _gamePointsPresenter.IncreaseScore(bagsCount * _pointsIncreaseValue);
     }
 
     public void DecreaseOnPurchase(int price)
@@ -73,10 +85,11 @@ public class PlayerProgressService : BaseService
         SaveProgress();
     }
 
-    public void SetTimeScale(float value)
-    {
-        Time.timeScale = value;
-    }
+    //public void SetTimeScale(float value)
+    //{
+    //    Time.timeScale = value;
+    //    Debug.Log($"[PlayerProgressService.SetTimeScale] TimeScale: {Time.timeScale}");
+    //}
 
     public async void OnGameOver()
     {
@@ -89,39 +102,64 @@ public class PlayerProgressService : BaseService
         foreach (var panelAnimationView in _panelsAnimationView)
             panelAnimationView.Show();
 
-        await UniTask.Delay(1000);
+        //await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
 
-        SetTimeScale(0);
+        _pauseService.SetPausedByWinLose(true);
+        //SetTimeScale(0);
+    }
+
+    public async void OnGameWin()
+    {
+        while (_shipsService.IsAnyShipsGoingToRelease)
+            await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
+
+        //await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
+
+        _gameWinView.SetActive(true);
+
+        //await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
+
+        _pauseService.SetPausedByWinLose(true);
+        //SetTimeScale(0);
     }
 
     public void OnReward(string id)
     {
-        if (id == _adsService.Id)
-        {
-            _gameOverCoinsPresenter.IncreaseCoins(_gameCoinsModel.Value);
+        if (id != _adsService.Id)
+            return;
 
-            YG2.onCloseRewardedAdv += (async () =>
-            {
-                await UniTask.Delay(1200);
-                SetTimeScale(0);
-            });
-        }
+        _pauseService.SetPausedByRewardAdv(false);
+
+        if (_gameOverCoinsPresenter.isActive)
+            _gameOverCoinsPresenter.IncreaseCoins(_gameCoinsModel.Value);
+        else
+            _gameWinCoinsPresenter.IncreaseCoins(_gameCoinsModel.Value);
+
+        YG2.onCloseRewardedAdv -= OnRewardedAdvClosed;
+        YG2.onCloseRewardedAdv += OnRewardedAdvClosed;
     }
 
     public void SaveProgress()
     {
-        YG2.saves.coinsProgress.Value += _gameCoinsModel.Value;
-        YG2.saves.pointsProgress.Value += _pointsModel.Value;
+        int sessionCoins = _gameCoinsModel.Value;
+        int sessionPoints = _pointsModel.Value;
+        int totalPointsBeforeSave = YG2.saves.pointsProgress.Value;
 
-        if (_pointsModel.Value > YG2.saves.pointsProgress.Value)
-            YG2.SetLeaderboard("BestPlayers", _pointsModel.Value);
+        YG2.saves.coinsProgress.Value += sessionCoins;
+        YG2.saves.pointsProgress.Value += sessionPoints;
+
+        if (YG2.saves.pointsProgress.Value > totalPointsBeforeSave)
+            YG2.SetLeaderboard("BestPlayers", YG2.saves.pointsProgress.Value);
+
+        _gameCoinsModel.ChangeValue(0);
+        _pointsModel.ChangeValue(0);
 
         YG2.SaveProgress();
     }
 
     public void SaveLevel()
     {
-        ++YG2.saves.currentNumberLevel;
+        YG2.saves.currentNumberLevel++;
 
         if (YG2.saves.maxOppenedNumberLevel < YG2.saves.currentNumberLevel)
             YG2.saves.maxOppenedNumberLevel = YG2.saves.currentNumberLevel;
@@ -129,10 +167,19 @@ public class PlayerProgressService : BaseService
         YG2.SaveProgress();
     }
 
+    public void SetCurrentLevel(Level level)
+    {
+        YG2.saves.currentNumberLevel = level.NumberLevel;
+
+        YG2.SaveProgress();
+    }
+
     public void ResetProgress()
     {
+        Debug.Log($"[PlayerProgressService.ResetProgress]");
+        _pauseService.ResetAll();
         SceneService.Instance.RestartScene();
-        SceneService.Instance.SetTimeScale(1f);
+        //SceneService.Instance.SetTimeScale(1f);
     }
 
     private List<ShopSaveData> CreateDefaultItems(List<BaseShopItemValuesSO> shopItemSettings)
@@ -182,5 +229,15 @@ public class PlayerProgressService : BaseService
         }
 
         YG2.SaveProgress();
+    }
+
+    private async void OnRewardedAdvClosed()
+    {
+        YG2.onCloseRewardedAdv -= OnRewardedAdvClosed;
+        await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
+
+        if (_gameOverView.activeSelf || _gameWinView.gameObject.activeSelf)
+            _pauseService.SetPausedByRewardAdv(true);
+        //SetTimeScale(0);
     }
 }

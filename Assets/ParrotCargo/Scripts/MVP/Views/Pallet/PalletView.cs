@@ -31,6 +31,7 @@ public class PalletView : MonoBehaviour
     public void RemoveBag()
     {
         ChangeEmpty(false);
+        _crystallBag = null;
     }
 
     public void Clear()

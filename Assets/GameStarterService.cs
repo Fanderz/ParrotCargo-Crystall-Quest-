@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using YG;
 using Zenject;
@@ -15,19 +13,23 @@ public class GameStarterService : BaseService
     [SerializeField] private LevelsService _levelsService;
     [SerializeField] private TypeGameService _typeGameService;
 
+    [Inject] private PauseService _pauseService;
+
     public override void Initialize()
     {
     }
 
     public void StartGame()
     {
-        Debug.Log("<size=50>Вызвался GameStarterService.StartGame</size>");
-        Time.timeScale = 1f;
+        _pauseService.ResetAll();
         YG2.InterstitialAdvShow();
+        Debug.Log($"[GameStarterService] after InterstialAdvShow TimeScale: {Time.timeScale}");
 
         _palletService.OnStartGame();
         _shipsService.OnStartGame();
         _bagsService.OnStartGame();
         _parrotsBlockService.OnStartGame();
+
+        Debug.Log($"[GameStarterService] after StartGame TimeScale: {Time.timeScale}");
     }
 }

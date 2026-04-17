@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 
 public class SceneService : MonoBehaviour
 {
-    [SerializeField] private GameStarterService _gameStarter;   
+    [SerializeField] private GameStarterService _gameStarter;
 
     private static SceneService _instance;
 
@@ -14,37 +14,27 @@ public class SceneService : MonoBehaviour
 
     public async void ReloadGame(TypeGame typeGame)
     {
-        Debug.Log("Вызвался SceneService.ReloadGame");
-        Debug.Log("<size=50>Вызвался SceneService.ReloadGame</size>");
-
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync("GameScene");
 
-        while (loadOperation.progress < 0.9)
-        {
-            await UniTask.Delay(1000);
-            Debug.Log("Загрузка сцены...");
-            Debug.Log("<size=50>Загрузка сцены...</size>");
-        }
-
-        Debug.Log("Сцена загрузилась.");
-        Debug.Log("<size=50>Сцена загрузилась.</size>");
+        while (!loadOperation.isDone)
+            await UniTask.Delay(200, delayType: DelayType.UnscaledDeltaTime);
 
         GameOverService.Instance.InvokeReloadGame(typeGame);
-        //_gameStarter.StartGame();
     }
 
     public async void RestartScene()
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync("GameScene");
 
-        while (loadOperation.progress < 0.9)
-            await Task.Delay(1);
+        while (!loadOperation.isDone)
+            await Task.Delay(100);
     }
 
-    public void SetTimeScale(float value)
-    {
-        Time.timeScale = value;
-    }
+    //public void SetTimeScale(float value)
+    //{
+    //    Time.timeScale = value;
+    //    Debug.Log($"[SceneService.SetTimeScale] TimeScale: {Time.timeScale}");
+    //}
 
     private void Awake()
     {

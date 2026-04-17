@@ -7,7 +7,9 @@ using UniRx;
 public abstract class BaseCrystallBagView : MonoBehaviour
 {
     private bool _isPicked;
-    private Vector3 _localScale;
+    private bool _isReleased;
+    private Vector3 _defaultLocalScale;
+    private Animator _animator;
 
     [SerializeField] private Material _materialCrystall;
     [SerializeField] private List<MeshRenderer> _crystalls; 
@@ -18,10 +20,12 @@ public abstract class BaseCrystallBagView : MonoBehaviour
     public abstract TypeCrystallBag BagType { get; } 
 
     public bool IsPicked => _isPicked;
+    public bool IsReleased => _isReleased;
 
     private void Awake()
     {
-        _localScale = transform.localScale;
+        _defaultLocalScale = transform.localScale;
+        _animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -30,16 +34,28 @@ public abstract class BaseCrystallBagView : MonoBehaviour
             crystall.material = _materialCrystall;
     }
 
+    private void OnDisable()
+    {
+        _isReleased = true;
+    }
+
+    private void OnEnable()
+    {
+        ReturnScale();
+        _isReleased = false;
+        _animator.SetTrigger("Spawning");
+    }
+
     public void RaiseOnRaycast()
     {
-        if (transform.localScale == _localScale)
-            transform.localScale *= 1.2f;
+        if (transform.localScale == _defaultLocalScale)
+            SetLocalScale(_defaultLocalScale * 1.2f);
     }
 
     public void ReturnScale()
     {
-        if (transform.localScale != _localScale)
-            transform.localScale = _localScale;
+        if (transform.localScale != _defaultLocalScale)
+            SetLocalScale(_defaultLocalScale);
     }
 
     public void ChangePicked(bool value)
@@ -56,4 +72,7 @@ public abstract class BaseCrystallBagView : MonoBehaviour
         Releasing = new();
         Picked = new();
     }
+
+    private void SetLocalScale(Vector3 value) =>
+        transform.localScale = value;
 }

@@ -22,9 +22,6 @@ public class AdsService : BaseService
     private void OnEnable()
     {
         YG2.onRewardAdv += _playerProgressService.OnReward;
-
-        //foreach (Button button in _startGameButtons)
-        //    button.onClick.AddListener(() => YG2.InterstitialAdvShow());
     }
 
     public void ShowRewardAd()
@@ -34,6 +31,6 @@ public class AdsService : BaseService
 
     private void OnDisable()
     {
-        YG2.onRewardAdv += _playerProgressService.OnReward;
+        YG2.onRewardAdv -= _playerProgressService.OnReward;
     }
 }

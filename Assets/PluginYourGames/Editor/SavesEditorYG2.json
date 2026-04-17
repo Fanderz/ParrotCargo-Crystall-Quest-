@@ -13,7 +13,7 @@
     false,
     false
   ],
-  "idSave": 101,
+  "idSave": 403,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +22,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 0
+    "Value": 1395
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -32,11 +32,11 @@
       },
       "IsDisposed": false
     },
-    "Value": 0
+    "Value": 5090
   },
   "playerSettings": {
-    "Sound": 1.0,
-    "Music": 0.05
+    "Sound": 0.0001,
+    "Music": 0.0001
   },
   "shopModel": {
     "upgradeItems": [
@@ -47,17 +47,17 @@
       },
       {
         "Type": 0,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
         "Type": 0,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
         "Type": 0,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
@@ -67,12 +67,12 @@
       },
       {
         "Type": 1,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
         "Type": 1,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       },
       {
@@ -85,21 +85,31 @@
       {
         "Type": 3,
         "IsPurchased": true,
+        "isActive": false
+      },
+      {
+        "Type": 3,
+        "IsPurchased": true,
+        "isActive": false
+      },
+      {
+        "Type": 3,
+        "IsPurchased": true,
+        "isActive": false
+      },
+      {
+        "Type": 3,
+        "IsPurchased": true,
         "isActive": true
       },
       {
-        "Type": 3,
-        "IsPurchased": false,
+        "Type": 2,
+        "IsPurchased": true,
         "isActive": false
       },
       {
-        "Type": 3,
-        "IsPurchased": false,
-        "isActive": false
-      },
-      {
-        "Type": 3,
-        "IsPurchased": false,
+        "Type": 2,
+        "IsPurchased": true,
         "isActive": false
       },
       {
@@ -109,24 +119,14 @@
       },
       {
         "Type": 2,
-        "IsPurchased": false,
-        "isActive": false
-      },
-      {
-        "Type": 2,
-        "IsPurchased": false,
-        "isActive": false
-      },
-      {
-        "Type": 2,
-        "IsPurchased": false,
+        "IsPurchased": true,
         "isActive": false
       }
     ]
   },
-  "currentTypeBird": 0,
-  "currentTypeShip": 0,
-  "isFirstGame": true,
-  "currentNumberLevel": 1,
-  "maxOppenedNumberLevel": 1
+  "currentTypeBird": 2,
+  "currentTypeShip": 3,
+  "isFirstGame": false,
+  "currentNumberLevel": 11,
+  "maxOppenedNumberLevel": 11
 }

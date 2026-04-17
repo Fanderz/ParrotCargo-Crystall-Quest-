@@ -16,6 +16,7 @@ public class BaseShipView : MonoBehaviour
     private NavMeshAgent _agent;
 
     public int EmptyPalletsCount => _palletsForBags.FindAll(pallet => pallet.HaveBag == false && pallet.gameObject.activeSelf).Count;
+    public int FilledPalletsCount => _palletsForBags.FindAll(pallet => pallet.HaveBag).Count;
     public IReadOnlyList<PalletView> PalletViews => _palletsForBags;
 
     public ReactiveCommand Releasing;
@@ -103,6 +104,21 @@ public class BaseShipView : MonoBehaviour
         _palletsForBags.First(pallet => pallet.gameObject.activeSelf == false).gameObject.SetActive(true);
 
         _countPalletsFreeView.UpdateCountPalletFree(EmptyPalletsCount);
+    }
+
+    public List<BaseCrystallBagView> GetBagsOnShip()
+    {
+        List<BaseCrystallBagView> bags = new List<BaseCrystallBagView> ();
+
+        foreach (var pallet in _palletsForBags)
+        {
+            var bag = pallet.GetBag();
+
+            if (bag != null)
+                bags.Add(bag);
+        }
+
+        return bags;
     }
 
     private void OnValidate()

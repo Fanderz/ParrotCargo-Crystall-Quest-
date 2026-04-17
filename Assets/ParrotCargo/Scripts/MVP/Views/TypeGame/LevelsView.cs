@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using YG;
 using Cysharp.Threading.Tasks;
 using Zenject;
+using UniRx;
 
 public class LevelsView : MonoBehaviour
 {
@@ -38,21 +39,26 @@ public class LevelsView : MonoBehaviour
         await UniTask.Delay(500);
         _levelsService.StartLevel(level);
 
-        //костыль
         _typeGameService.SetTypeGame(TypeGame.LevelsTypeGame);
     }
 
     private void Initialize()
     {
-        var currentNumberLevel = YG2.saves.maxOppenedNumberLevel;
+        var maxNumberLevel = YG2.saves.maxOppenedNumberLevel;
 
         for (int i = 0; i < _levelsView.Count; i++)
-            _levelsView[i].Initialize(currentNumberLevel);
+        {
+            //_levelsView[i].CurrentLevelClicked.Subscribe(levelNumber => _levelsService.SetCurrentLevel(levelNumber));
+            _levelsView[i].Initialize(maxNumberLevel);
+        }
     }
 
     private void Start()
     {
         for (int i = 0; i < _levelsView.Count; i++)
+        {
+            _levelsView[i].CurrentLevelClicked.Subscribe(levelNumber => _levelsService.SetCurrentLevel(levelNumber));
             _levelsView[i].SubscribeButtonClick((level) => { OnLoadedLevel(level); });
+        }
     }
 }

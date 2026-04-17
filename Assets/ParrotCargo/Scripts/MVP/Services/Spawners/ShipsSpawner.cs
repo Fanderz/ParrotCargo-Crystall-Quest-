@@ -15,6 +15,9 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
     private List<ShipPresenter> _shipPresenters;
     private DiContainer _container;
 
+    public ReactiveCommand ShipStoppedCommand = new();
+    public ReactiveCommand<List<BaseCrystallBagView>> ShipReleasedCommand = new ReactiveCommand<List<BaseCrystallBagView>>();
+
     public IReadOnlyList<ShipPresenter> ShipPresenters => _shipPresenters;
 
     public void Initialize(List<BaseShipView> prefabs)
@@ -37,10 +40,13 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
             var shipPresenter = new ShipPresenter(shipView, ship);
             shipPresenter.Initialize(activePallets, emptyPoints[i]);
             shipPresenter.Releasing.Subscribe(presenter => { Spawn(); });
+            shipPresenter.PlayAudio.Subscribe(state => ShipStoppedCommand.Execute());
+
             _shipPresenters.Add(shipPresenter);
 
             shipView.Releasing.Subscribe(view => 
-            { 
+            {
+                ShipReleasedCommand.Execute(shipView.GetBagsOnShip());
                 Release(shipView); 
                 _shipPresenters.Remove(_shipPresenters.Find(ship => ship.GetView() == shipView));
             });

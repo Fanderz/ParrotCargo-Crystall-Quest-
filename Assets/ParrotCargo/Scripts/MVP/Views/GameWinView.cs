@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-using Cysharp.Threading.Tasks;
 using Zenject;
 
 public class GameWinView : MonoBehaviour
@@ -15,16 +14,17 @@ public class GameWinView : MonoBehaviour
     [SerializeField] private Button _openMenu;
     [SerializeField] private Button _nextLevel;
 
+    private bool _levelProgressSaved;
+
     [Inject] private PlayerProgressService _playerProgressService;
     [Inject] private LevelsService _levelsService;
 
     public void SetActive(bool isActive)
     {
-        HandlerPanelAnimation(isActive);
+        if (isActive && gameObject.activeSelf)
+            return;
 
-        //if (isActive == false)
-        //    return;
-            //await UniTask.Delay(1000);
+        HandlerPanelAnimation(isActive);
 
         if (isActive)
         {
@@ -32,7 +32,15 @@ public class GameWinView : MonoBehaviour
             _nextLevel.gameObject.SetActive(isNextLevel);
             _titleAllLevelsCompleted.gameObject.SetActive(isNextLevel == false);
 
-            _levelsService.SaveProgressLevels();
+            if (_levelProgressSaved == false)
+            {
+                _levelsService.SaveProgressLevels();
+                _levelProgressSaved = true;
+            }
+        }
+        else
+        {
+            _levelProgressSaved = false;
         }
 
         gameObject.SetActive(isActive);
@@ -60,7 +68,6 @@ public class GameWinView : MonoBehaviour
         _nextLevel.onClick.AddListener(() =>
         {
             _playerProgressService.SaveProgress();
-            //_levelsService.NextLevel();
             SceneService.Instance.ReloadGame(TypeGame.LevelsTypeGame);
         });
     }

@@ -1,6 +1,8 @@
 using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class LevelView : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class LevelView : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image _iconLevel;
     [SerializeField] private Button _buttonLevel;
+
+    public ReactiveCommand<int> CurrentLevelClicked = new();
 
     public void Initialize(int curentNumberLevel)
     {
@@ -23,7 +27,7 @@ public class LevelView : MonoBehaviour
 
     public void SubscribeButtonClick(Action<Level> action)
     {
-        _buttonLevel.onClick.AddListener(() => { action?.Invoke(_level); });
+        _buttonLevel.onClick.AddListener(() => { action?.Invoke(_level); CurrentLevelClicked.Execute(_level.NumberLevel); });
     }
 
     private void OnValidate()

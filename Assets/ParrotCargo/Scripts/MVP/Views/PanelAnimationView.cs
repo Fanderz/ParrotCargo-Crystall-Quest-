@@ -14,10 +14,16 @@ public class PanelAnimationView : MonoBehaviour
     [SerializeField] private RectTransform _rectTransform;
 
     public TweenerCore<Vector2, Vector2, VectorOptions> Show()
-        => _rectTransform.DOAnchorPos(_finishPosition, _durationMoving);
+    {
+        _rectTransform.DOKill();
+        return _rectTransform.DOAnchorPos(_finishPosition, _durationMoving).SetUpdate(true);
+    }
 
     public TweenerCore<Vector2, Vector2, VectorOptions> Hide()
-        => _rectTransform.DOAnchorPos(_startPosition, _durationMoving);
+    {
+        _rectTransform.DOKill();
+        return _rectTransform.DOAnchorPos(_startPosition, _durationMoving).SetUpdate(true);
+    }
 
     private void Start()
     {
@@ -26,7 +32,7 @@ public class PanelAnimationView : MonoBehaviour
 
     private void OnValidate()
     {
-        if(_rectTransform == null)
+        if (_rectTransform == null)
             _rectTransform = GetComponent<RectTransform>();
     }
 }

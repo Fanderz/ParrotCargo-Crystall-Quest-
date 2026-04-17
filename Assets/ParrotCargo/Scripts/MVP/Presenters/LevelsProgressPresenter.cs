@@ -1,3 +1,7 @@
+using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using UniRx;
+
 public class LevelsProgressPresenter
 {
     private LevelProgressView _levelProgressView;
@@ -5,16 +9,24 @@ public class LevelsProgressPresenter
     private GameWinView _gameWinView;
     private Level _currentLevel;
 
+    private List<CrystallBagPresenter> _collectedCrystallBags;
+    private bool _isLevelWinTriggered;
+
+    public ReactiveCommand LevelWin = new();
+
     public LevelsProgressPresenter(LevelProgressView levelProgressView, TypeGameService typeGameService, GameWinView gameWinView)
     {
         _levelProgressView = levelProgressView;
         _typeGameService = typeGameService;
         _gameWinView = gameWinView;
+
+        _collectedCrystallBags = new List<CrystallBagPresenter>();
     }
 
     public void Initialize(Level currentLevel)
     {
         _currentLevel = currentLevel;
+        _isLevelWinTriggered = false;
 
         _levelProgressView.gameObject.SetActive(true);
         _levelProgressView.UpdateNumverLevelView(_currentLevel);
@@ -23,16 +35,23 @@ public class LevelsProgressPresenter
 
     public void Add—ountBag—ollected(TypeCrystallBag bagType)
     {
-        if (_typeGameService.CurrentTypeGame == TypeGame.EndlessTypeGame)
-            return;
-
         if (IsBagSatisfiesLevel(bagType))
         {
             _currentLevel.Add—ountBag—ollected();
             _levelProgressView.UpdateCountBag—ollectedView(_currentLevel);
+        }
+    }
 
-            if (_currentLevel.TryFinishLevel())
-                _gameWinView.SetActive(true);
+    public async void TryFinishLevel()
+    {
+        if (_isLevelWinTriggered)
+            return;
+
+        if (_currentLevel.TryFinishLevel())
+        {
+            _isLevelWinTriggered = true;
+            await UniTask.Delay(500);
+            LevelWin.Execute();
         }
     }
 

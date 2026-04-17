@@ -5,6 +5,8 @@ public class CoinsPresenter
     private CoinsModel _model;
     private CoinsView _view;
 
+    public bool isActive => _view.gameObject.activeInHierarchy;
+
     public CoinsPresenter(CoinsModel model, CoinsView view, float smoothIncreaserWait)
     {
         _model = model;

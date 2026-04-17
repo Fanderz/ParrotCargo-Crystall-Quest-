@@ -3,7 +3,6 @@ using UnityEngine;
 using Assets.Scripts.MVP.Services.Spawners;
 
 using Zenject;
-using UniRx;
 
 public class CrystallBagsService : BaseService
 {
@@ -19,10 +18,6 @@ public class CrystallBagsService : BaseService
 
     public void OnStartGame()
     {
-        Debug.Log("<size=50>Вызвался CrystallBagsService.OnStartGame</size>");
         _crystallBagSpawner.Spawn();
-
-        foreach (CrystallBagPresenter presenter in _crystallBagSpawner.CrystallBags)
-            presenter.BagReleased.Subscribe(released => { _playerProgressService.IncreaseValuesOnBagRelease(); });
     }
 }

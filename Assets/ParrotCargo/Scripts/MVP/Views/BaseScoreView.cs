@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-
 using UnityEngine;
 using Unity.VisualScripting;
 
@@ -39,7 +36,7 @@ public class BaseScoreView : MonoBehaviour
     {
         int addedValue = int.Parse(textView.text);
 
-        DOTween.To(() => int.Parse(textView.text), x => { addedValue = x; textView.text = addedValue.ToString(); }, countValue, _durationIncrease);
+        DOTween.To(() => int.Parse(textView.text), x => { addedValue = x; textView.text = addedValue.ToString(); }, countValue, _durationIncrease).SetUpdate(true);
     }
 
     private void OnDestroy()

@@ -1,8 +1,6 @@
-using BehaviorDesigner.Runtime.Tasks.Unity.UnityTime;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using YG;
 using Zenject;
 
 public class EntryPoint : MonoInstaller
@@ -14,6 +12,7 @@ public class EntryPoint : MonoInstaller
     private void Awake()
     {
         Time.timeScale = 1f;
+        Debug.Log($"[EntryPoint.Awake] TimeScale: {Time.timeScale}");
     }
 
     public override void InstallBindings()

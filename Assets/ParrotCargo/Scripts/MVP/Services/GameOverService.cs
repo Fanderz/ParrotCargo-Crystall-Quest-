@@ -26,21 +26,18 @@ public class GameOverService : BaseService
 
     public void InvokeReloadGame(TypeGame typeGame)
     {
-        Debug.Log("<size=50>Вызвался GameOverService.InvokeReloadGame</size>");
-        ////Time.timeScale = 1f;
-
         if (typeGame == TypeGame.LevelsTypeGame)
         {
             _typeGameService.SetTypeGame(TypeGame.LevelsTypeGame);
             _levelsService.ReloadCurrentLevel();
         }
- 
+
+        Debug.Log($"[GameOverService.InvokeReloadGame] TimeScale: {Time.timeScale}");
         _gameStarterService.StartGame();
     }
 
     private void Awake()
     {
-        Debug.Log("GameOverService Awake");
         _instance = this;
     }
 

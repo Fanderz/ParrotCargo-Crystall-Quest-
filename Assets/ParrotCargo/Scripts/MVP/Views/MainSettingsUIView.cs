@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 using Cysharp.Threading.Tasks;
 using Zenject;
-using UnityEngine.Accessibility;
 
 public class MainSettingsUIView : MonoBehaviour
 {
@@ -17,6 +16,7 @@ public class MainSettingsUIView : MonoBehaviour
     private bool _isInGame;
 
     [Inject] private PlayerProgressService _playerProgressService;
+    [Inject] private PauseService _pauseService;
 
     public async void ChangeActive()
     {
@@ -24,19 +24,26 @@ public class MainSettingsUIView : MonoBehaviour
 
         if (isActive == false)
         {
+            _pauseService.SetPausedBySettings(true);
             ChangeActiveButtons(isActive);
             gameObject.SetActive(true);
             _panelAnimationView.Show();
-            await UniTask.Delay(1000);
-            _playerProgressService.SetTimeScale(0);
+
+            //await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
+            
+            //_playerProgressService.SetTimeScale(0);
         }
         else
         {
-            _playerProgressService.SetTimeScale(1);
+            //_playerProgressService.SetTimeScale(1);
+
             _panelAnimationView.Hide();
-            await UniTask.Delay(700);
+            
+            //await UniTask.Delay(700, delayType: DelayType.UnscaledDeltaTime);
+            
             gameObject.SetActive(false);
             ChangeActiveButtons(isActive);
+            _pauseService.SetPausedBySettings(false);
         }
     }
 

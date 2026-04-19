@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23029dd6a5e850743ba22dd0ef70b8be, type: 3}
   m_Name: 2_TempPallet
   m_EditorClassIdentifier: 
-  price: 100
+  price: 300
   previewPrefab: {fileID: 0}

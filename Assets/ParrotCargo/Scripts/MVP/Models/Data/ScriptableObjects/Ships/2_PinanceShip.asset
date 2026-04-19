@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5adb5e256ba774087682587807063e, type: 3}
   m_Name: 2_PinanceShip
   m_EditorClassIdentifier: 
-  price: 100
+  price: 500
   previewPrefab: {fileID: 3988509673095342170, guid: 3a0011fe8f47bab4ea134e949678dec6, type: 3}
   _typeShip: 1
   _shipPrefabs:

@@ -12,6 +12,19 @@ public class TypeGameUIView : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Button _playEndlessGame;
     [SerializeField] private Button _playLevelsGame;
+    [SerializeField] private Button _backButton;
+
+    private void OnEnable()
+    {
+        _playEndlessGame.onClick.AddListener(() => { SetActive(false); });
+        _playLevelsGame.onClick.AddListener(() => { _levelsView.SetActive(true); });
+    }
+
+    private void OnDisable()
+    {
+        _playEndlessGame.onClick.RemoveAllListeners();
+        _playLevelsGame.onClick.RemoveAllListeners();
+    }
 
     public async void SetActive(bool isActive)
     {
@@ -23,11 +36,11 @@ public class TypeGameUIView : MonoBehaviour
         gameObject.SetActive(isActive);
     }
 
-    private void Start()
-    {
-        _playEndlessGame.onClick.AddListener(() => { SetActive(false); });
-        _playLevelsGame.onClick.AddListener(() => { _levelsView.SetActive(true); });
-    }
+    //private void Start()
+    //{
+    //    _playEndlessGame.onClick.AddListener(() => { SetActive(false); });
+    //    _playLevelsGame.onClick.AddListener(() => { _levelsView.SetActive(true); });
+    //}
 
     private void HandlerPanelAnimation(bool isActive)
     {
@@ -40,9 +53,9 @@ public class TypeGameUIView : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        _playEndlessGame.onClick.RemoveAllListeners();
-        _playLevelsGame.onClick.RemoveAllListeners();
-    }
+    //private void OnDestroy()
+    //{
+    //    _playEndlessGame.onClick.RemoveAllListeners();
+    //    _playLevelsGame.onClick.RemoveAllListeners();
+    //}
 }

@@ -1,27 +1,15 @@
 using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ShopView : MonoBehaviour
+public class LeaderboardView : MonoBehaviour
 {
-    [SerializeField] private Sprite _filledStarSprite;
-
     private PanelAnimationView _panelAnimationView;
-
-    private List<ShopItemView> _shopItems;
-
-    public IReadOnlyList<ShopItemView> ShopItems => _shopItems;
 
     private void Awake()
     {
         _panelAnimationView = GetComponent<PanelAnimationView>();
-    }
-
-    public void Initialize(List<ShopItemView> shopItems)
-    {
-        _shopItems = shopItems;
     }
 
     public async void ChangeActive()
@@ -38,7 +26,7 @@ public class ShopView : MonoBehaviour
             _panelAnimationView.Hide();
 
             await UniTask.Delay(1000);
-            
+
             gameObject.SetActive(false);
         }
     }

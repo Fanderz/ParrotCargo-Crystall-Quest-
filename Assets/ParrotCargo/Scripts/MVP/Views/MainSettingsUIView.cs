@@ -3,20 +3,43 @@ using UnityEngine.UI;
 
 using Cysharp.Threading.Tasks;
 using Zenject;
+using YG;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator;
 
 public class MainSettingsUIView : MonoBehaviour
 {
     [SerializeField] private Button _buttonSettingsOpen;
-    [SerializeField] private Button _buttonSettingsClose;
     [SerializeField] private Button _buttonGoHome;
-    [SerializeField] private Button _buttonBackToGame;
-    [SerializeField] private PanelAnimationView _panelAnimationView;
+    [SerializeField] private Button _ruLangButton;
+    [SerializeField] private Button _enLangButton;
+    [SerializeField] private Button _trLangButton;
+
     [SerializeField] private GameObject _startingUiView;
 
     private bool _isInGame;
+    private PanelAnimationView _panelAnimationView;
 
     [Inject] private PlayerProgressService _playerProgressService;
     [Inject] private PauseService _pauseService;
+
+    private void Awake()
+    {
+        _panelAnimationView = GetComponent<PanelAnimationView>();
+    }
+
+    private void OnEnable()
+    {
+        _ruLangButton.onClick.AddListener(() => YG2.SwitchLanguage("ru"));
+        _enLangButton.onClick.AddListener(() => YG2.SwitchLanguage("en"));
+        _trLangButton.onClick.AddListener(() => YG2.SwitchLanguage("tr"));
+    }
+
+    private void OnDisable()
+    {
+        _ruLangButton.onClick.RemoveAllListeners();
+        _enLangButton.onClick.RemoveAllListeners();
+        _trLangButton.onClick.RemoveAllListeners();
+    }
 
     public async void ChangeActive()
     {
@@ -24,25 +47,19 @@ public class MainSettingsUIView : MonoBehaviour
 
         if (isActive == false)
         {
-            _pauseService.SetPausedBySettings(true);
+            _pauseService.SetPausedBySettings(_isInGame);
             ChangeActiveButtons(isActive);
             gameObject.SetActive(true);
             _panelAnimationView.Show();
-
-            //await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
-            
-            //_playerProgressService.SetTimeScale(0);
         }
         else
         {
-            //_playerProgressService.SetTimeScale(1);
-
             _panelAnimationView.Hide();
-            
-            //await UniTask.Delay(700, delayType: DelayType.UnscaledDeltaTime);
-            
-            gameObject.SetActive(false);
             ChangeActiveButtons(isActive);
+            await UniTask.Delay(500);
+
+            gameObject.SetActive(false);
+
             _pauseService.SetPausedBySettings(false);
         }
     }

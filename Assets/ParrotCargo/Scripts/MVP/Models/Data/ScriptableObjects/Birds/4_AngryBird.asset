@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd0c4e750700964eb637feb9f8d4bdb, type: 3}
   m_Name: 4_AngryBird
   m_EditorClassIdentifier: 
-  price: 300
+  price: 1200
   previewPrefab: {fileID: 6524234347665576043, guid: 6788650c0015c1946a13f003a66602e8, type: 3}
   _typeBird: 3
   _prefabBird: {fileID: 2674544274999864568, guid: 0dabc15b1b7b2f44a8c532b4f7550906, type: 3}

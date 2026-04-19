@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5adb5e256ba774087682587807063e, type: 3}
   m_Name: 4_FourthShip
   m_EditorClassIdentifier: 
-  price: 300
+  price: 1300
   previewPrefab: {fileID: 6197875784009701726, guid: 7d3e763e209c12f49970633f9afdb36c, type: 3}
   _typeShip: 3
   _shipPrefabs:

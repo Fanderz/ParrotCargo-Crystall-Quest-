@@ -5,8 +5,8 @@ public class StartGameButtonView : MonoBehaviour
 {
     [SerializeField] private Button _buttonStartGame;
 
-    public void InvokeButtonStartGame()
-        => _buttonStartGame.onClick.Invoke();
+    //public void InvokeButtonStartGame()
+    //    => _buttonStartGame.onClick.Invoke();
 
     private void OnValidate()
     {

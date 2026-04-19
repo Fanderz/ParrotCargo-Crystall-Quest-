@@ -150,29 +150,8 @@ MonoBehaviour:
     enable: 1
     saveScoreAnonymousPlayers: 1
     listLBSim:
-    - technoName: BestPlayers
-      entries: '1. Max: 10
-
-        2. Masha: 15
-
-        3. anonymous: 23
-
-        4.
-        Player 4: 30
-
-        5. Player current: 40
-
-        6. Player 6: 50
-
-        7.
-        Player 7: 60
-
-        8. Player 8: 70
-
-        9. Player 9: 80
-
-        10.
-        Player 10: 90'
+    - technoName: Leaderboard
+      entries: '1. Max: 10'
       isDefault: 0
       isInvertSortOrder: 0
       decimalOffset: 0
@@ -188,118 +167,59 @@ MonoBehaviour:
         name: Masha
         score: 90
         photo: demo image
-        uniqueID: 321
+        uniqueID: 124
         extraData: 
       - rank: 3
         name: anonymous
         score: 80
-        photo: anonymous
-        uniqueID: 456
+        photo: demo image
+        uniqueID: 125
         extraData: 
       - rank: 4
-        name: Player 4
+        name: anonymous
         score: 70
         photo: demo image
-        uniqueID: 321
+        uniqueID: 126
         extraData: 
       - rank: 5
-        name: Player current
+        name: anonymous
         score: 60
         photo: demo image
-        uniqueID: 000
+        uniqueID: 127
         extraData: 
       - rank: 6
-        name: Player 6
+        name: anonymous
         score: 50
         photo: demo image
-        uniqueID: 326
+        uniqueID: 128
         extraData: 
       - rank: 7
-        name: Player 7
+        name: anonymous
         score: 40
         photo: demo image
-        uniqueID: 327
+        uniqueID: 129
         extraData: 
       - rank: 8
-        name: Player 8
+        name: anonymous
         score: 30
         photo: demo image
-        uniqueID: 328
+        uniqueID: 130
         extraData: 
       - rank: 9
-        name: Player 9
+        name: anonymous
         score: 20
         photo: demo image
-        uniqueID: 329
+        uniqueID: 131
         extraData: 
       - rank: 10
-        name: Player 10
+        name: anonymous
         score: 10
         photo: demo image
-        uniqueID: 330
+        uniqueID: 132
         extraData: 
       currentPlayer:
-        rank: 5
-        score: 60
-        extraData: 
-    - technoName: time
-      entries: '1. Max: 7123
-
-        2. Maria: 15321
-
-        3. anonymous: 62000
-
-        4.
-        Player 4: 122000
-
-        5. Player current: 127000
-
-        6. Player 6:
-        340000'
-      isDefault: 0
-      isInvertSortOrder: 1
-      decimalOffset: 0
-      type: numeric
-      players:
-      - rank: 1
-        name: Max
-        score: 7123
-        photo: demo image
-        uniqueID: 789
-        extraData: 
-      - rank: 2
-        name: Maria
-        score: 15321
-        photo: demo image
-        uniqueID: 987
-        extraData: 
-      - rank: 3
-        name: anonymous
-        score: 62000
-        photo: anonymous
-        uniqueID: 891
-        extraData: 
-      - rank: 4
-        name: Player 4
-        score: 122000
-        photo: demo image
-        uniqueID: 321
-        extraData: 
-      - rank: 5
-        name: Player current
-        score: 127000
-        photo: demo image
-        uniqueID: 000
-        extraData: 
-      - rank: 6
-        name: Player 6
-        score: 340000
-        photo: demo image
-        uniqueID: 321
-        extraData: 
-      currentPlayer:
-        rank: 5
-        score: 127000
+        rank: 0
+        score: 0
         extraData: 
   Localization:
     setLanguageMod: 0
@@ -398,10 +318,10 @@ MonoBehaviour:
     loadSceneIfSDKLate: 0
     loadSceneIndex: 0
     initDelaySimulation: 0
-    buildNumber: 7
+    buildNumber: 14
   Simulation:
     device: 0
-    language: ru
+    language: en
     enableInterAdv: 1
     advIntervalSimulation: 0
     durationAdv: 3

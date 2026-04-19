@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec9187b913b23b4c96f305ba025a3b3, type: 3}
   m_Name: 3_ShipPallet
   m_EditorClassIdentifier: 
-  price: 150
+  price: 500
   previewPrefab: {fileID: 0}

@@ -149,7 +149,7 @@ public class PlayerProgressService : BaseService
         YG2.saves.pointsProgress.Value += sessionPoints;
 
         if (YG2.saves.pointsProgress.Value > totalPointsBeforeSave)
-            YG2.SetLeaderboard("BestPlayers", YG2.saves.pointsProgress.Value);
+            YG2.SetLeaderboard("Leaderboard", YG2.saves.pointsProgress.Value);
 
         _gameCoinsModel.ChangeValue(0);
         _pointsModel.ChangeValue(0);

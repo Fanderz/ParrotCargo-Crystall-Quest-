@@ -5,23 +5,23 @@ public class Level : BaseLangTextSO
 {
     [SerializeField] private int _numberLevel;
     [SerializeField] private int _countBag;
-    [SerializeField] private int _countBag—ollected;
+    [SerializeField] private int _countBagCollected;
     [SerializeField] private TypeCrystallBag _bagType;
 
     public int NumberLevel => _numberLevel;
     public TypeCrystallBag BagType => _bagType;
     public int CountBag => _countBag;
-    public int —ountBag—ollected => _countBag—ollected;
+    public int CountBagCollected => _countBagCollected;
 
-    public void Add—ountBag—ollected()
+    public void AddCountBagCollected()
     {
-        if (_countBag—ollected < CountBag)
-            ++_countBag—ollected;
+        if (_countBagCollected < CountBag)
+            ++_countBagCollected;
     }
 
     public bool TryFinishLevel()
-        => _countBag—ollected == CountBag;
+        => _countBagCollected == CountBag;
 
-    public void ResetCollectedBags() 
-        => _countBag—ollected = 0;
+    public void ResetCollectedBags()
+        => _countBagCollected = 0;
 }

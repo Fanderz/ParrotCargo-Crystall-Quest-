@@ -10,6 +10,7 @@ public class InputSystemService : BaseService
     [SerializeField] private InputActionReference _point;
     [SerializeField] private Camera _camera;
     [SerializeField] private float _dragSpeed;
+    [SerializeField] private float _mobileDragOffset = 5f;
 
     private Plane _dragPlane;
     private Vector3 _dragOffset;
@@ -47,7 +48,7 @@ public class InputSystemService : BaseService
                 _dragOffset.y = 0f;
 
                 if (YG2.envir.isDesktop == false)
-                    _dragOffset.z += 2f;
+                    _dragOffset.z += _mobileDragOffset;
 
                 _audioService.OnBirdPickedSound();
                 _movingBlockCoroutine = StartCoroutine(Drag());

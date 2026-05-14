@@ -4,14 +4,10 @@ using Zenject;
 
 public class GameStarterService : BaseService
 {
-    //[SerializeField] private SmoothLoaderService _loaderService;
     [SerializeField] private CrystallBagsService _bagsService;
     [SerializeField] private ShipsService _shipsService;
     [SerializeField] private PalletService _palletService;
     [SerializeField] private ParrotsBlockService _parrotsBlockService;
-
-    //[SerializeField] private LevelsService _levelsService;
-    //[SerializeField] private TypeGameService _typeGameService;
 
     [Inject] private PauseService _pauseService;
 

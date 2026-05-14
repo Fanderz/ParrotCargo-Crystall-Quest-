@@ -5,6 +5,7 @@ using YG;
 public class AudioService : BaseService
 {
     [Header("AudioMixer Params")]
+    [SerializeField] private float _soundOffset = -20;
     [SerializeField] private AudioMixerGroup _mixerGroup;
     [SerializeField] private string _mixerMusicParameterName;
     [SerializeField] private string _mixerEffectsParameterName;
@@ -77,6 +78,6 @@ public class AudioService : BaseService
 
     private void ChangeLoud(string mixerParameter, float volume)
     {
-        _mixerGroup.audioMixer.SetFloat(mixerParameter, Mathf.Log10(volume) * 20);
+        _mixerGroup.audioMixer.SetFloat(mixerParameter, Mathf.Log10(volume) * 20 + _soundOffset);
     }
 }

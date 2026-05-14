@@ -24,6 +24,7 @@ public class PlayerProgressService : BaseService
     [SerializeField] private GameObject _rewardButton;
     [SerializeField] private PointsView _gameOverScoreView;
     [SerializeField] private CoinsView _gameOverCoinsView;
+    [SerializeField] private GameOverShipView _gameOverShipView;
     [SerializeField] private List<PanelAnimationView> _panelsAnimationView;
 
     [Header("LevelWin Setts")]
@@ -40,6 +41,8 @@ public class PlayerProgressService : BaseService
 
     [Header("Pallet Setts")]
     [SerializeField] private PalletService _palletService;
+
+    private bool _isGameOverInProgress;
 
     private CoinsModel _gameCoinsModel;
     private PointsModel _pointsModel;
@@ -85,15 +88,16 @@ public class PlayerProgressService : BaseService
         SaveProgress();
     }
 
-    //public void SetTimeScale(float value)
-    //{
-    //    Time.timeScale = value;
-    //    Debug.Log($"[PlayerProgressService.SetTimeScale] TimeScale: {Time.timeScale}");
-    //}
-
     public async void OnGameOver()
     {
+        if (_isGameOverInProgress)
+            return;
+        
+        _isGameOverInProgress = true;
         _audioService.OnGameLose();
+
+        await _gameOverShipView.PlayGameOverSequenceAsync(this.GetCancellationTokenOnDestroy());
+
         _gameOverView.SetActive(true);
 
         if (_gameCoinsModel.Value == 0)
@@ -102,10 +106,7 @@ public class PlayerProgressService : BaseService
         foreach (var panelAnimationView in _panelsAnimationView)
             panelAnimationView.Show();
 
-        //await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
-
         _pauseService.SetPausedByWinLose(true);
-        //SetTimeScale(0);
     }
 
     public async void OnGameWin()
@@ -113,14 +114,9 @@ public class PlayerProgressService : BaseService
         while (_shipsService.IsAnyShipsGoingToRelease)
             await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
 
-        //await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
-
         _gameWinView.SetActive(true);
 
-        //await UniTask.Delay(1000, delayType: DelayType.UnscaledDeltaTime);
-
         _pauseService.SetPausedByWinLose(true);
-        //SetTimeScale(0);
     }
 
     public void OnReward(string id)
@@ -179,7 +175,6 @@ public class PlayerProgressService : BaseService
         Debug.Log($"[PlayerProgressService.ResetProgress]");
         _pauseService.ResetAll();
         SceneService.Instance.RestartScene();
-        //SceneService.Instance.SetTimeScale(1f);
     }
 
     private List<ShopSaveData> CreateDefaultItems(List<BaseShopItemValuesSO> shopItemSettings)
@@ -238,6 +233,5 @@ public class PlayerProgressService : BaseService
 
         if (_gameOverView.activeSelf || _gameWinView.gameObject.activeSelf)
             _pauseService.SetPausedByRewardAdv(true);
-        //SetTimeScale(0);
     }
 }

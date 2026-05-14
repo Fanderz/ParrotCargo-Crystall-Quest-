@@ -24,13 +24,22 @@ public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour
     }
 
 
-    public T SpawnObject(Vector3 startPosition, Transform parent = null)
+    public T SpawnObject(Vector3 startPosition, Transform parent = null, T inputPrefab = null)
     {
+        T prefab;
+
         if (parent != null)
             Parent = parent;
 
-        var randomIndex = Random.Range(0, Prefab.Count);
-        var prefab = Prefab[randomIndex];
+        if(inputPrefab == null)
+        {
+            var randomIndex = Random.Range(0, Prefab.Count);
+            prefab = Prefab[randomIndex];
+        }
+        else
+        {
+            prefab = inputPrefab;
+        }
 
         var obj = Pool.Get(prefab, Parent);
 

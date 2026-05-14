@@ -15,6 +15,7 @@ public class ParrotView : MonoBehaviour
     [SerializeField] private Transform _bagPicker;
     [SerializeField] private LayerMask _pickableLayer;
     [SerializeField] private float _bagOffset = 5f;
+    [SerializeField] private float _returnToStartNavMeshDistance = 6f;
     [SerializeField] private Animator _childAnimator;
     [SerializeField] private GameObject _birdSkin;
 
@@ -58,6 +59,11 @@ public class ParrotView : MonoBehaviour
     {
         CanPick = false;
         HaveBag = false;
+    }
+
+    private void OnDisable()
+    {
+        _cancellationToken?.Cancel();
     }
 
     private void FixedUpdate()
@@ -134,6 +140,8 @@ public class ParrotView : MonoBehaviour
 
     public async void CarryBag(Transform targetPalletPosition, bool isTargetShip)
     {
+        ResetCancellationToken();
+
         _agent.updateRotation = true;
         _childAnimator.SetTrigger("Flying");
         IsTargetShip = isTargetShip;
@@ -144,16 +152,31 @@ public class ParrotView : MonoBehaviour
         _agent.SetDestination(targetPalletPosition.position);
         _agent.baseOffset = targetPalletPosition.position.y + _bagOffset;
 
-        while (_agent.IsDestroyed() == false && _agent?.hasPath == false)
-            await UniTask.Delay(_waitMiliseconds);
+        try
+        {
+            while (_agent.IsDestroyed() == false && _agent?.hasPath == false)
+                await UniTask.Delay(_waitMiliseconds, cancellationToken: _cancellationToken.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            return;
+        }
 
         if (isTargetShip)
-            await PutBag();
+            await PutBag(_cancellationToken.Token);
     }
 
     public void ReturnToStartPoint()
     {
-        _agent.Warp(_startPosition);
+        Vector3 startWorldPosition = _parent != null
+            ? _parent.TransformPoint(_startPosition)
+            : _startPosition;
+
+        if (_agent.enabled && NavMesh.SamplePosition(startWorldPosition, out NavMeshHit navMeshHit, _returnToStartNavMeshDistance, NavMesh.AllAreas))
+            _agent.Warp(navMeshHit.position);
+        else
+            _agent.Warp(startWorldPosition);
+
         _agent.baseOffset = 0f;
         transform.localPosition = _startPosition;
         transform.localRotation = _startRotation;
@@ -164,16 +187,14 @@ public class ParrotView : MonoBehaviour
         _birdSkin = skin;
     }
 
-    private async UniTask PutBag()
+    private async UniTask PutBag(CancellationToken ct)
     {
         if (_agent == null)
             return;
 
-        _cancellationToken = new CancellationTokenSource();
-
         try
         {
-            await UniTask.WaitUntil(() => _agent.remainingDistance <= 0.4f, cancellationToken: _cancellationToken.Token);
+            await UniTask.WaitUntil(() => _agent.remainingDistance <= 0.4f, cancellationToken: ct);
         }
         catch (OperationCanceledException)
         {
@@ -191,6 +212,8 @@ public class ParrotView : MonoBehaviour
 
     private async void SitWithBag()
     {
+        ResetCancellationToken();
+
         PalletView targetPalletView = _targetPalletTransform.GetComponent<PalletView>();
 
         _childAnimator.SetTrigger("Sitting");
@@ -204,10 +227,17 @@ public class ParrotView : MonoBehaviour
 
         _continueMovingPosition = transform.position;
 
-        while (IsTargetShip == false)
+        try
         {
-            SittingWithBag.Execute(this);
-            await UniTask.Delay(_waitMiliseconds);
+            while (IsTargetShip == false)
+            {
+                SittingWithBag.Execute(this);
+                await UniTask.Delay(_waitMiliseconds, cancellationToken: _cancellationToken.Token);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            return;
         }
 
         targetPalletView.ReturnMaterial();
@@ -225,6 +255,12 @@ public class ParrotView : MonoBehaviour
         ReturnToStartPoint();
         PickedBag = new();
         DroppedBag = new();
+    }
+
+    private void ResetCancellationToken()
+    {
+        _cancellationToken?.Cancel();
+        _cancellationToken = new CancellationTokenSource();
     }
 
     private bool IsHittedBag(RaycastHit[] hits)

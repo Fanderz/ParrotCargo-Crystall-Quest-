@@ -37,7 +37,7 @@ public class ShopView : MonoBehaviour
         {
             _panelAnimationView.Hide();
 
-            await UniTask.Delay(1000);
+            await UniTask.Delay(500);
             
             gameObject.SetActive(false);
         }

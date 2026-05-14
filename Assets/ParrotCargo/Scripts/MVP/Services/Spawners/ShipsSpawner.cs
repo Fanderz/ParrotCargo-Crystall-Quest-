@@ -14,6 +14,7 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
 
     private List<ShipPresenter> _shipPresenters;
     private DiContainer _container;
+    private bool _isGameOverSequenceStarted;
 
     public ReactiveCommand ShipStoppedCommand = new();
     public ReactiveCommand<List<BaseCrystallBagView>> ShipReleasedCommand = new ReactiveCommand<List<BaseCrystallBagView>>();
@@ -24,10 +25,14 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
     {
         _shipPresenters = new List<ShipPresenter>();
         Prefab = prefabs;
+        _isGameOverSequenceStarted = false;
     }
 
     public void Spawn()
     {
+        if (_isGameOverSequenceStarted)
+            return;
+
         var emptyPoints = _targetPoints.FindAll(point => point.isEmpty);
         var activePallets = YG2.saves.shopModel.upgradeItems.Count(item => item.Type == TypeShopItem.ShipUpgrade && item.IsPurchased);
 
@@ -39,13 +44,22 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
 
             var shipPresenter = new ShipPresenter(shipView, ship);
             shipPresenter.Initialize(activePallets, emptyPoints[i]);
-            shipPresenter.Releasing.Subscribe(presenter => { Spawn(); });
+            shipPresenter.Releasing.Subscribe(presenter =>
+            {
+                if (_isGameOverSequenceStarted)
+                    return;
+
+                Spawn();
+            });
             shipPresenter.PlayAudio.Subscribe(state => ShipStoppedCommand.Execute());
 
             _shipPresenters.Add(shipPresenter);
 
             shipView.Releasing.Subscribe(view => 
             {
+                if (_isGameOverSequenceStarted)
+                    return;
+
                 ShipReleasedCommand.Execute(shipView.GetBagsOnShip());
                 Release(shipView); 
                 _shipPresenters.Remove(_shipPresenters.Find(ship => ship.GetView() == shipView));
@@ -58,6 +72,26 @@ public class ShipsSpawner : BaseSpawner<BaseShipView>
     public void ChangeShips(List<BaseShipView> ships)
     {
         Prefab = ships;
+    }
+
+    public void PrepareGameOverSequence()
+    {
+        if (_isGameOverSequenceStarted)
+            return;
+
+        _isGameOverSequenceStarted = true;
+
+        foreach (ShipPresenter shipPresenter in _shipPresenters.ToList())
+            shipPresenter.PrepareGameOverSequence();
+    }
+
+    public void StartGameOverSinking(float sinkTargetY, float sinkDuration)
+    {
+        if (_isGameOverSequenceStarted == false)
+            PrepareGameOverSequence();
+
+        foreach (ShipPresenter shipPresenter in _shipPresenters.ToList())
+            shipPresenter.StartGameOverSinking(sinkTargetY, sinkDuration);
     }
 
     protected override void CreatePool()

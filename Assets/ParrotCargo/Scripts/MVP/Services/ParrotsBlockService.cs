@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 
@@ -43,17 +44,24 @@ public class ParrotsBlockService : BaseService
     private void CreateBlocks()
     {
         _parrotBlockPresenters = new List<ParrotBlockPresenter>();
-        _parrotBlockPresenters = _parrotsBlockSpawner.Spawn();
+        int tempPalletsCount = _palletsService.Pallets.Count;
+        int freeShipPalletsCount = _shipsService.Ships.Sum(ship => ship.EmptyPalletsCnt);
+
+        _parrotBlockPresenters = _parrotsBlockSpawner.Spawn(tempPalletsCount, freeShipPalletsCount);
 
         _parrotBlockPresenters.ForEach(block =>
         {
-            block.GameOverCommand.Subscribe(bl => _playerProgressService.OnGameOver());
+            block.GameOverCommand.Subscribe(bl =>
+            {
+                _parrotBlockPresenters.ForEach(blockPresenter => blockPresenter.DeactivateParrotsWithoutTargetPallet());
+                _playerProgressService.OnGameOver();
+            });
             block.DroppedBagCommand.Subscribe(crystallBag =>
             {
                 _audioService.OnBagDroppedSound();
 
                 if (_levelsService.CurrentTypeGame == TypeGame.LevelsTypeGame)
-                    _levelsService.LevelsProgressPresenter.Add—ountBag—ollected(crystallBag);
+                    _levelsService.LevelsProgressPresenter.AddCountBagCollected(crystallBag);
             });
         });
 

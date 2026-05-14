@@ -12,7 +12,7 @@ public class SettingsService : BaseService
 {
     [SerializeField] private SettingsView _settingsView;
 
-    private bool _isChanged;
+    //private bool _isChanged;
 
     private SettingsModel _settingsModel;
     private SettingsPresenter _settingsPresenter;
@@ -25,8 +25,8 @@ public class SettingsService : BaseService
 
         _settingsPresenter = new SettingsPresenter(_settingsModel, _settingsView);
 
-        _settingsView.SoundChanged.Subscribe(volume => { _audioService.SetEffectsVolume(volume); _isChanged = true; });
-        _settingsView.MusicChanged.Subscribe(volume => { _audioService.SetMusicVolume(volume); _isChanged = true; });
+        _settingsView.SoundChanged.Subscribe(volume => { _audioService.SetEffectsVolume(volume); /*_isChanged = true;*/ });
+        _settingsView.MusicChanged.Subscribe(volume => { _audioService.SetMusicVolume(volume); /*_isChanged = true;*/ });
     }
 
     //public void SaveSettings()

@@ -44,6 +44,16 @@ public class ShipsService : BaseService
         });
     }
 
+    public void PrepareGameOverSequence()
+    {
+        _shipSpawner.PrepareGameOverSequence();
+    }
+
+    public void StartGameOverSinking(float sinkTargetY, float sinkDuration)
+    {
+        _shipSpawner.StartGameOverSinking(sinkTargetY, sinkDuration);
+    }
+
     private void ApplyUpgrades(int count)
     {
         for (int i = 0; i < count; i++)

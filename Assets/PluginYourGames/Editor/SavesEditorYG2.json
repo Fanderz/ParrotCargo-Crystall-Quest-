@@ -5,15 +5,7 @@
   "floatValues": [],
   "intKeys": [],
   "intValues": [],
-  "intExample": 5,
-  "strExample": "Hello!",
-  "boolExample": [
-    false,
-    false,
-    false,
-    false
-  ],
-  "idSave": 470,
+  "idSave": 102,
   "coinsProgress": {
     "ValueChanged": {
       "CanExecute": {
@@ -22,7 +14,7 @@
       },
       "IsDisposed": false
     },
-    "Value": 2025
+    "Value": 7230
   },
   "pointsProgress": {
     "ValueChanged": {
@@ -32,11 +24,11 @@
       },
       "IsDisposed": false
     },
-    "Value": 6350
+    "Value": 160
   },
   "playerSettings": {
-    "Sound": 0.0001,
-    "Music": 0.0001
+    "Sound": 0.0129649937,
+    "Music": 0.0431093052
   },
   "shopModel": {
     "upgradeItems": [
@@ -47,17 +39,17 @@
       },
       {
         "Type": 0,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
         "Type": 0,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
         "Type": 0,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
@@ -67,12 +59,12 @@
       },
       {
         "Type": 1,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
         "Type": 1,
-        "IsPurchased": true,
+        "IsPurchased": false,
         "isActive": false
       },
       {
@@ -105,28 +97,28 @@
       {
         "Type": 2,
         "IsPurchased": true,
-        "isActive": false
-      },
-      {
-        "Type": 2,
-        "IsPurchased": true,
-        "isActive": false
-      },
-      {
-        "Type": 2,
-        "IsPurchased": true,
         "isActive": true
       },
       {
         "Type": 2,
-        "IsPurchased": true,
+        "IsPurchased": false,
+        "isActive": false
+      },
+      {
+        "Type": 2,
+        "IsPurchased": false,
+        "isActive": false
+      },
+      {
+        "Type": 2,
+        "IsPurchased": false,
         "isActive": false
       }
     ]
   },
-  "currentTypeBird": 2,
+  "currentTypeBird": 0,
   "currentTypeShip": 3,
   "isFirstGame": false,
-  "currentNumberLevel": 11,
-  "maxOppenedNumberLevel": 11
+  "currentNumberLevel": 1,
+  "maxOppenedNumberLevel": 2
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UniRx;
 using System.Linq;
+using DG.Tweening;
 
 public class BaseShipView : MonoBehaviour
 {
@@ -10,8 +11,11 @@ public class BaseShipView : MonoBehaviour
     [SerializeField] private CountPalletsFreeView _countPalletsFreeView;
     [SerializeField] private float _rotationOffDistance = 10f;
     [SerializeField] private float _stopDistance = 0.3f;
+    [SerializeField] private ParticleSystem _particleSystem;
 
     private bool _isGoingToRelease;
+    private bool _isGameOverSequenceStarted;
+    private bool _isGameOverSinking;
     private ShipStopPoint _targetPoint;
     private NavMeshAgent _agent;
 
@@ -30,18 +34,26 @@ public class BaseShipView : MonoBehaviour
 
     private void OnEnable()
     {
+        transform.DOKill();
+        _isGameOverSequenceStarted = false;
+        _isGameOverSinking = false;
         _agent.enabled = true;
         Releasing = new();
     }
 
     private void OnDisable()
     {
+        transform.DOKill();
+
         foreach (PalletView pallet in _palletsForBags)
             pallet.Clear();
     }
 
     private void FixedUpdate()
     {
+        if (_agent.enabled == false)
+            return;
+
         if (_agent.hasPath)
         {
             if (_agent.remainingDistance <= _rotationOffDistance && !_isGoingToRelease)
@@ -83,6 +95,9 @@ public class BaseShipView : MonoBehaviour
 
     public void SetDestination(Vector3 targetPosition, bool isGoingToRelease)
     {
+        if (_isGameOverSequenceStarted)
+            return;
+
         if (_agent.isOnNavMesh)
         {
             _agent.SetDestination(targetPosition);
@@ -119,6 +134,41 @@ public class BaseShipView : MonoBehaviour
         }
 
         return bags;
+    }
+
+    public void StartGameOverSinking(float targetY, float duration)
+    {
+        if (_isGameOverSinking)
+            return;
+
+        PrepareGameOverSequence();
+        _isGameOverSinking = true;
+        transform.DOKill();
+
+        _particleSystem.Play();
+
+        transform.DOMoveY(targetY, duration)
+            .SetEase(Ease.InOutSine)
+            .SetUpdate(true)
+            .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
+    }
+
+    public void PrepareGameOverSequence()
+    {
+        if (_isGameOverSequenceStarted)
+            return;
+
+        _isGameOverSequenceStarted = true;
+        _isGoingToRelease = false;
+
+        if (_agent.enabled)
+        {
+            if (_agent.isOnNavMesh)
+                _agent.ResetPath();
+
+            _agent.isStopped = true;
+            _agent.enabled = false;
+        }
     }
 
     private void OnValidate()

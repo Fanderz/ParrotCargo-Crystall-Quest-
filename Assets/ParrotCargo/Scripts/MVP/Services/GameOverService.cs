@@ -16,6 +16,16 @@ public class GameOverService : BaseService
 
     public static GameOverService Instance => _instance;
 
+    private void Awake()
+    {
+        _instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        _buttonReloadGame.onClick.RemoveAllListeners();
+    }
+
     public override void Initialize()
     {
         _buttonReloadGame.onClick.AddListener(() =>
@@ -34,15 +44,5 @@ public class GameOverService : BaseService
 
         Debug.Log($"[GameOverService.InvokeReloadGame] TimeScale: {Time.timeScale}");
         _gameStarterService.StartGame();
-    }
-
-    private void Awake()
-    {
-        _instance = this;
-    }
-
-    private void OnDestroy()
-    {
-        _buttonReloadGame.onClick.RemoveAllListeners();
     }
 }

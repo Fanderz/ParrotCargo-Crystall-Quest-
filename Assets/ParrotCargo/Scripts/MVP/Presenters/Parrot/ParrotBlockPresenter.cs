@@ -126,7 +126,7 @@ public class ParrotBlockPresenter
         return targetPallet != null ? targetPallet : new NullablePalletPresenter(null, null);
     }
 
-    #region Äâèæåíèå áëîêà è êàæäîãî ïîïóãàÿ
+    #region ˜˜˜˜˜˜˜˜ ˜˜˜˜˜ ˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜
     private void MoveBlock(Vector3 targetPosition)
     {
         _view.MoveBlock(targetPosition);
@@ -216,6 +216,15 @@ public class ParrotBlockPresenter
             }
             else
                 return;
+        }
+    }
+
+    public void DeactivateParrotsWithoutTargetPallet()
+    {
+        foreach (ParrotPresenter parrotPresenter in _parrotPresenters)
+        {
+            if (parrotPresenter.isActive && parrotPresenter.HaveBag && parrotPresenter.HasTargetPallet == false)
+                parrotPresenter.Deactivate();
         }
     }
 

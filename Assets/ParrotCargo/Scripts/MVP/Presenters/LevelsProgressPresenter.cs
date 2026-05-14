@@ -30,15 +30,15 @@ public class LevelsProgressPresenter
 
         _levelProgressView.gameObject.SetActive(true);
         _levelProgressView.UpdateNumverLevelView(_currentLevel);
-        _levelProgressView.UpdateCountBag—ollectedView(_currentLevel);
+        _levelProgressView.UpdateCountBagCollectedView(_currentLevel);
     }
 
-    public void Add—ountBag—ollected(TypeCrystallBag bagType)
+    public void AddCountBagCollected(TypeCrystallBag bagType)
     {
         if (IsBagSatisfiesLevel(bagType))
         {
-            _currentLevel.Add—ountBag—ollected();
-            _levelProgressView.UpdateCountBag—ollectedView(_currentLevel);
+            _currentLevel.AddCountBagCollected();
+            _levelProgressView.UpdateCountBagCollectedView(_currentLevel);
         }
     }
 

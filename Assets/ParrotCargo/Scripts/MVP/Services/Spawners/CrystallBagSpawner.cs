@@ -13,7 +13,6 @@ namespace Assets.Scripts.MVP.Services.Spawners
     {
         [SerializeField] private float _zSpawnOffset = -1f;
         [SerializeField] private float _ySpawnOffset = 6f;
-        [SerializeField] private int _respawnDelay = 500;
 
         private DiContainer _container;
         private List<CrystallBagPresenter> _crystallBagPresenters;

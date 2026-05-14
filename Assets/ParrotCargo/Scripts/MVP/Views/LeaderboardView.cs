@@ -25,7 +25,7 @@ public class LeaderboardView : MonoBehaviour
         {
             _panelAnimationView.Hide();
 
-            await UniTask.Delay(1000);
+            await UniTask.Delay(600);
 
             gameObject.SetActive(false);
         }

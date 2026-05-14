@@ -14,6 +14,7 @@ public class SmoothLoaderService : BaseService
     [SerializeField] private List<GameObject> _startingUI;
     [SerializeField] private GameObject _gameUI;
     [SerializeField] private GameObject _background;
+    [SerializeField] private GameObject _startingUiView;
     [SerializeField] private float _startProgress;
     [SerializeField] private int _waitLoadingMiliseconds;
     [SerializeField][Range(0, 1)] private float _stopProgress;
@@ -56,7 +57,8 @@ public class SmoothLoaderService : BaseService
         _loadingSlider.gameObject.SetActive(false);
         _background.SetActive(false);
         _gameUI.SetActive(true);
-        
+        _startingUiView.SetActive(false);
+
         _audioService.OnGameStarted();
         LoadingCompletedCommand.Execute();
     }

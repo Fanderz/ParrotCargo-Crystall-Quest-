@@ -9,6 +9,7 @@ public class ShipPresenter
 {
     private BaseShipView _view;
     private Ship _model;
+    private bool _isGameOverSequenceStarted;
 
     private List<PalletPresenter> _palletPresenters;
     private Vector3 _pointOnFilled;
@@ -66,6 +67,9 @@ public class ShipPresenter
 
     private void CheckShipFilled()
     {
+        if (_isGameOverSequenceStarted)
+            return;
+
         if (_palletPresenters.FindAll(palletPresenter => palletPresenter.isActive).TrueForAll(pallet => pallet.isEmpty == false))
         {
             _model.SetGoingToRelease(true);
@@ -77,6 +81,19 @@ public class ShipPresenter
     public void AddPallet()
     {
         _model.AddPallet();
+    }
+
+    public void PrepareGameOverSequence()
+    {
+        _isGameOverSequenceStarted = true;
+        _model.SetGoingToRelease(false);
+        _view.PrepareGameOverSequence();
+    }
+
+    public void StartGameOverSinking(float sinkTargetY, float sinkDuration)
+    {
+        PrepareGameOverSequence();
+        _view.StartGameOverSinking(sinkTargetY, sinkDuration);
     }
 }
 

@@ -9,6 +9,8 @@ public class ParrotPresenter
 
     public BaseCrystallBagView CrystallBag => _view.CrystallBag;
     public bool isActive => _view.gameObject.activeSelf;
+    public bool HaveBag => _view.HaveBag;
+    public bool HasTargetPallet => TargetPallet is not null and not NullablePalletPresenter;
 
     public ReactiveCommand PickedBag = new ReactiveCommand();
     public ReactiveCommand DroppedBagCommand = new ReactiveCommand();
@@ -67,6 +69,9 @@ public class ParrotPresenter
 
     public void OnBlockMoving(bool isMoving) =>
         _view.SetParrotMovable(isMoving);
+
+    public void Deactivate() =>
+        _view.SetActive(false);
 
     public ParrotView GetView() => _view;
 }
